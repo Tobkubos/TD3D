@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,6 +16,7 @@ public class Generator : MonoBehaviour
 	private int StartX, StartY, Rotation;
 	int SizeOfPlate = 20;
 	float tick = 0.05f;
+	int PD = 2;
 	private List<string> Directions = new List<string> { "North", "East", "South", "West" };
 	private List<GameObject> CheckPoints = new List<GameObject> { };
 	private List<GameObject> Paths = new List<GameObject> { };
@@ -80,6 +82,7 @@ public class Generator : MonoBehaviour
 
 	void GenerateCheckPoints()
 	{
+		/*
 		int count = 1;
 		for (int i = 0; i < SizeOfPlate; i++)
 		{
@@ -88,6 +91,31 @@ public class Generator : MonoBehaviour
 			{
 				int rowCord = Random.Range(1, SizeOfPlate - 1);
 				GameObject temp = Instantiate(CheckPoint, new Vector3(rowCord, 0.3f, i), Quaternion.identity);
+				temp.name = "CheckPoint" + count;
+				count++;
+				i++;
+				CheckPoints.Add(temp);
+			}
+		}
+		*/
+		int count = 1;
+		while(CheckPoints.Count < 5)
+		{
+			int x = Random.Range(2, SizeOfPlate - 2);
+			int y = Random.Range(2, SizeOfPlate - 2);
+			bool canPlace = true;
+			foreach(GameObject go in CheckPoints)
+			{
+				int goX = (int)go.transform.position.x;
+				int goY = (int)go.transform.position.z;
+				if ( (goX < x + PD && goX > x - PD) || (goY < y + PD && goY > y - PD)) 
+				{ 
+					canPlace = false;
+				}
+			}
+			if(canPlace)
+			{
+				GameObject temp = Instantiate(CheckPoint, new Vector3(x, 0.3f, y), Quaternion.identity);
 				temp.name = "CheckPoint" + count;
 				count++;
 				CheckPoints.Add(temp);
@@ -116,9 +144,7 @@ public class Generator : MonoBehaviour
 
 		GenerateStartEndPoint(StartTile);
 		GenerateCheckPoints();
-		GenerateStartEndPoint(EndTile);
-		Directions.Clear();
-		Directions = new List<string> { "North", "East", "South", "West" };
+
 
 		Debug.Log(CheckPoints.Count);
 		float referenceX = CheckPoints[0].transform.position.x;
@@ -148,37 +174,56 @@ public class Generator : MonoBehaviour
 
 			int yPrev = (int)CheckPoints[i - 1].transform.position.z;
 			int yAcc = (int)CheckPoints[i].transform.position.z;
-			/*
-			if(xPrev < xAcc)
+
+			Debug.Log(xPrev +" "+ xAcc + " " + yPrev + " " + yAcc);
+
+			int DistX = xAcc - xPrev;
+			int DistY = yAcc - yPrev;
+			Debug.Log(DistX+" dist "+DistY);
+			if (DistY > 0)
 			{
-				for(int j = xPrev; j <= xAcc; j++) 
+				Debug.Log("trzy");
+				for (int j = yPrev; j < yPrev + DistY; j++)
 				{
-					Instantiate(Path, new Vector3(j, 0, yAcc), Quaternion.identity);
+					GameObject temp = Instantiate(Path, new Vector3(xAcc, 0.1f, j), Quaternion.identity);
+					Paths.Add(temp);
 				}
 			}
-			*/
-
-
-			if (yPrev < yAcc)
+			if (DistY < 0)
 			{
-				for (int j = yPrev; j <= yAcc; j++)
+				Debug.Log("cztery");
+				for (int j = yPrev; j > yPrev + DistY; j--)
 				{
-					GameObject temp = Instantiate(Path, new Vector3(xAcc, 0, j), Quaternion.identity);
+					Debug.Log("cztery cztery");
+					GameObject temp = Instantiate(Path, new Vector3(xAcc, 0.1f, j), Quaternion.identity);
 					Paths.Add(temp);
 				}
 			}
 
-			if (yPrev > yAcc)
+			if (DistX > 0)
 			{
-				for (int j = yAcc; j >= yPrev; j--)
+				Debug.Log("jeden");
+				for (int j = xPrev; j < xPrev + DistX; j++)
 				{
-					GameObject temp = Instantiate(Path, new Vector3(xPrev, 0, j), Quaternion.identity);
+					GameObject temp = Instantiate(Path, new Vector3(j, 0.1f, yPrev), Quaternion.identity);
 					Paths.Add(temp);
 				}
 			}
+			if (DistX < 0)
+			{
+				Debug.Log("dwa");
+				for (int j = xPrev; j > xPrev + DistX; j--)
+				{
+					GameObject temp = Instantiate(Path, new Vector3(j, 0.1f, yPrev), Quaternion.identity);
+					Paths.Add(temp);
+				}
+			}
+
 		}
 
-
+		GenerateStartEndPoint(EndTile);
+		Directions.Clear();
+		Directions = new List<string> { "North", "East", "South", "West" };
 
 	}
 }
