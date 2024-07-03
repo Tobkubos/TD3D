@@ -17,6 +17,7 @@ public class Generator : MonoBehaviour
 	float tick = 0.05f;
 	private List<string> Directions = new List<string> { "North", "East", "South", "West" };
 	private List<GameObject> CheckPoints = new List<GameObject> { };
+	private List<GameObject> Paths = new List<GameObject> { };
 	void Start()
 	{
 		StartCoroutine(GenerateTiles());
@@ -95,8 +96,6 @@ public class Generator : MonoBehaviour
 	}
 	public void TempGenerate()
 	{
-		Destroy(GameObject.FindGameObjectWithTag("start"));
-		Destroy(GameObject.FindGameObjectWithTag("end"));
 		foreach (GameObject obj in CheckPoints)
 		{
 			if (obj != null)
@@ -104,12 +103,27 @@ public class Generator : MonoBehaviour
 				Destroy(obj);
 			}
 		}
+
+		foreach (GameObject obj in Paths)
+		{
+			if (obj != null)
+			{
+				Destroy(obj);
+			}
+		}
+		CheckPoints = new List<GameObject> { };
+		Paths = new List<GameObject> { };
+
 		GenerateStartEndPoint(StartTile);
 		GenerateCheckPoints();
+		GenerateStartEndPoint(EndTile);
+		Directions.Clear();
+		Directions = new List<string> { "North", "East", "South", "West" };
 
+		Debug.Log(CheckPoints.Count);
 		float referenceX = CheckPoints[0].transform.position.x;
 		float referenceZ = CheckPoints[0].transform.position.z;
-		float rotationY = CheckPoints[0].transform.eulerAngles.y;
+		float rotationY =  CheckPoints[0].transform.eulerAngles.y;
 
 		if (rotationY == 0 || Mathf.Approximately(rotationY, 180))
 		{
@@ -120,27 +134,51 @@ public class Generator : MonoBehaviour
 			CheckPoints = CheckPoints.OrderBy(go => Mathf.Abs(go.transform.position.x - referenceX)).ToList();
 		}
 
-		// Wyœwietlenie posortowanych obiektów w konsoli
+		// Wyœwietlenie
 		foreach (var go in CheckPoints)
 		{
 			Debug.Log(go.name + " - x: " + go.transform.position.x + ", z: " + go.transform.position.z);
 		}
 
 
-for (int i = 1; i<CheckPoints.Count; i++)
+		for (int i = 1; i<CheckPoints.Count; i++)
 		{
 			int xPrev = (int)CheckPoints[i - 1].transform.position.x;
 			int xAcc = (int)CheckPoints[i].transform.position.x;
 
 			int yPrev = (int)CheckPoints[i - 1].transform.position.z;
 			int yAcc = (int)CheckPoints[i].transform.position.z;
+			/*
+			if(xPrev < xAcc)
+			{
+				for(int j = xPrev; j <= xAcc; j++) 
+				{
+					Instantiate(Path, new Vector3(j, 0, yAcc), Quaternion.identity);
+				}
+			}
+			*/
 
 
+			if (yPrev < yAcc)
+			{
+				for (int j = yPrev; j <= yAcc; j++)
+				{
+					GameObject temp = Instantiate(Path, new Vector3(xAcc, 0, j), Quaternion.identity);
+					Paths.Add(temp);
+				}
+			}
+
+			if (yPrev > yAcc)
+			{
+				for (int j = yAcc; j >= yPrev; j--)
+				{
+					GameObject temp = Instantiate(Path, new Vector3(xPrev, 0, j), Quaternion.identity);
+					Paths.Add(temp);
+				}
+			}
 		}
 
 
-		GenerateStartEndPoint(EndTile);
-		Directions.Clear();
-		Directions = new List<string> { "North", "East", "South", "West" };
+
 	}
 }
