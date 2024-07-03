@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class Generator : MonoBehaviour
 {
-    public GameObject SurfaceTile;
+	public GameObject SurfaceTile;
 	public GameObject StartTile;
 	public GameObject EndTile;
 	public GameObject CheckPoint;
@@ -15,19 +15,19 @@ public class Generator : MonoBehaviour
 	private int StartX, StartY, Rotation;
 	int SizeOfPlate = 20;
 	float tick = 0.05f;
-	private List<string> Directions = new List<string>{ "North", "East", "South", "West" };
-	private List<GameObject> CheckPoints  = new List<GameObject> { };
+	private List<string> Directions = new List<string> { "North", "East", "South", "West" };
+	private List<GameObject> CheckPoints = new List<GameObject> { };
 	void Start()
-    {
-       StartCoroutine(GenerateTiles());
-    }
+	{
+		StartCoroutine(GenerateTiles());
+	}
 
-    private IEnumerator GenerateTiles()
+	private IEnumerator GenerateTiles()
 	{
 		for (int j = 0; j < SizeOfPlate; j++)
 		{
-				yield return new WaitForSeconds(tick);
-				StartCoroutine(GenerateRow(j));
+			yield return new WaitForSeconds(tick);
+			StartCoroutine(GenerateRow(j));
 		}
 
 		TempGenerate();
@@ -37,7 +37,7 @@ public class Generator : MonoBehaviour
 	{
 		for (int i = 0; i < SizeOfPlate; i++)
 		{
-			yield return new WaitForSeconds(tick*2);
+			yield return new WaitForSeconds(tick * 2);
 			Instantiate(SurfaceTile, new Vector3(i, 0, j), Quaternion.identity);
 		}
 	}
@@ -48,14 +48,14 @@ public class Generator : MonoBehaviour
 		string Side = Directions[RandomSide];
 		if (Side == "North")
 		{
-			StartX = Random.Range(2, SizeOfPlate-1);
-			StartY = SizeOfPlate-1;
+			StartX = Random.Range(2, SizeOfPlate - 1);
+			StartY = SizeOfPlate - 1;
 			Rotation = 0;
 		}
 		if (Side == "East")
 		{
-			StartX = SizeOfPlate-1;
-			StartY = Random.Range(2, SizeOfPlate-1);
+			StartX = SizeOfPlate - 1;
+			StartY = Random.Range(2, SizeOfPlate - 1);
 			Rotation = 90;
 		}
 		if (Side == "South")
@@ -77,65 +77,70 @@ public class Generator : MonoBehaviour
 		CheckPoints.Add(temp);
 	}
 
-	public void TempGenerate()
+	void GenerateCheckPoints()
 	{
-		Destroy(GameObject.FindGameObjectWithTag("start"));
-		Destroy(GameObject.FindGameObjectWithTag("end"));
-		GenerateStartEndPoint(StartTile);
-		
-		Directions.Clear();
-		Directions = new List<string> { "North", "East", "South", "West" };
-
-		
-		for(int i = 0; i<SizeOfPlate; i++)
+		int count = 1;
+		for (int i = 0; i < SizeOfPlate; i++)
 		{
 			int CanPlace = Random.Range(0, 10);
 			if (CanPlace < 3)
 			{
-				int rowCord = Random.Range(1, SizeOfPlate-1);
-				GameObject temp = Instantiate(CheckPoint, new Vector3(i, 0.3f, rowCord), Quaternion.identity);
+				int rowCord = Random.Range(1, SizeOfPlate - 1);
+				GameObject temp = Instantiate(CheckPoint, new Vector3(rowCord, 0.3f, i), Quaternion.identity);
+				temp.name = "CheckPoint" + count;
+				count++;
 				CheckPoints.Add(temp);
 			}
 		}
-		Debug.Log(CheckPoints.Count);
-
-		for (int i = 1; i<CheckPoints.Count; i++)
+	}
+	public void TempGenerate()
+	{
+		Destroy(GameObject.FindGameObjectWithTag("start"));
+		Destroy(GameObject.FindGameObjectWithTag("end"));
+		foreach (GameObject obj in CheckPoints)
 		{
-			Debug.Log("KUPA");
+			if (obj != null)
+			{
+				Destroy(obj);
+			}
+		}
+		GenerateStartEndPoint(StartTile);
+		GenerateCheckPoints();
+
+		float referenceX = CheckPoints[0].transform.position.x;
+		float referenceZ = CheckPoints[0].transform.position.z;
+		float rotationY = CheckPoints[0].transform.eulerAngles.y;
+
+		if (rotationY == 0 || Mathf.Approximately(rotationY, 180))
+		{
+			CheckPoints = CheckPoints.OrderBy(go => Mathf.Abs(go.transform.position.z - referenceZ)).ToList();
+		}
+		else if (Mathf.Approximately(rotationY, 90) || Mathf.Approximately(rotationY, 270))
+		{
+			CheckPoints = CheckPoints.OrderBy(go => Mathf.Abs(go.transform.position.x - referenceX)).ToList();
+		}
+
+		// Wyœwietlenie posortowanych obiektów w konsoli
+		foreach (var go in CheckPoints)
+		{
+			Debug.Log(go.name + " - x: " + go.transform.position.x + ", z: " + go.transform.position.z);
+		}
+
+
+for (int i = 1; i<CheckPoints.Count; i++)
+		{
 			int xPrev = (int)CheckPoints[i - 1].transform.position.x;
 			int xAcc = (int)CheckPoints[i].transform.position.x;
 
-			int yPrev = (int)CheckPoints[i - 1].transform.position.y;
-			int yAcc = (int)CheckPoints[i].transform.position.y;
+			int yPrev = (int)CheckPoints[i - 1].transform.position.z;
+			int yAcc = (int)CheckPoints[i].transform.position.z;
 
-			//tutaj chokepoint
-			if ( xPrev != xAcc)
-			{
-				if(xPrev < xAcc)
-				{
-					for(int j = xPrev; j<= xAcc; j++)
-					{
-						Instantiate(Path, new Vector3(j, 0.3f, yPrev), Quaternion.identity);
-					}
-				}
 
-				if (xPrev > xAcc)
-				{
-					for (int j = xAcc; j >= xPrev; j--)
-					{
-						Instantiate(Path, new Vector3(j, 0.3f, yPrev), Quaternion.identity);
-					}
-				}
-
-			}
-
-			if (CheckPoints[i - 1].transform.position.y != CheckPoints[i].transform.position.y)
-			{
-
-			}
 		}
 
 
 		GenerateStartEndPoint(EndTile);
+		Directions.Clear();
+		Directions = new List<string> { "North", "East", "South", "West" };
 	}
 }
