@@ -8,6 +8,7 @@ TagManager:
   - end
   - path
   - checkPoint
+  - chunk
   layers:
   - Default
   - TransparentFX

@@ -14,12 +14,15 @@ public class Generator : MonoBehaviour
 	public GameObject CheckPoint;
 	public GameObject Path;
 	private int StartX, StartY, Rotation;
+	public int GlobalX = 0;
+	public int GlobalY = 0;
 	int SizeOfPlate = 20;
 	float tick = 0.05f;
 	int PD = 2;
 	private List<string> Directions = new List<string> { "North", "East", "South", "West" };
 	private List<GameObject> CheckPoints = new List<GameObject> { };
 	private List<GameObject> Paths = new List<GameObject> { };
+	private List<GameObject> Surface = new List<GameObject> { };
 	void Start()
 	{
 		StartCoroutine(GenerateTiles());
@@ -32,8 +35,15 @@ public class Generator : MonoBehaviour
 			yield return new WaitForSeconds(tick);
 			StartCoroutine(GenerateRow(j));
 		}
-
 		TempGenerate();
+		yield return new WaitForSeconds(tick*SizeOfPlate+2);
+		foreach (GameObject obj in Surface)
+		{
+			if (obj != null)
+			{
+				Destroy(obj);
+			}
+		}
 	}
 
 	private IEnumerator GenerateRow(int j)
@@ -41,7 +51,8 @@ public class Generator : MonoBehaviour
 		for (int i = 0; i < SizeOfPlate; i++)
 		{
 			yield return new WaitForSeconds(tick * 2);
-			Instantiate(SurfaceTile, new Vector3(i, 0, j), Quaternion.identity);
+			GameObject surfaceblock = Instantiate(SurfaceTile, new Vector3(i, 0, j), Quaternion.identity);
+			Surface.Add(surfaceblock);
 		}
 	}
 
@@ -82,22 +93,6 @@ public class Generator : MonoBehaviour
 
 	void GenerateCheckPoints()
 	{
-		/*
-		int count = 1;
-		for (int i = 0; i < SizeOfPlate; i++)
-		{
-			int CanPlace = Random.Range(0, 10);
-			if (CanPlace < 3)
-			{
-				int rowCord = Random.Range(1, SizeOfPlate - 1);
-				GameObject temp = Instantiate(CheckPoint, new Vector3(rowCord, 0.3f, i), Quaternion.identity);
-				temp.name = "CheckPoint" + count;
-				count++;
-				i++;
-				CheckPoints.Add(temp);
-			}
-		}
-		*/
 		int count = 1;
 		while(CheckPoints.Count < 5)
 		{

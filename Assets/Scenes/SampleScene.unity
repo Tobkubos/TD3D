@@ -444,11 +444,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: -19.12
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 10
+  orthographic: 1
+  orthographic size: 40
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -472,13 +472,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.49621648, y: 0, z: 0, w: 0.8681989}
-  m_LocalPosition: {x: 10, y: 15, z: -3}
+  m_LocalRotation: {x: 0.43927756, y: 0.3366587, z: -0.18195473, w: 0.812766}
+  m_LocalPosition: {x: 22.74, y: 0, z: 13.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 59.5, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 56.78, y: 45, z: 0}
 --- !u!1 &1612639536
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,6 +623,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1719599388}
   - component: {fileID: 1719599387}
+  - component: {fileID: 1719599389}
+  - component: {fileID: 1719599390}
   m_Layer: 0
   m_Name: manager
   m_TagString: Untagged
@@ -637,7 +639,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719599386}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3caaf556afaa24045837c5ed9cf42228, type: 3}
   m_Name: 
@@ -647,6 +649,8 @@ MonoBehaviour:
   EndTile: {fileID: 3998032376701469053, guid: 22199489e2ae52742999222c7943d492, type: 3}
   CheckPoint: {fileID: 3998032376701469053, guid: a8c7fd80ba651f7419419c5ec71c1dfa, type: 3}
   Path: {fileID: 3998032376701469053, guid: 7e4d79b68034c8847bb90def72a30167, type: 3}
+  GlobalX: 0
+  GlobalY: 0
 --- !u!4 &1719599388
 Transform:
   m_ObjectHideFlags: 0
@@ -662,6 +666,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1719599389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719599386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f806d7a19b8df34eaece1ef0eed61ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MonsterPath: {fileID: 3998032376701469053, guid: 7e4d79b68034c8847bb90def72a30167, type: 3}
+  Checkpoint: {fileID: 3998032376701469053, guid: a8c7fd80ba651f7419419c5ec71c1dfa, type: 3}
+  BigChunkCheckPoint: {fileID: 3644691480836125316, guid: 49c1d310d68758948acf921bee95284c, type: 3}
+  elevation: -5
+  Connector: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
+--- !u!114 &1719599390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719599386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43195172fa2f8aa4f953c2c9ec134ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 963194227}
 --- !u!1 &1845913756
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,9 +779,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1719599387}
-        m_TargetAssemblyTypeName: Generator, Assembly-CSharp
-        m_MethodName: TempGenerate
+      - m_Target: {fileID: 1719599389}
+        m_TargetAssemblyTypeName: GeneratorV2, Assembly-CSharp
+        m_MethodName: Reset2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
