@@ -681,7 +681,7 @@ MonoBehaviour:
   MonsterPath: {fileID: 3998032376701469053, guid: 7e4d79b68034c8847bb90def72a30167, type: 3}
   Checkpoint: {fileID: 3998032376701469053, guid: a8c7fd80ba651f7419419c5ec71c1dfa, type: 3}
   BigChunkCheckPoint: {fileID: 3644691480836125316, guid: 49c1d310d68758948acf921bee95284c, type: 3}
-  elevation: -5
+  elevation: 0
   Connector: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
 --- !u!114 &1719599390
 MonoBehaviour:

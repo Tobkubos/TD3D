@@ -14,11 +14,11 @@ public class GeneratorV2 : MonoBehaviour
 	public GameObject MonsterPath;
 	public GameObject Checkpoint;
 	public GameObject BigChunkCheckPoint;
-	private int SizeOfMap = 3;
+	private int SizeOfMap =5 ;
 	private int x,z;
 	private int count = 1;
 	private int connCount = 1;
-	public int elevation = -5;
+	public int elevation = 0;
 	public GameObject Connector;
 	void Start()
     {
@@ -28,37 +28,12 @@ public class GeneratorV2 : MonoBehaviour
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
-
-	public void Reset()
-	{
-		foreach(GameObject go in BigChunkCheckPoints)
-		{
-			Destroy(go);
-		}
-		BigChunkCheckPoints = new List<GameObject> { };
-
-		foreach (GameObject go in Path)
-		{
-			Destroy(go);
-		}
-		Path = new List<GameObject> { };
-
-		foreach (GameObject go in Connectors)
-		{
-			Destroy(go);
-		}
-		Connectors = new List<GameObject> { };
-
-		count = 0;
-		connCount = 0;
-		StartCoroutine(GenerateBigChunks());
-	}
 	private IEnumerator GenerateBigChunks() { 
 
 		for(int i =0; i<SizeOfMap; i++)
 		{
 			x = Random.Range(0, SizeOfMap);
-			GameObject first = Instantiate(BigChunkCheckPoint, new Vector3(x * 10, 0.3f, i * 10), Quaternion.identity);
+			GameObject first = Instantiate(BigChunkCheckPoint, new Vector3(x * 10, elevation, i * 10), Quaternion.identity);
 			BigChunkCheckPoints.Add(first);
 		}
 		
