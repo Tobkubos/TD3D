@@ -8,16 +8,18 @@ public class RayCastFromCamera : MonoBehaviour
 	public Camera camera;
 	public Grid grid;
 	public GameObject _tilePrefab;
+	public GameObject testcube;
 	GameObject temp;
 	private Vector3 savedPos;
 
 	void Start()
 	{
+		temp = Instantiate(_tilePrefab, new Vector3(0,0,0), Quaternion.identity);
+
 		if (camera == null)
 		{
 			camera = Camera.main;
 		}
-		savedPos = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
 	}
 
 	void Update()
@@ -26,60 +28,21 @@ public class RayCastFromCamera : MonoBehaviour
 		Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			ray = camera.ScreenPointToRay(Input.mousePosition);
-
-			if (Physics.Raycast(ray, out hit))
-			{
-
-
-				Vector3 hitPoint = hit.point;
-
-				// Convert the world position to grid coordinates
-				Vector3Int gridPosition = grid.WorldToCell(hitPoint);
-				Debug.Log("Koordynaty gridu: " + gridPosition);
-
-
-
-
-
-				if (hit.collider.CompareTag("chunk"))
-				{
-					Debug.Log("Obiekt trafiony: " + hit.collider.name + " ma tag 'chunk'.");
-					hit.collider.gameObject.GetComponent<ChunkReveal>().Reveal();
-				}
-			}
-		}
-
 
 		if (Physics.Raycast(ray, out hit))
 		{
-			Vector3 hitPoint = hit.point;
-			Vector3Int gridPosition = grid.WorldToCell(hitPoint);
-
 			if (hit.collider.CompareTag("chunk"))
 			{
-				if (savedPos != gridPosition)
-				{
-					if (temp != null)
-					{
-						Destroy(temp);
-					}
+				Vector3 hitPoint = hit.point;
+				Vector3Int gridPosition = grid.WorldToCell(hitPoint);
+				Vector3 cordinate = grid.GetCellCenterWorld(gridPosition);
+				cordinate.y = 0.1f;
+				temp.transform.position = cordinate;
 
-					Vector3 worldPosition = grid.GetCellCenterWorld(gridPosition);
-					temp = Instantiate(_tilePrefab, worldPosition, Quaternion.identity);
-					savedPos = gridPosition;
+				if (Input.GetMouseButtonDown(0))
+				{
+					Instantiate(testcube, cordinate, Quaternion.identity);
 				}
-			}
-		}
-		else
-		{
-			if (temp != null)
-			{
-				Destroy(temp);
-				temp = null;
-				savedPos = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
 			}
 		}
 	}
