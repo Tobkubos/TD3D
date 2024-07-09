@@ -9,6 +9,7 @@ TagManager:
   - path
   - checkPoint
   - chunk
+  - tower
   layers:
   - Default
   - TransparentFX
