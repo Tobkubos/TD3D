@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4379239658202719791}
   - component: {fileID: 1059207686748581987}
   - component: {fileID: 8394000399935909686}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,8 +124,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8355985087851574127}
   - component: {fileID: 5023755228375063173}
-  m_Layer: 0
-  m_Name: tower 4
+  m_Layer: 2
+  m_Name: Holo 4
   m_TagString: tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 8441019668045635889}
   - component: {fileID: 1591657911229075736}
   - component: {fileID: 2557772132087127748}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5109,7 +5109,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 248349c46cacab84d8192ce1533c30c4, type: 2}
+  - {fileID: 2100000, guid: 1e8b3e3d83d400942bdc0684e30ea097, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

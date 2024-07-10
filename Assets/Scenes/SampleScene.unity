@@ -678,7 +678,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8d2b1968a65fe744fbbfb4cf008be078, type: 2}
+  - {fileID: 2100000, guid: 9532d72126e1aed418128028684cc542, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2524,6 +2524,8 @@ MonoBehaviour:
   grid: {fileID: 614575613}
   _tilePrefab: {fileID: 3998032376701469053, guid: 6508d3981e45cc940a5548310dcc1641, type: 3}
   testcube: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
+  HoloMaterial: {fileID: 2100000, guid: 1e8b3e3d83d400942bdc0684e30ea097, type: 2}
+  InvisibleMaterial: {fileID: 2100000, guid: 248349c46cacab84d8192ce1533c30c4, type: 2}
   TowerName: {fileID: 1274566188}
   TowerLevel: {fileID: 776090409}
   TowerExperience: {fileID: 837852410}
@@ -2531,15 +2533,22 @@ MonoBehaviour:
   TowerDamage: {fileID: 1646325756}
   Towers:
   - {fileID: 5857700132478872097, guid: 34e92586eccc1484690ac15937345904, type: 3}
-  - {fileID: 5857700132478872097, guid: 84b8aa36145ce28458f029e34f043411, type: 3}
-  - {fileID: 5857700132478872097, guid: 8f8b02b74945895479ee428556775630, type: 3}
-  - {fileID: 5857700132478872097, guid: 1d65dac64883c034998808ff0bdf4d2b, type: 3}
+  - {fileID: 5857700132478872097, guid: 5a18e077c28ce214dbeda617d3cacbf5, type: 3}
+  - {fileID: 5857700132478872097, guid: d8b96bb2a96c1c243bb39f1e2aeed30a, type: 3}
+  - {fileID: 5857700132478872097, guid: 15ead146183b6e547a5c154c12551462, type: 3}
+  HoloTowers:
+  - {fileID: 5857700132478872097, guid: 4d69f65182f8ff64c8d0cbb134d0c0cd, type: 3}
+  - {fileID: 5857700132478872097, guid: 394db6d5c620b2c469769593930dd7da, type: 3}
+  - {fileID: 5857700132478872097, guid: 30a10d1fe4403bc42b67084d683d35c9, type: 3}
+  - {fileID: 5857700132478872097, guid: b25da86e5b5a5e642b1f97c081879ac3, type: 3}
   SelectedTowerImage:
   - {fileID: 498908119}
   - {fileID: 1533987169}
   - {fileID: 987616602}
   - {fileID: 209276326}
-  ActiveTower: 0
+  ActiveTower: -1
+  Hologram: 0
+  towerHolo: {fileID: 0}
 --- !u!114 &1719599391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2687,63 +2696,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845913756}
   m_CullTransparentMesh: 1
---- !u!1001 &6453906947893466088
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5857700132478872097, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_Name
-      value: Cube
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1787.7026
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 341.203
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.939743
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355985087851574127, guid: 34e92586eccc1484690ac15937345904, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 34e92586eccc1484690ac15937345904, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2755,4 +2707,3 @@ SceneRoots:
   - {fileID: 369415016}
   - {fileID: 689837040}
   - {fileID: 614575609}
-  - {fileID: 6453906947893466088}

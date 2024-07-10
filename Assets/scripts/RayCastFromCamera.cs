@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Metadata;
 
 public class RayCastFromCamera : MonoBehaviour
 {
@@ -10,18 +12,24 @@ public class RayCastFromCamera : MonoBehaviour
 	public Grid grid;
 	public GameObject _tilePrefab;
 	public GameObject testcube;
+	public Material HoloMaterial;
+	public Material InvisibleMaterial;
 	GameObject temp;
-	private Vector3 savedPos;
 
 	public TextMeshProUGUI TowerName;
 	public TextMeshProUGUI TowerLevel;
 	public TextMeshProUGUI TowerExperience;
 	public TextMeshProUGUI TowerType;
 	public TextMeshProUGUI TowerDamage;
+	public Vector3 cordinate;
 
 	public GameObject[] Towers;
+	public GameObject[] HoloTowers;
 	public GameObject[] SelectedTowerImage;
-	public int ActiveTower;
+	Transform TowerArea;
+	public int ActiveTower = -1;
+	public bool Hologram = false;
+	public GameObject towerHolo = null;
 	void Start()
 	{
 		temp = Instantiate(_tilePrefab, new Vector3(0,0,0), Quaternion.identity);
@@ -32,6 +40,7 @@ public class RayCastFromCamera : MonoBehaviour
 		}
 	}
 
+
 	void Update()
 	{
 
@@ -39,37 +48,30 @@ public class RayCastFromCamera : MonoBehaviour
 		RaycastHit hit;
 
 
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (TowerArea != null)
+			{
+				TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
+			}
+		}
+
+
 		if (Physics.Raycast(ray, out hit))
 		{
 			Vector3 hitPoint = hit.point;
 			Vector3Int gridPosition = grid.WorldToCell(hitPoint);
-			Vector3 cordinate = grid.GetCellCenterWorld(gridPosition);
+			cordinate = grid.GetCellCenterWorld(gridPosition);
 			cordinate.y = 0.1f;
 			temp.transform.position = cordinate;
+			PlaceHoloTower(cordinate);
+		
 
 			if (hit.collider.CompareTag("chunk"))
 			{
 				if (Input.GetMouseButtonDown(0))
 				{
-					if ( ActiveTower == 0)
-					{
-						Instantiate(Towers[0], cordinate, Quaternion.identity);
-					}
-
-					if (ActiveTower == 1)
-					{
-						Instantiate(Towers[1], cordinate, Quaternion.identity);
-					}
-
-					if (ActiveTower == 2)
-					{
-						Instantiate(Towers[2], cordinate, Quaternion.identity);
-					}
-
-					if (ActiveTower == 3)
-					{
-						Instantiate(Towers[3], cordinate, Quaternion.identity);
-					}
+					PlaceTower(cordinate);
 				}
 			}
 
@@ -81,14 +83,90 @@ public class RayCastFromCamera : MonoBehaviour
 					TowerStats ts = hit.collider.gameObject.transform.Find("tower").GetComponent<TowerStats>();
 					if (ts != null)
 					{
-						TowerName.text		 = ts.GetName();
-						TowerLevel.text		 = ts.GetLevel().ToString();
+						TowerName.text = ts.GetName();
+						TowerLevel.text = ts.GetLevel().ToString();
 						TowerExperience.text = ts.GetExperience().ToString();
-						TowerType.text		 = ts.GetType();
-						TowerDamage.text	 = ts.GetDamage().ToString();
+						TowerType.text = ts.GetType();
+						TowerDamage.text = ts.GetDamage().ToString();
 					}
+					TowerArea = hit.collider.gameObject.transform.Find("area");
+					TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
 				}
 			}
+		}
+	}
+
+	void ResetSelectedTower()
+	{
+		Hologram = false;
+		ActiveTower = -1;
+		Destroy(towerHolo);
+		foreach (GameObject go in SelectedTowerImage)
+		{
+			go.SetActive(false);
+		}
+	}
+
+	public void PlaceTower(Vector3 cordinate)
+	{
+		if (ActiveTower == 0)
+		{
+			ResetSelectedTower();
+			Instantiate(Towers[0], cordinate, Quaternion.identity);
+
+		}
+
+		if (ActiveTower == 1)
+		{
+			ResetSelectedTower();
+			Instantiate(Towers[1], cordinate, Quaternion.identity);
+		}
+
+		if (ActiveTower == 2)
+		{
+			ResetSelectedTower();
+			Instantiate(Towers[2], cordinate, Quaternion.identity);
+		}
+
+		if (ActiveTower == 3)
+		{
+			ResetSelectedTower();
+			Instantiate(Towers[3], cordinate, Quaternion.identity);
+		}
+	}
+	public void PlaceHoloTower(Vector3 cordinate)
+	{
+		if (ActiveTower == 0 && !Hologram)
+		{
+			Hologram = true;
+			towerHolo = Instantiate(HoloTowers[0], cordinate, Quaternion.identity);
+			towerHolo.transform.position = cordinate;
+		}
+
+		if (ActiveTower == 1 && !Hologram)
+		{
+			Hologram = true;
+			towerHolo = Instantiate(HoloTowers[1], cordinate, Quaternion.identity);
+			towerHolo.transform.position = cordinate;
+		}
+
+		if (ActiveTower == 2 && !Hologram)
+		{
+			Hologram = true;
+			towerHolo = Instantiate(HoloTowers[2], cordinate, Quaternion.identity);
+			towerHolo.transform.position = cordinate;
+		}
+
+		if (ActiveTower == 3 && !Hologram)
+		{
+			Hologram = true;
+			towerHolo = Instantiate(HoloTowers[3], cordinate, Quaternion.identity);
+			towerHolo.transform.position = cordinate;
+
+		}
+		if (towerHolo != null)
+		{
+			towerHolo.transform.position = cordinate;
 		}
 	}
 }

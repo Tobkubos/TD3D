@@ -18,6 +18,12 @@ public class TowerSelector : MonoBehaviour
 			go.SetActive(false);
 		}
 		rcfc.SelectedTowerImage[TowerIndex].SetActive(true);
-	}
+		if(rcfc.towerHolo != null)
+		{
+			rcfc.Hologram = false;
+			Destroy(rcfc.towerHolo);
+			rcfc.PlaceHoloTower(rcfc.cordinate);
+		}
 
+	}
 }
