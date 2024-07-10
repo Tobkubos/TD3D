@@ -6,7 +6,8 @@ public class TestAnim : MonoBehaviour
 {
     void Start()
     {
+        Vector3 scale = transform.localScale;
         this.gameObject.transform.localScale= Vector3.zero;
-        LeanTween.scale(this.gameObject, new Vector3(1, 1f, 1),0.3f);
+        LeanTween.scale(this.gameObject, scale,0.3f);
     }
 }
