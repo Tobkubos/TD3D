@@ -10,6 +10,7 @@ TagManager:
   - checkPoint
   - chunk
   - tower
+  - enemy
   layers:
   - Default
   - TransparentFX

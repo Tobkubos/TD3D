@@ -10,6 +10,8 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] string Type;
 	[SerializeField] int Damage;
 
+	public GameObject area;
+
 	public string GetName()
 	{
 		return Name;

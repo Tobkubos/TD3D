@@ -2531,6 +2531,7 @@ MonoBehaviour:
   TowerExperience: {fileID: 837852410}
   TowerType: {fileID: 577374053}
   TowerDamage: {fileID: 1646325756}
+  cordinate: {x: 0, y: 0, z: 0}
   Towers:
   - {fileID: 5857700132478872097, guid: 34e92586eccc1484690ac15937345904, type: 3}
   - {fileID: 5857700132478872097, guid: 5a18e077c28ce214dbeda617d3cacbf5, type: 3}
