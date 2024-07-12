@@ -135,6 +135,7 @@ MonoBehaviour:
   Experience: 0
   Type: Normal
   Damage: 5
+  area: {fileID: 84812341082029954}
 --- !u!114 &4379239658202719791
 MonoBehaviour:
   m_ObjectHideFlags: 0

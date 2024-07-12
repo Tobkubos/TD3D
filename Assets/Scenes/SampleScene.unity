@@ -2564,6 +2564,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grid: {fileID: 614575613}
   _tilePrefab: {fileID: 3998032376701469053, guid: 7e4d79b68034c8847bb90def72a30167, type: 3}
+--- !u!1001 &1723523461
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528831700510983450, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306181501440247250, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_Name
+      value: HoloTowerTest
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
 --- !u!1 &1845913756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2697,6 +2758,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845913756}
   m_CullTransparentMesh: 1
+--- !u!1001 &1989877387
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 233259430313716571, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528831700510983450, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306181501440247250, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
+      propertyPath: m_Name
+      value: HoloTowerTest (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a369ef6f02c23834e881aac97a5fffe7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2708,3 +2830,5 @@ SceneRoots:
   - {fileID: 369415016}
   - {fileID: 689837040}
   - {fileID: 614575609}
+  - {fileID: 1723523461}
+  - {fileID: 1989877387}
