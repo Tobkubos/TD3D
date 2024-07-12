@@ -12,6 +12,8 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] int Damage;
 
 	private List<GameObject> EnemiesInRange = new List<GameObject>();
+	private GameObject Bullet;
+	private bool isShooting;
 
 	public string GetName()
 	{
@@ -52,6 +54,11 @@ public class TowerStats : MonoBehaviour
 		{
 			GameObject target = EnemiesInRange[0];
 			Debug.Log(target.name);
+			Shoot();
 		}
+	}
+	private void Shoot()
+	{
+		
 	}
 }
