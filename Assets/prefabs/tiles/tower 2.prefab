@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5131063460288452886}
   - component: {fileID: 9060921592865653620}
   - component: {fileID: 9092573045886655416}
+  - component: {fileID: 8743830507766362469}
+  - component: {fileID: 2090883470867515485}
   m_Layer: 2
   m_Name: area
   m_TagString: Untagged
@@ -83,6 +85,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84812341082029954}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &8743830507766362469
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84812341082029954}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2090883470867515485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84812341082029954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f594d65886a6f844fb3e33765bd4e14b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerStats: {fileID: 915773857429059579}
 --- !u!1 &2102127118871438815
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +172,6 @@ MonoBehaviour:
   Experience: 0
   Type: Normal
   Damage: 5
-  area: {fileID: 84812341082029954}
 --- !u!114 &4379239658202719791
 MonoBehaviour:
   m_ObjectHideFlags: 0
