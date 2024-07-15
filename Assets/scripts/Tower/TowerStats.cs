@@ -10,10 +10,14 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] int Experience;
 	[SerializeField] string Type;
 	[SerializeField] int Damage;
+	[SerializeField] float RotSpeed;
 
 	private List<GameObject> EnemiesInRange = new List<GameObject>();
-	private GameObject Bullet;
-	private bool isShooting;
+	public GameObject Bullet;
+	public GameObject Turret;
+
+	float Cooldown = 0.1f;
+	float nextShoot = 2;
 
 	public string GetName()
 	{
@@ -38,13 +42,11 @@ public class TowerStats : MonoBehaviour
 
 	public void OnEnemyEnterRange(GameObject enemy)
 	{
-		Debug.Log("Enemy entered range: " + enemy.name);
 		EnemiesInRange.Add(enemy);
 	}
 
 	public void OnEnemyExitRange(GameObject enemy)
 	{
-		Debug.Log("Enemy exited range: " + enemy.name);
 		EnemiesInRange.Remove(enemy);
 	}
 
@@ -53,12 +55,33 @@ public class TowerStats : MonoBehaviour
 		if(EnemiesInRange.Count > 0)
 		{
 			GameObject target = EnemiesInRange[0];
-			Debug.Log(target.name);
-			Shoot();
+
+			Vector3 direction = target.transform.position - Turret.transform.position;
+			direction.y = 0;
+
+			if (direction != Vector3.zero)
+			{
+				Quaternion targetRotation = Quaternion.LookRotation(direction);
+				transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+				Debug.DrawRay(transform.position, direction, Color.red);
+
+				if(Time.time > nextShoot)
+				{
+					nextShoot = Time.time + Cooldown;
+					Shoot();
+
+					Animation animComp = GetComponent<Animation>();
+					animComp.Play("shooting");
+					foreach (AnimationState state in animComp)
+					{
+						state.speed = 3;
+					}
+				}
+			}
 		}
 	}
 	private void Shoot()
 	{
-		
+		Instantiate(Bullet, Turret.transform.position, Turret.transform.rotation);
 	}
 }
