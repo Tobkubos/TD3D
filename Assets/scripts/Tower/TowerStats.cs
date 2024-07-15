@@ -15,10 +15,15 @@ public class TowerStats : MonoBehaviour
 	private List<GameObject> EnemiesInRange = new List<GameObject>();
 	public GameObject Bullet;
 	public GameObject Turret;
+	private GameObject target;
 
 	float Cooldown = 0.5f;
 	float nextShoot = 3;
 
+	private void Start()
+	{
+		nextShoot = Time.time + 3;
+	}
 	public string GetName()
 	{
 		return Name;
@@ -52,10 +57,15 @@ public class TowerStats : MonoBehaviour
 
 	private void Update()
 	{
-		if(EnemiesInRange.Count > 0)
-		{
-			GameObject target = EnemiesInRange[0];
 
+		if (target == null)
+		{
+			EnemiesInRange.Remove(target);
+		}
+
+		if (EnemiesInRange.Count > 0)
+		{
+			target = EnemiesInRange[0];
 			Vector3 direction = target.transform.position - Turret.transform.position;
 			direction.y = 0;
 
