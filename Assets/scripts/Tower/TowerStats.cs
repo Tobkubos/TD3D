@@ -16,8 +16,8 @@ public class TowerStats : MonoBehaviour
 	public GameObject Bullet;
 	public GameObject Turret;
 
-	float Cooldown = 0.1f;
-	float nextShoot = 2;
+	float Cooldown = 0.5f;
+	float nextShoot = 3;
 
 	public string GetName()
 	{
@@ -82,6 +82,7 @@ public class TowerStats : MonoBehaviour
 	}
 	private void Shoot()
 	{
-		Instantiate(Bullet, Turret.transform.position, Turret.transform.rotation);
+		GameObject bllt = Instantiate(Bullet, Turret.transform.position, Turret.transform.rotation);
+		bllt.GetComponent<BulletMovement>().damage = Damage;
 	}
 }
