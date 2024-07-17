@@ -6,9 +6,18 @@ using UnityEngine.AI;
 public class SimpleMovement : MonoBehaviour
 {
     public NavMeshAgent agent;
-	public GameObject finish;
+	GameObject end;
+
+	private void Start()
+	{
+		end = GameObject.FindGameObjectWithTag("end");
+	}
 	void Update()
-    {
-        agent.SetDestination(finish.transform.position);
-    }
+	{
+		if (agent != null)
+		{
+			agent.SetDestination(end.transform.position);
+		}
+	}
+
 }

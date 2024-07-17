@@ -17,7 +17,7 @@ public class TowerStats : MonoBehaviour
 	public GameObject Turret;
 	private GameObject target;
 
-	float Cooldown = 0.5f;
+	public float Cooldown = 0.5f;
 	float nextShoot = 3;
 
 	private void Start()

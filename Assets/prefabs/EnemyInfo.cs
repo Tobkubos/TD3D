@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyInfo : MonoBehaviour
 {
-    public int hp;
+	public int hp;
 	public int speed;
 	public int defence;
 
@@ -12,10 +12,17 @@ public class EnemyInfo : MonoBehaviour
 
 	private void Update()
 	{
-		if(hp == 0)
+		if (hp <= 0)
 		{
 			ps.Play();
 			Destroy(gameObject);
+		}
+	}
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("end"))
+		{
+			Destroy(this.gameObject);
 		}
 	}
 }
