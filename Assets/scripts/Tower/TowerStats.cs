@@ -66,25 +66,28 @@ public class TowerStats : MonoBehaviour
 		if (EnemiesInRange.Count > 0)
 		{
 			target = EnemiesInRange[0];
-			Vector3 direction = target.transform.position - Turret.transform.position;
-			direction.y = 0;
-
-			if (direction != Vector3.zero)
+			if (target != null)
 			{
-				Quaternion targetRotation = Quaternion.LookRotation(direction);
-				transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
-				Debug.DrawRay(transform.position, direction, Color.red);
+				Vector3 direction = target.transform.position - Turret.transform.position;
+				direction.y = 0;
 
-				if(Time.time > nextShoot)
+				if (direction != Vector3.zero)
 				{
-					nextShoot = Time.time + Cooldown;
-					Shoot();
+					Quaternion targetRotation = Quaternion.LookRotation(direction);
+					transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+					Debug.DrawRay(transform.position, direction, Color.red);
 
-					Animation animComp = GetComponent<Animation>();
-					animComp.Play("shooting");
-					foreach (AnimationState state in animComp)
+					if (Time.time > nextShoot)
 					{
-						state.speed = 3;
+						nextShoot = Time.time + Cooldown;
+						Shoot();
+
+						Animation animComp = GetComponent<Animation>();
+						animComp.Play("shooting");
+						foreach (AnimationState state in animComp)
+						{
+							state.speed = 3;
+						}
 					}
 				}
 			}
@@ -94,5 +97,6 @@ public class TowerStats : MonoBehaviour
 	{
 		GameObject bllt = Instantiate(Bullet, Turret.transform.position, Turret.transform.rotation);
 		bllt.GetComponent<BulletMovement>().damage = Damage;
+		bllt.GetComponent<BulletMovement>().enemy = target.transform;
 	}
 }

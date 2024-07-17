@@ -5183,7 +5183,7 @@ MonoBehaviour:
   Level: 1
   Experience: 0
   Type: Normal
-  Damage: 5
+  Damage: 6
   RotSpeed: 2
   Bullet: {fileID: 7019720170624027536, guid: 171a1f28c0365f34e8b665b8599f6451, type: 3}
   Turret: {fileID: 3002702431387218692}

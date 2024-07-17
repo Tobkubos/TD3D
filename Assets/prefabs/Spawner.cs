@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
 	public GameObject enemy;
+	public float cooldown = 0.5f;
 	private void Start()
 	{
 		StartCoroutine(Spawn());
@@ -14,7 +15,7 @@ public class Spawner : MonoBehaviour
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(cooldown);
 			Instantiate(enemy, transform.position, Quaternion.identity);
 		}
 	}

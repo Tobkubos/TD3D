@@ -11,6 +11,7 @@ TagManager:
   - chunk
   - tower
   - enemy
+  - bullet
   layers:
   - Default
   - TransparentFX
