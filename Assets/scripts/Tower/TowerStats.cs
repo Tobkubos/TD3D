@@ -8,6 +8,7 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] string Name;
 	[SerializeField] int Level;
 	[SerializeField] int Experience;
+	[SerializeField] int MaxExp;
 	[SerializeField] string Type;
 	[SerializeField] int Damage;
 	[SerializeField] float RotSpeed;
@@ -16,6 +17,8 @@ public class TowerStats : MonoBehaviour
 	public GameObject Bullet;
 	public GameObject Turret;
 	private GameObject target;
+
+	[SerializeField] ParticleSystem ExpPS;
 
 	public float Cooldown = 0.5f;
 	float nextShoot = 3;
@@ -35,6 +38,14 @@ public class TowerStats : MonoBehaviour
 	public int GetExperience()
 	{
 		return Experience;
+	}
+	public void SetExperience()
+	{
+		Experience++;
+	}
+	public int GetMaxExp()
+	{
+		return MaxExp;
 	}
 	public string GetType()
 	{
@@ -92,11 +103,37 @@ public class TowerStats : MonoBehaviour
 				}
 			}
 		}
+
+		if (ExpPS != null)
+		{
+			Debug.Log("Checking Experience: " + Experience + "/" + MaxExp);
+			if (Experience >= MaxExp)
+			{
+				if (!ExpPS.isPlaying)
+				{
+					Debug.Log("Playing Particle System");
+					ExpPS.Play();
+				}
+			}
+			else
+			{
+				if (ExpPS.isPlaying)
+				{
+					Debug.Log("Stopping Particle System");
+					ExpPS.Stop();
+				}
+			}
+		}
+		else
+		{
+			Debug.LogError("ExpPS is not assigned in the Inspector");
+		}
 	}
 	private void Shoot()
 	{
 		GameObject bllt = Instantiate(Bullet, Turret.transform.position, Turret.transform.rotation);
 		bllt.GetComponent<BulletMovement>().damage = Damage;
 		bllt.GetComponent<BulletMovement>().enemy = target.transform;
+		bllt.GetComponent<BulletMovement>().ts = this;
 	}
 }

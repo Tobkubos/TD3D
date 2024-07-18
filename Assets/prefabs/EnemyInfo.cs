@@ -7,6 +7,7 @@ public class EnemyInfo : MonoBehaviour
 	public int hp;
 	public int speed;
 	public int defence;
+	public int cash;
 
 	public ParticleSystem ps;
 
@@ -24,13 +25,21 @@ public class EnemyInfo : MonoBehaviour
 		if (other.CompareTag("bullet"))
 		{
 			hp -= other.GetComponent<BulletMovement>().damage;
+
+			if (other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().GetExperience() < other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().GetMaxExp())
+			{
+				other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().SetExperience(); //give experience
+			}
+
+
 			Destroy(other.gameObject);
 			Debug.Log(hp);
 
 			if (hp <= 0)
 			{
-				
-				//ps.Play();
+				ps.transform.parent = null;
+				ps.Play();
+				Destroy(ps.gameObject, 2);
 				Destroy(gameObject);
 			}
 		}

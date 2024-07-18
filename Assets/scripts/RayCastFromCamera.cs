@@ -19,6 +19,8 @@ public class RayCastFromCamera : MonoBehaviour
 	public TextMeshProUGUI TowerName;
 	public TextMeshProUGUI TowerLevel;
 	public TextMeshProUGUI TowerExperience;
+	public Slider ExpSlider;
+
 	public TextMeshProUGUI TowerType;
 	public TextMeshProUGUI TowerDamage;
 	public Vector3 cordinate;
@@ -30,10 +32,12 @@ public class RayCastFromCamera : MonoBehaviour
 	public int ActiveTower = -1;
 	public bool Hologram = false;
 	public GameObject towerHolo = null;
+
+	TowerStats ts;
 	void Start()
 	{
 		temp = Instantiate(_tilePrefab, new Vector3(0,0,0), Quaternion.identity);
-
+		TowerStats ts = null;
 		if (camera == null)
 		{
 			camera = Camera.main;
@@ -53,6 +57,11 @@ public class RayCastFromCamera : MonoBehaviour
 			if (TowerArea != null)
 			{
 				TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
+			}
+
+			if(ts != null)
+			{
+				ts = null;
 			}
 		}
 
@@ -80,12 +89,16 @@ public class RayCastFromCamera : MonoBehaviour
 			{
 				if (Input.GetMouseButtonDown(0))
 				{
-					TowerStats ts = hit.collider.gameObject.transform.Find("tower").GetComponent<TowerStats>();
+					ts = hit.collider.gameObject.transform.Find("tower").GetComponent<TowerStats>();
 					if (ts != null)
 					{
 						TowerName.text = ts.GetName();
 						TowerLevel.text = ts.GetLevel().ToString();
-						TowerExperience.text = ts.GetExperience().ToString();
+
+						ExpSlider.minValue = 0;
+						ExpSlider.maxValue = ts.GetMaxExp();
+						ExpSlider.value = ts.GetExperience();
+
 						TowerType.text = ts.GetType();
 						TowerDamage.text = ts.GetDamage().ToString();
 					}
@@ -93,6 +106,19 @@ public class RayCastFromCamera : MonoBehaviour
 					TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
 				}
 			}
+		}
+
+		if (ts != null)
+		{
+			TowerName.text = ts.GetName();
+			TowerLevel.text = ts.GetLevel().ToString();
+
+			ExpSlider.minValue = 0;
+			ExpSlider.maxValue = ts.GetMaxExp();
+			ExpSlider.value = ts.GetExperience();
+
+			TowerType.text = ts.GetType();
+			TowerDamage.text = ts.GetDamage().ToString();
 		}
 	}
 
