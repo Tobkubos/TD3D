@@ -11,10 +11,6 @@ public class EnemyInfo : MonoBehaviour
 
 	public ParticleSystem ps;
 
-	private void Update()
-	{
-
-	}
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("end"))
@@ -40,6 +36,9 @@ public class EnemyInfo : MonoBehaviour
 				ps.transform.parent = null;
 				ps.Play();
 				Destroy(ps.gameObject, 2);
+
+
+
 				Destroy(gameObject);
 			}
 		}
