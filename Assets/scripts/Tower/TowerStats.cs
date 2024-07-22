@@ -14,7 +14,10 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] int Damage;
 	[SerializeField] float RotSpeed;
 
+	[SerializeField] GameObject[] Towers;
+
 	private List<GameObject> EnemiesInRange = new List<GameObject>();
+
 	public GameObject Bullet;
 	private GameObject Turret;
 	private GameObject target;
@@ -30,10 +33,32 @@ public class TowerStats : MonoBehaviour
 
 	private int counter = 0;
 
+
+	void Setup(int level)
+	{
+		if(level == 0)
+		{
+			GameObject TWR = Instantiate(Towers[0], this.transform.position, Quaternion.identity, this.gameObject.transform);
+			Transform towerTransform = TWR.transform; 
+            if (towerTransform != null)
+            {
+                tower = towerTransform.gameObject;
+                Debug.Log("ZNALAZLEM TOWER");
+                ShootAnim = tower.GetComponent<Animation>();
+
+                Transform turretTransform = tower.transform.Find("turret");
+                if (turretTransform != null)
+                {
+                    Debug.Log("ZNALAZLEM TURRET");
+                    Turret = turretTransform.gameObject;
+                }
+            }
+        }
+	}
 	private void Start()
 	{
-
-		//zmienic na tagi
+		
+		/*
 		if(level == 2) { 
 			Transform towerTransform = this.transform.Find("tower");
 			if (towerTransform != null)
@@ -50,8 +75,8 @@ public class TowerStats : MonoBehaviour
 				}
 			}
 		}
-
-
+		*/
+		Setup(0);
         nextShoot = Time.time + 3;
 	}
 	public string GetName()
