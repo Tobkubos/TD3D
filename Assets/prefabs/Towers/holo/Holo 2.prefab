@@ -42,7 +42,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102127118871438815}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e93ae0019b9faf84aa537dcb2895f115, type: 3}
   m_Name: 
@@ -50,8 +50,15 @@ MonoBehaviour:
   Name: Crossbow
   Level: 1
   Experience: 0
+  MaxExp: 0
   Type: Normal
   Damage: 5
+  RotSpeed: 0
+  Towers: []
+  Bullet: {fileID: 0}
+  level: 2
+  ExpPS: {fileID: 0}
+  Cooldown: 1
 --- !u!114 &4379239658202719791
 MonoBehaviour:
   m_ObjectHideFlags: 0

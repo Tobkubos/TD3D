@@ -13,6 +13,7 @@ TagManager:
   - enemy
   - bullet
   - Tower2.1
+  - stats
   layers:
   - Default
   - TransparentFX

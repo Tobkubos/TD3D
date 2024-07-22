@@ -35,48 +35,27 @@ public class TowerStats : MonoBehaviour
 
 
 	void Setup(int level)
-	{
-		if(level == 0)
-		{
-			GameObject TWR = Instantiate(Towers[0], this.transform.position, Quaternion.identity, this.gameObject.transform);
-			Transform towerTransform = TWR.transform; 
-            if (towerTransform != null)
-            {
-                tower = towerTransform.gameObject;
-                Debug.Log("ZNALAZLEM TOWER");
-                ShootAnim = tower.GetComponent<Animation>();
+	{ 
+		GameObject TWR = Instantiate(Towers[level], this.transform.position, Quaternion.identity, this.gameObject.transform);
+		Transform towerTransform = TWR.transform;
 
-                Transform turretTransform = tower.transform.Find("turret");
-                if (turretTransform != null)
-                {
-                    Debug.Log("ZNALAZLEM TURRET");
-                    Turret = turretTransform.gameObject;
-                }
-            }
-        }
+		if (towerTransform != null)
+		{
+			tower = towerTransform.gameObject;
+			Debug.Log("ZNALAZLEM TOWER");
+			ShootAnim = tower.GetComponent<Animation>();
+
+			Transform turretTransform = tower.transform.Find("turret");
+			if (turretTransform != null)
+			{
+				Debug.Log("ZNALAZLEM TURRET");
+				Turret = turretTransform.gameObject;
+			}
+		}
 	}
 	private void Start()
 	{
-		
-		/*
-		if(level == 2) { 
-			Transform towerTransform = this.transform.Find("tower");
-			if (towerTransform != null)
-			{
-				tower = towerTransform.gameObject;
-				Debug.Log("ZNALAZLEM TOWER");
-				ShootAnim = tower.GetComponent<Animation>();
-
-				Transform turretTransform = tower.transform.Find("turret");
-				if (turretTransform != null)
-				{
-					Debug.Log("ZNALAZLEM TURRET");
-					Turret = turretTransform.gameObject;
-				}
-			}
-		}
-		*/
-		Setup(0);
+		Setup(level);
         nextShoot = Time.time + 3;
 	}
 	public string GetName()
@@ -118,37 +97,24 @@ public class TowerStats : MonoBehaviour
 		EnemiesInRange.Remove(enemy);
 	}
 
-
 	private IEnumerator ShootingLEVEL2(Transform target)
 	{
 		Shoot(target);
 		counter--;
-		/*
-        Animation animComp = tower.GetComponent<Animation>();
-        animComp.Rewind("shooting lvl 1");
-        animComp.Play("shooting lvl 1");
-        foreach (AnimationState state in animComp)
-        {
-            state.speed = 1;
-        }
-		*/
 
-		ShootAnim.Rewind("shooting lvl 1");
-		ShootAnim.Play("shooting lvl 1");
+		ShootAnim.Rewind("shooting");
+		ShootAnim.Play("shooting");
 		foreach (AnimationState state in ShootAnim)
 		{
 			state.speed = 1;
 		}
 
-
         yield return new WaitForSeconds(Cooldown);
 		Shoot(target);
 		counter--;
-
     }
 	private void Update()
 	{
-
 		if (target == null)
 		{
 			EnemiesInRange.Remove(target);
@@ -173,18 +139,18 @@ public class TowerStats : MonoBehaviour
 						nextShoot = Time.time + Cooldown;
 
 						//
-						if (level == 1)
+						if (level == 0)
 						{
                             Shoot(target.transform);
                             Animation animComp = tower.GetComponent<Animation>();
-							animComp.Play("shooting lvl 1");
+							animComp.Play("shooting");
 							foreach (AnimationState state in animComp)
 							{
 								state.speed = 1;
 							}
 						}
 
-                        if (level == 2 && counter == 0)
+                        if (level == 1 && counter == 0)
                         {
                             counter = 2;
                             StartCoroutine(ShootingLEVEL2(target.transform));
