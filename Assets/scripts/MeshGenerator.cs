@@ -12,10 +12,10 @@ public class MeshGenerator : MonoBehaviour
 
 	void Start()
 	{
-		GenerateMesh();
+		GenerateMesh(0,0);
 	}
 
-	void GenerateMesh()
+	void GenerateMesh(int startX, int startY)
 	{
 		Mesh mesh = new Mesh();
 		GetComponent<MeshFilter>().mesh = mesh;

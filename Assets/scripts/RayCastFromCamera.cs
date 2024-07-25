@@ -71,7 +71,7 @@ public class RayCastFromCamera : MonoBehaviour
 			Vector3 hitPoint = hit.point;
 			Vector3Int gridPosition = grid.WorldToCell(hitPoint);
 			cordinate = grid.GetCellCenterWorld(gridPosition);
-			cordinate.y = 0.1f;
+			cordinate.y = 0f;
 			temp.transform.position = cordinate;
 			PlaceHoloTower(cordinate);
 		
@@ -138,26 +138,26 @@ public class RayCastFromCamera : MonoBehaviour
 		if (ActiveTower == 0)
 		{
 			ResetSelectedTower();
-			Instantiate(Towers[0], cordinate, Quaternion.identity);
+			GameObject tower = Instantiate(Towers[0], cordinate, Quaternion.identity);
 
 		}
 
 		if (ActiveTower == 1)
 		{
 			ResetSelectedTower();
-			Instantiate(Towers[1], cordinate, Quaternion.identity);
-		}
+            GameObject tower = Instantiate(Towers[1], cordinate, Quaternion.identity);
+        }
 
 		if (ActiveTower == 2)
 		{
 			ResetSelectedTower();
-			Instantiate(Towers[2], cordinate, Quaternion.identity);
+            GameObject tower = Instantiate(Towers[2], cordinate, Quaternion.identity);
 		}
 
 		if (ActiveTower == 3)
 		{
 			ResetSelectedTower();
-			Instantiate(Towers[3], cordinate, Quaternion.identity);
+            GameObject tower = Instantiate(Towers[3], cordinate, Quaternion.identity);
 		}
 	}
 	public void PlaceHoloTower(Vector3 cordinate)

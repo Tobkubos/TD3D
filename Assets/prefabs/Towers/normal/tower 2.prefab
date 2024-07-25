@@ -171,13 +171,15 @@ MonoBehaviour:
   Type: Normal
   Damage: 6
   RotSpeed: 2
+  holo: 0
   Towers:
-  - {fileID: 919132149155446097, guid: c02e6cde83da64c4fba8382ad003c454, type: 3}
-  - {fileID: 919132149155446097, guid: cebd3a5908f8a19448b51d11ce5b6856, type: 3}
+  - {fileID: 5215382374816517577, guid: 2d1e816efcdc40f43ad2ebcaeeeddbac, type: 3}
+  - {fileID: 8584744030983468452, guid: 1aa0c769a3a2af94880fefb699add2ff, type: 3}
+  - {fileID: 6608506473331778474, guid: 8040fd5d19cc8b148bf10188c57b2535, type: 3}
   Bullet: {fileID: 7019720170624027536, guid: 171a1f28c0365f34e8b665b8599f6451, type: 3}
-  level: 1
+  level: 2
   ExpPS: {fileID: 8585175799612243974}
-  Cooldown: 0.165
+  Cooldown: 0.133
 --- !u!1 &5857700132478872097
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,8 +18,11 @@ public class GeneratorV2 : MonoBehaviour
 	private int x,z;
 	private int count = 1;
 	private int connCount = 1;
-	public int elevation = 0;
+	public float elevation = 0;
 	public GameObject Connector;
+
+
+	public Grid grid;
 	void Start()
     {
 		StartCoroutine(GenerateBigChunks());
@@ -33,7 +36,8 @@ public class GeneratorV2 : MonoBehaviour
 		for(int i =0; i<SizeOfMap; i++)
 		{
 			x = Random.Range(0, SizeOfMap);
-			GameObject first = Instantiate(BigChunkCheckPoint, new Vector3(x * 10, elevation, i * 10), Quaternion.identity);
+
+            GameObject first = Instantiate(BigChunkCheckPoint, new Vector3(x * 10, elevation, i * 10), Quaternion.identity);
 			BigChunkCheckPoints.Add(first);
 		}
 		

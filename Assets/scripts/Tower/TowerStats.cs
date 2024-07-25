@@ -13,6 +13,7 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] string Type;
 	[SerializeField] int Damage;
 	[SerializeField] float RotSpeed;
+	[SerializeField] bool holo;
 
 	[SerializeField] GameObject[] Towers;
 
@@ -55,8 +56,11 @@ public class TowerStats : MonoBehaviour
 	}
 	private void Start()
 	{
-		Setup(level);
-        nextShoot = Time.time + 3;
+		if (!holo)
+		{
+			Setup(level);
+			nextShoot = Time.time + 3;
+		}
 	}
 	public string GetName()
 	{
@@ -97,94 +101,116 @@ public class TowerStats : MonoBehaviour
 		EnemiesInRange.Remove(enemy);
 	}
 
-	private IEnumerator ShootingLEVEL2(Transform target)
+	private IEnumerator ShootingLEVEL23(Transform target)
 	{
-		Shoot(target);
+
+        ShootAnim.Rewind("shooting");
+        ShootAnim.Play("shooting");
+        foreach (AnimationState state in ShootAnim)
+        {
+            state.speed = 1;
+        }
+        Shoot(target);
 		counter--;
-
-		ShootAnim.Rewind("shooting");
-		ShootAnim.Play("shooting");
-		foreach (AnimationState state in ShootAnim)
-		{
-			state.speed = 1;
-		}
-
         yield return new WaitForSeconds(Cooldown);
 		Shoot(target);
 		counter--;
+        yield return new WaitForSeconds(Cooldown);
+        Shoot(target);
+        counter--;
     }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private void Update()
 	{
-		if (target == null)
+		if (!holo)
 		{
-			EnemiesInRange.Remove(target);
-		}
-
-		if (EnemiesInRange.Count > 0)
-		{
-			target = EnemiesInRange[0];
-			if (target != null)
+			if (target == null)
 			{
-				Vector3 direction = target.transform.position - Turret.transform.position;
-				direction.y = 0;
-				
-				if (direction != Vector3.zero)
+				EnemiesInRange.Remove(target);
+			}
+
+			if (EnemiesInRange.Count > 0)
+			{
+				target = EnemiesInRange[0];
+				if (target != null)
 				{
-					Quaternion targetRotation = Quaternion.LookRotation(direction);
-					transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
-					Debug.DrawRay(transform.position, direction, Color.red);
-					
-					if (Time.time > nextShoot)
+					Vector3 direction = target.transform.position - Turret.transform.position;
+					direction.y = 0;
+
+					if (direction != Vector3.zero)
 					{
-						nextShoot = Time.time + Cooldown;
+						Quaternion targetRotation = Quaternion.LookRotation(direction);
+						transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+						Debug.DrawRay(transform.position, direction, Color.red);
 
-						//
-						if (level == 0)
+						if (Time.time > nextShoot)
 						{
-                            Shoot(target.transform);
-                            Animation animComp = tower.GetComponent<Animation>();
-							animComp.Play("shooting");
-							foreach (AnimationState state in animComp)
+							nextShoot = Time.time + Cooldown;
+
+							//
+							if (level == 0)
 							{
-								state.speed = 1;
+								Shoot(target.transform);
+								Animation animComp = tower.GetComponent<Animation>();
+								animComp.Play("shooting");
+								foreach (AnimationState state in animComp)
+								{
+									state.speed = 1;
+								}
 							}
-						}
 
-                        if (level == 1 && counter == 0)
-                        {
-                            counter = 2;
-                            StartCoroutine(ShootingLEVEL2(target.transform));
+							if (level == 1 && counter == 0)
+							{
+								counter = 2;
+								StartCoroutine(ShootingLEVEL23(target.transform));
+							}
+
+                            if (level == 2 && counter == 0)
+                            {
+                                counter = 3;
+                                StartCoroutine(ShootingLEVEL23(target.transform));
+                            }
+                            //
                         }
-
-                        //
-                    }
+					}
 				}
 			}
-		}
 
-		if (ExpPS != null)
-		{
-			Debug.Log("Checking Experience: " + Experience + "/" + MaxExp);
-			if (Experience >= MaxExp)
+			if (ExpPS != null)
 			{
-				if (!ExpPS.isPlaying)
+				Debug.Log("Checking Experience: " + Experience + "/" + MaxExp);
+				if (Experience >= MaxExp)
 				{
-					Debug.Log("Playing Particle System");
-					ExpPS.Play();
+					if (!ExpPS.isPlaying)
+					{
+						Debug.Log("Playing Particle System");
+						ExpPS.Play();
+					}
+				}
+				else
+				{
+					if (ExpPS.isPlaying)
+					{
+						Debug.Log("Stopping Particle System");
+						ExpPS.Stop();
+					}
 				}
 			}
 			else
 			{
-				if (ExpPS.isPlaying)
-				{
-					Debug.Log("Stopping Particle System");
-					ExpPS.Stop();
-				}
+				Debug.LogWarning("ExpPS is not assigned in the Inspector");
 			}
-		}
-		else
-		{
-			Debug.LogWarning("ExpPS is not assigned in the Inspector");
 		}
 	}
 	private void Shoot(Transform target)

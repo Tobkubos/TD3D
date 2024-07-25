@@ -50,8 +50,16 @@ MonoBehaviour:
   Name: Crossbow
   Level: 1
   Experience: 0
+  MaxExp: 0
   Type: Normal
   Damage: 25
+  RotSpeed: 0
+  holo: 1
+  Towers: []
+  Bullet: {fileID: 0}
+  level: 2
+  ExpPS: {fileID: 0}
+  Cooldown: 1
 --- !u!114 &4379239658202719791
 MonoBehaviour:
   m_ObjectHideFlags: 0
