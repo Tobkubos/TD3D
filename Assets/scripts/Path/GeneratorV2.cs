@@ -137,13 +137,14 @@ public class GeneratorV2 : MonoBehaviour
 			GenConnections(i);
 		}
 
-		yield return new WaitForSeconds(0.3f);
+		yield return new WaitForSeconds(2f);
 		for (int q = 0; q < Path.Count; q++)
 		{
 			Path[q].GetComponent<ChunkReveal>().Generate();
 		}
 	
 	}
+
 	void GenConnections(int i)  //WYGENERUJ POLACZENIA MIEDZY CHUNKAMI
 	{
 		int xPrev = (int)Path[i - 1].transform.position.x;

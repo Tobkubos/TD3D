@@ -7,15 +7,21 @@ using UnityEngine;
 [RequireComponent(typeof(MeshCollider))]
 public class MeshGenerator : MonoBehaviour
 {
-	public int width = 15;
-	public int height = 15;
+	[SerializeField] int width = 0;
+ 	[SerializeField] int height = 0;
 
+
+	public void SetSize(int w, int h)
+	{
+		width = w;
+		height = h;
+	}
 	void Start()
 	{
-		GenerateMesh(0,0);
+		//GenerateMesh();
 	}
 
-	void GenerateMesh(int startX, int startY)
+	public void GenerateMesh()
 	{
 		Mesh mesh = new Mesh();
 		GetComponent<MeshFilter>().mesh = mesh;

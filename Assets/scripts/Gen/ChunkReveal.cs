@@ -19,21 +19,33 @@ public class ChunkReveal : MonoBehaviour
 	private int count = 1;
 	private int SortBy = 1;
 
-	private void OnTriggerEnter(Collider other)
+	IEnumerator OnTriggerEnter(Collider other)
 	{
+		bool isStart = false;
+		bool isEnd = false;
+
+		yield return new WaitForSeconds(1);
 		AllChunkObjects.Add(other.gameObject);
 		//other.gameObject.SetActive(false);
-		if (other.CompareTag("start"))
+		if (other.CompareTag("start") && !isStart)
 		{
-			//Debug.Log(other);
+			Debug.Log(other);
 			StartEnd[0] = (other.gameObject);
 			Destroy(other.GetComponent<Rigidbody>());
+			isStart = true;
 		}
 
-		if (other.CompareTag("end"))
+		if (other.CompareTag("end") && !isEnd)
 		{
+			Debug.Log(other);
 			StartEnd[1] = (other.gameObject);
 			Destroy(other.GetComponent<Rigidbody>());
+			isEnd = true;
+		}
+
+		if (isStart && isEnd)
+		{
+			Debug.Log("POCZATEK I KONIEC: " + StartEnd[0].name + StartEnd[1].name);
 		}
 	}
 	public void Reveal()
