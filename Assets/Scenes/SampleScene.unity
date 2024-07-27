@@ -2724,7 +2724,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719599386}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f806d7a19b8df34eaece1ef0eed61ce, type: 3}
   m_Name: 
@@ -2785,7 +2785,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719599386}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5db0e49939581ab4e92ca517d8c6ee8a, type: 3}
   m_Name: 
@@ -2795,7 +2795,7 @@ MonoBehaviour:
   BigChunkCheckPoint: {fileID: 1633336596311627984, guid: 718dc30a70682bc4ab82176a8d25eb1e, type: 3}
   elevation: 0
   Connector: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
-  chunkSize: 14
+  chunkSize: 7
   cordinate: {x: 0, y: 0, z: 0}
   grid: {fileID: 1719599393}
 --- !u!156049354 &1719599393
