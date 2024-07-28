@@ -154,7 +154,7 @@ public class GeneratorV3 : MonoBehaviour
             Vector3 vec = Path[q].transform.position;
             Vector3Int pos = grid.WorldToCell(vec);
             Debug.Log(Path[q].name + pos);
-            Path[q].GetComponent<ChunkReveal>().Generate();
+            Path[q].GetComponent<ChunkReveal2>().Generate();
         }
     }
 

@@ -19,6 +19,8 @@ public class ChunkReveal2 : MonoBehaviour
 	private int count = 1;
 	private int SortBy = 1;
 
+	private int chunkSize = 7;
+
 	IEnumerator OnTriggerEnter(Collider other)
 	{
 		bool isStart = false;
@@ -65,8 +67,10 @@ public class ChunkReveal2 : MonoBehaviour
 	{
 		while(CheckPoints.Count < 2) {
 
-			float x = Random.Range(-3, 3) + this.gameObject.transform.position.x;
-			float z = Random.Range(-3, 3) + this.gameObject.transform.position.z;
+			float x = Random.Range(0, chunkSize) + this.gameObject.transform.position.x;
+			float z = Random.Range(0, chunkSize) + this.gameObject.transform.position.z;
+
+
 
 			bool canPlace = true;
 			foreach (GameObject go in CheckPoints)
@@ -80,7 +84,7 @@ public class ChunkReveal2 : MonoBehaviour
 			}
 			if (canPlace)
 			{
-				GameObject temp = Instantiate(CheckPoint, new Vector3(x + 0.5f, elevation, z + 0.5f), Quaternion.identity);
+				GameObject temp = Instantiate(CheckPoint, new Vector3(x + 0.5f, elevation, z + 0.5f), Quaternion.identity, this.gameObject.transform);
 				temp.name = "CheckPoint" + count;
 				count++;
 				CheckPoints.Add(temp);
