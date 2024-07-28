@@ -153,7 +153,7 @@ public class GeneratorV3 : MonoBehaviour
         {
             Vector3 vec = Path[q].transform.position;
             Vector3Int pos = grid.WorldToCell(vec);
-            Debug.Log(Path[q].name + pos);
+            //Debug.Log(Path[q].name + pos);
             Path[q].GetComponent<ChunkReveal2>().Generate();
         }
     }
@@ -182,7 +182,7 @@ public class GeneratorV3 : MonoBehaviour
         int xAcc = ActualGridPos.x;
         int yAcc = ActualGridPos.z;
 
-        int Rand = Random.Range(0, chunkSize);
+        int Rand = Random.Range(0, chunkSize-1);
 
         if (xPrev < xAcc)
         {
@@ -236,7 +236,13 @@ public class GeneratorV3 : MonoBehaviour
             GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity);
             if (i == 1)
             {
-                GameObject cn3 = Instantiate(Connector, new Vector3(xPrev, elevation, yPrev - Rand), Quaternion.identity);
+
+                Vector3 ObjectSpawn3 = new Vector3(xPrev + chunkSize - 1, elevation, yPrev);
+                Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
+                Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
+
+
+                GameObject cn3 = Instantiate(Connector, cellCenterPosition3, Quaternion.identity);
                 cn3.name = "CONNECTOR " + connCount;
                 cn3.tag = "start";
                 connCount++;
@@ -252,6 +258,7 @@ public class GeneratorV3 : MonoBehaviour
             Connectors.Add(cn2);
             Connectors.Add(cn1);
 
+            /*
             if (i == Path.Count - 1)
             {
                 GameObject end = Instantiate(Connector, new Vector3(xAcc + 4.5f, elevation, yPrev - Rand - 0.5f), Quaternion.identity);
@@ -259,6 +266,7 @@ public class GeneratorV3 : MonoBehaviour
                 connCount++;
                 Connectors.Add(end);
             }
+            */
         }
 
         if (yPrev < yAcc)
@@ -278,7 +286,13 @@ public class GeneratorV3 : MonoBehaviour
 
             if (i == 1)
             {
-                GameObject cn3 = Instantiate(Connector, new Vector3(xPrev - Rand - 0.5f, elevation, yPrev - 4.5f), Quaternion.identity);
+
+                Vector3 ObjectSpawn3 = new Vector3(xPrev + Rand, elevation, yPrev);
+                Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
+                Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
+                // new Vector3(xPrev - Rand - 0.5f, elevation, yPrev - 4.5f)
+
+                GameObject cn3 = Instantiate(Connector, cellCenterPosition3, Quaternion.identity);
                 cn3.name = "CONNECTOR " + connCount;
                 cn3.tag = "start";
                 connCount++;
@@ -294,7 +308,12 @@ public class GeneratorV3 : MonoBehaviour
             Connectors.Add(cn2);
             if (i == Path.Count - 1)
             {
-                GameObject end = Instantiate(Connector, new Vector3(xPrev - Rand - 0.5f, elevation, yAcc + 4.5f), Quaternion.identity);
+                Vector3 ObjectSpawn3 = new Vector3(xAcc + Rand, elevation, yAcc + chunkSize -1);
+                Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
+                Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
+                // new Vector3(xPrev - Rand - 0.5f, elevation, yAcc + 4.5f)
+
+                GameObject end = Instantiate(Connector, cellCenterPosition3, Quaternion.identity);
                 end.name = "END ";
                 end.tag = "end";
                 connCount++;

@@ -19,7 +19,7 @@ public class ChunkReveal2 : MonoBehaviour
 	private int count = 1;
 	private int SortBy = 1;
 
-	private int chunkSize = 7;
+	public int chunkSize = 11;
 
 	IEnumerator OnTriggerEnter(Collider other)
 	{
@@ -31,16 +31,18 @@ public class ChunkReveal2 : MonoBehaviour
 		//other.gameObject.SetActive(false);
 		if (other.CompareTag("start") && !isStart)
 		{
-			Debug.Log(other);
-			StartEnd[0] = (other.gameObject);
+			//Debug.Log(other);
+            other.transform.SetParent(this.transform);
+            StartEnd[0] = (other.gameObject);
 			Destroy(other.GetComponent<Rigidbody>());
 			isStart = true;
 		}
 
 		if (other.CompareTag("end") && !isEnd)
 		{
-			Debug.Log(other);
-			StartEnd[1] = (other.gameObject);
+			//Debug.Log(other);
+            other.transform.SetParent(this.transform);
+            StartEnd[1] = (other.gameObject);
 			Destroy(other.GetComponent<Rigidbody>());
 			isEnd = true;
 		}
@@ -67,8 +69,8 @@ public class ChunkReveal2 : MonoBehaviour
 	{
 		while(CheckPoints.Count < 2) {
 
-			float x = Random.Range(0, chunkSize) + this.gameObject.transform.position.x;
-			float z = Random.Range(0, chunkSize) + this.gameObject.transform.position.z;
+			float x = Random.Range(1, chunkSize) + this.gameObject.transform.position.x;
+			float z = Random.Range(1, chunkSize) + this.gameObject.transform.position.z;
 
 
 
@@ -150,13 +152,13 @@ public class ChunkReveal2 : MonoBehaviour
 
 
 
-		Debug.Log(this.gameObject.name);
-		Debug.Log(SortBy);
+		//Debug.Log(this.gameObject.name);
+		Debug.Log(this.gameObject.name + " " + SortBy);
 		for (int i = 0; i<CheckPoints.Count; i++)
 		{
-			Debug.Log(CheckPoints[i].name);
+			//Debug.Log(CheckPoints[i].name);
 		}
-		Debug.Log("+++++++++++++++");
+		//Debug.Log("+++++++++++++++");
 
 		//SCAL
 		MonsterPath.Add(StartEnd[0]);
@@ -187,7 +189,7 @@ public class ChunkReveal2 : MonoBehaviour
 					{
 						for (float j = xPrev; j <= xAcc; j++)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yPrev), Quaternion.identity);
+							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yPrev), Quaternion.identity, this.gameObject.transform);
 							AllPathTiles.Add(temp);
 						}
 					}
@@ -195,7 +197,7 @@ public class ChunkReveal2 : MonoBehaviour
 					{
 						for (float j = xPrev; j >= xAcc; j--)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yPrev), Quaternion.identity);
+							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yPrev), Quaternion.identity, this.gameObject.transform);
 							AllPathTiles.Add(temp);
 						}
 					}
@@ -208,7 +210,7 @@ public class ChunkReveal2 : MonoBehaviour
 					{
 						for (float j = yPrev; j <= yAcc; j++)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(xAcc, elevation, j), Quaternion.identity);
+							GameObject temp = Instantiate(Path, new Vector3(xAcc, elevation, j), Quaternion.identity, this.gameObject.transform);
 							AllPathTiles.Add(temp);
 						}
 					}
@@ -216,7 +218,7 @@ public class ChunkReveal2 : MonoBehaviour
 					{
 						for (float j = yPrev; j >= yAcc; j--)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(xAcc, elevation, j), Quaternion.identity);
+							GameObject temp = Instantiate(Path, new Vector3(xAcc, elevation, j), Quaternion.identity, this.gameObject.transform);
 							AllPathTiles.Add(temp);
 						}
 					}
@@ -233,7 +235,7 @@ public class ChunkReveal2 : MonoBehaviour
 					{
 						for (float j = yPrev; j <= yAcc; j++)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(xPrev, elevation, j), Quaternion.identity);
+							GameObject temp = Instantiate(Path, new Vector3(xPrev, elevation, j), Quaternion.identity, this.gameObject.transform);
 							AllPathTiles.Add(temp);
 						}
 					}
@@ -241,7 +243,7 @@ public class ChunkReveal2 : MonoBehaviour
 					{
 						for (float j = yPrev; j >= yAcc; j--)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(xPrev, elevation, j), Quaternion.identity);
+							GameObject temp = Instantiate(Path, new Vector3(xPrev, elevation, j), Quaternion.identity, this.gameObject.transform);
 							AllPathTiles.Add(temp);
 						}
 					}
@@ -254,7 +256,7 @@ public class ChunkReveal2 : MonoBehaviour
 					{
 						for (float j = xPrev; j <= xAcc; j++)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yAcc), Quaternion.identity);
+							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yAcc), Quaternion.identity, this.gameObject.transform);
 							AllPathTiles.Add(temp);
 						}
 					}
@@ -262,7 +264,7 @@ public class ChunkReveal2 : MonoBehaviour
 					{
 						for (float j = xPrev; j >= xAcc; j--)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yAcc), Quaternion.identity);
+							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yAcc), Quaternion.identity, this.gameObject.transform);
 							AllPathTiles.Add(temp);
 						}
 					}

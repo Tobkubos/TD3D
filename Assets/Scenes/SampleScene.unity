@@ -885,7 +885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &743215968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1627,7 +1627,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.43927756, y: 0.3366587, z: -0.18195473, w: 0.812766}
-  m_LocalPosition: {x: -0.4, y: 0, z: 0.7}
+  m_LocalPosition: {x: 33, y: 0, z: 23.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2359,7 +2359,7 @@ RectTransform:
   m_Father: {fileID: 47504261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.6666667, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2795,7 +2795,7 @@ MonoBehaviour:
   BigChunkCheckPoint: {fileID: 1633336596311627984, guid: 718dc30a70682bc4ab82176a8d25eb1e, type: 3}
   elevation: 0
   Connector: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
-  chunkSize: 7
+  chunkSize: 11
   cordinate: {x: 0, y: 0, z: 0}
   grid: {fileID: 1719599393}
 --- !u!156049354 &1719599393
