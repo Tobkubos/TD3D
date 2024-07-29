@@ -16,6 +16,7 @@ public class GeneratorV3 : MonoBehaviour
 	public GameObject MonsterPath;
 	public GameObject Checkpoint;
 	public GameObject BigChunkCheckPoint;
+
 	private int SizeOfMap =5 ;
 	private int x,z;
 	private int count = 1;
@@ -154,6 +155,7 @@ public class GeneratorV3 : MonoBehaviour
             Vector3 vec = Path[q].transform.position;
             Vector3Int pos = grid.WorldToCell(vec);
             //Debug.Log(Path[q].name + pos);
+            Path[q].GetComponent<ChunkReveal2>().SetChunkSize(chunkSize);
             Path[q].GetComponent<ChunkReveal2>().Generate();
         }
     }
@@ -182,7 +184,7 @@ public class GeneratorV3 : MonoBehaviour
         int xAcc = ActualGridPos.x;
         int yAcc = ActualGridPos.z;
 
-        int Rand = Random.Range(0, chunkSize-1);
+        int Rand = Random.Range(1, chunkSize-1);
 
         if (xPrev < xAcc)
         {

@@ -19,12 +19,20 @@ public class ChunkReveal2 : MonoBehaviour
 	private int count = 1;
 	private int SortBy = 1;
 
-	public int chunkSize = 11;
+	private int chunkSize = 11;
 
-	IEnumerator OnTriggerEnter(Collider other)
+
+    bool isStart = false;
+    bool isEnd = false;
+
+	public void SetChunkSize(int size)
 	{
-		bool isStart = false;
-		bool isEnd = false;
+		chunkSize = size;
+	}
+
+    IEnumerator OnTriggerEnter(Collider other)
+	{
+
 
 		yield return new WaitForSeconds(1);
 		AllChunkObjects.Add(other.gameObject);
@@ -47,12 +55,19 @@ public class ChunkReveal2 : MonoBehaviour
 			isEnd = true;
 		}
 
-		if (isStart && isEnd)
-		{
-			Debug.Log("POCZATEK I KONIEC: " + StartEnd[0].name + StartEnd[1].name);
-		}
 	}
-	public void Reveal()
+
+    private void Update()
+    {
+		/*
+        if (isStart && isEnd)
+        {
+            Debug.Log("POCZATEK I KONIEC: " + StartEnd[0].name + StartEnd[1].name);
+        }
+		isStart = false;
+		*/
+    }
+    public void Reveal()
 	{
 		foreach(GameObject ob in AllChunkObjects)
 		{
@@ -67,205 +82,223 @@ public class ChunkReveal2 : MonoBehaviour
 
 	public void Generate()
 	{
-		while(CheckPoints.Count < 2) {
-
-			float x = Random.Range(1, chunkSize) + this.gameObject.transform.position.x;
-			float z = Random.Range(1, chunkSize) + this.gameObject.transform.position.z;
-
-
-
-			bool canPlace = true;
-			foreach (GameObject go in CheckPoints)
+		if (chunkSize != 0)
+		{
+			while (CheckPoints.Count < 2)
 			{
-				float goX = go.transform.position.x;
-				float goZ = go.transform.position.z;
-				if ((goX < x + PD && goX > x - PD) || (goZ < z + PD && goZ > z - PD))
+
+				float x = Random.Range(2, chunkSize - 2) + this.gameObject.transform.position.x;
+				float z = Random.Range(2, chunkSize - 2) + this.gameObject.transform.position.z;
+
+
+
+				bool canPlace = true;
+				foreach (GameObject go in CheckPoints)
 				{
-					canPlace = false;
+					float goX = go.transform.position.x;
+					float goZ = go.transform.position.z;
+					if ((goX < x + PD && goX > x - PD) || (goZ < z + PD && goZ > z - PD))
+					{
+						canPlace = false;
+					}
+				}
+				if (canPlace)
+				{
+					GameObject temp = Instantiate(CheckPoint, new Vector3(x + 0.5f, elevation, z + 0.5f), Quaternion.identity, this.gameObject.transform);
+					temp.name = "CheckPoint" + count;
+					count++;
+					CheckPoints.Add(temp);
 				}
 			}
-			if (canPlace)
-			{
-				GameObject temp = Instantiate(CheckPoint, new Vector3(x + 0.5f, elevation, z + 0.5f), Quaternion.identity, this.gameObject.transform);
-				temp.name = "CheckPoint" + count;
-				count++;
-				CheckPoints.Add(temp);
-			}
-		}
-		//POSORTUJ
-		float startX = StartEnd[0].transform.position.x;
-		float endX = StartEnd[1].transform.position.x;
+			//POSORTUJ
+			float startX = StartEnd[0].transform.localPosition.x;
+			float endX = StartEnd[1].transform.localPosition.x;
 
-		float startZ = StartEnd[0].transform.position.z;
-		float endZ = StartEnd[1].transform.position.z;
-		
-		if (Mathf.Abs( startX - endX )== 9)
-		{
-			if (startX > endX)
+			float startZ = StartEnd[0].transform.localPosition.z;
+			float endZ = StartEnd[1].transform.localPosition.z;
+
+
+
+			if (Mathf.Abs(startX - endX) == chunkSize - 1)
 			{
+				if (startX > endX)
+				{
+					CheckPoints = CheckPoints.OrderByDescending(go => go.transform.position.x).ToList();
+				}
+				else
+				{
+					CheckPoints = CheckPoints.OrderBy(go => go.transform.position.x).ToList();
+				}
+				SortBy = 0;
+			}
+			else if (Mathf.Abs(startZ - endZ) == chunkSize - 1)
+			{
+				if (startZ > endZ)
+				{
+					CheckPoints = CheckPoints.OrderByDescending(go => go.transform.position.z).ToList();
+				}
+				else
+				{
+					CheckPoints = CheckPoints.OrderBy(go => go.transform.position.z).ToList();
+				}
+				SortBy = 0;
+			}
+
+
+			else if (startZ == 0.5f && endX == 0.5f)
+			{
+				// START NA DOLE, END NA LEWO
+				// ZAKRÊT Z DO£U DO LEWEJ
 				CheckPoints = CheckPoints.OrderByDescending(go => go.transform.position.x).ToList();
+				SortBy = 0;
 			}
-			else
+
+			else if (startX == chunkSize - 0.5f && endZ == chunkSize - 0.5f)
 			{
-				CheckPoints = CheckPoints.OrderBy(go => go.transform.position.x).ToList();
-			}
-			SortBy = 0;
-		}
-		else if(Mathf.Abs(startZ - endZ) == 9)
-		{
-			if (startZ > endZ)
-			{
-				CheckPoints = CheckPoints.OrderByDescending(go => go.transform.position.z).ToList();
-			}
-			else
-			{
+				// START NA PRAWO, END NA GÓRZE
+				// ZAKRÊT Z PRAWEJ DO GÓRY
 				CheckPoints = CheckPoints.OrderBy(go => go.transform.position.z).ToList();
+				SortBy = 1;
 			}
-			SortBy = 0;
-		}
 
-		
-		else if(startX > endX && startZ < endZ && endX %10f == 5.5f)
-		{
-			CheckPoints = CheckPoints.OrderByDescending(go => go.transform.position.x).ToList();
-			SortBy = 0;
-		}
-		else if (startX > endX && startZ < endZ && endZ % 10f == 4.5f)
-		{
-			CheckPoints = CheckPoints.OrderBy(go => go.transform.position.z).ToList();
-			SortBy = 1;
-		}
-		else if (startX < endX && startZ < endZ && endZ % 10f == 4.5f)
-		{
-			CheckPoints = CheckPoints.OrderBy(go => go.transform.position.z).ToList();
-			SortBy = 1;
-		}
-		else if (startX < endX && startZ < endZ && endX % 10f == 4.5f)
-		{
-			CheckPoints = CheckPoints.OrderBy(go => go.transform.position.x).ToList();
-			SortBy = 0;
-		}
-		else
-		{
-			SortBy = 3;
-		}
-
-
-
-		//Debug.Log(this.gameObject.name);
-		Debug.Log(this.gameObject.name + " " + SortBy);
-		for (int i = 0; i<CheckPoints.Count; i++)
-		{
-			//Debug.Log(CheckPoints[i].name);
-		}
-		//Debug.Log("+++++++++++++++");
-
-		//SCAL
-		MonsterPath.Add(StartEnd[0]);
-		for(int i = 0; i<CheckPoints.Count; i++)
-		{
-			MonsterPath.Add(CheckPoints[i]);
-		}
-		MonsterPath.Add(StartEnd[1]);
-
-		//GENERATOR DROGI MOBÓW
-		for (int i = 1; i < MonsterPath.Count; i++)
-		{
-			float xPrev = MonsterPath[i - 1].transform.position.x;
-			float xAcc = MonsterPath[i].transform.position.x;
-
-			float yPrev = MonsterPath[i - 1].transform.position.z;
-			float yAcc = MonsterPath[i].transform.position.z;
-
-			float DistX = xAcc - xPrev;
-			float DistY = yAcc - yPrev;
-
-
-			if(SortBy == 0)
+			else if (startX == 0.5f && endZ == chunkSize - 0.5f)
 			{
-				if (xAcc != xPrev)
-				{
-					if (xAcc > xPrev)
-					{
-						for (float j = xPrev; j <= xAcc; j++)
-						{
-							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yPrev), Quaternion.identity, this.gameObject.transform);
-							AllPathTiles.Add(temp);
-						}
-					}
-					else
-					{
-						for (float j = xPrev; j >= xAcc; j--)
-						{
-							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yPrev), Quaternion.identity, this.gameObject.transform);
-							AllPathTiles.Add(temp);
-						}
-					}
-				}
-
-				// Now handle the Y-axis
-				if (yAcc != yPrev)
-				{
-					if (yAcc > yPrev)
-					{
-						for (float j = yPrev; j <= yAcc; j++)
-						{
-							GameObject temp = Instantiate(Path, new Vector3(xAcc, elevation, j), Quaternion.identity, this.gameObject.transform);
-							AllPathTiles.Add(temp);
-						}
-					}
-					else
-					{
-						for (float j = yPrev; j >= yAcc; j--)
-						{
-							GameObject temp = Instantiate(Path, new Vector3(xAcc, elevation, j), Quaternion.identity, this.gameObject.transform);
-							AllPathTiles.Add(temp);
-						}
-					}
-				}
+				// START NA LEWO, END NA GÓRZE
+				// ZAKRÊT Z LEWEJ DO GÓRY
+				CheckPoints = CheckPoints.OrderBy(go => go.transform.position.z).ToList();
+				SortBy = 1;
 			}
-		
 
-			if (SortBy == 1)
+			else if (startZ == 0.5f && endX == chunkSize - 0.5f)
 			{
-				// First handle the Y-axis
-				if (yAcc != yPrev)
+				// START NA DOLE, END NA PRAWO
+				// ZAKRÊT Z DO£U DO PRAWEJ
+				CheckPoints = CheckPoints.OrderBy(go => go.transform.position.x).ToList();
+				SortBy = 0;
+			}
+
+			else
+			{
+				SortBy = 3;
+			}
+
+			Debug.Log(StartEnd[0].name + " sX: " + startX + " sZ: " + startZ + "    " + StartEnd[1].name + " eX: " + endX + " eZ: " + endZ + "SORTBY: " + SortBy);
+
+			//Debug.Log(this.gameObject.name);
+			//Debug.Log(this.gameObject.name + " " + SortBy);
+			for (int i = 0; i < CheckPoints.Count; i++)
+			{
+				//Debug.Log(CheckPoints[i].name);
+			}
+			//Debug.Log("+++++++++++++++");
+
+			//SCAL
+			MonsterPath.Add(StartEnd[0]);
+			for (int i = 0; i < CheckPoints.Count; i++)
+			{
+				MonsterPath.Add(CheckPoints[i]);
+			}
+			MonsterPath.Add(StartEnd[1]);
+
+			//GENERATOR DROGI MOBÓW
+			for (int i = 1; i < MonsterPath.Count; i++)
+			{
+				float xPrev = MonsterPath[i - 1].transform.position.x;
+				float xAcc = MonsterPath[i].transform.position.x;
+
+				float yPrev = MonsterPath[i - 1].transform.position.z;
+				float yAcc = MonsterPath[i].transform.position.z;
+
+				float DistX = xAcc - xPrev;
+				float DistY = yAcc - yPrev;
+
+
+				if (SortBy == 0)
 				{
-					if (yAcc > yPrev)
+					if (xAcc != xPrev)
 					{
-						for (float j = yPrev; j <= yAcc; j++)
+						if (xAcc > xPrev)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(xPrev, elevation, j), Quaternion.identity, this.gameObject.transform);
-							AllPathTiles.Add(temp);
+							for (float j = xPrev; j <= xAcc; j++)
+							{
+								GameObject temp = Instantiate(Path, new Vector3(j, elevation, yPrev), Quaternion.identity, this.gameObject.transform);
+								AllPathTiles.Add(temp);
+							}
+						}
+						else
+						{
+							for (float j = xPrev; j >= xAcc; j--)
+							{
+								GameObject temp = Instantiate(Path, new Vector3(j, elevation, yPrev), Quaternion.identity, this.gameObject.transform);
+								AllPathTiles.Add(temp);
+							}
 						}
 					}
-					else
+
+					// Now handle the Y-axis
+					if (yAcc != yPrev)
 					{
-						for (float j = yPrev; j >= yAcc; j--)
+						if (yAcc > yPrev)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(xPrev, elevation, j), Quaternion.identity, this.gameObject.transform);
-							AllPathTiles.Add(temp);
+							for (float j = yPrev; j <= yAcc; j++)
+							{
+								GameObject temp = Instantiate(Path, new Vector3(xAcc, elevation, j), Quaternion.identity, this.gameObject.transform);
+								AllPathTiles.Add(temp);
+							}
+						}
+						else
+						{
+							for (float j = yPrev; j >= yAcc; j--)
+							{
+								GameObject temp = Instantiate(Path, new Vector3(xAcc, elevation, j), Quaternion.identity, this.gameObject.transform);
+								AllPathTiles.Add(temp);
+							}
 						}
 					}
 				}
 
-				// Now handle the X-axis
-				if (xAcc != xPrev)
+
+				if (SortBy == 1)
 				{
-					if (xAcc > xPrev)
+					// First handle the Y-axis
+					if (yAcc != yPrev)
 					{
-						for (float j = xPrev; j <= xAcc; j++)
+						if (yAcc > yPrev)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yAcc), Quaternion.identity, this.gameObject.transform);
-							AllPathTiles.Add(temp);
+							for (float j = yPrev; j <= yAcc; j++)
+							{
+								GameObject temp = Instantiate(Path, new Vector3(xPrev, elevation, j), Quaternion.identity, this.gameObject.transform);
+								AllPathTiles.Add(temp);
+							}
+						}
+						else
+						{
+							for (float j = yPrev; j >= yAcc; j--)
+							{
+								GameObject temp = Instantiate(Path, new Vector3(xPrev, elevation, j), Quaternion.identity, this.gameObject.transform);
+								AllPathTiles.Add(temp);
+							}
 						}
 					}
-					else
+
+					// Now handle the X-axis
+					if (xAcc != xPrev)
 					{
-						for (float j = xPrev; j >= xAcc; j--)
+						if (xAcc > xPrev)
 						{
-							GameObject temp = Instantiate(Path, new Vector3(j, elevation, yAcc), Quaternion.identity, this.gameObject.transform);
-							AllPathTiles.Add(temp);
+							for (float j = xPrev; j <= xAcc; j++)
+							{
+								GameObject temp = Instantiate(Path, new Vector3(j, elevation, yAcc), Quaternion.identity, this.gameObject.transform);
+								AllPathTiles.Add(temp);
+							}
+						}
+						else
+						{
+							for (float j = xPrev; j >= xAcc; j--)
+							{
+								GameObject temp = Instantiate(Path, new Vector3(j, elevation, yAcc), Quaternion.identity, this.gameObject.transform);
+								AllPathTiles.Add(temp);
+							}
 						}
 					}
 				}
