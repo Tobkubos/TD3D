@@ -149,4 +149,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CheckPoint: {fileID: 3998032376701469053, guid: a8c7fd80ba651f7419419c5ec71c1dfa, type: 3}
   Path: {fileID: 3998032376701469053, guid: 7e4d79b68034c8847bb90def72a30167, type: 3}
-  chunkSize: 15
