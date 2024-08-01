@@ -2474,6 +2474,7 @@ GameObject:
   - component: {fileID: 1719599389}
   - component: {fileID: 1719599390}
   - component: {fileID: 1719599392}
+  - component: {fileID: 1719599395}
   - component: {fileID: 1719599393}
   - component: {fileID: 1719599394}
   m_Layer: 0
@@ -2566,7 +2567,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719599386}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5db0e49939581ab4e92ca517d8c6ee8a, type: 3}
   m_Name: 
@@ -2620,6 +2621,25 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 01f6884c0f97a2742823c16f5bbe5987, type: 2}
   m_BuildHeightMesh: 0
+--- !u!114 &1719599395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719599386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0feddbbe8c238ac439e2dcd3376bc327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChunkCheckPoint: {fileID: 1633336596311627984, guid: 718dc30a70682bc4ab82176a8d25eb1e, type: 3}
+  EmptyChunk: {fileID: 1633336596311627984, guid: 333580ca541f95e45a7c3eae7fb765c4, type: 3}
+  Spawner: {fileID: 6519015125850184943, guid: 5df13a226be8bc341bf21c5c61a626a6, type: 3}
+  Connector: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
+  grid: {fileID: 1719599393}
+  SizeOfMap: 5
+  chunkSize: 10
 --- !u!1 &1740053365
 GameObject:
   m_ObjectHideFlags: 0

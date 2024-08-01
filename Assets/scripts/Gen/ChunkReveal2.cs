@@ -52,7 +52,7 @@ public class ChunkReveal2 : MonoBehaviour
 			Destroy(other.GetComponent<Rigidbody>());
 			isEnd = true;
 		}
-	}
+    }
 	/*
     public void Reveal()
 	{
