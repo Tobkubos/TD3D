@@ -169,7 +169,7 @@ MonoBehaviour:
   Experience: 0
   MaxExp: 100
   Type: Normal
-  Damage: 6
+  Damage: 2
   RotSpeed: 2
   holo: 0
   Towers:

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyInfo : MonoBehaviour
 {
-	public int hp;
+	[SerializeField] int hp;
 	public int speed;
 	public int defence;
 	public int cash;
