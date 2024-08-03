@@ -32,24 +32,34 @@ public class GeneratorV4 : MonoBehaviour
 	private int connCount = 1;
 	private float elevation = 0;
     private Vector3 cordinate;
+
+
+    private int index = 0;
 	void Start()
     {
         for (int i = 0; i < SizeOfMap; i++)
         {
-            for(int j = 0; j < SizeOfMap; j++)
+            for (int j = 0; j < SizeOfMap; j++)
             {
                 GameObject EmptyCh = Instantiate(EmptyChunk, new Vector3(i * (chunkSize + 1), elevation, j * (chunkSize + 1)), Quaternion.identity);
                 EmptyCh.GetComponent<MeshGenerator>().SetSize(chunkSize, chunkSize);
                 EmptyCh.GetComponent<MeshGenerator>().GenerateMesh();
             }
         }
-        StartCoroutine(GenerateChunks());
+
+
+
+      GenerateChunks();
+
+        
 	}
 	public void Reset2()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-	}
-	private IEnumerator GenerateChunks()
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(Chunk[index].GetComponent<ChunkReveal2>().BuyChunk());
+        index++;
+    }
+	private void GenerateChunks()
 	{
 
         //generowanie punktów zaczepenia chunków
@@ -145,15 +155,24 @@ public class GeneratorV4 : MonoBehaviour
         }
         ChunkCheckPoints = new List<GameObject> { };     //WYZERUJ W RAZIE CZEGO
 
-        for (int i = 1; i < Chunk.Count; i++)        //NA PODSTAWIE STWORZONEJ TRASY ZROB MIEJCA GDZIE CHUNKI BEDA POLACZONE ZE SOBA
+        for(int i = 0;  i < Chunk.Count; i++)
         {
-            GenConnections(i);
+            if (i+1 < Chunk.Count)
+            {
+                GenConnections(i + 1);
+            }
+            Chunk[i].GetComponent<ChunkReveal2>().SetChunkSize(chunkSize);
+            Chunk[i].GetComponent<ChunkReveal2>().Generate();
+        }
+        
+        gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();
+
+        for (int i = 0; i < Chunk.Count; i++)
+        {
+            Chunk[i].GetComponent<ChunkReveal2>().Disappear();
         }
 
 
-        StartCoroutine(ChunkPathGeneration());
-        yield return new WaitForSeconds(3);
-        gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();
         Connectors[0].GetComponent<Spawner>().enemy.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count-1];
         Connectors[0].GetComponent<Spawner>().enabled = true;
     }
@@ -161,153 +180,157 @@ public class GeneratorV4 : MonoBehaviour
     /// ////////////
     void GenConnections(int i)  //WYGENERUJ POLACZENIA MIEDZY CHUNKAMI
     {
-        Vector3 Previous = Chunk[i-1].transform.position; 
-        Vector3 Actual = Chunk[i].transform.position;
 
-        Vector3Int PreviousGridPos = grid.WorldToCell(Previous);
-        Vector3Int ActualGridPos = grid.WorldToCell(Actual);
+            Vector3 Previous = Chunk[i - 1].transform.position;
+            Vector3 Actual = Chunk[i].transform.position;
 
-        int xPrev = PreviousGridPos.x;
-        int zPrev = PreviousGridPos.z;
+            Vector3Int PreviousGridPos = grid.WorldToCell(Previous);
+            Vector3Int ActualGridPos = grid.WorldToCell(Actual);
 
-        int xAct = ActualGridPos.x;
-        int zAct = ActualGridPos.z;
+            int xPrev = PreviousGridPos.x;
+            int zPrev = PreviousGridPos.z;
 
-        int Rand = Random.Range(1, chunkSize-1);
+            int xAct = ActualGridPos.x;
+            int zAct = ActualGridPos.z;
 
-        if (xPrev < xAct)
-        {
-            Vector3 ObjectSpawn1 = new Vector3(xPrev + chunkSize-1, elevation, zPrev + Rand);
-            Vector3 ObjectSpawn2 = new Vector3(xPrev + chunkSize+1, elevation, zPrev + Rand );
+            int Rand = Random.Range(1, chunkSize - 1);
 
-            Vector3Int a1 = grid.WorldToCell(ObjectSpawn1);
-            Vector3Int a2 = grid.WorldToCell(ObjectSpawn2);
-
-            Vector3 cellCenterPosition1 = grid.GetCellCenterWorld(a1);
-            Vector3 cellCenterPosition2 = grid.GetCellCenterWorld(a2);
-
-            GameObject cn1 = Instantiate(Connector, cellCenterPosition1, Quaternion.identity);
-            GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity);
-
-            if (i == 1)
+            if (xPrev < xAct)
             {
-                Vector3 ObjectSpawn3 = new Vector3(xPrev, elevation, zPrev + Rand);
-                Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
-                Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
+                Vector3 ObjectSpawn1 = new Vector3(xPrev + chunkSize - 1, elevation, zPrev + Rand);
+                Vector3 ObjectSpawn2 = new Vector3(xPrev + chunkSize + 1, elevation, zPrev + Rand);
 
-                GameObject cn3 = Instantiate(Spawner, cellCenterPosition3, Quaternion.identity);
-                cn3.name = "CONNECTOR " + connCount;
-                cn3.tag = "start";
+                Vector3Int a1 = grid.WorldToCell(ObjectSpawn1);
+                Vector3Int a2 = grid.WorldToCell(ObjectSpawn2);
+
+                Vector3 cellCenterPosition1 = grid.GetCellCenterWorld(a1);
+                Vector3 cellCenterPosition2 = grid.GetCellCenterWorld(a2);
+
+                GameObject cn1 = Instantiate(Connector, cellCenterPosition1, Quaternion.identity, Chunk[i-1].transform);
+                Chunk[i-1].GetComponent<ChunkReveal2>().StartEnd[1] = cn1;
+                cn1.tag = "end";
+                GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity, Chunk[i].transform);
+                Chunk[i].GetComponent<ChunkReveal2>().StartEnd[0] = cn2;
+                cn2.tag = "start";
+
+                if (i == 1)
+                {
+                    Vector3 ObjectSpawn3 = new Vector3(xPrev, elevation, zPrev + Rand);
+                    Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
+                    Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
+
+                    GameObject cn3 = Instantiate(Spawner, cellCenterPosition3, Quaternion.identity, Chunk[i - 1].transform);
+                    Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[0] = cn3;
+                    cn3.name = "CONNECTOR " + connCount;
+                    cn3.tag = "start";
+                    connCount++;
+                    Connectors.Add(cn3);
+                }
+
+                cn1.name = "CONNECTOR " + connCount;
+
                 connCount++;
-                Connectors.Add(cn3);
+                cn2.name = "CONNECTOR " + connCount;
+                connCount++;
+                Connectors.Add(cn1);
+                Connectors.Add(cn2);
             }
 
-            cn1.name = "CONNECTOR " + connCount;
-            cn1.tag = "end";
-            connCount++;
-            cn2.name = "CONNECTOR " + connCount;
-            cn2.tag = "start";
-            connCount++;
-            Connectors.Add(cn1);
-            Connectors.Add(cn2);
-        }
+            if (xPrev > xAct)
+            {
+                Vector3 ObjectSpawn1 = new Vector3(xAct + chunkSize - 1, elevation, zPrev + Rand);
+                Vector3 ObjectSpawn2 = new Vector3(xAct + chunkSize + 1, elevation, zPrev + Rand);
 
-        if (xPrev > xAct)
-        {
-            Vector3 ObjectSpawn1 = new Vector3(xAct + chunkSize - 1, elevation, zPrev + Rand);
-            Vector3 ObjectSpawn2 = new Vector3(xAct + chunkSize + 1, elevation, zPrev + Rand);
+                Vector3Int a1 = grid.WorldToCell(ObjectSpawn1);
+                Vector3Int a2 = grid.WorldToCell(ObjectSpawn2);
 
-            Vector3Int a1 = grid.WorldToCell(ObjectSpawn1);
-            Vector3Int a2 = grid.WorldToCell(ObjectSpawn2);
+                Vector3 cellCenterPosition1 = grid.GetCellCenterWorld(a1);
+                Vector3 cellCenterPosition2 = grid.GetCellCenterWorld(a2);
 
-            Vector3 cellCenterPosition1 = grid.GetCellCenterWorld(a1);
-            Vector3 cellCenterPosition2 = grid.GetCellCenterWorld(a2);
+                GameObject cn1 = Instantiate(Connector, cellCenterPosition1, Quaternion.identity, Chunk[i].transform);
+                Chunk[i].GetComponent<ChunkReveal2>().StartEnd[0] = cn1;
+                cn1.tag = "start";
+                GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity, Chunk[i - 1].transform);
+                Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[1] = cn2;
+                cn2.tag = "end";
 
-            GameObject cn1 = Instantiate(Connector, cellCenterPosition1, Quaternion.identity);
-            GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity);
-            if (i == 1)
+                if (i == 1)
+                {
+
+                    Vector3 ObjectSpawn3 = new Vector3(xPrev + chunkSize - 1, elevation, zPrev);
+                    Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
+                    Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
+
+                    GameObject cn3 = Instantiate(Spawner, cellCenterPosition3, Quaternion.identity, Chunk[i - 1].transform);
+                    Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[0] = cn3;
+                    cn3.name = "CONNECTOR " + connCount;
+                    cn3.tag = "start";
+                    connCount++;
+                    Connectors.Add(cn3);
+                }
+                cn2.name = "CONNECTOR " + connCount;
+                connCount++;
+                cn1.name = "CONNECTOR " + connCount;
+                connCount++;
+
+                Connectors.Add(cn2);
+                Connectors.Add(cn1);
+            }
+
+            if (zPrev < zAct)
             {
 
-                Vector3 ObjectSpawn3 = new Vector3(xPrev + chunkSize - 1, elevation, zPrev);
-                Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
-                Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
+                Vector3 ObjectSpawn1 = new Vector3(xPrev + Rand, elevation, zPrev + chunkSize - 1);
+                Vector3 ObjectSpawn2 = new Vector3(xPrev + Rand, elevation, zPrev + chunkSize + 1);
 
+                Vector3Int a1 = grid.WorldToCell(ObjectSpawn1);
+                Vector3Int a2 = grid.WorldToCell(ObjectSpawn2);
 
-                GameObject cn3 = Instantiate(Spawner, cellCenterPosition3, Quaternion.identity);
-                cn3.name = "CONNECTOR " + connCount;
-                cn3.tag = "start";
+                Vector3 cellCenterPosition1 = grid.GetCellCenterWorld(a1);
+                Vector3 cellCenterPosition2 = grid.GetCellCenterWorld(a2);
+
+                GameObject cn1 = Instantiate(Connector, cellCenterPosition1, Quaternion.identity, Chunk[i - 1].transform);
+                Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[1] = cn1;
+                cn1.tag = "end";
+                GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity, Chunk[i].transform);
+                Chunk[i].GetComponent<ChunkReveal2>().StartEnd[0] = cn2;
+                cn2.tag = "start";
+
+                if (i == 1)
+                {
+
+                    Vector3 ObjectSpawn3 = new Vector3(xPrev + Rand, elevation, zPrev);
+                    Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
+                    Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
+
+                    GameObject cn3 = Instantiate(Spawner, cellCenterPosition3, Quaternion.identity, Chunk[i - 1].transform);
+                    Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[0] = cn3;
+                    cn3.name = "CONNECTOR " + connCount;
+                    cn3.tag = "start";
+                    connCount++;
+                    Connectors.Add(cn3);
+                }
+                cn1.name = "CONNECTOR " + connCount;
                 connCount++;
-                Connectors.Add(cn3);
-            }
-            cn2.name = "CONNECTOR " + connCount;
-            cn2.tag = "end";
-            connCount++;
-            cn1.name = "CONNECTOR " + connCount;
-            cn1.tag = "start";
-            connCount++;
-
-            Connectors.Add(cn2);
-            Connectors.Add(cn1);
-        }
-
-        if (zPrev < zAct)
-        {
-
-            Vector3 ObjectSpawn1 = new Vector3(xPrev + Rand, elevation, zPrev + chunkSize - 1);
-            Vector3 ObjectSpawn2 = new Vector3(xPrev + Rand, elevation, zPrev + chunkSize + 1);
-
-            Vector3Int a1 = grid.WorldToCell(ObjectSpawn1);
-            Vector3Int a2 = grid.WorldToCell(ObjectSpawn2);
-
-            Vector3 cellCenterPosition1 = grid.GetCellCenterWorld(a1);
-            Vector3 cellCenterPosition2 = grid.GetCellCenterWorld(a2);
-
-            GameObject cn1 = Instantiate(Connector, cellCenterPosition1, Quaternion.identity);
-            GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity);
-
-            if (i == 1)
-            {
-
-                Vector3 ObjectSpawn3 = new Vector3(xPrev + Rand, elevation, zPrev);
-                Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
-                Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
-
-                GameObject cn3 = Instantiate(Spawner, cellCenterPosition3, Quaternion.identity);
-                cn3.name = "CONNECTOR " + connCount;
-                cn3.tag = "start";
+                cn2.name = "CONNECTOR " + connCount;
                 connCount++;
-                Connectors.Add(cn3);
-            }
-            cn1.name = "CONNECTOR " + connCount;
-            cn1.tag = "end";
-            connCount++;
-            cn2.name = "CONNECTOR " + connCount;
-            cn2.tag = "start";
-            connCount++;
-            Connectors.Add(cn1);
-            Connectors.Add(cn2);
-            if (i == Chunk.Count - 1)
-            {
-                Vector3 ObjectSpawn3 = new Vector3(xAct + Rand, elevation, zAct + chunkSize -1);
-                Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
-                Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
+                Connectors.Add(cn1);
+                Connectors.Add(cn2);
+                if (i == Chunk.Count - 1)
+                {
+                    Vector3 ObjectSpawn3 = new Vector3(xAct + Rand, elevation, zAct + chunkSize - 1);
+                    Vector3Int a3 = grid.WorldToCell(ObjectSpawn3);
+                    Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
 
-                GameObject end = Instantiate(Connector, cellCenterPosition3, Quaternion.identity);
-                end.name = "END ";
-                end.tag = "end";
-                connCount++;
-                Connectors.Add(end);
+                    GameObject end = Instantiate(Connector, cellCenterPosition3, Quaternion.identity, Chunk[i].transform);
+                    Chunk[i].GetComponent<ChunkReveal2>().StartEnd[1] = end;
+                    end.name = "END ";
+                    end.tag = "end";
+                    connCount++;
+                    Connectors.Add(end);
+                }
             }
-        }
-    }
-    IEnumerator ChunkPathGeneration() //WYGENERUJ ŒCIE¯KI NA CHUNKACH
-    {
-        yield return new WaitForSeconds(2);
-        for (int q = 0; q < Chunk.Count; q++)
-        {
-            Chunk[q].GetComponent<ChunkReveal2>().SetChunkSize(chunkSize);
-            Chunk[q].GetComponent<ChunkReveal2>().Generate();
-        }
+        
     }
 }
 

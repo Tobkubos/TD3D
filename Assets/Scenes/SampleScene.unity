@@ -2477,6 +2477,7 @@ GameObject:
   - component: {fileID: 1719599395}
   - component: {fileID: 1719599393}
   - component: {fileID: 1719599394}
+  - component: {fileID: 1719599396}
   m_Layer: 0
   m_Name: manager
   m_TagString: Untagged
@@ -2640,6 +2641,21 @@ MonoBehaviour:
   grid: {fileID: 1719599393}
   SizeOfMap: 5
   chunkSize: 10
+--- !u!114 &1719599396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719599386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d06aaaecf508644a32ff4c68a66f4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainCamera: {fileID: 963194225}
+  sens: 0.01
+  zoom: 1
 --- !u!1 &1740053365
 GameObject:
   m_ObjectHideFlags: 0
@@ -2932,8 +2948,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1719599389}
-        m_TargetAssemblyTypeName: GeneratorV2, Assembly-CSharp
+      - m_Target: {fileID: 1719599395}
+        m_TargetAssemblyTypeName: GeneratorV4, Assembly-CSharp
         m_MethodName: Reset2
         m_Mode: 1
         m_Arguments:
