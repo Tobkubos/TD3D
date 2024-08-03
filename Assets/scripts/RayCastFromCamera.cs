@@ -81,7 +81,7 @@ public class RayCastFromCamera : MonoBehaviour
 
             if (hit.collider.CompareTag("chunk"))
 			{
-                //Debug.Log(gridPosition);
+                Debug.Log(gridPosition);
                 if (Input.GetMouseButtonDown(0))
 				{
 					PlaceTower(cordinate);

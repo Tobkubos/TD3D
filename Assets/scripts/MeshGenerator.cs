@@ -67,5 +67,7 @@ public class MeshGenerator : MonoBehaviour
 		MeshCollider meshCollider = GetComponent<MeshCollider>();
 		meshCollider.sharedMesh = null; // Usuniêcie aktualnej siatki z collidera
 		meshCollider.sharedMesh = mesh; // Ustawienie nowej siatki w colliderze
+
+		meshCollider.transform.localScale = new Vector3(1,0.1f,1);
 	}
 }

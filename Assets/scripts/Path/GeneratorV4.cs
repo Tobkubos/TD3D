@@ -28,7 +28,7 @@ public class GeneratorV4 : MonoBehaviour
     public int chunkSize = 5;          //wielkoœæ chunku
 
 	private int x,z;           
-	private int count = 1;
+	private int count = 0;
 	private int connCount = 1;
 	private float elevation = 0;
     private Vector3 cordinate;
@@ -46,12 +46,7 @@ public class GeneratorV4 : MonoBehaviour
                 EmptyCh.GetComponent<MeshGenerator>().GenerateMesh();
             }
         }
-
-
-
       GenerateChunks();
-
-        
 	}
 	public void Reset2()
 	{
@@ -94,6 +89,7 @@ public class GeneratorV4 : MonoBehaviour
                     GameObject temp = Instantiate(ChunkCheckPoint, new Vector3(j, elevation, zPrev), Quaternion.identity);
                     temp.GetComponent<MeshGenerator>().SetSize(chunkSize, chunkSize);
                     temp.GetComponent<MeshGenerator>().GenerateMesh();
+                    temp.GetComponent<ChunkReveal2>().index = count;
                     temp.name = "SCIEZKA" + count;
                     count++;
                     Chunk.Add(temp);

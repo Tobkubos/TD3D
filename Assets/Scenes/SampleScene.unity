@@ -2639,7 +2639,7 @@ MonoBehaviour:
   Spawner: {fileID: 6519015125850184943, guid: 5df13a226be8bc341bf21c5c61a626a6, type: 3}
   Connector: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
   grid: {fileID: 1719599393}
-  SizeOfMap: 5
+  SizeOfMap: 3
   chunkSize: 10
 --- !u!114 &1719599396
 MonoBehaviour:

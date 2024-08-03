@@ -9,6 +9,8 @@ public class ChunkReveal2 : MonoBehaviour
 {
 	public GameObject[] StartEnd = new GameObject[2];
 	List<GameObject> CheckPoints = new List<GameObject> { };
+	public int index = 0;
+
 
 	List<GameObject> MonsterPathCheckPoints = new List<GameObject> { };
 	List<GameObject> AllPathTiles = new List<GameObject> { };
@@ -20,7 +22,7 @@ public class ChunkReveal2 : MonoBehaviour
 	private int SortBy = 1;
 
 	private int chunkSize = 11;
-
+	private int numOfCheckPoints = 1;
 
     bool isStart = false;
     bool isEnd = false;
@@ -33,7 +35,7 @@ public class ChunkReveal2 : MonoBehaviour
 	{
 		if (chunkSize != 0 && StartEnd[0] != null && StartEnd[1] != null)
 		{
-			while (CheckPoints.Count < 2)
+			while (CheckPoints.Count < numOfCheckPoints)
 			{
 
 				float x = Random.Range(2, chunkSize - 2) + this.gameObject.transform.position.x;
@@ -55,11 +57,11 @@ public class ChunkReveal2 : MonoBehaviour
 					temp.name = "CheckPoint" + count;
 					count++;
 					CheckPoints.Add(temp);
-					AllPathTiles.Add(temp);
+					//AllPathTiles.Add(temp);
 				}
 			}
 
-            //POSORTUJ
+            //POSORTUJ I ZBUDUJ
             #region
             float startX = StartEnd[0].transform.localPosition.x;
 			float endX = StartEnd[1].transform.localPosition.x;
@@ -67,7 +69,7 @@ public class ChunkReveal2 : MonoBehaviour
 			float startZ = StartEnd[0].transform.localPosition.z;
 			float endZ = StartEnd[1].transform.localPosition.z;
 
-            //Dodatkowa droga na koñcu aby polacyc chunki
+            //Dodatkowy kawalek drogi dla mobów na koñcu aby polacyc chunki, (jakiœ taki most)
             float eX = StartEnd[1].transform.position.x;
             float eZ = StartEnd[1].transform.position.z;
 
@@ -291,6 +293,11 @@ public class ChunkReveal2 : MonoBehaviour
         {
             temp.gameObject.SetActive(false);
         }
+
+        foreach (GameObject temp in CheckPoints)
+        {
+            temp.gameObject.SetActive(false);
+        }
         StartEnd[0].SetActive(false);
         StartEnd[1].SetActive(false);
     }
@@ -304,7 +311,11 @@ public class ChunkReveal2 : MonoBehaviour
             temp.gameObject.SetActive(true);
 			temp.gameObject.GetComponent<SpawnAnim>().SpawnAnimation();
         }
-        StartEnd[0].SetActive(true);
+
+		if (index == 0) 
+		{ StartEnd[0].SetActive(true); 
+		}
+
         StartEnd[1].SetActive(true);
     }
 }
