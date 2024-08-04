@@ -16,6 +16,7 @@ public class ChunkReveal2 : MonoBehaviour
 	List<GameObject> AllPathTiles = new List<GameObject> { };
 	public GameObject CheckPoint;
 	public GameObject Path;
+	public GameObject BuyButton;
 	private float elevation = 0.1f;
 	private int PD = 2;
 	private int count = 1;
@@ -27,9 +28,10 @@ public class ChunkReveal2 : MonoBehaviour
     bool isStart = false;
     bool isEnd = false;
 
-	public void SetChunkSize(int size)
+    public void SetChunkSize(int size)
 	{
 		chunkSize = size;
+		BuyButton.transform.localPosition = new Vector3(size / 2, 1, size / 2);
 	}
 	public void Generate()
 	{
