@@ -32,7 +32,7 @@ public class ChunkReveal2 : MonoBehaviour
     public void SetChunkSize(int size)
 	{
 		chunkSize = size;
-        BuyButton.transform.localPosition = new Vector3(size / 2, elevation, size / 2);
+        //BuyButton.transform.localPosition = new Vector3(size / 2, elevation, size / 2);
 	}
 	public void Generate()
 	{
@@ -303,7 +303,6 @@ public class ChunkReveal2 : MonoBehaviour
         }
         StartEnd[0].SetActive(false);
         StartEnd[1].SetActive(false);
-		ChunkPlane.SetActive(true);
 		ChunkPlane.tag = "notBought";
     }
 	public void Buy()
@@ -312,8 +311,8 @@ public class ChunkReveal2 : MonoBehaviour
     }
 	public IEnumerator BuyChunk()
 	{
-		ChunkPlane.SetActive(true);
 		ChunkPlane.tag = "chunk";
+		Destroy(BuyButton);
 		if (index == 0) 
 		{ 
 			StartEnd[0].SetActive(true); 

@@ -74,8 +74,8 @@ public class GeneratorV4 : MonoBehaviour
                 if(isOnMap == false)
                 {
                     GameObject EmptyCh = Instantiate(EmptyChunk, checker, Quaternion.identity);
-                    EmptyCh.GetComponent<MeshGenerator>().SetSize(chunkSize, chunkSize);
-                    EmptyCh.GetComponent<MeshGenerator>().GenerateMesh();
+                    EmptyCh.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize, chunkSize);
+                    EmptyCh.GetComponentInChildren<MeshGenerator>().GenerateMesh();
                 }
             }
         }
@@ -212,8 +212,9 @@ public class GeneratorV4 : MonoBehaviour
         {
             Chunk[i].GetComponent<ChunkReveal2>().Disappear();
         }
-        
 
+        Chunk[0].GetComponent<ChunkReveal2>().Buy();
+        Chunk[0].GetComponent<ColorChanger>().ChangeCol();
         //Connectors[0].GetComponent<Spawner>().enemy.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count-1];
         //Connectors[0].GetComponent<Spawner>().enabled = true;
     }
