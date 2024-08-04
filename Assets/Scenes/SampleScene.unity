@@ -1550,7 +1550,7 @@ Camera:
   far clip plane: 1080.1
   field of view: 60
   orthographic: 1
-  orthographic size: 40
+  orthographic size: 25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2667,6 +2667,7 @@ MonoBehaviour:
   grid: {fileID: 1719599393}
   SizeOfMap: 3
   chunkSize: 9
+  Camera: {fileID: 963194227}
 --- !u!114 &1719599396
 MonoBehaviour:
   m_ObjectHideFlags: 0

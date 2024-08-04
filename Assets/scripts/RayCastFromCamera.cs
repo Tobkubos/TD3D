@@ -96,7 +96,8 @@ public class RayCastFromCamera : MonoBehaviour
 
 			if (hit.collider.CompareTag("tower"))
 			{
-				if (Input.GetMouseButtonDown(0))
+                temp.transform.position = cordinate;
+                if (Input.GetMouseButtonDown(0))
 				{
 					ts = hit.collider.gameObject.transform.Find("towerInfo").GetComponent<TowerStats>();
 					if (ts != null)

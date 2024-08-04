@@ -34,6 +34,7 @@ public class GeneratorV4 : MonoBehaviour
 	private float elevation = 0;
     private Vector3 cordinate;
 
+    public Camera Camera;
 
     private int index = 0;
     void Start()
@@ -215,8 +216,10 @@ public class GeneratorV4 : MonoBehaviour
 
         Chunk[0].GetComponent<ChunkReveal2>().Buy();
         Chunk[0].GetComponent<ColorChanger>().ChangeCol();
-        //Connectors[0].GetComponent<Spawner>().enemy.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count-1];
-        //Connectors[0].GetComponent<Spawner>().enabled = true;
+        Camera.transform.position = Chunk[0].transform.position + new Vector3(chunkSize/2,0,chunkSize/2);
+        Camera.orthographicSize = chunkSize;
+        Connectors[0].GetComponent<Spawner>().enemy.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count-1];
+        Connectors[0].GetComponent<Spawner>().enabled = true;
     }
 
     /// ////////////
