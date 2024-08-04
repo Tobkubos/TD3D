@@ -14,6 +14,8 @@ TagManager:
   - bullet
   - Tower2.1
   - stats
+  - notBought
+  - manager
   layers:
   - Default
   - TransparentFX

@@ -15,6 +15,7 @@ public class GeneratorV4 : MonoBehaviour
 	private List<GameObject> Chunk = new List<GameObject> { };                   
 	private List<GameObject> Connectors = new List<GameObject> { };
 
+
     private List<Vector3> map = new List<Vector3> { };
 
     public GameObject ChunkCheckPoint; //obiekt chunku z mesh generatorem
@@ -95,8 +96,8 @@ public class GeneratorV4 : MonoBehaviour
             Vector3 ve = new Vector3(x * (chunkSize + 1), elevation, i * (chunkSize + 1));
             map.Add(ve);
             GameObject first = Instantiate(ChunkCheckPoint, ve, Quaternion.identity);
-			first.GetComponent<MeshGenerator>().SetSize(chunkSize,chunkSize);
-			first.GetComponent<MeshGenerator>().GenerateMesh();
+			first.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize,chunkSize);
+			first.GetComponentInChildren<MeshGenerator>().GenerateMesh();
             ChunkCheckPoints.Add(first);
         }
 
@@ -122,8 +123,8 @@ public class GeneratorV4 : MonoBehaviour
                     Vector3 ve = new Vector3(j, elevation, zPrev);
                     map.Add(ve);
                     GameObject temp = Instantiate(ChunkCheckPoint, ve, Quaternion.identity);
-                    temp.GetComponent<MeshGenerator>().SetSize(chunkSize, chunkSize);
-                    temp.GetComponent<MeshGenerator>().GenerateMesh();
+                    temp.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize, chunkSize);
+                    temp.GetComponentInChildren<MeshGenerator>().GenerateMesh();
                     temp.GetComponent<ChunkReveal2>().index = count;
                     temp.name = "SCIEZKA" + count;
                     count++;
@@ -138,8 +139,8 @@ public class GeneratorV4 : MonoBehaviour
                     Vector3 ve = new Vector3(j, elevation, zPrev);
                     map.Add(ve);
                     GameObject temp = Instantiate(ChunkCheckPoint,ve , Quaternion.identity);
-                    temp.GetComponent<MeshGenerator>().SetSize(chunkSize, chunkSize);
-                    temp.GetComponent<MeshGenerator>().GenerateMesh();
+                    temp.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize, chunkSize);
+                    temp.GetComponentInChildren<MeshGenerator>().GenerateMesh();
                     temp.name = "SCIEZKA" + count;
                     count++;
                     Chunk.Add(temp);
@@ -153,8 +154,8 @@ public class GeneratorV4 : MonoBehaviour
                     Vector3 ve = new Vector3(xAct, elevation, j);
                     map.Add(ve);
                     GameObject temp = Instantiate(ChunkCheckPoint,ve, Quaternion.identity);
-                    temp.GetComponent<MeshGenerator>().SetSize(chunkSize, chunkSize);
-                    temp.GetComponent<MeshGenerator>().GenerateMesh();
+                    temp.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize, chunkSize);
+                    temp.GetComponentInChildren<MeshGenerator>().GenerateMesh();
                     temp.name = "SCIEZKA" + count;
                     count++;
                     Chunk.Add(temp);
@@ -168,8 +169,8 @@ public class GeneratorV4 : MonoBehaviour
                     Vector3 ve = new Vector3(xAct, elevation, j);
                     map.Add(ve);
                     GameObject temp = Instantiate(ChunkCheckPoint,ve , Quaternion.identity);
-                    temp.GetComponent<MeshGenerator>().SetSize(chunkSize, chunkSize);
-                    temp.GetComponent<MeshGenerator>().GenerateMesh();
+                    temp.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize, chunkSize);
+                    temp.GetComponentInChildren<MeshGenerator>().GenerateMesh();
                     temp.name = "SCIEZKA" + count;
                     count++;
                     Chunk.Add(temp);
@@ -182,8 +183,8 @@ public class GeneratorV4 : MonoBehaviour
         Vector3 vec = new Vector3(ChunkCheckPoints[ChunkCheckPoints.Count - 1].transform.position.x, elevation, ChunkCheckPoints[ChunkCheckPoints.Count - 1].transform.position.z);
         map.Add(vec);
         GameObject lastChunk = Instantiate(ChunkCheckPoint, vec, Quaternion.identity);
-        lastChunk.GetComponent<MeshGenerator>().SetSize(chunkSize, chunkSize);
-        lastChunk.GetComponent<MeshGenerator>().GenerateMesh();
+        lastChunk.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize, chunkSize);
+        lastChunk.GetComponentInChildren<MeshGenerator>().GenerateMesh();
         lastChunk.name = "SCIEZKA" + count;
         count++;
         Chunk.Add(lastChunk);
@@ -213,8 +214,8 @@ public class GeneratorV4 : MonoBehaviour
         }
         
 
-        Connectors[0].GetComponent<Spawner>().enemy.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count-1];
-        Connectors[0].GetComponent<Spawner>().enabled = true;
+        //Connectors[0].GetComponent<Spawner>().enemy.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count-1];
+        //Connectors[0].GetComponent<Spawner>().enabled = true;
     }
 
     /// ////////////

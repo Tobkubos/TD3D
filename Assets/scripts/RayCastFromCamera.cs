@@ -8,6 +8,10 @@ using static Unity.VisualScripting.Metadata;
 
 public class RayCastFromCamera : MonoBehaviour
 {
+	public int money;
+
+
+
 	public Camera camera;
 	public Grid grid;
 	public GameObject _tilePrefab;
@@ -70,17 +74,18 @@ public class RayCastFromCamera : MonoBehaviour
 		if (Physics.Raycast(ray, out hit))
 		{
 
-            Vector3 hitPoint = hit.point;
+			Vector3 hitPoint = hit.point;
 			Vector3Int gridPosition = grid.WorldToCell(hitPoint);
 			cordinate = grid.GetCellCenterWorld(gridPosition);
 			cordinate.y = 0f;
-			temp.transform.position = cordinate;
+			
 			PlaceHoloTower(cordinate);
 			
 
 
             if (hit.collider.CompareTag("chunk"))
 			{
+                temp.transform.position = cordinate;
                 Debug.Log(gridPosition);
                 if (Input.GetMouseButtonDown(0))
 				{

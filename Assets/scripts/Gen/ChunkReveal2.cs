@@ -17,6 +17,7 @@ public class ChunkReveal2 : MonoBehaviour
 	public GameObject CheckPoint;
 	public GameObject Path;
 	public GameObject BuyButton;
+	public GameObject ChunkPlane;
 	private float elevation = 0.1f;
 	private int PD = 2;
 	private int count = 1;
@@ -31,7 +32,7 @@ public class ChunkReveal2 : MonoBehaviour
     public void SetChunkSize(int size)
 	{
 		chunkSize = size;
-		BuyButton.transform.localPosition = new Vector3(size / 2, 1, size / 2);
+        BuyButton.transform.localPosition = new Vector3(size / 2, elevation, size / 2);
 	}
 	public void Generate()
 	{
@@ -302,10 +303,21 @@ public class ChunkReveal2 : MonoBehaviour
         }
         StartEnd[0].SetActive(false);
         StartEnd[1].SetActive(false);
+		ChunkPlane.SetActive(true);
+		ChunkPlane.tag = "notBought";
     }
-
+	public void Buy()
+	{
+        StartCoroutine(BuyChunk());
+    }
 	public IEnumerator BuyChunk()
 	{
+		ChunkPlane.SetActive(true);
+		ChunkPlane.tag = "chunk";
+		if (index == 0) 
+		{ 
+			StartEnd[0].SetActive(true); 
+		}
         foreach (GameObject temp in AllPathTiles)
         {
 			yield return new WaitForSeconds(0.1f);
@@ -313,11 +325,6 @@ public class ChunkReveal2 : MonoBehaviour
             temp.gameObject.SetActive(true);
 			temp.gameObject.GetComponent<SpawnAnim>().SpawnAnimation();
         }
-
-		if (index == 0) 
-		{ StartEnd[0].SetActive(true); 
-		}
-
         StartEnd[1].SetActive(true);
     }
 }

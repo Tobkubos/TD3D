@@ -2534,16 +2534,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1719599388}
-  - component: {fileID: 1719599389}
   - component: {fileID: 1719599390}
-  - component: {fileID: 1719599392}
   - component: {fileID: 1719599395}
   - component: {fileID: 1719599393}
   - component: {fileID: 1719599394}
   - component: {fileID: 1719599396}
   m_Layer: 0
   m_Name: manager
-  m_TagString: Untagged
+  m_TagString: manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2563,24 +2561,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1719599389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1719599386}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f806d7a19b8df34eaece1ef0eed61ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MonsterPath: {fileID: 3998032376701469053, guid: 7e4d79b68034c8847bb90def72a30167, type: 3}
-  Checkpoint: {fileID: 3998032376701469053, guid: a8c7fd80ba651f7419419c5ec71c1dfa, type: 3}
-  BigChunkCheckPoint: {fileID: 3644691480836125316, guid: 49c1d310d68758948acf921bee95284c, type: 3}
-  elevation: 0
-  Connector: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
-  grid: {fileID: 0}
 --- !u!114 &1719599390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2593,6 +2573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43195172fa2f8aa4f953c2c9ec134ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  money: 1521
   camera: {fileID: 963194227}
   grid: {fileID: 1719599393}
   _tilePrefab: {fileID: 3998032376701469053, guid: 6508d3981e45cc940a5548310dcc1641, type: 3}
@@ -2624,24 +2605,6 @@ MonoBehaviour:
   ActiveTower: -1
   Hologram: 0
   towerHolo: {fileID: 0}
---- !u!114 &1719599392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1719599386}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5db0e49939581ab4e92ca517d8c6ee8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ChunkCheckPoint: {fileID: 1633336596311627984, guid: 718dc30a70682bc4ab82176a8d25eb1e, type: 3}
-  Spawner: {fileID: 6519015125850184943, guid: 5df13a226be8bc341bf21c5c61a626a6, type: 3}
-  Connector: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
-  grid: {fileID: 1719599393}
-  SizeOfMap: 4
-  chunkSize: 10
 --- !u!156049354 &1719599393
 Grid:
   m_ObjectHideFlags: 0
@@ -2703,7 +2666,7 @@ MonoBehaviour:
   Connector: {fileID: 3846667471682295938, guid: 96325be598ba9de4cac2c0c2dd27deb6, type: 3}
   grid: {fileID: 1719599393}
   SizeOfMap: 3
-  chunkSize: 12
+  chunkSize: 9
 --- !u!114 &1719599396
 MonoBehaviour:
   m_ObjectHideFlags: 0
