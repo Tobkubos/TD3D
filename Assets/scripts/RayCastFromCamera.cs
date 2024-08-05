@@ -24,6 +24,8 @@ public class RayCastFromCamera : MonoBehaviour
 	public TextMeshProUGUI TowerLevel;
 	public TextMeshProUGUI TowerExperience;
 	public Slider ExpSlider;
+	public Button TowerUpgrade;
+	public GameObject TowerStatsCanva;
 
 	public TextMeshProUGUI TowerType;
 	public TextMeshProUGUI TowerDamage;
@@ -36,6 +38,7 @@ public class RayCastFromCamera : MonoBehaviour
 	public int ActiveTower = -1;
 	public bool Hologram = false;
 	public GameObject towerHolo = null;
+
 
 	TowerStats ts;
 	void Start()
@@ -58,8 +61,7 @@ public class RayCastFromCamera : MonoBehaviour
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			
-			if (TowerArea != null)
+            if (TowerArea != null)
 			{
 				TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
 			}
@@ -86,10 +88,14 @@ public class RayCastFromCamera : MonoBehaviour
             if (hit.collider.CompareTag("chunk"))
 			{
                 temp.transform.position = cordinate;
-                Debug.Log(gridPosition);
+                //Debug.Log(gridPosition);
                 if (Input.GetMouseButtonDown(0))
 				{
 					PlaceTower(cordinate);
+				}
+                if (Input.GetMouseButtonDown(1))
+                {
+					ResetSelectedTower();
 				}
 			}
 
@@ -102,7 +108,9 @@ public class RayCastFromCamera : MonoBehaviour
 					ts = hit.collider.gameObject.transform.Find("towerInfo").GetComponent<TowerStats>();
 					if (ts != null)
 					{
-						TowerName.text = ts.GetName();
+						TowerUpgrade.onClick.RemoveAllListeners();
+                        TowerStatsCanva.SetActive(true);
+                        TowerName.text = ts.GetName();
 						TowerLevel.text = ts.GetLevel().ToString();
 
 						ExpSlider.minValue = 0;
@@ -111,11 +119,14 @@ public class RayCastFromCamera : MonoBehaviour
 
 						TowerType.text = ts.GetType();
 						TowerDamage.text = ts.GetDamage().ToString();
+
+						TowerUpgrade.onClick.AddListener(ts.Upgrade);
 					}
 					TowerArea = hit.collider.gameObject.transform.Find("area");
 					TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
-				}
-			}
+				}             
+            }
+
 		}
 
 		if (ts != null)
@@ -149,7 +160,6 @@ public class RayCastFromCamera : MonoBehaviour
 		{
 			ResetSelectedTower();
 			GameObject tower = Instantiate(Towers[0], cordinate, Quaternion.identity);
-
 		}
 
 		if (ActiveTower == 1)

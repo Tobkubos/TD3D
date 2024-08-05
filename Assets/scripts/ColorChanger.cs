@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ColorChanger : MonoBehaviour
 {
-    private Color startColor = new Color(1,1,1,25/255);
+    private Color startColor = new Color(1,1,1,50/255);
     private Color endColor = Color.white;
     private float duration = 0.5f;
     public GameObject obj;

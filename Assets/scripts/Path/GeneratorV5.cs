@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using static UnityEngine.ParticleSystem;
 
-public class GeneratorV4 : MonoBehaviour
+public class GeneratorV5 : MonoBehaviour
 {
 	private List<GameObject> ChunkCheckPoints = new List<GameObject> { };    
 	private List<GameObject> Chunk = new List<GameObject> { };                   
@@ -26,7 +26,7 @@ public class GeneratorV4 : MonoBehaviour
 
 
     public int SizeOfMap = 4;          //wielkoœæ mapy w chunkach
-    public int chunkSize = 5;          //wielkoœæ chunku
+    public int chunkSize = 9;          //wielkoœæ chunku
 
 	private int x,z;           
 	private int count = 0;
@@ -56,7 +56,7 @@ public class GeneratorV4 : MonoBehaviour
         Debug.Log(map);
         GenerateChunks();
 
-        GenerateEmptyChunks();
+        //GenerateEmptyChunks();
     }
     void GenerateEmptyChunks()
     {
@@ -84,9 +84,9 @@ public class GeneratorV4 : MonoBehaviour
     }
         public void Reset2()
 	{
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        StartCoroutine(Chunk[index].GetComponent<ChunkReveal2>().BuyChunk());
-        index++;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //StartCoroutine(Chunk[index].GetComponent<ChunkReveal3>().BuyChunk());
+        //index++;
     }
 	private void GenerateChunks()
 	{
@@ -95,7 +95,7 @@ public class GeneratorV4 : MonoBehaviour
         for (int i = 0; i < SizeOfMap; i++)
         {
             x = Random.Range(0, SizeOfMap);
-            Vector3 ve = new Vector3(x * (chunkSize + 1), elevation, i * (chunkSize + 1));
+            Vector3 ve = new Vector3(x * (chunkSize), elevation, i * (chunkSize));
             map.Add(ve);
             GameObject first = Instantiate(ChunkCheckPoint, ve, Quaternion.identity);
 			first.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize,chunkSize);
@@ -120,14 +120,14 @@ public class GeneratorV4 : MonoBehaviour
 
             if (DistX > 0)
             {
-                for (int j = xPrev; j < xPrev + DistX; j += chunkSize+1)
+                for (int j = xPrev; j < xPrev + DistX; j += chunkSize)
                 {
                     Vector3 ve = new Vector3(j, elevation, zPrev);
                     map.Add(ve);
                     GameObject temp = Instantiate(ChunkCheckPoint, ve, Quaternion.identity);
                     temp.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize, chunkSize);
                     temp.GetComponentInChildren<MeshGenerator>().GenerateMesh();
-                    temp.GetComponent<ChunkReveal2>().index = count;
+                    temp.GetComponent<ChunkReveal3>().index = count;
                     temp.name = "SCIEZKA" + count;
                     count++;
                     Chunk.Add(temp);
@@ -136,7 +136,7 @@ public class GeneratorV4 : MonoBehaviour
             }
             if (DistX < 0)
             {
-                for (int j = xPrev; j > xPrev + DistX; j -= chunkSize + 1)
+                for (int j = xPrev; j > xPrev + DistX; j -= chunkSize)
                 {
                     Vector3 ve = new Vector3(j, elevation, zPrev);
                     map.Add(ve);
@@ -151,7 +151,7 @@ public class GeneratorV4 : MonoBehaviour
             }
             if (DistY > 0)
             {
-                for (int j = zPrev; j < zPrev + DistY; j += chunkSize + 1)
+                for (int j = zPrev; j < zPrev + DistY; j += chunkSize)
                 {
                     Vector3 ve = new Vector3(xAct, elevation, j);
                     map.Add(ve);
@@ -166,7 +166,7 @@ public class GeneratorV4 : MonoBehaviour
             }
             if (DistY < 0)
             {
-                for (int j = zPrev; j > zPrev + DistY; j -= chunkSize + 1)
+                for (int j = zPrev; j > zPrev + DistY; j -= chunkSize)
                 {
                     Vector3 ve = new Vector3(xAct, elevation, j);
                     map.Add(ve);
@@ -203,24 +203,25 @@ public class GeneratorV4 : MonoBehaviour
             {
                 GenConnections(i + 1);
             }
-            Chunk[i].GetComponent<ChunkReveal2>().SetChunkSize(chunkSize);
-            Chunk[i].GetComponent<ChunkReveal2>().Generate();
+            Chunk[i].GetComponent<ChunkReveal3>().SetChunkSize(chunkSize);
+            Chunk[i].GetComponent<ChunkReveal3>().Generate();
         }
         
         gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();
 
-        
+        /*
         for (int i = 0; i < Chunk.Count; i++)
         {
-            Chunk[i].GetComponent<ChunkReveal2>().Disappear();
+            Chunk[i].GetComponent<ChunkReveal3>().Disappear();
         }
+        */
 
-        Chunk[0].GetComponent<ChunkReveal2>().Buy();
-        Chunk[0].GetComponent<ColorChanger>().ChangeCol();
+        //Chunk[0].GetComponent<ChunkReveal3>().Buy();
+        //Chunk[0].GetComponent<ColorChanger>().ChangeCol();
         Camera.transform.position = Chunk[0].transform.position + new Vector3(chunkSize/2,0,chunkSize/2);
         Camera.orthographicSize = chunkSize;
-        Connectors[0].GetComponent<Spawner>().enemy.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count-1];
-        Connectors[0].GetComponent<Spawner>().enabled = true;
+        //Connectors[0].GetComponent<Spawner>().enemy.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count-1];
+        //Connectors[0].GetComponent<Spawner>().enabled = true;
     }
 
     /// ////////////
@@ -243,8 +244,8 @@ public class GeneratorV4 : MonoBehaviour
 
             if (xPrev < xAct)
             {
-                Vector3 ObjectSpawn1 = new Vector3(xPrev + chunkSize - 1, elevation, zPrev + Rand);
-                Vector3 ObjectSpawn2 = new Vector3(xPrev + chunkSize + 1, elevation, zPrev + Rand);
+                Vector3 ObjectSpawn1 = new Vector3(xPrev + chunkSize - 2, elevation, zPrev + Rand);
+                Vector3 ObjectSpawn2 = new Vector3(xPrev + chunkSize, elevation, zPrev + Rand);
 
                 Vector3Int a1 = grid.WorldToCell(ObjectSpawn1);
                 Vector3Int a2 = grid.WorldToCell(ObjectSpawn2);
@@ -253,10 +254,10 @@ public class GeneratorV4 : MonoBehaviour
                 Vector3 cellCenterPosition2 = grid.GetCellCenterWorld(a2);
 
                 GameObject cn1 = Instantiate(Connector, cellCenterPosition1, Quaternion.identity, Chunk[i-1].transform);
-                Chunk[i-1].GetComponent<ChunkReveal2>().StartEnd[1] = cn1;
+                Chunk[i-1].GetComponent<ChunkReveal3>().StartEnd[1] = cn1;
                 cn1.tag = "end";
                 GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity, Chunk[i].transform);
-                Chunk[i].GetComponent<ChunkReveal2>().StartEnd[0] = cn2;
+                Chunk[i].GetComponent<ChunkReveal3>().StartEnd[0] = cn2;
                 cn2.tag = "start";
 
                 if (i == 1)
@@ -266,7 +267,7 @@ public class GeneratorV4 : MonoBehaviour
                     Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
 
                     GameObject cn3 = Instantiate(Spawner, cellCenterPosition3, Quaternion.identity, Chunk[i - 1].transform);
-                    Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[0] = cn3;
+                    Chunk[i - 1].GetComponent<ChunkReveal3>().StartEnd[0] = cn3;
                     cn3.name = "CONNECTOR " + connCount;
                     cn3.tag = "start";
                     connCount++;
@@ -294,10 +295,10 @@ public class GeneratorV4 : MonoBehaviour
                 Vector3 cellCenterPosition2 = grid.GetCellCenterWorld(a2);
 
                 GameObject cn1 = Instantiate(Connector, cellCenterPosition1, Quaternion.identity, Chunk[i].transform);
-                Chunk[i].GetComponent<ChunkReveal2>().StartEnd[0] = cn1;
+                Chunk[i].GetComponent<ChunkReveal3>().StartEnd[0] = cn1;
                 cn1.tag = "start";
                 GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity, Chunk[i - 1].transform);
-                Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[1] = cn2;
+                Chunk[i - 1].GetComponent<ChunkReveal3>().StartEnd[1] = cn2;
                 cn2.tag = "end";
 
                 if (i == 1)
@@ -308,7 +309,7 @@ public class GeneratorV4 : MonoBehaviour
                     Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
 
                     GameObject cn3 = Instantiate(Spawner, cellCenterPosition3, Quaternion.identity, Chunk[i - 1].transform);
-                    Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[0] = cn3;
+                    Chunk[i - 1].GetComponent<ChunkReveal3>().StartEnd[0] = cn3;
                     cn3.name = "CONNECTOR " + connCount;
                     cn3.tag = "start";
                     connCount++;
@@ -326,8 +327,8 @@ public class GeneratorV4 : MonoBehaviour
             if (zPrev < zAct)
             {
 
-                Vector3 ObjectSpawn1 = new Vector3(xPrev + Rand, elevation, zPrev + chunkSize - 1);
-                Vector3 ObjectSpawn2 = new Vector3(xPrev + Rand, elevation, zPrev + chunkSize + 1);
+                Vector3 ObjectSpawn1 = new Vector3(xPrev + Rand, elevation, zPrev + chunkSize - 2);
+                Vector3 ObjectSpawn2 = new Vector3(xPrev + Rand, elevation, zPrev + chunkSize);
 
                 Vector3Int a1 = grid.WorldToCell(ObjectSpawn1);
                 Vector3Int a2 = grid.WorldToCell(ObjectSpawn2);
@@ -336,10 +337,10 @@ public class GeneratorV4 : MonoBehaviour
                 Vector3 cellCenterPosition2 = grid.GetCellCenterWorld(a2);
 
                 GameObject cn1 = Instantiate(Connector, cellCenterPosition1, Quaternion.identity, Chunk[i - 1].transform);
-                Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[1] = cn1;
+                Chunk[i - 1].GetComponent<ChunkReveal3>().StartEnd[1] = cn1;
                 cn1.tag = "end";
                 GameObject cn2 = Instantiate(Connector, cellCenterPosition2, Quaternion.identity, Chunk[i].transform);
-                Chunk[i].GetComponent<ChunkReveal2>().StartEnd[0] = cn2;
+                Chunk[i].GetComponent<ChunkReveal3>().StartEnd[0] = cn2;
                 cn2.tag = "start";
 
                 if (i == 1)
@@ -350,7 +351,7 @@ public class GeneratorV4 : MonoBehaviour
                     Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
 
                     GameObject cn3 = Instantiate(Spawner, cellCenterPosition3, Quaternion.identity, Chunk[i - 1].transform);
-                    Chunk[i - 1].GetComponent<ChunkReveal2>().StartEnd[0] = cn3;
+                    Chunk[i - 1].GetComponent<ChunkReveal3>().StartEnd[0] = cn3;
                     cn3.name = "CONNECTOR " + connCount;
                     cn3.tag = "start";
                     connCount++;
@@ -369,7 +370,7 @@ public class GeneratorV4 : MonoBehaviour
                     Vector3 cellCenterPosition3 = grid.GetCellCenterWorld(a3);
 
                     GameObject end = Instantiate(Connector, cellCenterPosition3, Quaternion.identity, Chunk[i].transform);
-                    Chunk[i].GetComponent<ChunkReveal2>().StartEnd[1] = end;
+                    Chunk[i].GetComponent<ChunkReveal3>().StartEnd[1] = end;
                     end.name = "END ";
                     end.tag = "end";
                     connCount++;

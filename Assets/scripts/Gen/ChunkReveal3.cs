@@ -5,7 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ChunkReveal2 : MonoBehaviour
+public class ChunkReveal3 : MonoBehaviour
 {
 	public GameObject[] StartEnd = new GameObject[2];
 	List<GameObject> CheckPoints = new List<GameObject> { };
@@ -18,7 +18,7 @@ public class ChunkReveal2 : MonoBehaviour
 	public GameObject Path;
 	public GameObject BuyButton;
 	public GameObject ChunkPlane;
-	private float elevation = 0f;
+	private float elevation = 0.1f;
 	private int PD = 2;
 	private int count = 1;
 	private int SortBy = 1;
@@ -41,8 +41,8 @@ public class ChunkReveal2 : MonoBehaviour
 			while (CheckPoints.Count < numOfCheckPoints)
 			{
 
-				float x = Random.Range(2, chunkSize - 2) + this.gameObject.transform.position.x;
-				float z = Random.Range(2, chunkSize - 2) + this.gameObject.transform.position.z;
+				float x = Random.Range(3, chunkSize - 2) + this.gameObject.transform.position.x;
+				float z = Random.Range(3, chunkSize - 2) + this.gameObject.transform.position.z;
 
 				bool canPlace = true;
 				foreach (GameObject go in CheckPoints)
@@ -76,7 +76,7 @@ public class ChunkReveal2 : MonoBehaviour
             float eX = StartEnd[1].transform.position.x;
             float eZ = StartEnd[1].transform.position.z;
 
-            if (Mathf.Abs(startX - endX) == chunkSize - 1)
+            if (Mathf.Abs(startX - endX) == chunkSize -2)
 			{
 				if (startX > endX)
 				{
@@ -92,7 +92,7 @@ public class ChunkReveal2 : MonoBehaviour
 				}
 				SortBy = 0;
 			}
-			else if (Mathf.Abs(startZ - endZ) == chunkSize - 1)
+			else if (Mathf.Abs(startZ - endZ) == chunkSize - 2)
 			{
 				if (startZ > endZ)
 				{
@@ -269,7 +269,7 @@ public class ChunkReveal2 : MonoBehaviour
 					}
 				}
 			}
-
+			/*
 			if(StartEnd[1].transform.localPosition.x == 0.5)
 			{
 				StartEnd[1].transform.localPosition += new Vector3(-1, 0, 0);
@@ -279,11 +279,12 @@ public class ChunkReveal2 : MonoBehaviour
             {
                 StartEnd[1].transform.localPosition += new Vector3(+1, 0, 0);
             }
-
+			
             if (StartEnd[1].transform.localPosition.z == chunkSize-0.5)
             {
-                StartEnd[1].transform.localPosition += new Vector3(0, 0, 1);
+                StartEnd[1].transform.localPosition -= new Vector3(0, 0, 1);
             }
+			*/
             #endregion
 
 

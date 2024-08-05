@@ -29,7 +29,7 @@ public class EnemyInfo : MonoBehaviour
 
 
 			Destroy(other.gameObject);
-			Debug.Log(hp);
+			//Debug.Log(hp);
 
 			if (hp <= 0)
 			{

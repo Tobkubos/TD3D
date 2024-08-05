@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 25, y: 1, z: 25}
+  m_LocalScale: {x: 25, y: 0.1, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8355985087851574127}
@@ -177,9 +177,9 @@ MonoBehaviour:
   - {fileID: 8584744030983468452, guid: 1aa0c769a3a2af94880fefb699add2ff, type: 3}
   - {fileID: 6608506473331778474, guid: 8040fd5d19cc8b148bf10188c57b2535, type: 3}
   Bullet: {fileID: 7019720170624027536, guid: 171a1f28c0365f34e8b665b8599f6451, type: 3}
-  level: 2
+  level: 0
   ExpPS: {fileID: 8585175799612243974}
-  Cooldown: 0.133
+  Cooldown: 1
 --- !u!1 &5857700132478872097
 GameObject:
   m_ObjectHideFlags: 0

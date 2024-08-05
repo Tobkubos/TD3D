@@ -24,20 +24,22 @@ public class TowerStats : MonoBehaviour
 	private GameObject target;
 	private GameObject tower;
 	private Animation ShootAnim;
+	private GameObject TWR;
+	private Quaternion rot;
 
-	public int level = 2;
+    [SerializeField] int level = 0;
 
 	[SerializeField] ParticleSystem ExpPS;
 
-	public float Cooldown = 1f;
-	float nextShoot = 3;
+    [SerializeField] float Cooldown = 1f;
+	float nextShoot = 0f;
 
 	private int counter = 0;
 
 
-	void Setup(int level)
+	void Setup(int level, Quaternion rot)
 	{ 
-		GameObject TWR = Instantiate(Towers[level], this.transform.position, Quaternion.identity, this.gameObject.transform);
+		TWR = Instantiate(Towers[level], this.transform.position, rot, this.gameObject.transform);
 		Transform towerTransform = TWR.transform;
 
 		if (towerTransform != null)
@@ -54,12 +56,26 @@ public class TowerStats : MonoBehaviour
 			}
 		}
 	}
+
+	public void Upgrade()
+	{
+		StopAllCoroutines();
+		//EnemiesInRange.Clear();
+		counter = 0;
+		rot = TWR.transform.rotation;
+		level++;
+		Damage += 6;
+		Cooldown -= 0.33f;
+		nextShoot = 0f;
+		Destroy(TWR);
+		Setup(level, rot);
+	}
 	private void Start()
 	{
 		if (!holo)
 		{
-			Setup(level);
-			nextShoot = Time.time + 3;
+			Setup(level, Quaternion.identity);
+			//nextShoot = Time.time + 3;
 		}
 	}
 	public string GetName()
@@ -131,7 +147,7 @@ public class TowerStats : MonoBehaviour
 	
 	
 	
-	private void Update()
+	private void FixedUpdate()
 	{
 		if (!holo)
 		{
@@ -151,7 +167,8 @@ public class TowerStats : MonoBehaviour
 					if (direction != Vector3.zero)
 					{
 						Quaternion targetRotation = Quaternion.LookRotation(direction);
-						transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+						//transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+						transform.rotation = targetRotation;
 						Debug.DrawRay(transform.position, direction, Color.red);
 
 						if (Time.time > nextShoot)
@@ -189,12 +206,12 @@ public class TowerStats : MonoBehaviour
 
 			if (ExpPS != null)
 			{
-				Debug.Log("Checking Experience: " + Experience + "/" + MaxExp);
+				//Debug.Log("Checking Experience: " + Experience + "/" + MaxExp);
 				if (Experience >= MaxExp)
 				{
 					if (!ExpPS.isPlaying)
 					{
-						Debug.Log("Playing Particle System");
+						//Debug.Log("Playing Particle System");
 						ExpPS.Play();
 					}
 				}
@@ -202,14 +219,14 @@ public class TowerStats : MonoBehaviour
 				{
 					if (ExpPS.isPlaying)
 					{
-						Debug.Log("Stopping Particle System");
+						//Debug.Log("Stopping Particle System");
 						ExpPS.Stop();
 					}
 				}
 			}
 			else
 			{
-				Debug.LogWarning("ExpPS is not assigned in the Inspector");
+				//Debug.LogWarning("ExpPS is not assigned in the Inspector");
 			}
 		}
 	}
