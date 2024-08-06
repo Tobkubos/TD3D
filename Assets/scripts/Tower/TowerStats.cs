@@ -27,8 +27,6 @@ public class TowerStats : MonoBehaviour
 	private GameObject TWR;
 	private Quaternion rot;
 
-    [SerializeField] int level = 0;
-
 	[SerializeField] ParticleSystem ExpPS;
 
     [SerializeField] float Cooldown = 1f;
@@ -59,22 +57,22 @@ public class TowerStats : MonoBehaviour
 
 	public void Upgrade()
 	{
+		rot = TWR.transform.rotation;
+		Destroy(TWR);
 		StopAllCoroutines();
 		//EnemiesInRange.Clear();
 		counter = 0;
-		rot = TWR.transform.rotation;
-		level++;
+		Level+=1;
 		Damage += 6;
-		Cooldown -= 0.33f;
+		Cooldown -= 0.45f;
 		nextShoot = 0f;
-		Destroy(TWR);
-		Setup(level, rot);
+		Setup(Level, rot);
 	}
 	private void Start()
 	{
 		if (!holo)
 		{
-			Setup(level, Quaternion.identity);
+			Setup(Level, Quaternion.identity);
 			//nextShoot = Time.time + 3;
 		}
 	}
@@ -126,14 +124,12 @@ public class TowerStats : MonoBehaviour
         {
             state.speed = 1;
         }
-        Shoot(target);
-		counter--;
-        yield return new WaitForSeconds(Cooldown);
-		Shoot(target);
-		counter--;
-        yield return new WaitForSeconds(Cooldown);
-        Shoot(target);
-        counter--;
+		while (counter > 0)
+		{
+			counter--;
+			Shoot(target);
+			yield return new WaitForSeconds(Cooldown);
+		}
     }
 	
 	
@@ -149,6 +145,7 @@ public class TowerStats : MonoBehaviour
 	
 	private void FixedUpdate()
 	{
+		Debug.Log("LEVEL" + Level + "COUNTER "  + counter  + "COOLDOWN" + Cooldown);
 		if (!holo)
 		{
 			if (target == null)
@@ -176,7 +173,7 @@ public class TowerStats : MonoBehaviour
 							nextShoot = Time.time + Cooldown;
 
 							//
-							if (level == 0)
+							if (Level == 0)
 							{
 								Shoot(target.transform);
 								Animation animComp = tower.GetComponent<Animation>();
@@ -186,14 +183,14 @@ public class TowerStats : MonoBehaviour
 									state.speed = 1;
 								}
 							}
-
-							if (level == 1 && counter == 0)
+							
+							if (Level == 1 && counter == 0)
 							{
 								counter = 2;
 								StartCoroutine(ShootingLEVEL23(target.transform));
 							}
 
-                            if (level == 2 && counter == 0)
+                            if (Level == 2 && counter == 0)
                             {
                                 counter = 3;
                                 StartCoroutine(ShootingLEVEL23(target.transform));

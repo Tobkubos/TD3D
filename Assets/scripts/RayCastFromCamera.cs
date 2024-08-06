@@ -38,13 +38,13 @@ public class RayCastFromCamera : MonoBehaviour
 	public int ActiveTower = -1;
 	public bool Hologram = false;
 	public GameObject towerHolo = null;
+	private bool inspect = false;
 
 
-	TowerStats ts;
+	TowerStats ts = null;
 	void Start()
 	{
-		temp = Instantiate(_tilePrefab, new Vector3(0,0,0), Quaternion.identity);
-		TowerStats ts = null;
+		temp = Instantiate(_tilePrefab, new Vector3(0.5f,0,0.5f), Quaternion.identity);
 		if (camera == null)
 		{
 			camera = Camera.main;
@@ -58,40 +58,35 @@ public class RayCastFromCamera : MonoBehaviour
 		Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
 
-
-		if (Input.GetMouseButtonDown(0))
-		{
-            if (TowerArea != null)
-			{
-				TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
-			}
-
-			if(ts != null)
-			{
-				ts = null;
-			}
-		}
-
-
-		if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit))
 		{
 
 			Vector3 hitPoint = hit.point;
 			Vector3Int gridPosition = grid.WorldToCell(hitPoint);
 			cordinate = grid.GetCellCenterWorld(gridPosition);
 			cordinate.y = 0f;
-			
-			PlaceHoloTower(cordinate);
-			
+            temp.transform.position = cordinate;
 
+            PlaceHoloTower(cordinate);
 
             if (hit.collider.CompareTag("chunk"))
-			{
-                temp.transform.position = cordinate;
-                //Debug.Log(gridPosition);
+            {
                 if (Input.GetMouseButtonDown(0))
 				{
 					PlaceTower(cordinate);
+					if (inspect) {
+                        if (TowerArea != null)
+                        {
+                            TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
+                        }
+
+                        if (ts != null)
+                        {
+                            ts = null;
+                        }
+                        inspect = false;
+                        TowerStatsCanva.SetActive(false);
+                    }
 				}
                 if (Input.GetMouseButtonDown(1))
                 {
@@ -102,45 +97,53 @@ public class RayCastFromCamera : MonoBehaviour
 
 			if (hit.collider.CompareTag("tower"))
 			{
-                temp.transform.position = cordinate;
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && !inspect)
 				{
-					ts = hit.collider.gameObject.transform.Find("towerInfo").GetComponent<TowerStats>();
-					if (ts != null)
-					{
-						TowerUpgrade.onClick.RemoveAllListeners();
-                        TowerStatsCanva.SetActive(true);
-                        TowerName.text = ts.GetName();
-						TowerLevel.text = ts.GetLevel().ToString();
+                    TowerStatsCanva.SetActive(true);
+                    ts = hit.collider.gameObject.transform.Find("towerInfo").GetComponent<TowerStats>();
 
-						ExpSlider.minValue = 0;
-						ExpSlider.maxValue = ts.GetMaxExp();
-						ExpSlider.value = ts.GetExperience();
-
-						TowerType.text = ts.GetType();
-						TowerDamage.text = ts.GetDamage().ToString();
-
-						TowerUpgrade.onClick.AddListener(ts.Upgrade);
-					}
 					TowerArea = hit.collider.gameObject.transform.Find("area");
 					TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
-				}             
+					inspect = true;
+                }
+
+				else if(Input.GetMouseButtonDown(0) && inspect)
+                {
+                    if (TowerArea != null)
+                    {
+                        TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
+                    }
+
+                    if (ts != null)
+                    {
+                        ts = null;
+                    }
+					inspect = false;
+					TowerStatsCanva.SetActive(false);
+                }
+				
             }
 
-		}
 
-		if (ts != null)
-		{
-			TowerName.text = ts.GetName();
-			TowerLevel.text = ts.GetLevel().ToString();
+            if (ts != null)
+            {
+                TowerUpgrade.onClick.RemoveAllListeners();
+                TowerStatsCanva.SetActive(true);
+                TowerName.text = ts.GetName();
+				TowerLevel.text = ts.GetLevel().ToString();
+				Debug.Log(ts.GetLevel());
 
-			ExpSlider.minValue = 0;
-			ExpSlider.maxValue = ts.GetMaxExp();
-			ExpSlider.value = ts.GetExperience();
 
-			TowerType.text = ts.GetType();
-			TowerDamage.text = ts.GetDamage().ToString();
-		}
+                ExpSlider.minValue = 0;
+                ExpSlider.maxValue = ts.GetMaxExp();
+                ExpSlider.value = ts.GetExperience();
+
+                TowerType.text = ts.GetType();
+                TowerDamage.text = ts.GetDamage().ToString();
+
+                TowerUpgrade.onClick.AddListener(ts.Upgrade);
+            }
+        }
 	}
 
 	void ResetSelectedTower()
@@ -182,6 +185,11 @@ public class RayCastFromCamera : MonoBehaviour
 	}
 	public void PlaceHoloTower(Vector3 cordinate)
 	{
+		if (towerHolo != null)
+		{
+			towerHolo.transform.position = cordinate;
+		}
+
 		if (ActiveTower == 0 && !Hologram)
 		{
 			Hologram = true;
@@ -209,10 +217,6 @@ public class RayCastFromCamera : MonoBehaviour
 			towerHolo = Instantiate(HoloTowers[3], cordinate, Quaternion.identity);
 			towerHolo.transform.position = cordinate;
 
-		}
-		if (towerHolo != null)
-		{
-			towerHolo.transform.position = cordinate;
 		}
 	}
 }
