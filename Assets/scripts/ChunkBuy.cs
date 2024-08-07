@@ -25,6 +25,8 @@ public class ChunkBuy : MonoBehaviour
                 Chunk.GetComponent<ChunkReveal2>().Buy();
             }
 
+
+
             Chunk.GetComponent<ColorChanger>().ChangeCol();
             Destroy(this.gameObject);
         }

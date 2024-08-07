@@ -9,10 +9,13 @@ using static Unity.VisualScripting.Metadata;
 public class RayCastFromCamera : MonoBehaviour
 {
 	public int money;
+	[SerializeField] int Tower1Price0;
+    [SerializeField] int Tower1Price1;
+    [SerializeField] int Tower1Price2;
+    [SerializeField] int Tower1Price3;
 
 
-
-	public Camera camera;
+    public Camera camera;
 	public Grid grid;
 	public GameObject _tilePrefab;
 	public GameObject testcube;
@@ -23,13 +26,16 @@ public class RayCastFromCamera : MonoBehaviour
 	public TextMeshProUGUI TowerName;
 	public TextMeshProUGUI TowerLevel;
 	public TextMeshProUGUI TowerExperience;
-	public Slider ExpSlider;
+    public TextMeshProUGUI TotalCash;
+
+    public Slider ExpSlider;
 	public Button TowerUpgrade;
 	public GameObject TowerStatsCanva;
 
 	public TextMeshProUGUI TowerType;
 	public TextMeshProUGUI TowerDamage;
-	public Vector3 cordinate;
+    public TextMeshProUGUI TowerUpgradePrice;
+    public Vector3 cordinate;
 
 	public GameObject[] Towers;
 	public GameObject[] HoloTowers;
@@ -54,6 +60,8 @@ public class RayCastFromCamera : MonoBehaviour
 
 	void Update()
 	{
+		TotalCash.text = money.ToString();
+
 
 		Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
@@ -142,6 +150,7 @@ public class RayCastFromCamera : MonoBehaviour
                 TowerDamage.text = ts.GetDamage().ToString();
 
                 TowerUpgrade.onClick.AddListener(ts.Upgrade);
+				TowerUpgradePrice.text = ts.GetUpgradePrice().ToString();
             }
         }
 	}
@@ -159,27 +168,31 @@ public class RayCastFromCamera : MonoBehaviour
 
 	public void PlaceTower(Vector3 cordinate)
 	{
-		if (ActiveTower == 0)
+		if (ActiveTower == 0 && money >= Tower1Price0)
 		{
+			money -= Tower1Price0;
 			ResetSelectedTower();
 			GameObject tower = Instantiate(Towers[0], cordinate, Quaternion.identity);
 		}
 
-		if (ActiveTower == 1)
+		if (ActiveTower == 1 && money >= Tower1Price1)
 		{
-			ResetSelectedTower();
+            money -= Tower1Price1;
+            ResetSelectedTower();
             GameObject tower = Instantiate(Towers[1], cordinate, Quaternion.identity);
         }
 
-		if (ActiveTower == 2)
+		if (ActiveTower == 2 && money >= Tower1Price2)
 		{
-			ResetSelectedTower();
+            money -= Tower1Price2;
+            ResetSelectedTower();
             GameObject tower = Instantiate(Towers[2], cordinate, Quaternion.identity);
 		}
 
-		if (ActiveTower == 3)
+		if (ActiveTower == 3 && money >= Tower1Price3)
 		{
-			ResetSelectedTower();
+            money -= Tower1Price3;
+            ResetSelectedTower();
             GameObject tower = Instantiate(Towers[3], cordinate, Quaternion.identity);
 		}
 	}

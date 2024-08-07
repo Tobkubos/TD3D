@@ -9,7 +9,8 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] string Name;
 	[SerializeField] int Level;
 	[SerializeField] int Experience;
-	[SerializeField] int MaxExp;
+    [SerializeField] int UpgradePrice;
+    [SerializeField] int MaxExp;
 	[SerializeField] string Type;
 	[SerializeField] int Damage;
 	[SerializeField] float RotSpeed;
@@ -33,10 +34,11 @@ public class TowerStats : MonoBehaviour
 	float nextShoot = 0f;
 
 	private int counter = 0;
-
+	GameObject manager;
 
 	void Setup(int level, Quaternion rot)
-	{ 
+	{
+		manager = GameObject.Find("manager");
 		TWR = Instantiate(Towers[level], this.transform.position, rot, this.gameObject.transform);
 		Transform towerTransform = TWR.transform;
 
@@ -57,16 +59,21 @@ public class TowerStats : MonoBehaviour
 
 	public void Upgrade()
 	{
-		rot = TWR.transform.rotation;
-		Destroy(TWR);
-		StopAllCoroutines();
-		//EnemiesInRange.Clear();
-		counter = 0;
-		Level+=1;
-		Damage += 6;
-		Cooldown -= 0.45f;
-		nextShoot = 0f;
-		Setup(Level, rot);
+		if (manager.GetComponent<RayCastFromCamera>().money >= UpgradePrice)
+		{
+			manager.GetComponent<RayCastFromCamera>().money -= UpgradePrice;
+
+            rot = TWR.transform.rotation;
+			Destroy(TWR);
+			StopAllCoroutines();
+			//EnemiesInRange.Clear();
+			counter = 0;
+			Level += 1;
+			Damage += 6;
+			Cooldown -= 0.3f;
+			nextShoot = 0f;
+			Setup(Level, rot);
+		}
 	}
 	private void Start()
 	{
@@ -104,8 +111,12 @@ public class TowerStats : MonoBehaviour
 	{
 		return Damage;
 	}
+    public int GetUpgradePrice()
+	{
+		return UpgradePrice;
+	}
 
-	public void OnEnemyEnterRange(GameObject enemy)
+    public void OnEnemyEnterRange(GameObject enemy)
 	{
 		EnemiesInRange.Add(enemy);
 	}
@@ -132,16 +143,7 @@ public class TowerStats : MonoBehaviour
 		}
     }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	private void FixedUpdate()
 	{

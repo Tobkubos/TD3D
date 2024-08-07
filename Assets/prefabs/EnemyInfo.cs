@@ -40,6 +40,8 @@ public class EnemyInfo : MonoBehaviour
                     other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().SetExperience(); //give experience
                 }
 
+				GameObject.Find("manager").GetComponent<RayCastFromCamera>().money += cash;
+
 
                 Destroy(gameObject);
 			}

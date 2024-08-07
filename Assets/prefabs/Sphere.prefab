@@ -125,7 +125,7 @@ MonoBehaviour:
   hp: 8
   speed: 0
   defence: 0
-  cash: 0
+  cash: 5
   ps: {fileID: 2036162825791507954}
 --- !u!114 &4106686069346106286
 MonoBehaviour:
@@ -151,7 +151,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
-  m_Speed: 1.5
+  m_Speed: 7
   m_Acceleration: 10000
   avoidancePriority: 50
   m_AngularSpeed: 1000
