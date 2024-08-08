@@ -3050,7 +3050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 963194225}
-  sens: 0.01
+  sens: 0.1
   zoom: 1
 --- !u!1 &1740053365
 GameObject:

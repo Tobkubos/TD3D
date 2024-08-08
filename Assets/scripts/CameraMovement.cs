@@ -6,10 +6,11 @@ public class CameraMovement : MonoBehaviour
 {
     public GameObject MainCamera;
     private Camera cam;
-    [SerializeField] float sens = 0.01f;
+    [SerializeField] float sens = 0.1f;
     [SerializeField] float zoom = 1;
     private void Start()
     {
+        Application.targetFrameRate = 60;
         cam = MainCamera.GetComponent<Camera>();
     }
     void Update()
@@ -36,12 +37,12 @@ public class CameraMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            sens = 0.03f;
+            sens = 0.3f;
             zoom = 2f;
         }
         else
         {
-            sens = 0.01f;
+            sens = 0.1f;
             zoom = 1;
         }
 
