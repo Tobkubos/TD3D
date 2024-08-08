@@ -14,7 +14,7 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] string Type;
 	[SerializeField] int Damage;
 	[SerializeField] float RotSpeed;
-	[SerializeField] bool holo;
+	public bool hologram;
 
 	[SerializeField] GameObject[] Towers;
 
@@ -76,11 +76,8 @@ public class TowerStats : MonoBehaviour
 	}
 	private void Start()
 	{
-		if (!holo)
-		{
-			Setup(Level, Quaternion.identity);
-			//nextShoot = Time.time + 3;
-		}
+		Setup(Level, Quaternion.identity);
+		//nextShoot = Time.time + 3;
 	}
 	public string GetName()
 	{
@@ -147,7 +144,7 @@ public class TowerStats : MonoBehaviour
 	private void FixedUpdate()
 	{
 		Debug.Log("LEVEL" + Level + "COUNTER "  + counter  + "COOLDOWN" + Cooldown);
-		if (!holo)
+		if (!hologram)
 		{
 			if (target == null)
 			{

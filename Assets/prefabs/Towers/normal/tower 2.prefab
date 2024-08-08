@@ -172,7 +172,7 @@ MonoBehaviour:
   Type: Normal
   Damage: 2
   RotSpeed: 2
-  holo: 0
+  hologram: 0
   Towers:
   - {fileID: 5215382374816517577, guid: 2d1e816efcdc40f43ad2ebcaeeeddbac, type: 3}
   - {fileID: 8584744030983468452, guid: 1aa0c769a3a2af94880fefb699add2ff, type: 3}
