@@ -2974,8 +2974,7 @@ MonoBehaviour:
   - {fileID: 987616602}
   - {fileID: 209276326}
   ActiveTower: -1
-  Hologram: 0
-  towerHolo: {fileID: 0}
+  HologramTower: 0
 --- !u!156049354 &1719599393
 Grid:
   m_ObjectHideFlags: 0
@@ -3088,8 +3087,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 471.86188, y: 0}
-  m_SizeDelta: {x: 295.2438, y: 88.9167}
+  m_AnchoredPosition: {x: 576.147, y: 0}
+  m_SizeDelta: {x: 503.8141, y: 88.9167}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1740053367
 MonoBehaviour:
@@ -3145,7 +3144,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
