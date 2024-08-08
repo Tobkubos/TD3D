@@ -17,7 +17,7 @@ public class ChunkBuy : MonoBehaviour
     }
     private void OnMouseUpAsButton()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (!EventSystem.current.IsPointerOverGameObject() && Manager.GetComponent<RayCastFromCamera>().HologramTower == false)
         {
             if (Manager.GetComponent<RayCastFromCamera>().money > 100)
             {

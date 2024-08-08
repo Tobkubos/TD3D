@@ -22,7 +22,8 @@ public class RayCastFromCamera : MonoBehaviour
 	public GameObject testcube;
 	public Material HoloMaterial;
 	public Material InvisibleMaterial;
-	GameObject temp;
+    public Material RedMaterial;
+    GameObject temp;
 
 	public TextMeshProUGUI TowerName;
 	public TextMeshProUGUI TowerLevel;
@@ -63,9 +64,12 @@ public class RayCastFromCamera : MonoBehaviour
 
 	void Update()
 	{
-		TotalCash.text = "TOTAL CASH: "+money.ToString();
-
-		if (!EventSystem.current.IsPointerOverGameObject())
+		TotalCash.text = "CASH:   "+money.ToString();
+        if (ts != null)
+        {
+            ShowTowerInfo();
+        }
+        if (!EventSystem.current.IsPointerOverGameObject())
 		{
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
@@ -111,9 +115,16 @@ public class RayCastFromCamera : MonoBehaviour
 						}
 					}
 				}
+				else
+				{
+					if (tower != null)
+					{
+                        TowerArea.GetComponent<MeshRenderer>().material = RedMaterial;
+                    }
 
-				//klikasz prawym = resetujesz wybor wiezy (hologramu)
-				if (Input.GetMouseButtonDown(1))
+                 }
+                    //klikasz prawym = resetujesz wybor wiezy (hologramu)
+                    if (Input.GetMouseButtonDown(1))
 				{
 					ResetSelectedTower();
 				}
@@ -134,10 +145,7 @@ public class RayCastFromCamera : MonoBehaviour
 				}
 
 			}
-			if (ts != null)
-			{
-				ShowTowerInfo();
-			}
+
 		}
 	}
 	void ShowTowerInfo()
