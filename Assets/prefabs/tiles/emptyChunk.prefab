@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 7598691872913153006}
   - component: {fileID: 830825284354072289}
   - component: {fileID: 5628642009276558227}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 8009882978616580078}
   - component: {fileID: 3351840046607116506}
   - component: {fileID: 5792266974119785754}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1268134180630960917}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: buyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}

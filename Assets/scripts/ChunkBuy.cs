@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ChunkBuy : MonoBehaviour
 {
@@ -16,19 +17,22 @@ public class ChunkBuy : MonoBehaviour
     }
     private void OnMouseUpAsButton()
     {
-        if (Manager.GetComponent<RayCastFromCamera>().money > 100)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            Manager.GetComponent<RayCastFromCamera>().money -= 100;
-            ChunkPlane.tag = "chunk";
-            if (Chunk.GetComponent<ChunkReveal2>() != null)
+            if (Manager.GetComponent<RayCastFromCamera>().money > 100)
             {
-                Chunk.GetComponent<ChunkReveal2>().Buy();
+                Manager.GetComponent<RayCastFromCamera>().money -= 100;
+                ChunkPlane.tag = "chunk";
+                if (Chunk.GetComponent<ChunkReveal2>() != null)
+                {
+                    Chunk.GetComponent<ChunkReveal2>().Buy();
+                }
+
+
+
+                Chunk.GetComponent<ColorChanger>().ChangeCol();
+                Destroy(this.gameObject);
             }
-
-
-
-            Chunk.GetComponent<ColorChanger>().ChangeCol();
-            Destroy(this.gameObject);
         }
     }
 }

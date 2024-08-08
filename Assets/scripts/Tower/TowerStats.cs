@@ -66,12 +66,11 @@ public class TowerStats : MonoBehaviour
             rot = TWR.transform.rotation;
 			Destroy(TWR);
 			StopAllCoroutines();
-			//EnemiesInRange.Clear();
-			counter = 0;
 			Level += 1;
 			Damage += 6;
 			Cooldown -= 0.3f;
 			nextShoot = 0f;
+			counter = 0;
 			Setup(Level, rot);
 		}
 	}
