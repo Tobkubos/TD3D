@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ec1e0fd9eabf04fb7cb2e875184ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletSpeed: 20
+  BulletSpeed: 35
   damage: 0
   enemy: {fileID: 0}
   ts: {fileID: 0}

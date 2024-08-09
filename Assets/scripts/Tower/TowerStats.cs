@@ -30,7 +30,7 @@ public class TowerStats : MonoBehaviour
 
 	[SerializeField] ParticleSystem ExpPS;
 
-    [SerializeField] float Cooldown = 1f;
+    float Cooldown = 1f;
 	float nextShoot = 0f;
 
 	private int counter = 0;
@@ -63,12 +63,20 @@ public class TowerStats : MonoBehaviour
 		{
 			manager.GetComponent<RayCastFromCamera>().money -= UpgradePrice;
 
+			if (Level == 1) 
+			{
+				Cooldown = 0.333f / 2f;
+			}
+            if (Level == 2)
+            {
+                Cooldown = 0.4f / 3f;
+            }
+
             rot = TWR.transform.rotation;
 			Destroy(TWR);
 			StopAllCoroutines();
 			Level += 1;
-			Damage += 6;
-			Cooldown -= 0.3f;
+			Damage += 1;
 			nextShoot = 0f;
 			counter = 0;
 			Setup(Level, rot);
@@ -133,9 +141,10 @@ public class TowerStats : MonoBehaviour
         }
 		while (counter > 0)
 		{
+
+			yield return new WaitForSeconds(Cooldown);
 			counter--;
 			Shoot(target);
-			yield return new WaitForSeconds(Cooldown);
 		}
     }
 	
@@ -143,12 +152,17 @@ public class TowerStats : MonoBehaviour
 	
 	private void FixedUpdate()
 	{
-		Debug.Log("LEVEL" + Level + "COUNTER "  + counter  + "COOLDOWN" + Cooldown);
+		//Debug.Log("LEVEL" + Level + "COUNTER "  + counter  + "COOLDOWN" + Cooldown);
 		if (!hologram)
 		{
 			if (target == null)
 			{
 				EnemiesInRange.Remove(target);
+
+				if (ShootAnim.IsPlaying("shooting"))
+				{
+                    ShootAnim.Stop("shooting");
+                }
 			}
 
 			if (EnemiesInRange.Count > 0)
@@ -171,28 +185,16 @@ public class TowerStats : MonoBehaviour
 							nextShoot = Time.time + Cooldown;
 
 							//
-							if (Level == 0)
-							{
-								Shoot(target.transform);
-								Animation animComp = tower.GetComponent<Animation>();
-								animComp.Play("shooting");
-								foreach (AnimationState state in animComp)
-								{
-									state.speed = 1;
-								}
-							}
-							
-							if (Level == 1 && counter == 0)
-							{
-								counter = 2;
-								StartCoroutine(ShootingLEVEL23(target.transform));
-							}
-
-                            if (Level == 2 && counter == 0)
+							Shoot(target.transform);
+							//Animation animComp = tower.GetComponent<Animation>();
+                            if (!ShootAnim.IsPlaying("shooting"))
                             {
-                                counter = 3;
-                                StartCoroutine(ShootingLEVEL23(target.transform));
+                                ShootAnim.Play("shooting");
                             }
+							foreach (AnimationState state in ShootAnim)
+							{
+								state.speed = 1;
+							}
                             //
                         }
 					}

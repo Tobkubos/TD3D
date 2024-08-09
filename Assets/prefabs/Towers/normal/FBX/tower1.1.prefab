@@ -64,10 +64,34 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7189111414223546886, guid: cebd3a5908f8a19448b51d11ce5b6856, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e179b47a3133efe4a900a55a690dc47b, type: 2}
+    - target: {fileID: -3055370268312594446, guid: cebd3a5908f8a19448b51d11ce5b6856, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e179b47a3133efe4a900a55a690dc47b, type: 2}
+    - target: {fileID: 793662950490335920, guid: cebd3a5908f8a19448b51d11ce5b6856, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b1595f7e7bf45e54ebd00d54d3589dcf, type: 2}
     - target: {fileID: 919132149155446097, guid: cebd3a5908f8a19448b51d11ce5b6856, type: 3}
       propertyPath: m_Name
       value: tower1.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4531912228224351498, guid: cebd3a5908f8a19448b51d11ce5b6856, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b22a2bc4953cc24e9736cff61cb0971, type: 2}
+    - target: {fileID: 4635947396198296943, guid: cebd3a5908f8a19448b51d11ce5b6856, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b1595f7e7bf45e54ebd00d54d3589dcf, type: 2}
+    - target: {fileID: 8317687432657722866, guid: cebd3a5908f8a19448b51d11ce5b6856, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b1595f7e7bf45e54ebd00d54d3589dcf, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -11,6 +11,7 @@ using static UnityEngine.ParticleSystem;
 
 public class GeneratorV3 : MonoBehaviour
 {
+    /*
 	private List<GameObject> ChunkCheckPoints = new List<GameObject> { };    
 	private List<GameObject> Chunk = new List<GameObject> { };                   
 	private List<GameObject> Connectors = new List<GameObject> { };
@@ -297,5 +298,6 @@ public class GeneratorV3 : MonoBehaviour
             Chunk[q].GetComponent<ChunkReveal2>().Generate();
         }
     }
+    */
 }
 

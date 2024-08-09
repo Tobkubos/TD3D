@@ -6,7 +6,7 @@ using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
 
 public class GeneratorV4 : MonoBehaviour
@@ -24,7 +24,7 @@ public class GeneratorV4 : MonoBehaviour
 	public GameObject Connector;       //przejœcie
     public Grid grid;                  //siatka gry
 
-
+    public Button NextWave;
     public int SizeOfMap = 4;          //wielkoœæ mapy w chunkach
     public int chunkSize = 5;          //wielkoœæ chunku
 
@@ -229,7 +229,9 @@ public class GeneratorV4 : MonoBehaviour
         }
         
         gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();
-
+        Connectors[0].GetComponent<Spawner>().enemy1.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
+        Connectors[0].GetComponent<Spawner>().enemy2.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
+        NextWave.onClick.AddListener(Connectors[0].GetComponent<Spawner>().Spawn);
         
         for (int i = 0; i < Chunk.Count; i++)
         {
@@ -238,10 +240,9 @@ public class GeneratorV4 : MonoBehaviour
 
         Chunk[0].GetComponent<ChunkReveal2>().Buy();
         Chunk[0].GetComponent<ColorChanger>().ChangeCol();
-        Camera.transform.position = Chunk[0].transform.position + new Vector3(chunkSize/2,0,chunkSize/2);
+        Camera.transform.position = Chunk[0].transform.position + new Vector3(chunkSize/2,5,chunkSize/2);
         Camera.orthographicSize = chunkSize;
-        Connectors[0].GetComponent<Spawner>().enemy.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count-1];
-        Connectors[0].GetComponent<Spawner>().enabled = true;
+        //Connectors[0].GetComponent<Spawner>().enabled = true;
     }
 
     /// ////////////

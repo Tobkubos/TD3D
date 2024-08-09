@@ -100,6 +100,7 @@ public class RayCastFromCamera : MonoBehaviour
 							tower.transform.position = cordinate;
 							TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
 							tower.GetComponentInChildren<TowerStats>().hologram = false;
+							tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
 							tower.layer = LayerMask.NameToLayer("Default");
 							tower = null;
 							HologramTower = false;
@@ -153,7 +154,7 @@ public class RayCastFromCamera : MonoBehaviour
             TowerStatsCanva.SetActive(true);
             TowerName.text = ts.GetName();
             TowerLevel.text = ts.GetLevel().ToString();
-            Debug.Log(ts.GetLevel());
+            //Debug.Log(ts.GetLevel());
 
 
             ExpSlider.minValue = 0;

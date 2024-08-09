@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-	public GameObject enemy;
-	public float cooldown = 0.5f;
-	private void Start()
-	{
-		StartCoroutine(Spawn());
-	}
+	public GameObject enemy1;
+    public GameObject enemy2;
+    public float cooldown = 0.5f;
 
-	IEnumerator Spawn()
+	public void Spawn()
+	{
+		StartCoroutine(Spawning());
+	}
+	public IEnumerator Spawning()
 	{
 		while (true)
 		{
 			yield return new WaitForSeconds(cooldown);
-			Instantiate(enemy, transform.position, Quaternion.identity);
-		}
-	}
+			Instantiate(enemy1, transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(cooldown);
+            Instantiate(enemy2, transform.position, Quaternion.identity);
+
+        }
+    }
 }
