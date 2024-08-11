@@ -11,7 +11,23 @@ public class EnemyInfo : MonoBehaviour
 
 	public ParticleSystem ps;
 
-	private void OnTriggerEnter(Collider other)
+    public float distanceTravelled = 0f;
+    private Vector3 lastPosition;
+
+    void Start()
+    {
+        lastPosition = transform.position;
+    }
+
+    void Update()
+    {
+        // distance till start
+        distanceTravelled += Vector3.Distance(lastPosition, transform.position);
+        lastPosition = transform.position;
+    }
+
+
+    private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("end"))
 		{

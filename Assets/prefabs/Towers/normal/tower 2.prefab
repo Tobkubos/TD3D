@@ -174,9 +174,10 @@ MonoBehaviour:
   RotSpeed: 2
   hologram: 0
   Towers:
-  - {fileID: 5215382374816517577, guid: 2d1e816efcdc40f43ad2ebcaeeeddbac, type: 3}
-  - {fileID: 8584744030983468452, guid: 1aa0c769a3a2af94880fefb699add2ff, type: 3}
-  - {fileID: 6608506473331778474, guid: 8040fd5d19cc8b148bf10188c57b2535, type: 3}
+  - {fileID: 4406638584226920736, guid: 45447d3550247734698be6a8cd959ecb, type: 3}
+  - {fileID: 3424739842377542486, guid: c8b0203e72f10064e95675fd1ed19caa, type: 3}
+  - {fileID: 5082081505740051339, guid: 581950cea561e6d47b3f9a41c86be55c, type: 3}
+  - {fileID: 6402654085842225473, guid: 9abb811f7a80a0b44a21c3a28fba20b0, type: 3}
   Bullet: {fileID: 7019720170624027536, guid: 171a1f28c0365f34e8b665b8599f6451, type: 3}
   ExpPS: {fileID: 8585175799612243974}
 --- !u!1 &5857700132478872097

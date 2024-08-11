@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -62,23 +63,26 @@ public class TowerStats : MonoBehaviour
 		if (manager.GetComponent<RayCastFromCamera>().money >= UpgradePrice)
 		{
 			manager.GetComponent<RayCastFromCamera>().money -= UpgradePrice;
+			Level += 1;
 
 			if (Level == 1) 
 			{
-				Cooldown = 0.333f / 2f;
+				Cooldown = 0.5f;
 			}
             if (Level == 2)
             {
-                Cooldown = 0.4f / 3f;
+                Cooldown = 0.25f;
+            }
+            if (Level == 3)
+            {
+                Cooldown = 0.12f;
             }
 
             rot = TWR.transform.rotation;
 			Destroy(TWR);
 			StopAllCoroutines();
-			Level += 1;
 			Damage += 1;
 			nextShoot = 0f;
-			counter = 0;
 			Setup(Level, rot);
 		}
 	}
@@ -129,26 +133,6 @@ public class TowerStats : MonoBehaviour
 	{
 		EnemiesInRange.Remove(enemy);
 	}
-
-	private IEnumerator ShootingLEVEL23(Transform target)
-	{
-
-        ShootAnim.Rewind("shooting");
-        ShootAnim.Play("shooting");
-        foreach (AnimationState state in ShootAnim)
-        {
-            state.speed = 1;
-        }
-		while (counter > 0)
-		{
-
-			yield return new WaitForSeconds(Cooldown);
-			counter--;
-			Shoot(target);
-		}
-    }
-	
-
 	
 	private void FixedUpdate()
 	{
@@ -159,15 +143,29 @@ public class TowerStats : MonoBehaviour
 			{
 				EnemiesInRange.Remove(target);
 
-				if (ShootAnim.IsPlaying("shooting"))
-				{
-                    ShootAnim.Stop("shooting");
-                }
+
 			}
 
+			float dist = 0;
 			if (EnemiesInRange.Count > 0)
 			{
-				target = EnemiesInRange[0];
+				foreach(GameObject enemy in EnemiesInRange)
+				{
+					float enemyDist = 0;
+					if (enemy != null)
+					{
+						enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
+					}
+
+                    if (enemyDist > dist)
+                    {
+						dist = enemyDist;
+                        target = enemy;
+                    }
+                }
+
+
+				//target = EnemiesInRange[0];
 				if (target != null)
 				{
 					Vector3 direction = target.transform.position - Turret.transform.position;
@@ -187,14 +185,9 @@ public class TowerStats : MonoBehaviour
 							//
 							Shoot(target.transform);
 							//Animation animComp = tower.GetComponent<Animation>();
-                            if (!ShootAnim.IsPlaying("shooting"))
-                            {
-                                ShootAnim.Play("shooting");
-                            }
-							foreach (AnimationState state in ShootAnim)
-							{
-								state.speed = 1;
-							}
+							ShootAnim.Rewind();
+                            ShootAnim.Play("shooting");
+                         
                             //
                         }
 					}

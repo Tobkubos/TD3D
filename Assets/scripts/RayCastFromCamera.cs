@@ -127,6 +127,7 @@ public class RayCastFromCamera : MonoBehaviour
                     if (Input.GetMouseButtonDown(1))
 				{
 					ResetSelectedTower();
+					TowerStatsCanva.SetActive(false);
 				}
 
 				if (hit.collider.CompareTag("tower") && !HologramTower)
