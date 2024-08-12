@@ -15,7 +15,7 @@ public class BulletMovement : MonoBehaviour
         Destroy(gameObject,2);
     }
 
-    void FixedUpdate()
+    void Update()
     {
 		if (enemy != null)
 		{
