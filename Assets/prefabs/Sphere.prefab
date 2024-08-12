@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6b98784ec692b4e00a86fa1044ad8998, type: 2}
+  - {fileID: 2100000, guid: 894fe1d86fb5943f6a486e218bba2072, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   defence: 0
   cash: 5
   ps: {fileID: 2036162825791507954}
+  distanceTravelled: 0
 --- !u!114 &4106686069346106286
 MonoBehaviour:
   m_ObjectHideFlags: 0

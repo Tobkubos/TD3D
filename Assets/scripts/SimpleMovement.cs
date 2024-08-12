@@ -8,12 +8,15 @@ public class SimpleMovement : MonoBehaviour
     public NavMeshAgent agent;
 	public GameObject end;
 
-	/*
+
 	private void Start()
 	{
-		end = GameObject.FindGameObjectWithTag("end");
+		if (end == null)
+		{
+			end = GameObject.Find("END");
+		}
 	}
-	*/
+	
 
 	void Update()
 	{
