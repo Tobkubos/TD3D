@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.95657825, b: 0.36320752, a: 1}
+  m_Color: {r: 1, g: 0.49036893, b: 0.2216981, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1002,6 +1002,81 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &323190402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 323190403}
+  - component: {fileID: 323190405}
+  - component: {fileID: 323190404}
+  m_Layer: 5
+  m_Name: Fill2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &323190403
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323190402}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 716063928}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -6, y: -0.5}
+  m_SizeDelta: {x: 0, y: -1}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &323190404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323190402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &323190405
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323190402}
+  m_CullTransparentMesh: 1
 --- !u!1 &325890208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,6 +1903,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 323190403}
   - {fileID: 190140640}
   m_Father: {fileID: 1608273907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6379,6 +6455,7 @@ GameObject:
   - component: {fileID: 1628507067}
   - component: {fileID: 1628507070}
   - component: {fileID: 1628507069}
+  - component: {fileID: 1628507071}
   - component: {fileID: 1628507068}
   m_Layer: 5
   m_Name: UPGRADE
@@ -6489,6 +6566,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1628507066}
   m_CullTransparentMesh: 1
+--- !u!114 &1628507071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628507066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2e413c69393844585f6c09f852e62b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rcfc: {fileID: 1719599390}
 --- !u!1 &1646325754
 GameObject:
   m_ObjectHideFlags: 0
@@ -6827,16 +6917,16 @@ MonoBehaviour:
   TowerExperience: {fileID: 1342102418}
   DamageSlider: {fileID: 1608273908}
   TowerDamage: {fileID: 2116956032}
-  ElementalDamageSlider: {fileID: 0}
-  TowerElementalDamage: {fileID: 0}
-  DamageOerTimeSlider: {fileID: 0}
-  TowerDamageOverTime: {fileID: 0}
-  SpeedSlider: {fileID: 0}
-  TowerSpeed: {fileID: 0}
-  RangeSlider: {fileID: 0}
-  TowerSlider: {fileID: 0}
-  DPS: {fileID: 0}
-  TowerDPS: {fileID: 0}
+  ElementalDamageSlider: {fileID: 310847219}
+  TowerElementalDamage: {fileID: 1525446170}
+  DamageOerTimeSlider: {fileID: 1607828707}
+  TowerDamageOverTime: {fileID: 1408032545}
+  SpeedSlider: {fileID: 937809972}
+  TowerSpeed: {fileID: 1098553312}
+  RangeSlider: {fileID: 1932526718}
+  TowerRange: {fileID: 1378013329}
+  DPSSlider: {fileID: 534874567}
+  TowerDPS: {fileID: 1260671432}
   TowerUpgradePrice: {fileID: 209189822}
   TowerUpgrade: {fileID: 1628507068}
   cordinate: {x: 0, y: 0, z: 0}
@@ -6857,6 +6947,7 @@ MonoBehaviour:
   - {fileID: 209276326}
   ActiveTower: -1
   HologramTower: 0
+  Visualize: 0
 --- !u!156049354 &1719599393
 Grid:
   m_ObjectHideFlags: 0

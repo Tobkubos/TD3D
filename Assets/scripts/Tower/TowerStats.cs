@@ -19,7 +19,16 @@ public class TowerStats : MonoBehaviour
     [SerializeField] int DamageOverTime;
     [SerializeField] int Range;
     [SerializeField] int DPS;
-	public bool hologram;
+
+	public int DamageUpgrade;
+    public int ElementalUpgrade;
+    public int DamageOverTimeUpgrade;
+    public int SpeedUpgrade;
+    public int RangeUpgrade;
+    public int DPSUpgrade;
+
+
+    public bool hologram;
 
 	[SerializeField] GameObject[] Towers;
 
@@ -67,12 +76,14 @@ public class TowerStats : MonoBehaviour
 		if (manager.GetComponent<RayCastFromCamera>().money >= UpgradePrice)
 		{
 			manager.GetComponent<RayCastFromCamera>().money -= UpgradePrice;
-			Level += 1;
 
-			if (Level == 1) 
+				
+
+            Level += 1;
+            if (Level == 1) 
 			{
 				Cooldown = 0.5f;
-				Damage += 1;
+				Damage += DamageUpgrade;
 			}
             if (Level == 2)
             {
@@ -84,8 +95,7 @@ public class TowerStats : MonoBehaviour
                 Cooldown = 0.12f;
 				Damage += 3;
             }
-
-			Area.transform.localScale += new Vector3(1,0,1);
+            Area.transform.localScale += new Vector3(1,0,1);
             rot = TWR.transform.rotation;
 			Destroy(TWR);
 			StopAllCoroutines();
@@ -96,8 +106,9 @@ public class TowerStats : MonoBehaviour
 	private void Start()
 	{
 		Setup(Level, Quaternion.identity);
-		//nextShoot = Time.time + 3;
-	}
+        DamageUpgrade = 2;
+        //nextShoot = Time.time + 3;
+    }
 	public string GetName()
 	{
 		return Name;

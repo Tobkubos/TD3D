@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -66,11 +68,12 @@ public class RayCastFromCamera : MonoBehaviour
 	public int ActiveTower = -1;
 	public bool HologramTower = false;
 	//public GameObject towerHolo = null;
-	private bool inspect = false;
+	public bool Visualize = false;
 	GameObject tower;
 
-
-	TowerStats ts = null;
+    Color col = new Color(1, 0.9565783f, 0.3632075f);
+    Color upgradecol = new Color(1, 0.4903689f, 0.2216981f);
+    TowerStats ts = null;
 	void Start()
 	{
 		TowerStatsCanva.SetActive(false);
@@ -167,52 +170,83 @@ public class RayCastFromCamera : MonoBehaviour
 			}
 		}
 	}
-	void VisualizeTowerUpgrade()
+    public void ShowInfo()
 	{
 
-	}
+        TowerName.text = ts.GetName();
+        TowerLevel.text = "TIER " + ts.GetLevel().ToString();
+
+        //exp
+        ExpSlider.minValue = 0;
+        ExpSlider.maxValue = ts.GetMaxExp();
+        ExpSlider.value = ts.GetExperience();
+        TowerExperience.text = ts.GetExperience() + " / " + ts.GetMaxExp();
+
+        TowerType.text = "type: " + ts.GetType();
+
+        //damage
+        TowerDamage.text = ts.GetDamage().ToString();
+        DamageSlider.value = ts.GetDamage();
+        DamageSlider.maxValue = 100;
+        DamageSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = col;
+        if (Visualize && ts.DamageUpgrade > 0)
+		{
+            TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
+            //DamageSlider.value = ts.GetDamage() + ts.DamageUpgrade;
+            //DamageSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
+            DamageSlider.transform.Find("Fill Area").transform.Find("Fill2").GetComponent<Image>().fillAmount =19999;
+        }
+
+        //elemental damage
+        TowerElementalDamage.text = ts.GetElementalDamage().ToString();
+        ElementalDamageSlider.value = ts.GetElementalDamage();
+        ElementalDamageSlider.maxValue = 100;
+        if (Visualize && ts.ElementalUpgrade > 0)
+        {
+			TowerElementalDamage.text = ts.GetElementalDamage() + " + " + ts.ElementalUpgrade;
+            ElementalDamageSlider.value = ts.GetElementalDamage() + ts.ElementalUpgrade;
+            ElementalDamageSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
+        }
+
+        //damage over time
+        TowerDamageOverTime.text = ts.GetDamageOverTime().ToString();
+        DamageOerTimeSlider.value = ts.GetDamageOverTime();
+        DamageOerTimeSlider.maxValue = 100;
+        if (Visualize && ts.DamageOverTimeUpgrade > 0)
+        {
+            TowerDamageOverTime.text = ts.GetDamageOverTime() + " + " + ts.DamageOverTimeUpgrade;
+            DamageOerTimeSlider.value = ts.GetDamageOverTime() + ts.DamageOverTimeUpgrade;
+            DamageOerTimeSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
+        }
+
+        //attack speed
+        TowerSpeed.text = ts.GetAttackSpeed().ToString();
+        SpeedSlider.value = 3 - ts.GetAttackSpeed();
+        SpeedSlider.maxValue = 3;
+        if (Visualize && ts.SpeedUpgrade > 0)
+        {
+            TowerSpeed.text = ts.GetAttackSpeed() + " + " + ts.GetAttackSpeed();
+			SpeedSlider.value = ts.GetAttackSpeed() + ts.DamageUpgrade;
+            SpeedSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
+        }
+
+        //range
+        TowerRange.text = ts.GetRange().ToString();
+        RangeSlider.value = ts.GetRange();
+        RangeSlider.maxValue = 15;
+        if (Visualize && ts.RangeUpgrade > 0)
+        {
+            TowerRange.text = ts.GetRange() + " + " + ts.RangeUpgrade;
+            RangeSlider.value = ts.GetRange() + ts.RangeUpgrade;
+            RangeSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
+        }
+    }
 	void ShowTowerInfo()
 	{
             TowerUpgrade.onClick.RemoveAllListeners();
             TowerStatsCanva.SetActive(true);
-
-            TowerName.text = ts.GetName();
-            TowerLevel.text = "TIER " + ts.GetLevel().ToString();
-
-			//exp
-            ExpSlider.minValue = 0;
-            ExpSlider.maxValue = ts.GetMaxExp();
-            ExpSlider.value = ts.GetExperience();
-			TowerExperience.text = ts.GetExperience() + " / " + ts.GetMaxExp(); 
 			
-            TowerType.text = "type: " + ts.GetType();
-
-			//damage
-            TowerDamage.text = ts.GetDamage().ToString();
-			DamageSlider.value = ts.GetDamage();
-			DamageSlider.maxValue = 100;
-
-			//elemental damage
-			TowerElementalDamage.text = ts.GetElementalDamage().ToString();
-			ElementalDamageSlider.value = ts.GetElementalDamage();
-			ElementalDamageSlider.maxValue = 100;
-
-			//damage over time
-			TowerDamageOverTime.text = ts.GetDamageOverTime().ToString();
-			DamageOerTimeSlider.value = ts.GetDamageOverTime();
-			DamageOerTimeSlider.maxValue = 100;
-
-			//attack speed
-			TowerSpeed.text = ts.GetAttackSpeed().ToString();
-			SpeedSlider.value = 3 - ts.GetAttackSpeed();
-			SpeedSlider.maxValue = 3;
-
-			//attack speed
-			TowerRange.text = ts.GetRange().ToString();
-			RangeSlider.value = ts.GetRange();
-			RangeSlider.maxValue = 15;
-
-
+			ShowInfo();
 			TowerUpgrade.onClick.AddListener(ts.Upgrade);
             TowerUpgradePrice.text = ts.GetUpgradePrice().ToString();
     }
