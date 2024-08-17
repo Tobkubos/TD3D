@@ -24,18 +24,39 @@ public class RayCastFromCamera : MonoBehaviour
     public Material RedMaterial;
     GameObject temp;
 
-	public TextMeshProUGUI TowerName;
-	public TextMeshProUGUI TowerLevel;
-	public TextMeshProUGUI TowerExperience;
 	public TextMeshProUGUI TotalCash;
-
-	public Slider ExpSlider;
-	public Button TowerUpgrade;
 	public GameObject TowerStatsCanva;
 
+	//tower details
+	public TextMeshProUGUI TowerName;
+	public TextMeshProUGUI TowerLevel;
 	public TextMeshProUGUI TowerType;
-	public TextMeshProUGUI TowerDamage;
-	public TextMeshProUGUI TowerUpgradePrice;
+
+	public Slider ExpSlider;
+	public TextMeshProUGUI TowerExperience;
+
+    public Slider DamageSlider;
+    public TextMeshProUGUI TowerDamage;
+
+    public Slider ElementalDamageSlider;
+    public TextMeshProUGUI TowerElementalDamage;
+
+    public Slider DamageOerTimeSlider;
+    public TextMeshProUGUI TowerDamageOverTime;
+
+    public Slider SpeedSlider;
+    public TextMeshProUGUI TowerSpeed;
+
+    public Slider RangeSlider;
+    public TextMeshProUGUI TowerRange;
+
+    public Slider DPSSlider;
+    public TextMeshProUGUI TowerDPS;
+
+    public TextMeshProUGUI TowerUpgradePrice;
+	public Button TowerUpgrade;
+	//end
+
 	public Vector3 cordinate;
 
 	public GameObject[] Towers;
@@ -142,30 +163,57 @@ public class RayCastFromCamera : MonoBehaviour
 							TowerArea = hit.collider.gameObject.transform.Find("area");
 							TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
 						}
-				
 				}
-
 			}
-
 		}
+	}
+	void VisualizeTowerUpgrade()
+	{
+
 	}
 	void ShowTowerInfo()
 	{
             TowerUpgrade.onClick.RemoveAllListeners();
             TowerStatsCanva.SetActive(true);
+
             TowerName.text = ts.GetName();
-            TowerLevel.text = ts.GetLevel().ToString();
-            //Debug.Log(ts.GetLevel());
+            TowerLevel.text = "TIER " + ts.GetLevel().ToString();
 
-
+			//exp
             ExpSlider.minValue = 0;
             ExpSlider.maxValue = ts.GetMaxExp();
             ExpSlider.value = ts.GetExperience();
+			TowerExperience.text = ts.GetExperience() + " / " + ts.GetMaxExp(); 
+			
+            TowerType.text = "type: " + ts.GetType();
 
-            TowerType.text = ts.GetType();
+			//damage
             TowerDamage.text = ts.GetDamage().ToString();
+			DamageSlider.value = ts.GetDamage();
+			DamageSlider.maxValue = 100;
 
-            TowerUpgrade.onClick.AddListener(ts.Upgrade);
+			//elemental damage
+			TowerElementalDamage.text = ts.GetElementalDamage().ToString();
+			ElementalDamageSlider.value = ts.GetElementalDamage();
+			ElementalDamageSlider.maxValue = 100;
+
+			//damage over time
+			TowerDamageOverTime.text = ts.GetDamageOverTime().ToString();
+			DamageOerTimeSlider.value = ts.GetDamageOverTime();
+			DamageOerTimeSlider.maxValue = 100;
+
+			//attack speed
+			TowerSpeed.text = ts.GetAttackSpeed().ToString();
+			SpeedSlider.value = 3 - ts.GetAttackSpeed();
+			SpeedSlider.maxValue = 3;
+
+			//attack speed
+			TowerRange.text = ts.GetRange().ToString();
+			RangeSlider.value = ts.GetRange();
+			RangeSlider.maxValue = 15;
+
+
+			TowerUpgrade.onClick.AddListener(ts.Upgrade);
             TowerUpgradePrice.text = ts.GetUpgradePrice().ToString();
     }
 

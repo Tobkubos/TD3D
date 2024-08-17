@@ -3000,9 +3000,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 24
-  m_WholeNumbers: 1
-  m_Value: 16
+  m_MaxValue: 2
+  m_WholeNumbers: 0
+  m_Value: 0.26
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6818,16 +6818,27 @@ MonoBehaviour:
   HoloMaterial: {fileID: 2100000, guid: 1e8b3e3d83d400942bdc0684e30ea097, type: 2}
   InvisibleMaterial: {fileID: 2100000, guid: 248349c46cacab84d8192ce1533c30c4, type: 2}
   RedMaterial: {fileID: 2100000, guid: 280b2a40da74b414ca569b4525f7c680, type: 2}
+  TotalCash: {fileID: 1740053367}
+  TowerStatsCanva: {fileID: 1105065607}
   TowerName: {fileID: 1274566188}
   TowerLevel: {fileID: 776090409}
-  TowerExperience: {fileID: 0}
-  TotalCash: {fileID: 1740053367}
-  ExpSlider: {fileID: 1139522182}
-  TowerUpgrade: {fileID: 1628507068}
-  TowerStatsCanva: {fileID: 1105065607}
   TowerType: {fileID: 577374053}
-  TowerDamage: {fileID: 1646325756}
+  ExpSlider: {fileID: 1139522182}
+  TowerExperience: {fileID: 1342102418}
+  DamageSlider: {fileID: 1608273908}
+  TowerDamage: {fileID: 2116956032}
+  ElementalDamageSlider: {fileID: 0}
+  TowerElementalDamage: {fileID: 0}
+  DamageOerTimeSlider: {fileID: 0}
+  TowerDamageOverTime: {fileID: 0}
+  SpeedSlider: {fileID: 0}
+  TowerSpeed: {fileID: 0}
+  RangeSlider: {fileID: 0}
+  TowerSlider: {fileID: 0}
+  DPS: {fileID: 0}
+  TowerDPS: {fileID: 0}
   TowerUpgradePrice: {fileID: 209189822}
+  TowerUpgrade: {fileID: 1628507068}
   cordinate: {x: 0, y: 0, z: 0}
   Towers:
   - {fileID: 5857700132478872097, guid: 34e92586eccc1484690ac15937345904, type: 3}

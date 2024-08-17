@@ -13,8 +13,12 @@ public class TowerStats : MonoBehaviour
     [SerializeField] int UpgradePrice;
     [SerializeField] int MaxExp;
 	[SerializeField] string Type;
+
 	[SerializeField] int Damage;
-	[SerializeField] float RotSpeed;
+    [SerializeField] int ElementalDamage;
+    [SerializeField] int DamageOverTime;
+    [SerializeField] int Range;
+    [SerializeField] int DPS;
 	public bool hologram;
 
 	[SerializeField] GameObject[] Towers;
@@ -27,6 +31,7 @@ public class TowerStats : MonoBehaviour
 	private GameObject tower;
 	private Animation ShootAnim;
 	private GameObject TWR;
+	public GameObject Area;
 	private Quaternion rot;
 
 	[SerializeField] ParticleSystem ExpPS;
@@ -57,7 +62,6 @@ public class TowerStats : MonoBehaviour
 			}
 		}
 	}
-
 	public void Upgrade()
 	{
 		if (manager.GetComponent<RayCastFromCamera>().money >= UpgradePrice)
@@ -68,20 +72,23 @@ public class TowerStats : MonoBehaviour
 			if (Level == 1) 
 			{
 				Cooldown = 0.5f;
+				Damage += 1;
 			}
             if (Level == 2)
             {
                 Cooldown = 0.25f;
+				Damage += 2;
             }
             if (Level == 3)
             {
                 Cooldown = 0.12f;
+				Damage += 3;
             }
 
+			Area.transform.localScale += new Vector3(1,0,1);
             rot = TWR.transform.rotation;
 			Destroy(TWR);
 			StopAllCoroutines();
-			Damage += 1;
 			nextShoot = 0f;
 			Setup(Level, rot);
 		}
@@ -119,6 +126,27 @@ public class TowerStats : MonoBehaviour
 	{
 		return Damage;
 	}
+    public int GetElementalDamage()
+    {
+        return ElementalDamage;
+    }
+    public int GetDamageOverTime()
+    {
+        return DamageOverTime;
+    }
+    public float GetAttackSpeed()
+    {
+        return Cooldown;
+    }
+    public float GetRange()
+    {
+        return Area.transform.localScale.x;
+    }
+    public int GetDPS()
+    {
+        return DPS;
+    }
+
     public int GetUpgradePrice()
 	{
 		return UpgradePrice;

@@ -15,15 +15,16 @@ public class BulletMovement : MonoBehaviour
         Destroy(gameObject,2);
     }
 
-    void Update()
+    void FixedUpdate()
     {
 		if (enemy != null)
 		{
 			Vector3 direction = (enemy.position - transform.position).normalized;
 
-			transform.position += direction * BulletSpeed * Time.deltaTime;
+            transform.position += direction * BulletSpeed * Time.deltaTime;
+            //transform.position = Vector3.Lerp(transform.position, transform.position + direction * BulletSpeed * Time.deltaTime, 0.5f);
 
-			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
 			transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
