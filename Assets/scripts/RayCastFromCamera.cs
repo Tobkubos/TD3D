@@ -189,12 +189,17 @@ public class RayCastFromCamera : MonoBehaviour
         DamageSlider.value = ts.GetDamage();
         DamageSlider.maxValue = 100;
         DamageSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = col;
+        DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = 0;
+        DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().maxValue = 100;
+        //DamageSlider.transform.Find("Fill Area").transform.Find("Fill2").GetComponent<Image>().fillAmount = 0.0f;
         if (Visualize && ts.DamageUpgrade > 0)
 		{
             TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
+			DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = ts.GetDamage() + ts.DamageUpgrade;
             //DamageSlider.value = ts.GetDamage() + ts.DamageUpgrade;
             //DamageSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
-            DamageSlider.transform.Find("Fill Area").transform.Find("Fill2").GetComponent<Image>().fillAmount =19999;
+            //DamageSlider.transform.Find("Fill Area").transform.Find("Fill2").GetComponent<Image>().fillAmount = 0.3f;
+            //DamageSlider.transform.Find("Fill Area").transform.Find("Fill2").GetComponent<Image>().color = upgradecol;
         }
 
         //elemental damage
