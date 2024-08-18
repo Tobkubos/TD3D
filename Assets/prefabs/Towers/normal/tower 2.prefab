@@ -164,18 +164,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e93ae0019b9faf84aa537dcb2895f115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Crossbow
+  Name: Rifle
   Level: 0
   Experience: 0
-  UpgradePrice: 400
-  MaxExp: 100
+  UpgradePrice: 150
+  MaxExp: 80
   Type: Normal
-  Damage: 2
+  Damage: 3
   ElementalDamage: 0
   DamageOverTime: 0
-  AttackSpeed: 0
   Range: 0
   DPS: 0
+  DamageUpgrade: 0
+  ElementalUpgrade: 0
+  DamageOverTimeUpgrade: 0
+  SpeedUpgrade: 0
+  RangeUpgrade: 0
+  DPSUpgrade: 0
   hologram: 0
   Towers:
   - {fileID: 4406638584226920736, guid: 45447d3550247734698be6a8cd959ecb, type: 3}

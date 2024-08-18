@@ -43,7 +43,7 @@ public class RayCastFromCamera : MonoBehaviour
     public Slider ElementalDamageSlider;
     public TextMeshProUGUI TowerElementalDamage;
 
-    public Slider DamageOerTimeSlider;
+    public Slider DamageOverTimeSlider;
     public TextMeshProUGUI TowerDamageOverTime;
 
     public Slider SpeedSlider;
@@ -172,9 +172,11 @@ public class RayCastFromCamera : MonoBehaviour
 	}
     public void ShowInfo()
 	{
-
+		//name / tier
         TowerName.text = ts.GetName();
         TowerLevel.text = "TIER " + ts.GetLevel().ToString();
+
+
 
         //exp
         ExpSlider.minValue = 0;
@@ -182,70 +184,83 @@ public class RayCastFromCamera : MonoBehaviour
         ExpSlider.value = ts.GetExperience();
         TowerExperience.text = ts.GetExperience() + " / " + ts.GetMaxExp();
 
+
+
+		//type
         TowerType.text = "type: " + ts.GetType();
+
+
 
         //damage
         TowerDamage.text = ts.GetDamage().ToString();
         DamageSlider.value = ts.GetDamage();
         DamageSlider.maxValue = 100;
-        DamageSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = col;
         DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = 0;
         DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().maxValue = 100;
-        //DamageSlider.transform.Find("Fill Area").transform.Find("Fill2").GetComponent<Image>().fillAmount = 0.0f;
         if (Visualize && ts.DamageUpgrade > 0)
 		{
             TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
 			DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = ts.GetDamage() + ts.DamageUpgrade;
-            //DamageSlider.value = ts.GetDamage() + ts.DamageUpgrade;
-            //DamageSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
-            //DamageSlider.transform.Find("Fill Area").transform.Find("Fill2").GetComponent<Image>().fillAmount = 0.3f;
-            //DamageSlider.transform.Find("Fill Area").transform.Find("Fill2").GetComponent<Image>().color = upgradecol;
         }
+
+
 
         //elemental damage
         TowerElementalDamage.text = ts.GetElementalDamage().ToString();
         ElementalDamageSlider.value = ts.GetElementalDamage();
         ElementalDamageSlider.maxValue = 100;
+        ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().value = 0;
+        ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().maxValue = 100;
         if (Visualize && ts.ElementalUpgrade > 0)
         {
 			TowerElementalDamage.text = ts.GetElementalDamage() + " + " + ts.ElementalUpgrade;
-            ElementalDamageSlider.value = ts.GetElementalDamage() + ts.ElementalUpgrade;
-            ElementalDamageSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
+            ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().value = ts.GetElementalDamage() + ts.ElementalUpgrade;
         }
+
+
 
         //damage over time
         TowerDamageOverTime.text = ts.GetDamageOverTime().ToString();
-        DamageOerTimeSlider.value = ts.GetDamageOverTime();
-        DamageOerTimeSlider.maxValue = 100;
+        DamageOverTimeSlider.value = ts.GetDamageOverTime();
+        DamageOverTimeSlider.maxValue = 100;
+        DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().value = 0;
+        DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().maxValue = 100;
         if (Visualize && ts.DamageOverTimeUpgrade > 0)
         {
             TowerDamageOverTime.text = ts.GetDamageOverTime() + " + " + ts.DamageOverTimeUpgrade;
-            DamageOerTimeSlider.value = ts.GetDamageOverTime() + ts.DamageOverTimeUpgrade;
-            DamageOerTimeSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
+            DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().value = ts.GetDamageOverTime() + ts.DamageOverTimeUpgrade;
         }
+
+
 
         //attack speed
         TowerSpeed.text = ts.GetAttackSpeed().ToString();
         SpeedSlider.value = 3 - ts.GetAttackSpeed();
         SpeedSlider.maxValue = 3;
+        SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 0;
+        SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().maxValue = 3;
         if (Visualize && ts.SpeedUpgrade > 0)
         {
-            TowerSpeed.text = ts.GetAttackSpeed() + " + " + ts.GetAttackSpeed();
-			SpeedSlider.value = ts.GetAttackSpeed() + ts.DamageUpgrade;
-            SpeedSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
+            TowerSpeed.text = ts.GetAttackSpeed() + " - " + ts.SpeedUpgrade;
+            SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 3 - ts.GetAttackSpeed() + ts.SpeedUpgrade;
         }
+
+
 
         //range
         TowerRange.text = ts.GetRange().ToString();
         RangeSlider.value = ts.GetRange();
         RangeSlider.maxValue = 15;
+        RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = 0;
+        RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().maxValue = 15;
         if (Visualize && ts.RangeUpgrade > 0)
         {
             TowerRange.text = ts.GetRange() + " + " + ts.RangeUpgrade;
-            RangeSlider.value = ts.GetRange() + ts.RangeUpgrade;
-            RangeSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = upgradecol;
+            RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = ts.GetRange() + ts.RangeUpgrade;
         }
     }
+
+
 	void ShowTowerInfo()
 	{
             TowerUpgrade.onClick.RemoveAllListeners();
@@ -310,40 +325,3 @@ public class RayCastFromCamera : MonoBehaviour
 		}
 	}
 }
-		/*
-		public void PlaceHoloTower(Vector3 cordinate)
-		{
-			if (towerHolo != null)
-			{
-				towerHolo.transform.position = cordinate;
-			}
-
-			if (ActiveTower == 0 && !Hologram)
-			{
-				Hologram = true;
-				towerHolo = Instantiate(HoloTowers[0], cordinate, Quaternion.identity);
-				towerHolo.transform.position = cordinate;
-			}
-
-			if (ActiveTower == 1 && !Hologram)
-			{
-				Hologram = true;
-				towerHolo = Instantiate(HoloTowers[1], cordinate, Quaternion.identity);
-				towerHolo.transform.position = cordinate;
-			}
-
-			if (ActiveTower == 2 && !Hologram)
-			{
-				Hologram = true;
-				towerHolo = Instantiate(HoloTowers[2], cordinate, Quaternion.identity);
-				towerHolo.transform.position = cordinate;
-			}
-
-			if (ActiveTower == 3 && !Hologram)
-			{
-				Hologram = true;
-				towerHolo = Instantiate(HoloTowers[3], cordinate, Quaternion.identity);
-				towerHolo.transform.position = cordinate;
-			}
-		}
-		*/

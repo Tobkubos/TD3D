@@ -18,15 +18,12 @@ public class TowerStats : MonoBehaviour
     [SerializeField] int ElementalDamage;
     [SerializeField] int DamageOverTime;
     [SerializeField] int Range;
-    [SerializeField] int DPS;
 
 	public int DamageUpgrade;
     public int ElementalUpgrade;
     public int DamageOverTimeUpgrade;
-    public int SpeedUpgrade;
-    public int RangeUpgrade;
-    public int DPSUpgrade;
-
+    public float SpeedUpgrade;
+    public float RangeUpgrade;
 
     public bool hologram;
 
@@ -50,6 +47,8 @@ public class TowerStats : MonoBehaviour
 
 	private int counter = 0;
 	GameObject manager;
+
+
 
 	void Setup(int level, Quaternion rot)
 	{
@@ -82,20 +81,31 @@ public class TowerStats : MonoBehaviour
             Level += 1;
             if (Level == 1) 
 			{
-				Cooldown = 0.5f;
+				Cooldown -= SpeedUpgrade;
 				Damage += DamageUpgrade;
-			}
+				Area.transform.localScale += new Vector3(RangeUpgrade,0,RangeUpgrade);
+
+                DamageUpgrade = 2;
+                RangeUpgrade = 0.6f;
+                SpeedUpgrade = 0.25f;
+
+            }
             if (Level == 2)
             {
-                Cooldown = 0.25f;
-				Damage += 2;
+                Cooldown -= SpeedUpgrade;
+                Damage += DamageUpgrade;
+                Area.transform.localScale += new Vector3(RangeUpgrade, 0, RangeUpgrade);
+
+                DamageUpgrade = 4;
+                RangeUpgrade = 1.2f;
+                SpeedUpgrade = 0.125f;
             }
             if (Level == 3)
             {
-                Cooldown = 0.12f;
-				Damage += 3;
+                Cooldown -= SpeedUpgrade;
+                Damage += DamageUpgrade;
+                Area.transform.localScale += new Vector3(RangeUpgrade, 0, RangeUpgrade);
             }
-            Area.transform.localScale += new Vector3(1,0,1);
             rot = TWR.transform.rotation;
 			Destroy(TWR);
 			StopAllCoroutines();
@@ -105,9 +115,14 @@ public class TowerStats : MonoBehaviour
 	}
 	private void Start()
 	{
+		if (Type == "Normal") 
+		{
+			DamageUpgrade = 1;
+			RangeUpgrade = 0.4f;
+			SpeedUpgrade = 0.5f;
+		}
+
 		Setup(Level, Quaternion.identity);
-        DamageUpgrade = 2;
-        //nextShoot = Time.time + 3;
     }
 	public string GetName()
 	{
@@ -153,11 +168,6 @@ public class TowerStats : MonoBehaviour
     {
         return Area.transform.localScale.x;
     }
-    public int GetDPS()
-    {
-        return DPS;
-    }
-
     public int GetUpgradePrice()
 	{
 		return UpgradePrice;
