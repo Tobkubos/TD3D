@@ -15,7 +15,7 @@ public class RayCastFromCamera : MonoBehaviour
 	[SerializeField] int Tower1Price1;
 	[SerializeField] int Tower1Price2;
 	[SerializeField] int Tower1Price3;
-
+	private int price;
 
 	public Camera camera;
 	public Grid grid;
@@ -57,7 +57,9 @@ public class RayCastFromCamera : MonoBehaviour
 
     public TextMeshProUGUI TowerUpgradePrice;
 	public Button TowerUpgrade;
-	public Button TowerSell;
+
+    public TextMeshProUGUI TowerSellIncome;
+    public Button TowerSell;
 	//end
 
 	public Vector3 cordinate;
@@ -122,7 +124,8 @@ public class RayCastFromCamera : MonoBehaviour
 					{
 						if (tower != null)
 						{
-							tower.transform.position = cordinate;
+                            money -= price;
+                            tower.transform.position = cordinate;
 							TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
 							tower.GetComponentInChildren<TowerStats>().hologram = false;
 							tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
@@ -271,6 +274,8 @@ public class RayCastFromCamera : MonoBehaviour
 			
 		ShowInfo();
 
+
+        TowerSellIncome.text = "for " + ts.GetSellIncome().ToString();
 		if (ts.GetLevel() < 3)
 		{
 			TowerUpgrade.onClick.AddListener(ts.Upgrade);
@@ -321,9 +326,11 @@ public class RayCastFromCamera : MonoBehaviour
 			*/
 		}
 
-		if (ActiveTower == 1 && money >= Tower1Price1)
+		if (ActiveTower == 1 && money >= Towers[1].GetComponentInChildren<TowerStats>().GetUpgradePrice())
 		{
-			money -= Tower1Price1;
+			//money -= Tower1Price1;
+			//price = Tower1Price1;
+			price = Towers[1].GetComponentInChildren<TowerStats>().GetUpgradePrice();
 			ResetSelectedTower();
 			TowerAreaInvisible();
             tower = Instantiate(Towers[1], cordinate, Quaternion.identity);

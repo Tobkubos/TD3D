@@ -11,6 +11,7 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] int Level;
     [SerializeField] int Experience;
     [SerializeField] int UpgradePrice;
+    private int SellPrice;
     [SerializeField] int MaxExp;
 	[SerializeField] string Type;
 
@@ -86,6 +87,7 @@ public class TowerStats : MonoBehaviour
 				Damage += DamageUpgrade;
 				Area.transform.localScale += new Vector3(RangeUpgrade,0,RangeUpgrade);
 
+				SellPrice += UpgradePrice / 2;
                 DamageUpgrade = 2;
                 RangeUpgrade = 0.6f;
                 SpeedUpgrade = 0.25f;
@@ -98,6 +100,7 @@ public class TowerStats : MonoBehaviour
                 Damage += DamageUpgrade;
                 Area.transform.localScale += new Vector3(RangeUpgrade, 0, RangeUpgrade);
 
+                SellPrice += UpgradePrice / 2;
                 DamageUpgrade = 4;
                 RangeUpgrade = 1.2f;
                 SpeedUpgrade = 0.125f;
@@ -106,6 +109,7 @@ public class TowerStats : MonoBehaviour
             }
             if (Level == 3)
             {
+                SellPrice += UpgradePrice / 2;
                 Cooldown -= SpeedUpgrade;
                 Damage += DamageUpgrade;
                 Area.transform.localScale += new Vector3(RangeUpgrade, 0, RangeUpgrade);
@@ -121,7 +125,8 @@ public class TowerStats : MonoBehaviour
 	}
 	private void Start()
 	{
-		if (Type == "Normal") 
+        SellPrice = UpgradePrice / 2;
+        if (Type == "Normal") 
 		{
 			DamageUpgrade = 1;
 			RangeUpgrade = 0.4f;
@@ -180,8 +185,13 @@ public class TowerStats : MonoBehaviour
 	}
 	public void Sell()
 	{
+		manager.GetComponent<RayCastFromCamera>().money += SellPrice;
 		Destroy(TowerObject);
 	}
+    public int GetSellIncome()
+    {
+		return SellPrice;
+    }
     public void OnEnemyEnterRange(GameObject enemy)
 	{
 		EnemiesInRange.Add(enemy);
