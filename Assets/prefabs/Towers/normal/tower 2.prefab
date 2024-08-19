@@ -168,19 +168,18 @@ MonoBehaviour:
   Level: 0
   Experience: 0
   UpgradePrice: 150
-  MaxExp: 80
+  MaxExp: 2
   Type: Normal
   Damage: 3
   ElementalDamage: 0
   DamageOverTime: 0
   Range: 0
-  DPS: 0
   DamageUpgrade: 0
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0
   RangeUpgrade: 0
-  DPSUpgrade: 0
+  canUpgrade: 0
   hologram: 0
   Towers:
   - {fileID: 4406638584226920736, guid: 45447d3550247734698be6a8cd959ecb, type: 3}
@@ -189,6 +188,7 @@ MonoBehaviour:
   - {fileID: 6402654085842225473, guid: 9abb811f7a80a0b44a21c3a28fba20b0, type: 3}
   Bullet: {fileID: 7019720170624027536, guid: 171a1f28c0365f34e8b665b8599f6451, type: 3}
   Area: {fileID: 84812341082029954}
+  TowerObject: {fileID: 5857700132478872097}
   ExpPS: {fileID: 8585175799612243974}
 --- !u!1 &5857700132478872097
 GameObject:

@@ -9,7 +9,7 @@ public class TowerStats : MonoBehaviour
 {
 	[SerializeField] string Name;
 	[SerializeField] int Level;
-	[SerializeField] int Experience;
+    [SerializeField] int Experience;
     [SerializeField] int UpgradePrice;
     [SerializeField] int MaxExp;
 	[SerializeField] string Type;
@@ -24,6 +24,7 @@ public class TowerStats : MonoBehaviour
     public int DamageOverTimeUpgrade;
     public float SpeedUpgrade;
     public float RangeUpgrade;
+	public bool canUpgrade = false;
 
     public bool hologram;
 
@@ -39,7 +40,7 @@ public class TowerStats : MonoBehaviour
 	private GameObject TWR;
 	public GameObject Area;
 	private Quaternion rot;
-
+	public GameObject TowerObject;
 	[SerializeField] ParticleSystem ExpPS;
 
     float Cooldown = 1f;
@@ -72,10 +73,10 @@ public class TowerStats : MonoBehaviour
 	}
 	public void Upgrade()
 	{
-		if (manager.GetComponent<RayCastFromCamera>().money >= UpgradePrice)
+		if (manager.GetComponent<RayCastFromCamera>().money >= UpgradePrice && canUpgrade)
 		{
 			manager.GetComponent<RayCastFromCamera>().money -= UpgradePrice;
-
+			Experience = 0;
 				
 
             Level += 1;
@@ -88,7 +89,8 @@ public class TowerStats : MonoBehaviour
                 DamageUpgrade = 2;
                 RangeUpgrade = 0.6f;
                 SpeedUpgrade = 0.25f;
-
+				MaxExp = 2;
+				UpgradePrice = 250;
             }
             if (Level == 2)
             {
@@ -99,12 +101,16 @@ public class TowerStats : MonoBehaviour
                 DamageUpgrade = 4;
                 RangeUpgrade = 1.2f;
                 SpeedUpgrade = 0.125f;
+                MaxExp = 3;
+                UpgradePrice = 500;
             }
             if (Level == 3)
             {
                 Cooldown -= SpeedUpgrade;
                 Damage += DamageUpgrade;
                 Area.transform.localScale += new Vector3(RangeUpgrade, 0, RangeUpgrade);
+				MaxExp = 0;
+                UpgradePrice = 900;
             }
             rot = TWR.transform.rotation;
 			Destroy(TWR);
@@ -172,7 +178,10 @@ public class TowerStats : MonoBehaviour
 	{
 		return UpgradePrice;
 	}
-
+	public void Sell()
+	{
+		Destroy(TowerObject);
+	}
     public void OnEnemyEnterRange(GameObject enemy)
 	{
 		EnemiesInRange.Add(enemy);
@@ -185,7 +194,6 @@ public class TowerStats : MonoBehaviour
 	
 	private void FixedUpdate()
 	{
-		//Debug.Log("LEVEL" + Level + "COUNTER "  + counter  + "COOLDOWN" + Cooldown);
 		if (!hologram)
 		{
 			if (target == null)
@@ -213,8 +221,6 @@ public class TowerStats : MonoBehaviour
                     }
                 }
 
-
-				//target = EnemiesInRange[0];
 				if (target != null)
 				{
 					Vector3 direction = target.transform.position - Turret.transform.position;
@@ -223,7 +229,6 @@ public class TowerStats : MonoBehaviour
 					if (direction != Vector3.zero)
 					{
 						Quaternion targetRotation = Quaternion.LookRotation(direction);
-						//transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
 						transform.rotation = targetRotation;
 						Debug.DrawRay(transform.position, direction, Color.red);
 
@@ -233,7 +238,6 @@ public class TowerStats : MonoBehaviour
 
 							//
 							Shoot(target.transform);
-							//Animation animComp = tower.GetComponent<Animation>();
 							ShootAnim.Rewind();
                             ShootAnim.Play("shooting");
                          
@@ -248,6 +252,7 @@ public class TowerStats : MonoBehaviour
 				//Debug.Log("Checking Experience: " + Experience + "/" + MaxExp);
 				if (Experience >= MaxExp)
 				{
+					canUpgrade = true;
 					if (!ExpPS.isPlaying)
 					{
 						//Debug.Log("Playing Particle System");
@@ -256,6 +261,7 @@ public class TowerStats : MonoBehaviour
 				}
 				else
 				{
+					canUpgrade = false;
 					if (ExpPS.isPlaying)
 					{
 						//Debug.Log("Stopping Particle System");

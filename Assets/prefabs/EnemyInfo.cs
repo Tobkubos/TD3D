@@ -48,6 +48,7 @@ public class EnemyInfo : MonoBehaviour
 			if (hp <= 0)
 			{
 				ps.transform.parent = null;
+				ps.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
 				ps.Play();
 				Destroy(ps.gameObject, 2);
 

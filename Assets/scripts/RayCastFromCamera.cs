@@ -57,6 +57,7 @@ public class RayCastFromCamera : MonoBehaviour
 
     public TextMeshProUGUI TowerUpgradePrice;
 	public Button TowerUpgrade;
+	public Button TowerSell;
 	//end
 
 	public Vector3 cordinate;
@@ -73,7 +74,7 @@ public class RayCastFromCamera : MonoBehaviour
 
     Color col = new Color(1, 0.9565783f, 0.3632075f);
     Color upgradecol = new Color(1, 0.4903689f, 0.2216981f);
-    TowerStats ts = null;
+    public TowerStats ts = null;
 	void Start()
 	{
 		TowerStatsCanva.SetActive(false);
@@ -174,7 +175,7 @@ public class RayCastFromCamera : MonoBehaviour
 	{
 		//name / tier
         TowerName.text = ts.GetName();
-        TowerLevel.text = "TIER " + ts.GetLevel().ToString();
+        TowerLevel.text = "TIER " + (ts.GetLevel() + 1).ToString();
 
 
 
@@ -263,12 +264,32 @@ public class RayCastFromCamera : MonoBehaviour
 
 	void ShowTowerInfo()
 	{
-            TowerUpgrade.onClick.RemoveAllListeners();
-            TowerStatsCanva.SetActive(true);
+        TowerUpgrade.onClick.RemoveAllListeners();
+		TowerSell.onClick.RemoveAllListeners();
+		TowerSell.onClick.AddListener(ts.Sell);
+        TowerStatsCanva.SetActive(true);
 			
-			ShowInfo();
+		ShowInfo();
+
+		if (ts.GetLevel() < 3)
+		{
 			TowerUpgrade.onClick.AddListener(ts.Upgrade);
-            TowerUpgradePrice.text = ts.GetUpgradePrice().ToString();
+			TowerUpgradePrice.text = ts.GetUpgradePrice().ToString();
+            TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "UPGRADE";
+            TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.black;
+            TowerUpgrade.interactable = true;
+        }
+		else
+		{
+            ColorBlock cb = TowerUpgrade.colors;
+            cb.disabledColor = Color.yellow;
+            TowerUpgrade.colors = cb;
+
+			TowerUpgrade.interactable = false;
+            TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "MAX";
+            TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.white;
+        }
+            
     }
 
 	void ResetSelectedTower()
@@ -290,12 +311,14 @@ public class RayCastFromCamera : MonoBehaviour
 	}
 	public void PlaceTower(Vector3 cordinate)
 	{
-		if (ActiveTower == 0 && money >= Tower1Price0)
+		if (ActiveTower == 0 && money >= Towers[0].transform.Find("tower stats").GetComponent<TowerStats>().GetUpgradePrice())
 		{
-			money -= Tower1Price0;
+			/*
+			money -= Towers[0].transform.Find("tower stats").GetComponent<TowerStats>().GetUpgradePrice();
 			ResetSelectedTower();
 			tower = Instantiate(Towers[0], cordinate, Quaternion.identity);
 			tower.layer = LayerMask.NameToLayer("Ignore Raycast");
+			*/
 		}
 
 		if (ActiveTower == 1 && money >= Tower1Price1)
