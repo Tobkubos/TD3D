@@ -22,7 +22,6 @@ public class ChunkBuy : MonoBehaviour
             if (Manager.GetComponent<RayCastFromCamera>().money > 100)
             {
                 Manager.GetComponent<RayCastFromCamera>().money -= 100;
-                ChunkPlane.tag = "chunk";
                 if (Chunk.GetComponent<ChunkReveal2>() != null)
                 {
                     Chunk.GetComponent<ChunkReveal2>().Buy();
@@ -31,6 +30,7 @@ public class ChunkBuy : MonoBehaviour
 
 
                 Chunk.GetComponent<ColorChanger>().ChangeCol();
+                //ChunkPlane.tag = "chunk";
                 Destroy(this.gameObject);
             }
         }

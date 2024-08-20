@@ -311,7 +311,6 @@ public class ChunkReveal2 : MonoBehaviour
     }
 	public IEnumerator BuyChunk()
 	{
-		ChunkPlane.tag = "chunk";
 		Destroy(BuyButton);
 		if (index == 0) 
 		{ 
@@ -329,5 +328,6 @@ public class ChunkReveal2 : MonoBehaviour
         LeanTween.scale(StartEnd[1], Vector3.one, 0.3f);
         GameObject manager = GameObject.Find("manager");
 		StartCoroutine(manager.GetComponent<GeneratorV4>().DeleteUnnecessaryEnds());
+		ChunkPlane.tag = "chunk";
     }
 }

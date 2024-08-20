@@ -40,22 +40,7 @@ public class GeneratorV4 : MonoBehaviour
     private int index = 0;
     void Start()
     {
-
-        /*
-        for (int i = 0; i < SizeOfMap; i++)
-        {
-            for (int j = 0; j < SizeOfMap; j++)
-            {
-                GameObject EmptyCh = Instantiate(EmptyChunk, new Vector3(i * (chunkSize + 1), elevation, j * (chunkSize + 1)), Quaternion.identity);
-                EmptyCh.GetComponent<MeshGenerator>().SetSize(chunkSize, chunkSize);
-                EmptyCh.GetComponent<MeshGenerator>().GenerateMesh();
-            }
-        }
-        */
-
-        Debug.Log(map);
         GenerateChunks();
-
         GenerateEmptyChunks();
     }
 
