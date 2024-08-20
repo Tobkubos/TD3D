@@ -7,20 +7,55 @@ public class Spawner : MonoBehaviour
 	public GameObject enemy1;
     public GameObject enemy2;
     public float cooldown = 0.5f;
-
-	public void Spawn()
+    private int wave;
+    private GameObject manager;
+    private void Start()
+    {
+        wave = 0;
+    }
+    public void Spawn()
 	{
+        manager = GameObject.Find("manager");
+        
 		StartCoroutine(Spawning());
 	}
 	public IEnumerator Spawning()
 	{
-		while (true)
+		wave++;
+        manager.GetComponent<RayCastFromCamera>().SetWave(wave);
+        if (wave == 1)
 		{
-			yield return new WaitForSeconds(cooldown);
-			Instantiate(enemy1, transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(cooldown);
-            Instantiate(enemy2, transform.position, Quaternion.identity);
+			for (int i = 0; i < 10; i++)
+			{
+                yield return new WaitForSeconds(2);
+                Instantiate(enemy1, transform.position, Quaternion.identity);
+			}
+		}
 
+        if (wave == 2)
+        {
+            for (int i = 0; i < 14; i++)
+            {
+                yield return new WaitForSeconds(1.6f);
+                Instantiate(enemy1, transform.position, Quaternion.identity);
+            }
+        }
+
+        if (wave == 3)
+        {
+            for (int i = 0; i < 24; i++)
+            {
+                yield return new WaitForSeconds(1.2f);
+                Instantiate(enemy1, transform.position, Quaternion.identity);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 24; i++)
+            {
+                yield return new WaitForSeconds(0.3f);
+                Instantiate(enemy1, transform.position, Quaternion.identity);
+            }
         }
     }
 }

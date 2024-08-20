@@ -53,10 +53,18 @@ public class CameraMovement : MonoBehaviour
             if (scrollInput > 0 && cam.orthographicSize < 100)
             {
                 cam.orthographicSize -= 1f * zoom;
+                if(cam.orthographicSize < 2)
+                {
+                    cam.orthographicSize = 2;
+                }
             }
             else if (scrollInput < 0 && cam.orthographicSize > 1)
             {
                 cam.orthographicSize += 1f * zoom;
+                if (cam.orthographicSize > 99)
+                {
+                    cam.orthographicSize = 99;
+                }
             }
         }
     }

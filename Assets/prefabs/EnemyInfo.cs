@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyInfo : MonoBehaviour
 {
@@ -8,14 +9,16 @@ public class EnemyInfo : MonoBehaviour
 	public int speed;
 	public int defence;
 	public int cash;
+    public Slider hpBar;
 
-	public ParticleSystem ps;
+    public ParticleSystem ps;
 
     public float distanceTravelled = 0f;
     private Vector3 lastPosition;
 
     void Start()
     {
+		hpBar.maxValue = hp;
         lastPosition = transform.position;
     }
 
@@ -24,6 +27,14 @@ public class EnemyInfo : MonoBehaviour
         // distance till start
         distanceTravelled += Vector3.Distance(lastPosition, transform.position);
         lastPosition = transform.position;
+
+
+        if (hpBar != null)
+        {
+            hpBar.transform.rotation = Quaternion.Euler(55f, 45f, 0f);
+			hpBar.value = hp;
+        }
+
     }
 
 

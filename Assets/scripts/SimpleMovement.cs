@@ -7,7 +7,7 @@ public class SimpleMovement : MonoBehaviour
 {
     public NavMeshAgent agent;
 	public GameObject end;
-
+	
 
 	private void Start()
 	{
@@ -20,6 +20,8 @@ public class SimpleMovement : MonoBehaviour
 
 	void Update()
 	{
+
+
 		if (agent != null && end != null)
 		{
 			agent.SetDestination(end.transform.position);

@@ -27,6 +27,7 @@ public class RayCastFromCamera : MonoBehaviour
     GameObject temp;
 
 	public TextMeshProUGUI TotalCash;
+	public TextMeshProUGUI CurrentWave;
 	public GameObject TowerStatsCanva;
 
 	//tower details
@@ -160,20 +161,31 @@ public class RayCastFromCamera : MonoBehaviour
 
 				if (hit.collider.CompareTag("tower") && !HologramTower)
 				{
-						if (Input.GetMouseButtonDown(0))
-						{
-							TowerAreaInvisible();
+					if (Input.GetMouseButtonDown(0))
+					{
+						TowerAreaInvisible();
 
-							TowerStatsCanva.SetActive(true);
-							ts = hit.collider.gameObject.transform.Find("towerInfo").GetComponent<TowerStats>();
+						TowerStatsCanva.SetActive(true);
+						ts = hit.collider.gameObject.transform.Find("towerInfo").GetComponent<TowerStats>();
 
-							TowerArea = hit.collider.gameObject.transform.Find("area");
-							TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
-						}
+						TowerArea = hit.collider.gameObject.transform.Find("area");
+						TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
+					}
 				}
 			}
 		}
 	}
+
+	public void SetWave(int wave)
+	{
+		CurrentWave.text = wave.ToString();
+		LeanTween.cancel(CurrentWave.gameObject);
+		CurrentWave.transform.localScale = Vector3.one;
+		float s = 1.2f;
+		float t = 0.2f;
+		LeanTween.scale(CurrentWave.gameObject, new Vector3(s, s, s), t).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.scale(CurrentWave.gameObject, new Vector3(1, 1, 1), t).setEase(LeanTweenType.easeInOutSine).setDelay(t);
+    }
     public void ShowInfo()
 	{
 		//name / tier
