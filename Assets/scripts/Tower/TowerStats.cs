@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TowerStats : MonoBehaviour
 {
@@ -342,6 +343,14 @@ public class TowerStats : MonoBehaviour
                             positions.Add(enemy.transform.position);
                         }
                     }
+
+                    for (int i = 0; i < positions.Count; i++)
+                    {
+                        Vector3 position = positions[i];
+                        position.y = 0.3f;
+                        positions[i] = position;
+                    }
+
 
                     if (positions.Count > 1)
                     {

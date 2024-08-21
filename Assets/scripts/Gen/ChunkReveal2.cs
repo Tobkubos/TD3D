@@ -327,7 +327,7 @@ public class ChunkReveal2 : MonoBehaviour
 		StartEnd[1].transform.localScale = Vector3.zero;
         LeanTween.scale(StartEnd[1], Vector3.one, 0.3f);
         GameObject manager = GameObject.Find("manager");
-		StartCoroutine(manager.GetComponent<GeneratorV4>().DeleteUnnecessaryEnds());
 		ChunkPlane.tag = "chunk";
+		StartCoroutine(manager.GetComponent<GeneratorV4>().DeleteUnnecessaryEnds());
     }
 }
