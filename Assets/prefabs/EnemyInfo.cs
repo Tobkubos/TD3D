@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,16 +64,34 @@ public class EnemyInfo : MonoBehaviour
 				ps.Play();
 				Destroy(ps.gameObject, 2);
 
+                /*
                 if (other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().GetExperience() < other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().GetMaxExp())
                 {
                     other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().SetExperience(); //give experience
                 }
+                */
+                other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().SetExperience();
 
-				GameObject.Find("manager").GetComponent<RayCastFromCamera>().money += cash;
+                GameObject.Find("manager").GetComponent<RayCastFromCamera>().money += cash;
 
 
                 Destroy(gameObject);
 			}
 		}
 	}
+
+	public bool DealDamage(int damage) {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            ps.transform.parent = null;
+            ps.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
+            ps.Play();
+            Destroy(ps.gameObject, 2);
+            GameObject.Find("manager").GetComponent<RayCastFromCamera>().money += cash;
+            Destroy(gameObject);
+            return true;
+        }
+        return false;
+    }
 }

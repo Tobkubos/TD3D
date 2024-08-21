@@ -45,7 +45,7 @@ public class TowerStats : MonoBehaviour
 	private Quaternion rot;
 	public GameObject TowerObject;
 	[SerializeField] ParticleSystem ExpPS;
-
+	public LineRenderer lineRenderer;
     float Cooldown = 1f;
 	float nextShoot = 0f;
 
@@ -53,8 +53,9 @@ public class TowerStats : MonoBehaviour
 	GameObject manager;
 
 	public GameObject TestProj;
+	Vector3[] positions = null;
 
-	void Setup(int level, Quaternion rot)
+    void Setup(int level, Quaternion rot)
 	{
 		manager = GameObject.Find("manager");
 		TWR = Instantiate(Towers[level], this.transform.position, rot, this.gameObject.transform);
@@ -135,7 +136,15 @@ public class TowerStats : MonoBehaviour
 			SpeedUpgrade = 0.5f;
 		}
 
-		Setup(Level, Quaternion.identity);
+        if (Type == "Electric")
+        {
+            DamageUpgrade = 1;
+            ElementalUpgrade = 2;
+            RangeUpgrade = 0.5f;
+            SpeedUpgrade = 0.15f;
+        }
+
+        Setup(Level, Quaternion.identity);
     }
 	public string GetName()
 	{
@@ -151,7 +160,10 @@ public class TowerStats : MonoBehaviour
 	}
 	public void SetExperience()
 	{
-		Experience++;
+		if (Experience < MaxExp)
+		{
+			Experience++;
+		};
 	}
 	public int GetMaxExp()
 	{
@@ -291,6 +303,7 @@ public class TowerStats : MonoBehaviour
 			}
             #endregion
 
+            /*
             if (Type == "Electric")
             {
                 if (TopEnemies.Count > 0 && Time.time > nextShoot)
@@ -310,9 +323,61 @@ public class TowerStats : MonoBehaviour
                 }
                 TopEnemies.Clear();
             }
+			*/
 
+            if (Type == "Electric")
+            {
+                if (TopEnemies.Count > 0 && Time.time > nextShoot)
+                {
+                    nextShoot = Time.time + Cooldown;
 
+                    // Zmienna pomocnicza
+                    List<Vector3> positions = new List<Vector3> { tower != null ? tower.transform.position : Vector3.zero };
 
+                    // Zbieranie pozycji przeciwników
+                    foreach (var enemy in TopEnemies)
+                    {
+                        if (enemy != null && enemy.activeInHierarchy)
+                        {
+                            positions.Add(enemy.transform.position);
+                        }
+                    }
+
+                    if (positions.Count > 1)
+                    {
+                        lineRenderer.positionCount = positions.Count;
+                        lineRenderer.startWidth = 0.1f;
+                        lineRenderer.endWidth = 0.1f;
+                        lineRenderer.SetPositions(positions.ToArray());
+
+                        // Zadawanie obra¿eñ
+                        for(int i = 0; i<TopEnemies.Count; i++)
+                        {
+							GameObject enemy = TopEnemies[i];
+							bool isDead = false;
+
+                            if (enemy != null)
+							{
+								if (ElementalDamage - (i * 2) > 0)
+								{
+									isDead = enemy.GetComponent<EnemyInfo>().DealDamage(Damage + ElementalDamage - (i * 2));
+								}
+								else
+								{
+                                    isDead = enemy.GetComponent<EnemyInfo>().DealDamage(Damage);
+
+                                }
+							}
+							if (isDead) 
+							{
+								SetExperience();
+							}
+                        }
+                        StartCoroutine(ClearElectricityAfterDuration(0.1f));
+                    }
+                }
+                TopEnemies.Clear();
+            }
 
 
 
@@ -363,4 +428,10 @@ public class TowerStats : MonoBehaviour
 		bllt.GetComponent<BulletMovement>().enemy = target;
 		bllt.GetComponent<BulletMovement>().ts = this;
 	}
+
+    private IEnumerator ClearElectricityAfterDuration(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        lineRenderer.positionCount = 0; //czyszczenie
+    }
 }
