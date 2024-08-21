@@ -328,15 +328,17 @@ public class RayCastFromCamera : MonoBehaviour
 	}
 	public void PlaceTower(Vector3 cordinate)
 	{
-		if (ActiveTower == 0 && money >= Towers[0].transform.Find("tower stats").GetComponent<TowerStats>().GetUpgradePrice())
+		if (ActiveTower == 0 && money >= Towers[0].GetComponentInChildren<TowerStats>().GetUpgradePrice())
 		{
-			/*
-			money -= Towers[0].transform.Find("tower stats").GetComponent<TowerStats>().GetUpgradePrice();
-			ResetSelectedTower();
-			tower = Instantiate(Towers[0], cordinate, Quaternion.identity);
-			tower.layer = LayerMask.NameToLayer("Ignore Raycast");
-			*/
-		}
+            price = Towers[0].GetComponentInChildren<TowerStats>().GetUpgradePrice();
+            ResetSelectedTower();
+            TowerAreaInvisible();
+            tower = Instantiate(Towers[0], cordinate, Quaternion.identity);
+            ts = tower.GetComponentInChildren<TowerStats>();
+            tower.GetComponentInChildren<TowerStats>().hologram = true;
+            HologramTower = true;
+            tower.layer = LayerMask.NameToLayer("Ignore Raycast");
+        }
 
 		if (ActiveTower == 1 && money >= Towers[1].GetComponentInChildren<TowerStats>().GetUpgradePrice())
 		{

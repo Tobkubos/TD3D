@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -32,8 +33,9 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] GameObject[] Towers;
 
 	private List<GameObject> EnemiesInRange = new List<GameObject>();
+    private List<GameObject> TopEnemies = new List<GameObject>();
 
-	public GameObject Bullet;
+    public GameObject Bullet;
 	private GameObject Turret;
 	private GameObject target;
 	private GameObject tower;
@@ -50,7 +52,7 @@ public class TowerStats : MonoBehaviour
 	private int counter = 0;
 	GameObject manager;
 
-
+	public GameObject TestProj;
 
 	void Setup(int level, Quaternion rot)
 	{
@@ -209,28 +211,58 @@ public class TowerStats : MonoBehaviour
 			if (target == null)
 			{
 				EnemiesInRange.Remove(target);
-
-
 			}
 
 			float dist = 0;
-			if (EnemiesInRange.Count > 0)
+
+			//WYBIERANIE CELU
+			#region normal
+			if (Type == "Normal")
 			{
-				foreach(GameObject enemy in EnemiesInRange)
+				if (EnemiesInRange.Count > 0)
 				{
-					float enemyDist = 0;
-					if (enemy != null)
+					foreach (GameObject enemy in EnemiesInRange)
 					{
-						enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
+
+						float enemyDist = 0;
+						if (enemy != null)
+						{
+							enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
+						}
+
+						if (enemyDist > dist)
+						{
+							dist = enemyDist;
+							target = enemy;
+						}
 					}
+					target = EnemiesInRange[0];
+				}
+			}
+            #endregion
 
-                    if (enemyDist > dist)
-                    {
-						dist = enemyDist;
-                        target = enemy;
-                    }
-                }
+            #region tesla
+            if (Type == "Electric")
+			{
+				if (EnemiesInRange.Count > 1)
+				{
+					EnemiesInRange.Sort((enemy1, enemy2) =>
+					{
+						if (enemy1 == null && enemy2 == null) return 0;
+						if (enemy1 == null) return 1;
+						if (enemy2 == null) return -1;
 
+						return enemy2.GetComponent<EnemyInfo>().distanceTravelled.CompareTo(enemy1.GetComponent<EnemyInfo>().distanceTravelled);
+					});
+					}
+                TopEnemies = EnemiesInRange.Take(3).ToList();
+            }
+            #endregion
+
+            //STRZELANIE
+            #region rifle
+            if (Type == "Normal")
+			{
 				if (target != null)
 				{
 					Vector3 direction = target.transform.position - Turret.transform.position;
@@ -245,19 +277,58 @@ public class TowerStats : MonoBehaviour
 						if (Time.time > nextShoot)
 						{
 							nextShoot = Time.time + Cooldown;
-
 							//
 							Shoot(target.transform);
-							ShootAnim.Rewind();
-                            ShootAnim.Play("shooting");
-                         
-                            //
-                        }
+							if (ShootAnim != null)
+							{
+								ShootAnim.Rewind();
+								ShootAnim.Play("shooting");
+							}
+								
+						}
 					}
-				}
+				}			
 			}
+            #endregion
 
-			if (ExpPS != null)
+            if (Type == "Electric")
+            {
+                if (TopEnemies.Count > 0 && Time.time > nextShoot)
+                {
+                    nextShoot = Time.time + Cooldown;
+
+                    GameObject testProj = null;
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (i < TopEnemies.Count && TopEnemies[i] != null)
+                        {
+							testProj = Instantiate(TestProj, TopEnemies[i].transform.position, Quaternion.identity);
+							Destroy(testProj, 1);
+						}
+					}
+                }
+                TopEnemies.Clear();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            if (ExpPS != null)
 			{
 				//Debug.Log("Checking Experience: " + Experience + "/" + MaxExp);
 				if (Experience >= MaxExp)
