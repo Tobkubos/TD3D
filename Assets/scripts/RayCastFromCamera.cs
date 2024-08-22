@@ -6,11 +6,13 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RayCastFromCamera : MonoBehaviour
 {
 	public int money;
+	public int lives;
 	[SerializeField] int Tower1Price0;
 	[SerializeField] int Tower1Price1;
 	[SerializeField] int Tower1Price2;
@@ -27,6 +29,7 @@ public class RayCastFromCamera : MonoBehaviour
     GameObject temp;
 
 	public TextMeshProUGUI TotalCash;
+	public TextMeshProUGUI TotalLives;
 	public TextMeshProUGUI CurrentWave;
 	public GameObject TowerStatsCanva;
 
@@ -80,6 +83,7 @@ public class RayCastFromCamera : MonoBehaviour
     public TowerStats ts = null;
 	void Start()
 	{
+		Time.timeScale = 1;
 		TowerStatsCanva.SetActive(false);
 		temp = Instantiate(_tilePrefab, new Vector3(0.5f, 0, 0.5f), Quaternion.identity);
 		if (camera == null)
@@ -92,6 +96,14 @@ public class RayCastFromCamera : MonoBehaviour
 	void Update()
 	{
 		TotalCash.text = "CASH:   "+money.ToString();
+		TotalLives.text = lives.ToString();
+
+		//GAME OVER
+		if (lives <= 0) 
+		{
+			SceneManager.LoadScene(0);
+		}
+
         if (ts != null)
         {
             ShowTowerInfo();

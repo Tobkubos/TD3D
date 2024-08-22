@@ -182,8 +182,10 @@ MonoBehaviour:
   canUpgrade: 0
   hologram: 0
   Towers:
-  - {fileID: 3023088573810496012, guid: ab89578a39f173646ae4c45753f88a56, type: 3}
-  - {fileID: 3023088573810496012, guid: ab89578a39f173646ae4c45753f88a56, type: 3}
+  - {fileID: 3598384008449840971, guid: b46560cd69c2fef478dad68326404f6f, type: 3}
+  - {fileID: 316672527247336888, guid: c90de91cd28c40b428fc194bfd6060c2, type: 3}
+  - {fileID: 4300280102250480364, guid: 17d7ad60dd06fc840ba2345ec87ab8a8, type: 3}
+  - {fileID: 8086499183586129993, guid: f0aed1ad14521104c930f17ccbf558eb, type: 3}
   Bullet: {fileID: 7019720170624027536, guid: 171a1f28c0365f34e8b665b8599f6451, type: 3}
   Area: {fileID: 84812341082029954}
   TowerObject: {fileID: 5857700132478872097}
@@ -9979,6 +9981,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8355985087851574127}
     m_Modifications:
+    - target: {fileID: -3402240448293562402, guid: 84e6217e6f8423c4194a607f3a8ef126, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3402240448293562402, guid: 84e6217e6f8423c4194a607f3a8ef126, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3402240448293562402, guid: 84e6217e6f8423c4194a607f3a8ef126, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3402240448293562402, guid: 84e6217e6f8423c4194a607f3a8ef126, type: 3}
+      propertyPath: m_Parameters.alignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3402240448293562402, guid: 84e6217e6f8423c4194a607f3a8ef126, type: 3}
+      propertyPath: m_Parameters.textureMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3402240448293562402, guid: 84e6217e6f8423c4194a607f3a8ef126, type: 3}
+      propertyPath: m_Parameters.numCornerVertices
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3402240448293562402, guid: 84e6217e6f8423c4194a607f3a8ef126, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3402240448293562402, guid: 84e6217e6f8423c4194a607f3a8ef126, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.5121954
+      objectReference: {fileID: 0}
     - target: {fileID: 257686417457471405, guid: 84e6217e6f8423c4194a607f3a8ef126, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

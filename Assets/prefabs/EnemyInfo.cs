@@ -43,7 +43,8 @@ public class EnemyInfo : MonoBehaviour
 	{
 		if (other.CompareTag("end"))
 		{
-			Destroy(this.gameObject);
+            GameObject.Find("manager").GetComponent<RayCastFromCamera>().lives--;
+            Destroy(this.gameObject);
 		}
 
 		if (other.CompareTag("bullet"))

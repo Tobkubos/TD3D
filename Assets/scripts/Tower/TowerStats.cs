@@ -201,6 +201,8 @@ public class TowerStats : MonoBehaviour
 	public void Sell()
 	{
 		manager.GetComponent<RayCastFromCamera>().money += SellPrice;
+        manager.GetComponent<RayCastFromCamera>().ts = null;
+        manager.GetComponent<RayCastFromCamera>().TowerStatsCanva.SetActive(false);
 		Destroy(TowerObject);
 	}
     public int GetSellIncome()
@@ -358,9 +360,15 @@ public class TowerStats : MonoBehaviour
                         lineRenderer.startWidth = 0.1f;
                         lineRenderer.endWidth = 0.1f;
                         lineRenderer.SetPositions(positions.ToArray());
+                        lineRenderer.widthMultiplier = 1.0f;
 
                         // Zadawanie obra¿eñ
-                        for(int i = 0; i<TopEnemies.Count; i++)
+                        if (ShootAnim != null)
+                        {
+                            ShootAnim.Rewind();
+                            ShootAnim.Play("shooting");
+                        }
+                        for (int i = 0; i<TopEnemies.Count; i++)
                         {
 							GameObject enemy = TopEnemies[i];
 							bool isDead = false;
