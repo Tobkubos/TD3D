@@ -147,6 +147,8 @@ public class TowerStats : MonoBehaviour
 
         Setup(Level, Quaternion.identity);
     }
+
+
 	public string GetName()
 	{
 		return Name;

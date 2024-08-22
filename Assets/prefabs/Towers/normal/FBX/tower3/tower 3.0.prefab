@@ -52,6 +52,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8a366bd4e2c0fd243adc6c13fc3b5fd1, type: 2}
+    - target: {fileID: -606448188789465409, guid: 33cd28938fb2eb7499c219bb74e7b9e2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -606448188789465409, guid: 33cd28938fb2eb7499c219bb74e7b9e2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -606448188789465409, guid: 33cd28938fb2eb7499c219bb74e7b9e2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -606448188789465409, guid: 33cd28938fb2eb7499c219bb74e7b9e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 33cd28938fb2eb7499c219bb74e7b9e2, type: 3}
       propertyPath: m_Name
       value: tower 3.0

@@ -368,10 +368,15 @@ public class RayCastFromCamera : MonoBehaviour
 
 		if (ActiveTower == 2 && money >= Tower1Price2)
 		{
-			money -= Tower1Price2;
-			ResetSelectedTower();
-			tower = Instantiate(Towers[2], cordinate, Quaternion.identity);
-		}
+            price = Towers[2].GetComponentInChildren<TowerStats>().GetUpgradePrice();
+            ResetSelectedTower();
+            TowerAreaInvisible();
+            tower = Instantiate(Towers[2], cordinate, Quaternion.identity);
+            ts = tower.GetComponentInChildren<TowerStats>();
+            tower.GetComponentInChildren<TowerStats>().hologram = true;
+            HologramTower = true;
+            tower.layer = LayerMask.NameToLayer("Ignore Raycast");
+        }
 
 		if (ActiveTower == 3 && money >= Tower1Price3)
 		{
