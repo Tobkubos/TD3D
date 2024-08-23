@@ -11,6 +11,7 @@ public class EnemyInfo : MonoBehaviour
 	public int defence;
 	public int cash;
     public Slider hpBar;
+    public bool OnFire;
 
     public ParticleSystem ps;
 
@@ -53,10 +54,23 @@ public class EnemyInfo : MonoBehaviour
 			{
 				hp -= other.GetComponent<BulletMovement>().damage;
 
-			Destroy(other.gameObject);
+                foreach (Transform child in other.transform)
+                {
+                    Vector3 originalScale = child.localScale;
+                    child.parent = null;
+                    child.localScale = originalScale;
+                    if (child.GetComponent<ParticleSystem>())
+                    {
+                        child.GetComponent<ParticleSystem>().Stop();
+                    }
+                    else
+                    {
+                        LeanTween.scale(child.gameObject, Vector3.zero, 0.3f);
+                    }
+                    Destroy(child.gameObject, 2f);
+                }
+                Destroy(other.gameObject);
 			}
-
-			//Debug.Log(hp);
 
 			if (hp <= 0)
 			{
@@ -65,12 +79,6 @@ public class EnemyInfo : MonoBehaviour
 				ps.Play();
 				Destroy(ps.gameObject, 2);
 
-                /*
-                if (other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().GetExperience() < other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().GetMaxExp())
-                {
-                    other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().SetExperience(); //give experience
-                }
-                */
                 other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().SetExperience();
 
                 GameObject.Find("manager").GetComponent<RayCastFromCamera>().money += cash;

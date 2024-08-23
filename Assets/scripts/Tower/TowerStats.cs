@@ -257,6 +257,28 @@ public class TowerStats : MonoBehaviour
 				}
 			}
             #endregion
+            if (Type == "Fire")
+            {
+                if (EnemiesInRange.Count > 0)
+                {
+                    foreach (GameObject enemy in EnemiesInRange)
+                    {
+
+                        float enemyDist = 0;
+                        if (enemy != null && !enemy.GetComponent<EnemyInfo>().OnFire)
+                        {
+                            enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
+                        }
+
+                        if (enemyDist > dist)
+                        {
+                            dist = enemyDist;
+                            target = enemy;
+                        }
+                    }
+                    target = EnemiesInRange[0];
+                }
+            }
 
             #region tesla
             if (Type == "Electric")
@@ -308,27 +330,6 @@ public class TowerStats : MonoBehaviour
 			}
             #endregion
 
-            /*
-            if (Type == "Electric")
-            {
-                if (TopEnemies.Count > 0 && Time.time > nextShoot)
-                {
-                    nextShoot = Time.time + Cooldown;
-
-                    GameObject testProj = null;
-
-                    for (int i = 0; i < 3; i++)
-                    {
-                        if (i < TopEnemies.Count && TopEnemies[i] != null)
-                        {
-							testProj = Instantiate(TestProj, TopEnemies[i].transform.position, Quaternion.identity);
-							Destroy(testProj, 1);
-						}
-					}
-                }
-                TopEnemies.Clear();
-            }
-			*/
 
             if (Type == "Electric")
             {
@@ -398,7 +399,27 @@ public class TowerStats : MonoBehaviour
                 TopEnemies.Clear();
             }
 
+			if (Type == "Fire")
+			{
+				if (target != null)
+				{
+					Vector3 direction = target.transform.position - Turret.transform.position;
+					direction.y = 0;
 
+					if (direction != Vector3.zero)
+					{
+						Quaternion targetRotation = Quaternion.LookRotation(direction);
+						transform.rotation = targetRotation;
+						Debug.DrawRay(transform.position, direction, Color.red);
+
+						if (Time.time > nextShoot)
+						{
+							nextShoot = Time.time + Cooldown;
+							Shoot(target.transform);						
+						}
+					}
+				}			
+			}
 
 
 
