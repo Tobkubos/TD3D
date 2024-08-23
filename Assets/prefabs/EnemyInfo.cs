@@ -38,14 +38,16 @@ public class EnemyInfo : MonoBehaviour
         }
     }
 
-    IEnumerator Fire()
+    IEnumerator Fire(TowerStats ts)
     {
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 5; i++)
         {
-            yield return new WaitForSeconds(0.1f);
-            DealDamage(0.1f);
+            Debug.Log("PALE SIE");
+            yield return new WaitForSeconds(1f);
+            DealDamageOverTime(1f, ts);
         }
         yield return new WaitForSeconds(1);
+
         gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Stop();
         gameObject.GetComponent<Renderer>().material.color = Color.green;
         OnFire = false;
@@ -68,12 +70,13 @@ public class EnemyInfo : MonoBehaviour
                     gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
                     OnFire = true;
-                    StartCoroutine(Fire());
+                    StartCoroutine(Fire(other.GetComponent<BulletMovement>().ts));
                 }
 
 
 				hp -= other.GetComponent<BulletMovement>().damage;
 
+                //
                 foreach (Transform child in other.transform)
                 {
                     Vector3 originalScale = child.localScale;
@@ -89,8 +92,11 @@ public class EnemyInfo : MonoBehaviour
                     }
                     Destroy(child.gameObject, 2f);
                 }
+                //
+
+
                 Destroy(other.gameObject);
-			}
+            }
 
 			if (hp <= 0)
 			{
@@ -122,5 +128,22 @@ public class EnemyInfo : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void DealDamageOverTime(float damage, TowerStats ts)
+    {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            Debug.Log("Spali³em sie");
+            ts.SetExperience();
+
+            ps.transform.parent = null;
+            ps.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
+            ps.Play();
+            Destroy(ps.gameObject, 2);
+            GameObject.Find("manager").GetComponent<RayCastFromCamera>().money += cash;
+            Destroy(gameObject);
+        }
     }
 }
