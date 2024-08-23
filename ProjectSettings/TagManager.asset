@@ -16,6 +16,7 @@ TagManager:
   - stats
   - notBought
   - manager
+  - fireBullet
   layers:
   - Default
   - TransparentFX

@@ -170,8 +170,8 @@ MonoBehaviour:
   UpgradePrice: 150
   MaxExp: 2
   Type: Fire
-  Damage: 3
-  ElementalDamage: 0
+  Damage: 1
+  ElementalDamage: 1
   DamageOverTime: 0
   Range: 0
   DamageUpgrade: 0

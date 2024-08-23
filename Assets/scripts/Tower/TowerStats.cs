@@ -265,18 +265,26 @@ public class TowerStats : MonoBehaviour
                     {
 
                         float enemyDist = 0;
-                        if (enemy != null && !enemy.GetComponent<EnemyInfo>().OnFire)
+                        if (enemy != null)
                         {
                             enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
                         }
-
-                        if (enemyDist > dist)
-                        {
-                            dist = enemyDist;
-                            target = enemy;
-                        }
+							if (enemyDist > dist)
+							{
+								dist = enemyDist;
+								target = enemy;
+							}
                     }
-                    target = EnemiesInRange[0];
+					foreach (GameObject enemy in EnemiesInRange) {
+						if (enemy != null && enemy.GetComponent<EnemyInfo>().OnFire == false)
+						{
+							target = enemy;
+							break;
+						}
+						else {
+							target = null;
+                        }
+					}
                 }
             }
 
@@ -467,7 +475,7 @@ public class TowerStats : MonoBehaviour
 		bllt.GetComponent<BulletMovement>().damage = Damage;
 		bllt.GetComponent<BulletMovement>().enemy = target;
 		bllt.GetComponent<BulletMovement>().ts = this;
-	}
+    }
 
     private IEnumerator ClearElectricityAfterDuration(float duration)
     {

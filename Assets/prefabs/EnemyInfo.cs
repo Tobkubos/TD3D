@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EnemyInfo : MonoBehaviour
 {
-	[SerializeField] int hp;
+	[SerializeField] float hp;
 	public int speed;
 	public int defence;
 	public int cash;
@@ -36,9 +36,20 @@ public class EnemyInfo : MonoBehaviour
             hpBar.transform.rotation = Quaternion.Euler(55f, 45f, 0f);
 			hpBar.value = hp;
         }
-
     }
 
+    IEnumerator Fire()
+    {
+        for (int i = 0; i < 50; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            DealDamage(0.1f);
+        }
+        yield return new WaitForSeconds(1);
+        gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Stop();
+        gameObject.GetComponent<Renderer>().material.color = Color.green;
+        OnFire = false;
+    }
 
     private void OnTriggerEnter(Collider other)
 	{
@@ -52,6 +63,15 @@ public class EnemyInfo : MonoBehaviour
 		{
 			if (other.GetComponent<BulletMovement>().enemy == this.transform)
 			{
+                if(other.GetComponent<BulletMovement>().Type == "Fire" && !OnFire)
+                {
+                    gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+                    gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    OnFire = true;
+                    StartCoroutine(Fire());
+                }
+
+
 				hp -= other.GetComponent<BulletMovement>().damage;
 
                 foreach (Transform child in other.transform)
@@ -89,7 +109,7 @@ public class EnemyInfo : MonoBehaviour
 		}
 	}
 
-	public bool DealDamage(int damage) {
+	public bool DealDamage(float damage) {
         hp -= damage;
         if (hp <= 0)
         {
