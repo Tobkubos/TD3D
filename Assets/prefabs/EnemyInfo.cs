@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,7 +66,7 @@ public class EnemyInfo : MonoBehaviour
 		{
 			if (other.GetComponent<BulletMovement>().enemy == this.transform)
 			{
-                if(other.GetComponent<BulletMovement>().Type == "Fire" && !OnFire)
+                if (!OnFire && other.GetComponent<BulletMovement>().Type == "Fire")
                 {
                     gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
@@ -73,9 +74,15 @@ public class EnemyInfo : MonoBehaviour
                     StartCoroutine(Fire(other.GetComponent<BulletMovement>().ts));
                 }
 
+                if (OnFire && other.GetComponent<BulletMovement>().Type == "Fire")
+                {
+                    Destroy(other.gameObject);
+                }
 
-				hp -= other.GetComponent<BulletMovement>().damage;
-
+                else
+                {
+                    hp -= other.GetComponent<BulletMovement>().damage;
+                }
                 //
                 foreach (Transform child in other.transform)
                 {
