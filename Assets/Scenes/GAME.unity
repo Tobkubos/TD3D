@@ -4181,7 +4181,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 962265388}
   m_OnClick:
     m_PersistentCalls:
@@ -8622,7 +8622,7 @@ MonoBehaviour:
   - {fileID: 5857700132478872097, guid: a5cc09ee1fcf8eb4c9547807c2706c59, type: 3}
   - {fileID: 5857700132478872097, guid: 5a18e077c28ce214dbeda617d3cacbf5, type: 3}
   - {fileID: 5857700132478872097, guid: 91e7255e802cad5458d6088be4d6f1c1, type: 3}
-  - {fileID: 5857700132478872097, guid: 15ead146183b6e547a5c154c12551462, type: 3}
+  - {fileID: 5857700132478872097, guid: 102add0ccb887c740ae56944cb3fc572, type: 3}
   HoloTowers:
   - {fileID: 5857700132478872097, guid: 4d69f65182f8ff64c8d0cbb134d0c0cd, type: 3}
   - {fileID: 5857700132478872097, guid: 394db6d5c620b2c469769593930dd7da, type: 3}

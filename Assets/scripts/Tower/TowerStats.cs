@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -5,6 +6,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class TowerStats : MonoBehaviour
@@ -256,6 +258,26 @@ public class TowerStats : MonoBehaviour
 					target = EnemiesInRange[0];
 				}
 			}
+
+            if (Type == "Nature")
+            {
+                if (EnemiesInRange.Count > 0)
+                {
+                    foreach (GameObject enemy in EnemiesInRange)
+                    {
+                        if (enemy != null && enemy.GetComponent<EnemyInfo>().OnStun == false)
+                        {
+                            target = enemy;
+                            break;
+                        }
+                        else
+                        {
+                            target = null;
+                        }
+                    }
+                }
+            }
+
             #endregion
             if (Type == "Fire")
             {
@@ -338,6 +360,17 @@ public class TowerStats : MonoBehaviour
 			}
             #endregion
 
+            if (Type == "Nature")
+            {
+                if (target != null)
+                {
+					if (Time.time > nextShoot)
+					{
+						nextShoot = Time.time + Cooldown;
+                        Shoot(target.transform);
+                    }            
+                }
+            }
 
             if (Type == "Electric")
             {

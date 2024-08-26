@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6334716232842606705}
   - component: {fileID: -8966618006841814887}
   m_Layer: 2
-  m_Name: Bullet Normal
+  m_Name: Bullet Nature
   m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1b22a2bc4953cc24e9736cff61cb0971, type: 2}
+  - {fileID: 2100000, guid: 0ea36a4453492e4429d96520823c2b43, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,9 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ec1e0fd9eabf04fb7cb2e875184ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletSpeed: 20
+  BulletSpeed: 5
   damage: 0
-  Type: Normal
+  Type: Nature
   enemy: {fileID: 0}
   ts: {fileID: 0}
 --- !u!96 &-8966618006841814887
@@ -145,7 +145,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e179b47a3133efe4a900a55a690dc47b, type: 2}
+  - {fileID: 2100000, guid: 0ea36a4453492e4429d96520823c2b43, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,7 +166,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.06
+  m_Time: 0.15
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -176,7 +176,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.09876633
+        value: 0.20242634
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -184,8 +184,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.61763865
-        value: 0.03421514
+        time: 0.70705515
+        value: 0.1439716
         inSlope: -0.14791061
         outSlope: -0.14791061
         tangentMode: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class EnemyInfo : MonoBehaviour
@@ -13,6 +14,7 @@ public class EnemyInfo : MonoBehaviour
 	public int cash;
     public Slider hpBar;
     public bool OnFire;
+    public bool OnStun;
 
     public ParticleSystem ps;
 
@@ -66,42 +68,54 @@ public class EnemyInfo : MonoBehaviour
 		{
 			if (other.GetComponent<BulletMovement>().enemy == this.transform)
 			{
-                if (!OnFire && other.GetComponent<BulletMovement>().Type == "Fire")
+                if (other.GetComponent<BulletMovement>().Type == "Fire") {
+                    if (!OnFire)
+                    {
+                        gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+                        gameObject.GetComponent<Renderer>().material.color = Color.red;
+                        OnFire = true;
+                        StartCoroutine(Fire(other.GetComponent<BulletMovement>().ts));
+                    }
+
+                    if (OnFire)
+                    {
+                        Destroy(other.gameObject);
+                    }
+                    //
+                    foreach (Transform child in other.transform)
+                    {
+                        Vector3 originalScale = child.localScale;
+                        child.parent = null;
+                        child.localScale = originalScale;
+                        if (child.GetComponent<ParticleSystem>())
+                        {
+                            child.GetComponent<ParticleSystem>().Stop();
+                        }
+                        else
+                        {
+                            LeanTween.scale(child.gameObject, Vector3.zero, 0.3f);
+                        }
+                        Destroy(child.gameObject, 2f);
+                    }
+                }
+                //
+                if (other.GetComponent<BulletMovement>().Type == "Nature")
                 {
-                    gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
-                    gameObject.GetComponent<Renderer>().material.color = Color.red;
-                    OnFire = true;
-                    StartCoroutine(Fire(other.GetComponent<BulletMovement>().ts));
+                    if (!OnStun)
+                    {
+                        OnStun = true;
+                        StartCoroutine(Stun());
+                    }
+                    if(OnStun)
+                    {
+                        Destroy(other.gameObject);
+                    }
                 }
 
-                if (OnFire && other.GetComponent<BulletMovement>().Type == "Fire")
-                {
-                    Destroy(other.gameObject);
-                }
-
-                else
+                if (other.GetComponent<BulletMovement>().Type == "Normal")
                 {
                     hp -= other.GetComponent<BulletMovement>().damage;
                 }
-                //
-                foreach (Transform child in other.transform)
-                {
-                    Vector3 originalScale = child.localScale;
-                    child.parent = null;
-                    child.localScale = originalScale;
-                    if (child.GetComponent<ParticleSystem>())
-                    {
-                        child.GetComponent<ParticleSystem>().Stop();
-                    }
-                    else
-                    {
-                        LeanTween.scale(child.gameObject, Vector3.zero, 0.3f);
-                    }
-                    Destroy(child.gameObject, 2f);
-                }
-                //
-
-
                 Destroy(other.gameObject);
             }
 
@@ -152,5 +166,13 @@ public class EnemyInfo : MonoBehaviour
             GameObject.Find("manager").GetComponent<RayCastFromCamera>().money += cash;
             Destroy(gameObject);
         }
+    }
+
+    public IEnumerator Stun()
+    {
+        this.gameObject.GetComponent<NavMeshAgent>().speed = 0;
+        yield return new WaitForSeconds(5);
+        GetComponent<NavMeshAgent>().speed = speed;
+        OnStun = false;
     }
 }
