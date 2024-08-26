@@ -15,6 +15,7 @@ public class EnemyInfo : MonoBehaviour
     public Slider hpBar;
     public bool OnFire;
     public bool OnStun;
+    public GameObject NaturalStun;
 
     public ParticleSystem ps;
 
@@ -71,10 +72,13 @@ public class EnemyInfo : MonoBehaviour
                 if (other.GetComponent<BulletMovement>().Type == "Fire") {
                     if (!OnFire)
                     {
-                        gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
-                        gameObject.GetComponent<Renderer>().material.color = Color.red;
-                        OnFire = true;
-                        StartCoroutine(Fire(other.GetComponent<BulletMovement>().ts));
+                        if (this.gameObject != null)
+                        {
+                            gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+                            gameObject.GetComponent<Renderer>().material.color = Color.red;
+                            OnFire = true;
+                            StartCoroutine(Fire(other.GetComponent<BulletMovement>().ts));
+                        }
                     }
 
                     if (OnFire)
@@ -104,6 +108,7 @@ public class EnemyInfo : MonoBehaviour
                     if (!OnStun)
                     {
                         OnStun = true;
+                        DealDamage(other.GetComponent<BulletMovement>().damage);
                         StartCoroutine(Stun());
                     }
                     if(OnStun)
@@ -170,8 +175,11 @@ public class EnemyInfo : MonoBehaviour
 
     public IEnumerator Stun()
     {
+        GameObject NS = Instantiate(NaturalStun, transform.position, Quaternion.identity, this.gameObject.transform);
         this.gameObject.GetComponent<NavMeshAgent>().speed = 0;
         yield return new WaitForSeconds(5);
+        LeanTween.scale(NS, Vector3.zero, 0.3f);
+        Destroy(NS, 0.3f);
         GetComponent<NavMeshAgent>().speed = speed;
         OnStun = false;
     }

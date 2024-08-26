@@ -49,7 +49,7 @@ public class TowerStats : MonoBehaviour
 	public GameObject TowerObject;
 	[SerializeField] ParticleSystem ExpPS;
 	public LineRenderer lineRenderer;
-    float Cooldown = 1f;
+    [SerializeField] float Cooldown = 1f;
 	float nextShoot = 0f;
 
 	private int counter = 0;
