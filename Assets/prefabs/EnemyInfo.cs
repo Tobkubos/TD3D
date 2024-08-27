@@ -16,6 +16,7 @@ public class EnemyInfo : MonoBehaviour
     public bool OnFire;
     public bool OnStun;
     public GameObject NaturalStun;
+    public GameObject StunParent;
 
     public ParticleSystem ps;
 
@@ -175,7 +176,7 @@ public class EnemyInfo : MonoBehaviour
 
     public IEnumerator Stun()
     {
-        GameObject NS = Instantiate(NaturalStun, transform.position, Quaternion.identity, this.gameObject.transform);
+        GameObject NS = Instantiate(NaturalStun, transform.position, Quaternion.Euler(transform.rotation.x, Random.Range(0,360), transform.rotation.z), StunParent.transform);
         this.gameObject.GetComponent<NavMeshAgent>().speed = 0;
         yield return new WaitForSeconds(5);
         LeanTween.scale(NS, Vector3.zero, 0.3f);

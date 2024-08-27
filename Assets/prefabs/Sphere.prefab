@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &171066487630307809
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6860144168415552683}
-  m_Layer: 0
-  m_Name: StunNature
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6860144168415552683
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171066487630307809}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4210287, y: -2.8796477, z: 1.2502513}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7940265135045016533}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &613356477541126744
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +141,6 @@ Transform:
   - {fileID: 4274478675060290453}
   - {fileID: 5424680356274141251}
   - {fileID: 7679275057747494205}
-  - {fileID: 6860144168415552683}
   - {fileID: 7115841543264115894}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -267,6 +235,7 @@ MonoBehaviour:
   OnFire: 0
   OnStun: 0
   NaturalStun: {fileID: 6367094968335329567, guid: 645437a892269c944b3aaabf9a9e3753, type: 3}
+  StunParent: {fileID: 4460500550623271551}
   ps: {fileID: 2036162825791507954}
   distanceTravelled: 0
 --- !u!114 &4106686069346106286

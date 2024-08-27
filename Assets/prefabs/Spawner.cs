@@ -27,35 +27,42 @@ public class Spawner : MonoBehaviour
 		{
 			for (int i = 0; i < 10; i++)
 			{
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(1);
                 Instantiate(enemy1, transform.position, Quaternion.identity);
 			}
 		}
 
         if (wave == 2)
         {
-            for (int i = 0; i < 14; i++)
+            for (int i = 0; i < 20; i++)
             {
-                yield return new WaitForSeconds(1.6f);
+                yield return new WaitForSeconds(0.8f);
                 Instantiate(enemy1, transform.position, Quaternion.identity);
             }
         }
 
         if (wave == 3)
         {
-            for (int i = 0; i < 24; i++)
+            for (int i = 0; i < 4; i++)
             {
-                yield return new WaitForSeconds(1.2f);
-                Instantiate(enemy1, transform.position, Quaternion.identity);
+                for (int j = 0; j < 10; j++)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                    Instantiate(enemy1, transform.position, Quaternion.identity);
+                }
+                yield return new WaitForSeconds(2f);
             }
         }
-        else
+
+
+        if (wave == 4)
         {
-            for (int i = 0; i < 24; i++)
+            for (int i = 0; i < 10; i++)
             {
-                yield return new WaitForSeconds(0.3f);
-                Instantiate(enemy1, transform.position, Quaternion.identity);
+                Instantiate(enemy2, transform.position, Quaternion.identity);
+                yield return new WaitForSeconds(2f);
             }
         }
+        // NEW ENEMY - SPEEDER
     }
 }
