@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class EnemyInfo : MonoBehaviour
 {
 	[SerializeField] float hp;
+    [SerializeField] bool Armored;
 	public int speed;
 	public int defence;
 	public int cash;
@@ -23,8 +24,13 @@ public class EnemyInfo : MonoBehaviour
     public float distanceTravelled = 0f;
     private Vector3 lastPosition;
 
+    private int ChanceOfHit;
+    private bool canBeHit = true;
+
+    private Color originalColor;
     void Start()
     {
+        originalColor = this.GetComponent<Renderer>().material.color;
 		hpBar.maxValue = hp;
         lastPosition = transform.position;
     }
@@ -54,7 +60,7 @@ public class EnemyInfo : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Stop();
-        gameObject.GetComponent<Renderer>().material.color = Color.green;
+        gameObject.GetComponent<Renderer>().material.color = originalColor;
         OnFire = false;
     }
 
@@ -66,7 +72,20 @@ public class EnemyInfo : MonoBehaviour
             Destroy(this.gameObject);
 		}
 
-		if (other.CompareTag("bullet"))
+        if (Armored)
+        {
+            ChanceOfHit = Random.Range(0, 100);
+            if (ChanceOfHit < 40)
+            {
+                canBeHit = false;
+            }
+            else 
+            {
+                canBeHit = true;
+            }
+        }
+
+		if (other.CompareTag("bullet") && canBeHit)
 		{
 			if (other.GetComponent<BulletMovement>().enemy == this.transform)
 			{

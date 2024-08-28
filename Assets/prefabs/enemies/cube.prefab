@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 5847157553214463547}
   - component: {fileID: 2628880048401677163}
   m_Layer: 2
-  m_Name: Sphere
+  m_Name: cube
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 6
+  Armored: 0
   speed: 1
   defence: 0
   cash: 1

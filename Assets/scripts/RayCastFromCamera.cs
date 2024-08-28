@@ -340,9 +340,9 @@ public class RayCastFromCamera : MonoBehaviour
 	}
 	public void PlaceTower(Vector3 cordinate)
 	{
-		if (ActiveTower == 0 && money >= Towers[0].GetComponentInChildren<TowerStats>().GetUpgradePrice())
+		if (ActiveTower == 0 && money >= Towers[0].GetComponentInChildren<TowerSetupParams>().Price)
 		{
-            price = Towers[0].GetComponentInChildren<TowerStats>().GetUpgradePrice();
+            price = Towers[0].GetComponentInChildren<TowerSetupParams>().Price;
             ResetSelectedTower();
             TowerAreaInvisible();
             tower = Instantiate(Towers[0], cordinate, Quaternion.identity);
@@ -352,11 +352,11 @@ public class RayCastFromCamera : MonoBehaviour
             tower.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
 
-		if (ActiveTower == 1 && money >= Towers[1].GetComponentInChildren<TowerStats>().GetUpgradePrice())
+		if (ActiveTower == 1 && money >= Towers[1].GetComponentInChildren<TowerSetupParams>().Price)
 		{
-			//money -= Tower1Price1;
-			//price = Tower1Price1;
-			price = Towers[1].GetComponentInChildren<TowerStats>().GetUpgradePrice();
+            //money -= Tower1Price1;
+            //price = Tower1Price1;
+            price = Towers[1].GetComponentInChildren<TowerSetupParams>().Price;
 			ResetSelectedTower();
 			TowerAreaInvisible();
             tower = Instantiate(Towers[1], cordinate, Quaternion.identity);

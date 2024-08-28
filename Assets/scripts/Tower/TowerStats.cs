@@ -22,7 +22,7 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] int Damage;
     [SerializeField] int ElementalDamage;
     [SerializeField] int DamageOverTime;
-    [SerializeField] int Range;
+    [SerializeField] float Range;
 
 	public int DamageUpgrade;
     public int ElementalUpgrade;
@@ -30,6 +30,9 @@ public class TowerStats : MonoBehaviour
     public float SpeedUpgrade;
     public float RangeUpgrade;
 	public bool canUpgrade = false;
+
+	public TowerSetupParams towerSetupParams;
+	public TowerUpgradeParams[] levels;
 
     public bool hologram;
 
@@ -84,44 +87,28 @@ public class TowerStats : MonoBehaviour
 		{
 			manager.GetComponent<RayCastFromCamera>().money -= UpgradePrice;
 			Experience = 0;
-				
+
 
             Level += 1;
-            if (Level == 1) 
-			{
-				Cooldown -= SpeedUpgrade;
-				Damage += DamageUpgrade;
-				Area.transform.localScale += new Vector3(RangeUpgrade,0,RangeUpgrade);
+			Damage += DamageUpgrade;
+			ElementalDamage += ElementalUpgrade;
+			DamageOverTime += DamageOverTimeUpgrade;
+			Cooldown -= SpeedUpgrade;
+			Area.transform.localScale += new Vector3(RangeUpgrade,0, RangeUpgrade);
+			MaxExp = levels[Level].MaxExp;
+			SellPrice += levels[Level].UpgradePrice / 2;
 
-				SellPrice += UpgradePrice / 2;
-                DamageUpgrade = 2;
-                RangeUpgrade = 0.6f;
-                SpeedUpgrade = 0.25f;
-				MaxExp = 2;
-				UpgradePrice = 250;
-            }
-            if (Level == 2)
-            {
-                Cooldown -= SpeedUpgrade;
-                Damage += DamageUpgrade;
-                Area.transform.localScale += new Vector3(RangeUpgrade, 0, RangeUpgrade);
 
-                SellPrice += UpgradePrice / 2;
-                DamageUpgrade = 4;
-                RangeUpgrade = 1.2f;
-                SpeedUpgrade = 0.125f;
-                MaxExp = 3;
-                UpgradePrice = 500;
-            }
-            if (Level == 3)
-            {
-                SellPrice += UpgradePrice / 2;
-                Cooldown -= SpeedUpgrade;
-                Damage += DamageUpgrade;
-                Area.transform.localScale += new Vector3(RangeUpgrade, 0, RangeUpgrade);
-				MaxExp = 0;
-                UpgradePrice = 900;
-            }
+            DamageUpgrade = levels[Level].DamageUpgrade;
+			ElementalUpgrade = levels[Level].ElementalUpgrade;
+			DamageOverTime = levels[Level].DamageOverTimeUpgrade;
+            SpeedUpgrade = levels[Level].SpeedUpgrade;
+            RangeUpgrade = levels[Level].RangeUpgrade;
+			MaxExp = levels[Level].MaxExp;
+			UpgradePrice = levels[Level].UpgradePrice;
+           
+			
+
             rot = TWR.transform.rotation;
 			Destroy(TWR);
 			StopAllCoroutines();
@@ -131,21 +118,22 @@ public class TowerStats : MonoBehaviour
 	}
 	private void Start()
 	{
-        SellPrice = UpgradePrice / 2;
-        if (Type == "Normal") 
-		{
-			DamageUpgrade = 1;
-			RangeUpgrade = 0.4f;
-			SpeedUpgrade = 0.5f;
-		}
+		Damage = towerSetupParams.Damage;
+		ElementalDamage = towerSetupParams.ElementalDamage;
+		DamageOverTime = towerSetupParams.DamageOverTime;
+		Cooldown = towerSetupParams.Speed;
+		Range = towerSetupParams.Range;
+		MaxExp = towerSetupParams.MaxExp;
+		Area.transform.localScale =  new Vector3(towerSetupParams.Range, 0.1f, towerSetupParams.Range);
 
-        if (Type == "Electric")
-        {
-            DamageUpgrade = 1;
-            ElementalUpgrade = 2;
-            RangeUpgrade = 0.5f;
-            SpeedUpgrade = 0.15f;
-        }
+        SellPrice = UpgradePrice / 2;
+
+		UpgradePrice = levels[Level].UpgradePrice;
+		DamageUpgrade = levels[Level].DamageUpgrade;
+		ElementalUpgrade = levels[Level].ElementalUpgrade;
+		DamageOverTime = levels[Level].DamageOverTimeUpgrade;
+		SpeedUpgrade = levels[Level].SpeedUpgrade;
+		RangeUpgrade = levels[Level].RangeUpgrade;
 
         Setup(Level, Quaternion.identity);
     }

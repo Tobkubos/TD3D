@@ -47,8 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d4aff6636c86d4f81e6771433c11b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy1: {fileID: 1108991152365024950, guid: c293c0abc4e8b8249ace30feef1863e7, type: 3}
-  enemy2: {fileID: 1108991152365024950, guid: b7493813fed906144bfd36ca5770e5c6, type: 3}
+  cube: {fileID: 1108991152365024950, guid: c293c0abc4e8b8249ace30feef1863e7, type: 3}
+  bigChunk: {fileID: 1108991152365024950, guid: 4d04d5f7f28fdd74c97021724aababda, type: 3}
+  speeder: {fileID: 1108991152365024950, guid: b7493813fed906144bfd36ca5770e5c6, type: 3}
+  ArmoredCone: {fileID: 1108991152365024950, guid: 11f5adc53b19a3c47960aabe569f5b66, type: 3}
   cooldown: 1
 --- !u!23 &3334402721920709448
 MeshRenderer:

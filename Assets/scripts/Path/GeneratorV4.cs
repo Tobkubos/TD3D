@@ -214,8 +214,11 @@ public class GeneratorV4 : MonoBehaviour
         }
         
         gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();
-        Connectors[0].GetComponent<Spawner>().enemy1.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
-        Connectors[0].GetComponent<Spawner>().enemy2.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
+        Connectors[0].GetComponent<Spawner>().cube.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
+        Connectors[0].GetComponent<Spawner>().bigChunk.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
+        Connectors[0].GetComponent<Spawner>().speeder.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
+        Connectors[0].GetComponent<Spawner>().ArmoredCone.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
+
         NextWave.onClick.AddListener(Connectors[0].GetComponent<Spawner>().Spawn);
         
         for (int i = 0; i < Chunk.Count; i++)
