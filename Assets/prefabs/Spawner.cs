@@ -38,46 +38,44 @@ public class Spawner : MonoBehaviour
         manager.GetComponent<RayCastFromCamera>().SetWave(wave);
         if (wave == 1)
 		{
-			for (int i = 0; i < 10; i++)
-			{
-                yield return new WaitForSeconds(1);
-                Instantiate(cube, transform.position, Quaternion.identity);
-			}
+            StartCoroutine(Spawn(cube, 2f, 8));
         }
 
         if (wave == 2)
         {
-            for (int i = 0; i < 20; i++)
-            {
-                yield return new WaitForSeconds(0.8f);
-                Instantiate(cube, transform.position, Quaternion.identity);
-            }
+            StartCoroutine(Spawn(cube, 1.5f, 12));
         }
 
         if (wave == 3)
         {
             for (int i = 0; i < 4; i++)
             {
-                StartCoroutine(Spawn(cube, 0.2f, 8));
+                StartCoroutine(Spawn(cube, 0.2f, 2));
                 yield return new WaitForSeconds(2f);
             }
         }
 
-
-        // NEW ENEMY - SPEEDER
         if (wave == 4)
+        {
+               StartCoroutine(Spawn(cube, 0.5f, 5));
+            yield return new WaitForSeconds(5f);
+            StartCoroutine(Spawn(cube, 0.5f, 5));
+        }
+        
+        // NEW ENEMY - SPEEDER
+        if (wave == 5)
         {
             StartCoroutine(Spawn(speeder, 1, 10));
         }
 
-        if (wave == 5)
+        if (wave == 6)
         {
             StartCoroutine(Spawn(cube, 0.8f, 20));
             StartCoroutine(Spawn(speeder, 1, 10));
 
         }
 
-        if (wave == 6) 
+        if (wave == 7) 
         {
             for (int i = 0; i < 5; i++)
             {
@@ -87,7 +85,7 @@ public class Spawner : MonoBehaviour
             StartCoroutine(Spawn(cube, 0.5f, 10));
         }
 
-        if (wave == 7)
+        if (wave == 8)
         {
             for (int i = 0; i < 7; i++)
             {
@@ -98,12 +96,12 @@ public class Spawner : MonoBehaviour
         }
 
         //NEW ENEMY - BIG CHUNK
-        if (wave == 8)
+        if (wave == 9)
         {
             StartCoroutine(Spawn(bigChunk, 5f, 10));
         }
 
-        if (wave == 9)
+        if (wave == 10)
         {
             StartCoroutine(Spawn(bigChunk, 2f, 3));
             yield return new WaitForSeconds(8);
@@ -111,11 +109,12 @@ public class Spawner : MonoBehaviour
 
         }
 
-        if (wave == 10)
+        if (wave == 11)
         {
             StartCoroutine(Spawn(bigChunk, 4f, 10));
             StartCoroutine(Spawn(cube, 3f, 10));
             StartCoroutine(Spawn(speeder, 2f, 10));
         }
+        
     }
 }

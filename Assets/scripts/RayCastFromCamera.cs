@@ -121,7 +121,7 @@ public class RayCastFromCamera : MonoBehaviour
 				cordinate.y = 0f;
 				temp.transform.position = cordinate;  //Przesuwaj klocek (kursor)
 
-				PlaceTower(cordinate);  //postaw hologram jezeli klikniesz guzik
+				PlaceTower(cordinate, ActiveTower);  //postaw hologram jezeli klikniesz guzik
 
 				if (tower != null)  //jezeli jest wieza to przesuwaj tam gdzie kursor i pokaz obszar
 				{
@@ -338,52 +338,14 @@ public class RayCastFromCamera : MonoBehaviour
 			TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
 		}
 	}
-	public void PlaceTower(Vector3 cordinate)
+	public void PlaceTower(Vector3 cordinate, int towerindex)
 	{
-		if (ActiveTower == 0 && money >= Towers[0].GetComponentInChildren<TowerSetupParams>().Price)
+		if (ActiveTower != -1 && money >= Towers[towerindex].GetComponentInChildren<TowerSetupParams>().Price)
 		{
-            price = Towers[0].GetComponentInChildren<TowerSetupParams>().Price;
+            price = Towers[towerindex].GetComponentInChildren<TowerSetupParams>().Price;
             ResetSelectedTower();
             TowerAreaInvisible();
-            tower = Instantiate(Towers[0], cordinate, Quaternion.identity);
-            ts = tower.GetComponentInChildren<TowerStats>();
-            tower.GetComponentInChildren<TowerStats>().hologram = true;
-            HologramTower = true;
-            tower.layer = LayerMask.NameToLayer("Ignore Raycast");
-        }
-
-		if (ActiveTower == 1 && money >= Towers[1].GetComponentInChildren<TowerSetupParams>().Price)
-		{
-            //money -= Tower1Price1;
-            //price = Tower1Price1;
-            price = Towers[1].GetComponentInChildren<TowerSetupParams>().Price;
-			ResetSelectedTower();
-			TowerAreaInvisible();
-            tower = Instantiate(Towers[1], cordinate, Quaternion.identity);
-            ts = tower.GetComponentInChildren<TowerStats>();
-            tower.GetComponentInChildren<TowerStats>().hologram = true;
-			HologramTower = true;
-			tower.layer = LayerMask.NameToLayer("Ignore Raycast");
-		}
-
-		if (ActiveTower == 2 && money >= Tower1Price2)
-		{
-            price = Towers[2].GetComponentInChildren<TowerStats>().GetUpgradePrice();
-            ResetSelectedTower();
-            TowerAreaInvisible();
-            tower = Instantiate(Towers[2], cordinate, Quaternion.identity);
-            ts = tower.GetComponentInChildren<TowerStats>();
-            tower.GetComponentInChildren<TowerStats>().hologram = true;
-            HologramTower = true;
-            tower.layer = LayerMask.NameToLayer("Ignore Raycast");
-        }
-
-		if (ActiveTower == 3 && money >= Tower1Price3)
-		{
-            price = Towers[3].GetComponentInChildren<TowerStats>().GetUpgradePrice();
-            ResetSelectedTower();
-            TowerAreaInvisible();
-            tower = Instantiate(Towers[3], cordinate, Quaternion.identity);
+            tower = Instantiate(Towers[towerindex], cordinate, Quaternion.identity);
             ts = tower.GetComponentInChildren<TowerStats>();
             tower.GetComponentInChildren<TowerStats>().hologram = true;
             HologramTower = true;

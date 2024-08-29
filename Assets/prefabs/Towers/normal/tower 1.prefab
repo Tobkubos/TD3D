@@ -120,6 +120,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerStats: {fileID: 7079715696744473194}
+--- !u!1 &848072017595304084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2827064539637323483}
+  - component: {fileID: 5075286722210224403}
+  m_Layer: 0
+  m_Name: setup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2827064539637323483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848072017595304084}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355985087851574127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5075286722210224403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848072017595304084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9da6161fd9ed2e40a835ba8f425fad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 4
+  ElementalDamage: 0
+  DamageOverTime: 0
+  Speed: 1
+  Range: 5
+  MaxExp: 20
+  Price: 80
 --- !u!1 &3722103817631556547
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,21 +216,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Rifle
-  Level: 0
-  Experience: 0
-  UpgradePrice: 150
-  MaxExp: 2
   Type: Normal
-  Damage: 3
-  ElementalDamage: 0
-  DamageOverTime: 0
-  Range: 0
   DamageUpgrade: 0
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0
   RangeUpgrade: 0
   canUpgrade: 0
+  towerSetupParams: {fileID: 5075286722210224403}
+  levels:
+  - {fileID: 8315389697490857774}
+  - {fileID: 218444005936471765}
+  - {fileID: 2752208705960835827}
+  - {fileID: 2330850121381522453}
   hologram: 0
   Towers:
   - {fileID: 4406638584226920736, guid: 45447d3550247734698be6a8cd959ecb, type: 3}
@@ -192,6 +241,108 @@ MonoBehaviour:
   ExpPS: {fileID: 8585175799612243974}
   lineRenderer: {fileID: 0}
   TestProj: {fileID: 0}
+--- !u!1 &4277271174663383942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429356612459567980}
+  - component: {fileID: 8315389697490857774}
+  m_Layer: 0
+  m_Name: level 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1429356612459567980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277271174663383942}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355985087851574127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8315389697490857774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277271174663383942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageUpgrade: 2
+  ElementalUpgrade: 0
+  DamageOverTimeUpgrade: 0
+  SpeedUpgrade: 0.5
+  RangeUpgrade: 0.3
+  MaxExp: 45
+  UpgradePrice: 40
+--- !u!1 &5828424326294518877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2468382260036765885}
+  - component: {fileID: 2752208705960835827}
+  m_Layer: 0
+  m_Name: level 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2468382260036765885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5828424326294518877}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355985087851574127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2752208705960835827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5828424326294518877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageUpgrade: 3
+  ElementalUpgrade: 0
+  DamageOverTimeUpgrade: 0
+  SpeedUpgrade: 0.125
+  RangeUpgrade: 1
+  MaxExp: 500
+  UpgradePrice: 400
 --- !u!1 &5857700132478872097
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +377,11 @@ Transform:
   - {fileID: 8441019668045635889}
   - {fileID: 4337838476517067063}
   - {fileID: 8122434928403959191}
+  - {fileID: 2827064539637323483}
+  - {fileID: 1429356612459567980}
+  - {fileID: 1853535087468499857}
+  - {fileID: 2468382260036765885}
+  - {fileID: 7542644062051531467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5023755228375063173
@@ -249,6 +405,57 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6036042791430960597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7542644062051531467}
+  - component: {fileID: 2330850121381522453}
+  m_Layer: 0
+  m_Name: level 4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7542644062051531467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6036042791430960597}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355985087851574127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2330850121381522453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6036042791430960597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageUpgrade: 0
+  ElementalUpgrade: 0
+  DamageOverTimeUpgrade: 0
+  SpeedUpgrade: 0
+  RangeUpgrade: 0
+  MaxExp: 0
+  UpgradePrice: 0
 --- !u!1 &6229863860612743695
 GameObject:
   m_ObjectHideFlags: 0
@@ -5135,6 +5342,57 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &6689407502008395043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1853535087468499857}
+  - component: {fileID: 218444005936471765}
+  m_Layer: 0
+  m_Name: level 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1853535087468499857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689407502008395043}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355985087851574127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &218444005936471765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689407502008395043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageUpgrade: 2
+  ElementalUpgrade: 0
+  DamageOverTimeUpgrade: 0
+  SpeedUpgrade: 0.25
+  RangeUpgrade: 0.7
+  MaxExp: 125
+  UpgradePrice: 150
 --- !u!1 &8696547179661763478
 GameObject:
   m_ObjectHideFlags: 0

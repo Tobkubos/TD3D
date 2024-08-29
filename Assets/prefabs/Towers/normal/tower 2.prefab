@@ -215,13 +215,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 1
+  DamageUpgrade: 0
   ElementalUpgrade: 2
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0.2
-  RangeUpgrade: 1
-  MaxExp: 150
-  UpgradePrice: 100
+  RangeUpgrade: 0.6
+  MaxExp: 125
+  UpgradePrice: 180
 --- !u!1 &3683882790061723813
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,12 +267,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageUpgrade: 0
-  ElementalUpgrade: 0
+  ElementalUpgrade: 4
   DamageOverTimeUpgrade: 0
-  SpeedUpgrade: 0
-  RangeUpgrade: 0
-  MaxExp: 0
-  UpgradePrice: 0
+  SpeedUpgrade: 0.25
+  RangeUpgrade: 0.8
+  MaxExp: 500
+  UpgradePrice: 465
 --- !u!1 &3722103817631556547
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,15 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Tesla
-  Level: 0
-  Experience: 0
-  UpgradePrice: 0
-  MaxExp: 0
   Type: Electric
-  Damage: 0
-  ElementalDamage: 0
-  DamageOverTime: 0
-  Range: 0
   DamageUpgrade: 0
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 0
@@ -350,7 +342,6 @@ MonoBehaviour:
   TowerObject: {fileID: 5857700132478872097}
   ExpPS: {fileID: 8585175799612243974}
   lineRenderer: {fileID: 1085162496034600544}
-  Cooldown: 0
   TestProj: {fileID: 918974665670938654, guid: fc24eb30e21c9974aab59a52efa40d42, type: 3}
 --- !u!1 &4852370229074140802
 GameObject:
@@ -396,13 +387,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9da6161fd9ed2e40a835ba8f425fad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
-  ElementalDamage: 3
+  Damage: 0
+  ElementalDamage: 4
   DamageOverTime: 0
-  Speed: 2
-  Range: 5
-  MaxExp: 1
-  Price: 69
+  Speed: 1.3
+  Range: 4.5
+  MaxExp: 20
+  Price: 100
 --- !u!1 &5857700132478872097
 GameObject:
   m_ObjectHideFlags: 0
@@ -5396,13 +5387,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 5
+  DamageUpgrade: 0
   ElementalUpgrade: 2
   DamageOverTimeUpgrade: 0
-  SpeedUpgrade: 0.5
-  RangeUpgrade: 0.2
-  MaxExp: 150
-  UpgradePrice: 100
+  SpeedUpgrade: 0.1
+  RangeUpgrade: 0.4
+  MaxExp: 45
+  UpgradePrice: 40
 --- !u!1 &8696547179661763478
 GameObject:
   m_ObjectHideFlags: 0

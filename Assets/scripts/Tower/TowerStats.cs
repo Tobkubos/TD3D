@@ -12,17 +12,16 @@ using UnityEngine.UIElements;
 public class TowerStats : MonoBehaviour
 {
 	[SerializeField] string Name;
-	[SerializeField] int Level;
-    [SerializeField] int Experience;
-    [SerializeField] int UpgradePrice;
+	int Level;
+	int Experience;
+	int UpgradePrice;
     private int SellPrice;
-    [SerializeField] int MaxExp;
+	int MaxExp;
 	[SerializeField] string Type;
-
-	[SerializeField] int Damage;
-    [SerializeField] int ElementalDamage;
-    [SerializeField] int DamageOverTime;
-    [SerializeField] float Range;
+	int Damage;
+	int ElementalDamage;
+	int DamageOverTime;
+	float Range;
 
 	public int DamageUpgrade;
     public int ElementalUpgrade;
@@ -52,7 +51,7 @@ public class TowerStats : MonoBehaviour
 	public GameObject TowerObject;
 	[SerializeField] ParticleSystem ExpPS;
 	public LineRenderer lineRenderer;
-    [SerializeField] float Cooldown = 1f;
+	float Cooldown = 1f;
 	float nextShoot = 0f;
 
 	private int counter = 0;
@@ -126,7 +125,7 @@ public class TowerStats : MonoBehaviour
 		MaxExp = towerSetupParams.MaxExp;
 		Area.transform.localScale =  new Vector3(towerSetupParams.Range, 0.1f, towerSetupParams.Range);
 
-        SellPrice = UpgradePrice / 2;
+        SellPrice = towerSetupParams.Price / 2;
 
 		UpgradePrice = levels[Level].UpgradePrice;
 		DamageUpgrade = levels[Level].DamageUpgrade;
@@ -407,9 +406,9 @@ public class TowerStats : MonoBehaviour
 
                             if (enemy != null)
 							{
-								if (ElementalDamage - (i * 2) > 0)
+								if (ElementalDamage - (i) > 0)
 								{
-									isDead = enemy.GetComponent<EnemyInfo>().DealDamage(Damage + ElementalDamage - (i * 2));
+									isDead = enemy.GetComponent<EnemyInfo>().DealDamage(Damage + ElementalDamage - i);
 								}
 								else
 								{
