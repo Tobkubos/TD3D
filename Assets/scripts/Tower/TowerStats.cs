@@ -70,13 +70,13 @@ public class TowerStats : MonoBehaviour
 		if (towerTransform != null)
 		{
 			tower = towerTransform.gameObject;
-			Debug.Log("ZNALAZLEM TOWER");
+			//Debug.Log("ZNALAZLEM TOWER");
 			ShootAnim = tower.GetComponent<Animation>();
 
 			Transform turretTransform = tower.transform.Find("turret");
 			if (turretTransform != null)
 			{
-				Debug.Log("ZNALAZLEM TURRET");
+				//Debug.Log("ZNALAZLEM TURRET");
 				Turret = turretTransform.gameObject;
 			}
 		}
@@ -194,8 +194,9 @@ public class TowerStats : MonoBehaviour
 	{
 		manager.GetComponent<RayCastFromCamera>().money += SellPrice;
         manager.GetComponent<RayCastFromCamera>().ts = null;
-        manager.GetComponent<RayCastFromCamera>().TowerStatsCanva.SetActive(false);
-		Destroy(TowerObject);
+        manager.GetComponent<RayCastFromCamera>().ActiveTower = -1;
+        //manager.GetComponent<RayCastFromCamera>().TowerStatsCanva.SetActive(false);
+        Destroy(TowerObject);
 	}
     public int GetSellIncome()
     {

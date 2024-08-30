@@ -12,6 +12,5 @@ public class TowerSelector : MonoBehaviour
 	public void SelectTower()
 	{
 		rcfc.ActiveTower = TowerIndex;
-
 	}
 }

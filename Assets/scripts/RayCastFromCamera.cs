@@ -68,7 +68,8 @@ public class RayCastFromCamera : MonoBehaviour
 	public Vector3 cordinate;
 
 	public GameObject[] Towers;
-	public GameObject[] HoloTowers;
+    public GameObject[] TowersStartupSetup;
+    public GameObject[] HoloTowers;
 	public GameObject[] SelectedTowerImage;
 	Transform TowerArea;
 	public int ActiveTower = -1;
@@ -94,19 +95,38 @@ public class RayCastFromCamera : MonoBehaviour
 
 	void Update()
 	{
-		TotalCash.text = "CASH:   "+money.ToString();
+		TotalCash.text = "CASH:   " + money.ToString();
 		TotalLives.text = lives.ToString();
 
+		if (ts != null)
+		{
+			Debug.Log(ts.GetName());
+		}
+		Debug.Log(ActiveTower);
 		//GAME OVER
-		if (lives <= 0) 
+		if (lives <= 0)
 		{
 			SceneManager.LoadScene(0);
 		}
+
+
+		if (ActiveTower != -1)
+		{
+			ts = TowersStartupSetup[ActiveTower].GetComponentInChildren<TowerStats>();
+		}
+
 
         if (ts != null)
         {
             ShowTowerInfo();
         }
+		else
+		{
+			TowerStatsCanva.SetActive(false);
+		}
+		
+
+
         if (!EventSystem.current.IsPointerOverGameObject())
 		{
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -139,20 +159,22 @@ public class RayCastFromCamera : MonoBehaviour
                             money -= price;
                             tower.transform.position = cordinate;
 							TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
-							tower.GetComponentInChildren<TowerStats>().hologram = false;
-							tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
+                            tower.GetComponentInChildren<TowerStats>().hologram = false;
+							ts = tower.GetComponentInChildren<TowerStats>();
+                            tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
 							tower.layer = LayerMask.NameToLayer("Default");
 							tower = null;
 							HologramTower = false;
 						}
 
-						//jezeli klikasz lpmw mape a wieza jest zaznaczona wyczysc dane oraz obszar
+						//jezeli klikasz lpm w mape a wieza jest zaznaczona wyczysc dane oraz obszar
 						TowerAreaInvisible();
+						
 						if (ts != null)
 						{
 							ts = null;
-							TowerStatsCanva.SetActive(false);
 						}
+						
 					}
 				}
 				else
@@ -162,12 +184,14 @@ public class RayCastFromCamera : MonoBehaviour
                         TowerArea.GetComponent<MeshRenderer>().material = RedMaterial;
                     }
 
-                 }
-                    //klikasz prawym = resetujesz wybor wiezy (hologramu)
-                    if (Input.GetMouseButtonDown(1))
+                }
+
+                //klikasz prawym = resetujesz wybor wiezy (hologramu)
+                if (Input.GetMouseButtonDown(1))
 				{
+                    TowerAreaInvisible();
 					ResetSelectedTower();
-					TowerStatsCanva.SetActive(false);
+					ts = null;
 				}
 
 				if (hit.collider.CompareTag("tower") && !HologramTower)
@@ -175,8 +199,9 @@ public class RayCastFromCamera : MonoBehaviour
 					if (Input.GetMouseButtonDown(0))
 					{
 						TowerAreaInvisible();
+						ActiveTower = -1;
 
-						TowerStatsCanva.SetActive(true);
+						//TowerStatsCanva.SetActive(true);
 						ts = hit.collider.gameObject.transform.Find("towerInfo").GetComponent<TowerStats>();
 
 						TowerArea = hit.collider.gameObject.transform.Find("area");
@@ -199,7 +224,8 @@ public class RayCastFromCamera : MonoBehaviour
     }
     public void ShowInfo()
 	{
-		//name / tier
+        TowerStatsCanva.SetActive(true);
+        //name / tier
         TowerName.text = ts.GetName();
         TowerLevel.text = "TIER " + (ts.GetLevel() + 1).ToString();
 
@@ -297,7 +323,7 @@ public class RayCastFromCamera : MonoBehaviour
         TowerUpgrade.onClick.RemoveAllListeners();
 		TowerSell.onClick.RemoveAllListeners();
 		TowerSell.onClick.AddListener(ts.Sell);
-        TowerStatsCanva.SetActive(true);
+
 			
 		ShowInfo();
 
@@ -326,7 +352,8 @@ public class RayCastFromCamera : MonoBehaviour
 
 	void ResetSelectedTower()
 	{
-		ActiveTower = -1;
+	    ActiveTower = -1;
+		ts = null;
 		HologramTower = false;
 		Destroy(tower);
 	}
@@ -339,7 +366,7 @@ public class RayCastFromCamera : MonoBehaviour
 	}
 	public void PlaceTower(Vector3 cordinate, int towerindex)
 	{
-		if (ActiveTower != -1 && money >= Towers[towerindex].GetComponentInChildren<TowerSetupParams>().Price)
+		if (ActiveTower!=-1 && money >= Towers[towerindex].GetComponentInChildren<TowerSetupParams>().Price)
 		{
             price = Towers[towerindex].GetComponentInChildren<TowerSetupParams>().Price;
             ResetSelectedTower();
