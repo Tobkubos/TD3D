@@ -56,8 +56,7 @@ public class RayCastFromCamera : MonoBehaviour
     public Slider RangeSlider;
     public TextMeshProUGUI TowerRange;
 
-    public Slider DPSSlider;
-    public TextMeshProUGUI TowerDPS;
+	public TextMeshProUGUI TowerDescription;
 
     public TextMeshProUGUI TowerUpgradePrice;
 	public Button TowerUpgrade;
@@ -286,6 +285,10 @@ public class RayCastFromCamera : MonoBehaviour
             TowerRange.text = ts.GetRange() + " + " + ts.RangeUpgrade;
             RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = ts.GetRange() + ts.RangeUpgrade;
         }
+
+		TowerDescription.text = ts.Description;
+
+
     }
 
 
@@ -326,10 +329,6 @@ public class RayCastFromCamera : MonoBehaviour
 		ActiveTower = -1;
 		HologramTower = false;
 		Destroy(tower);
-		foreach (GameObject go in SelectedTowerImage)
-		{
-			go.SetActive(false);
-		}
 	}
 	void TowerAreaInvisible()
 	{

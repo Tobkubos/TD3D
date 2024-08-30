@@ -120,57 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerStats: {fileID: 7079715696744473194}
---- !u!1 &88416190916276980
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6277618320271257811}
-  - component: {fileID: 5682161035620118246}
-  m_Layer: 0
-  m_Name: level 4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6277618320271257811
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88416190916276980}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8355985087851574127}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5682161035620118246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88416190916276980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageUpgrade: 0
-  ElementalUpgrade: 0
-  DamageOverTimeUpgrade: 0
-  SpeedUpgrade: 0
-  RangeUpgrade: 0
-  MaxExp: 0
-  UpgradePrice: 0
 --- !u!1 &2692218103426430791
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Tesla
+  Description: Deals chain damage for max 3 enemies. Each next recieving less elemental
+    damage.
   Type: Electric
   DamageUpgrade: 0
   ElementalUpgrade: 0
@@ -330,7 +281,7 @@ MonoBehaviour:
   - {fileID: 2515039519649571129}
   - {fileID: 6332107788642714077}
   - {fileID: 3654306963769459417}
-  - {fileID: 5682161035620118246}
+  - {fileID: 0}
   hologram: 0
   Towers:
   - {fileID: 3598384008449840971, guid: b46560cd69c2fef478dad68326404f6f, type: 3}
@@ -433,7 +384,6 @@ Transform:
   - {fileID: 2879192548615466638}
   - {fileID: 4919830312525810995}
   - {fileID: 4408791202868712455}
-  - {fileID: 6277618320271257811}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5023755228375063173

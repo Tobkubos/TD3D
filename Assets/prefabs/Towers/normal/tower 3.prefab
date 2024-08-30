@@ -165,6 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Flamethrower
+  Description: Fires a bullet that ignites enemy for 5 seconds dealing Damage Over
+    time.
   Type: Fire
   DamageUpgrade: 0
   ElementalUpgrade: 0
@@ -177,7 +179,7 @@ MonoBehaviour:
   - {fileID: 8114585086014128321}
   - {fileID: 3193628401473588915}
   - {fileID: 9221477406514854349}
-  - {fileID: 6196543457959731069}
+  - {fileID: 0}
   hologram: 0
   Towers:
   - {fileID: 5982171469423101591, guid: b11accc5d5ff6bd4a9038790350a75a5, type: 3}
@@ -190,57 +192,6 @@ MonoBehaviour:
   ExpPS: {fileID: 8585175799612243974}
   lineRenderer: {fileID: 0}
   TestProj: {fileID: 0}
---- !u!1 &3839125103012267677
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8700668730986293015}
-  - component: {fileID: 6196543457959731069}
-  m_Layer: 0
-  m_Name: level 4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8700668730986293015
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3839125103012267677}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8355985087851574127}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6196543457959731069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3839125103012267677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageUpgrade: 0
-  ElementalUpgrade: 0
-  DamageOverTimeUpgrade: 0
-  SpeedUpgrade: 0
-  RangeUpgrade: 0
-  MaxExp: 0
-  UpgradePrice: 0
 --- !u!1 &5353803225203030524
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,9 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 0
-  ElementalUpgrade: 2
-  DamageOverTimeUpgrade: 4
+  DamageUpgrade: 3
+  ElementalUpgrade: 0
+  DamageOverTimeUpgrade: 5
   SpeedUpgrade: 0.3
   RangeUpgrade: 0.7
   MaxExp: 125
@@ -330,7 +281,6 @@ Transform:
   - {fileID: 2291005697101822788}
   - {fileID: 9077626575872965168}
   - {fileID: 3580211283461303457}
-  - {fileID: 8700668730986293015}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5023755228375063173
@@ -5285,7 +5235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
-  ElementalDamage: 1
+  ElementalDamage: 0
   DamageOverTime: 7
   Speed: 2.2
   Range: 5.5
@@ -5335,9 +5285,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 0
-  ElementalUpgrade: 1
-  DamageOverTimeUpgrade: 5
+  DamageUpgrade: 3
+  ElementalUpgrade: 0
+  DamageOverTimeUpgrade: 6
   SpeedUpgrade: 0.3
   RangeUpgrade: 1
   MaxExp: 500
@@ -5386,9 +5336,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 0
-  ElementalUpgrade: 1
-  DamageOverTimeUpgrade: 3
+  DamageUpgrade: 2
+  ElementalUpgrade: 0
+  DamageOverTimeUpgrade: 4
   SpeedUpgrade: 0.2
   RangeUpgrade: 0.3
   MaxExp: 45

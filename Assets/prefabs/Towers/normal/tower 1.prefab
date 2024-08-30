@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Rifle
+  Description: Simple tower that deals low damage but attacks very fast.
   Type: Normal
   DamageUpgrade: 0
   ElementalUpgrade: 0
@@ -228,7 +229,7 @@ MonoBehaviour:
   - {fileID: 8315389697490857774}
   - {fileID: 218444005936471765}
   - {fileID: 2752208705960835827}
-  - {fileID: 2330850121381522453}
+  - {fileID: 0}
   hologram: 0
   Towers:
   - {fileID: 4406638584226920736, guid: 45447d3550247734698be6a8cd959ecb, type: 3}
@@ -381,7 +382,6 @@ Transform:
   - {fileID: 1429356612459567980}
   - {fileID: 1853535087468499857}
   - {fileID: 2468382260036765885}
-  - {fileID: 7542644062051531467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5023755228375063173
@@ -405,57 +405,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &6036042791430960597
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7542644062051531467}
-  - component: {fileID: 2330850121381522453}
-  m_Layer: 0
-  m_Name: level 4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7542644062051531467
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6036042791430960597}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8355985087851574127}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2330850121381522453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6036042791430960597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageUpgrade: 0
-  ElementalUpgrade: 0
-  DamageOverTimeUpgrade: 0
-  SpeedUpgrade: 0
-  RangeUpgrade: 0
-  MaxExp: 0
-  UpgradePrice: 0
 --- !u!1 &6229863860612743695
 GameObject:
   m_ObjectHideFlags: 0

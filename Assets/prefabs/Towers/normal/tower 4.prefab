@@ -164,13 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9da6161fd9ed2e40a835ba8f425fad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
+  Damage: 2
   ElementalDamage: 3
   DamageOverTime: 0
-  Speed: 2
-  Range: 5
-  MaxExp: 1
-  Price: 69
+  Speed: 3
+  Range: 6
+  MaxExp: 20
+  Price: 70
 --- !u!1 &3722103817631556547
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,15 +216,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Pylon
-  Level: 0
-  Experience: 0
-  UpgradePrice: 0
-  MaxExp: 0
+  Description: Strikes with a bunch of spikes from the ground stunning the enemy
+    for a short amount of time
   Type: Nature
-  Damage: 0
-  ElementalDamage: 0
-  DamageOverTime: 0
-  Range: 0
   DamageUpgrade: 0
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 0
@@ -236,7 +230,7 @@ MonoBehaviour:
   - {fileID: 4779008301163034063}
   - {fileID: 6178732826653240149}
   - {fileID: 2583496457146934266}
-  - {fileID: 1074012728184895393}
+  - {fileID: 0}
   hologram: 0
   Towers:
   - {fileID: 6802240448009213758, guid: 6190247ddc158be4087d8930686ff2f4, type: 3}
@@ -248,7 +242,6 @@ MonoBehaviour:
   TowerObject: {fileID: 5857700132478872097}
   ExpPS: {fileID: 8585175799612243974}
   lineRenderer: {fileID: 0}
-  Cooldown: 1
   TestProj: {fileID: 0}
 --- !u!1 &4010138206498715058
 GameObject:
@@ -294,64 +287,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 0
-  ElementalUpgrade: 0
+  DamageUpgrade: 3
+  ElementalUpgrade: 4
   DamageOverTimeUpgrade: 0
-  SpeedUpgrade: 0
-  RangeUpgrade: 0
-  MaxExp: 0
-  UpgradePrice: 0
---- !u!1 &4313053702494480710
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6527290944507926236}
-  - component: {fileID: 1074012728184895393}
-  m_Layer: 0
-  m_Name: level 4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6527290944507926236
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4313053702494480710}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8355985087851574127}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1074012728184895393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4313053702494480710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageUpgrade: 0
-  ElementalUpgrade: 0
-  DamageOverTimeUpgrade: 0
-  SpeedUpgrade: 0
-  RangeUpgrade: 0
-  MaxExp: 0
-  UpgradePrice: 0
+  SpeedUpgrade: 0.2
+  RangeUpgrade: 0.3
+  MaxExp: 500
+  UpgradePrice: 425
 --- !u!1 &5857700132478872097
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +332,6 @@ Transform:
   - {fileID: 7367835763433984109}
   - {fileID: 1462440910055945289}
   - {fileID: 7900738988926202402}
-  - {fileID: 6527290944507926236}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5023755228375063173
@@ -458,13 +399,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 1
+  DamageUpgrade: 2
   ElementalUpgrade: 2
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0.2
-  RangeUpgrade: 1
-  MaxExp: 150
-  UpgradePrice: 100
+  RangeUpgrade: 0.3
+  MaxExp: 125
+  UpgradePrice: 130
 --- !u!1 &6229863860612743695
 GameObject:
   m_ObjectHideFlags: 0
@@ -5395,11 +5336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 5
-  ElementalUpgrade: 2
+  DamageUpgrade: 1
+  ElementalUpgrade: 3
   DamageOverTimeUpgrade: 0
-  SpeedUpgrade: 0.5
-  RangeUpgrade: 0.2
+  SpeedUpgrade: 0.2
+  RangeUpgrade: 0.3
   MaxExp: 150
   UpgradePrice: 100
 --- !u!1 &8696547179661763478

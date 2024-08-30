@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 public class TowerStats : MonoBehaviour
 {
 	[SerializeField] string Name;
+	public string Description;
 	int Level;
 	int Experience;
 	int UpgradePrice;
@@ -20,7 +21,7 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] string Type;
 	int Damage;
 	int ElementalDamage;
-	int DamageOverTime;
+	float DamageOverTime;
 	float Range;
 
 	public int DamageUpgrade;
@@ -130,7 +131,7 @@ public class TowerStats : MonoBehaviour
 		UpgradePrice = levels[Level].UpgradePrice;
 		DamageUpgrade = levels[Level].DamageUpgrade;
 		ElementalUpgrade = levels[Level].ElementalUpgrade;
-		DamageOverTime = levels[Level].DamageOverTimeUpgrade;
+		DamageOverTimeUpgrade = levels[Level].DamageOverTimeUpgrade;
 		SpeedUpgrade = levels[Level].SpeedUpgrade;
 		RangeUpgrade = levels[Level].RangeUpgrade;
 
@@ -173,7 +174,7 @@ public class TowerStats : MonoBehaviour
     {
         return ElementalDamage;
     }
-    public int GetDamageOverTime()
+    public float GetDamageOverTime()
     {
         return DamageOverTime;
     }

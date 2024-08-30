@@ -6,7 +6,7 @@ public class TowerSetupParams: MonoBehaviour
 {
     public int Damage;
     public int ElementalDamage;
-    public int DamageOverTime;
+    public float DamageOverTime;
     public float Speed;
     public float Range;
     public int MaxExp;

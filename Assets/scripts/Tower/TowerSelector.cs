@@ -13,18 +13,5 @@ public class TowerSelector : MonoBehaviour
 	{
 		rcfc.ActiveTower = TowerIndex;
 
-		foreach(GameObject go in rcfc.SelectedTowerImage)
-		{
-			go.SetActive(false);
-		}
-		rcfc.SelectedTowerImage[TowerIndex].SetActive(true);
-		/*
-		if(rcfc.towerHolo != null)
-		{
-			rcfc.Hologram = false;
-			Destroy(rcfc.towerHolo);
-			rcfc.PlaceTower(rcfc.cordinate);
-		}
-		*/
 	}
 }

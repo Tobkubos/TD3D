@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class EnemyInfo : MonoBehaviour
 {
 	[SerializeField] float hp;
-    [SerializeField] bool Armored;
+    [SerializeField] bool dodge;
 	public int speed;
 	public int defence;
 	public int cash;
@@ -54,8 +54,8 @@ public class EnemyInfo : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             Debug.Log("PALE SIE");
-            yield return new WaitForSeconds(1f);
-            DealDamageOverTime(1f, ts);
+            yield return new WaitForSeconds(1);
+            DealDamageOverTime(ts.GetDamageOverTime()/5, ts);
         }
         yield return new WaitForSeconds(1);
 
@@ -72,7 +72,7 @@ public class EnemyInfo : MonoBehaviour
             Destroy(this.gameObject);
 		}
 
-        if (Armored)
+        if (dodge)
         {
             ChanceOfHit = Random.Range(0, 100);
             if (ChanceOfHit < 40)
@@ -136,11 +136,7 @@ public class EnemyInfo : MonoBehaviour
                         Destroy(other.gameObject);
                     }
                 }
-
-                if (other.GetComponent<BulletMovement>().Type == "Normal")
-                {
-                    hp -= other.GetComponent<BulletMovement>().damage;
-                }
+                hp -= other.GetComponent<BulletMovement>().damage;
                 Destroy(other.gameObject);
             }
 
@@ -181,7 +177,6 @@ public class EnemyInfo : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
-            Debug.Log("Spali³em sie");
             ts.SetExperience();
 
             ps.transform.parent = null;

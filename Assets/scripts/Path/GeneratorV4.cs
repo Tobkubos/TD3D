@@ -38,7 +38,9 @@ public class GeneratorV4 : MonoBehaviour
     public Camera Camera;
 
     private int index = 0;
-    void Start()
+
+
+    private void Start()
     {
         GenerateChunks();
         GenerateEmptyChunks();
