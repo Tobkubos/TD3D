@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Spawner : MonoBehaviour
     public GameObject bigChunk;
     public GameObject speeder;
     public GameObject ArmoredCone;
+
+    private bool AutomaticWave = false;
 
     [SerializeField] int wave;
     private GameObject manager;
@@ -19,10 +22,24 @@ public class Spawner : MonoBehaviour
 	{
         manager = GameObject.Find("manager");
         
-		StartCoroutine(Spawning());
+		StartCoroutine(WaveStart());
 	}
 
-    public IEnumerator Spawn(GameObject enemy, float interval, int number)
+    public void AutoWave()
+    {
+        if (AutomaticWave) {
+            AutomaticWave = false;
+            GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
+        }
+        else if(!AutomaticWave){
+            AutomaticWave=true;
+            GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = false;
+        }
+
+        Debug.LogWarning(AutomaticWave);
+    }
+
+    public IEnumerator SpawnMonster(GameObject enemy, float interval, int number)
     {
         for (int i = 0; i < number; i++) 
         {
@@ -32,46 +49,47 @@ public class Spawner : MonoBehaviour
     }
 
 
-	public IEnumerator Spawning()
+	public IEnumerator WaveStart()
 	{
 		wave++;
         manager.GetComponent<RayCastFromCamera>().SetWave(wave);
         if (wave == 1)
 		{
-            StartCoroutine(Spawn(cube, 2f, 8));
+            yield return StartCoroutine(SpawnMonster(cube, 2f, 8));
         }
 
         if (wave == 2)
         {
-            StartCoroutine(Spawn(cube, 1.5f, 12));
+            yield return StartCoroutine(SpawnMonster(cube, 1.5f, 12));
         }
 
         if (wave == 3)
         {
             for (int i = 0; i < 4; i++)
             {
-                StartCoroutine(Spawn(cube, 0.2f, 2));
+                StartCoroutine(SpawnMonster(cube, 0.2f, 2));
                 yield return new WaitForSeconds(2f);
             }
+            yield return new WaitForSeconds(2f);
         }
 
         if (wave == 4)
         {
-               StartCoroutine(Spawn(cube, 0.5f, 5));
+               StartCoroutine(SpawnMonster(cube, 0.5f, 5));
             yield return new WaitForSeconds(5f);
-            StartCoroutine(Spawn(cube, 0.5f, 5));
+            StartCoroutine(SpawnMonster(cube, 0.5f, 5));
         }
         
         // NEW ENEMY - SPEEDER
         if (wave == 5)
         {
-            StartCoroutine(Spawn(speeder, 1, 10));
+            StartCoroutine(SpawnMonster(speeder, 1, 10));
         }
 
         if (wave == 6)
         {
-            StartCoroutine(Spawn(cube, 0.8f, 20));
-            StartCoroutine(Spawn(speeder, 1, 10));
+            StartCoroutine(SpawnMonster(cube, 0.8f, 20));
+            StartCoroutine(SpawnMonster(speeder, 1, 10));
 
         }
 
@@ -79,18 +97,18 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < 5; i++)
             {
-                StartCoroutine(Spawn(speeder, 0.2f, 5));
+                StartCoroutine(SpawnMonster(speeder, 0.2f, 5));
                 yield return new WaitForSeconds(3f);
             }
-            StartCoroutine(Spawn(cube, 0.5f, 10));
+            StartCoroutine(SpawnMonster(cube, 0.5f, 10));
         }
 
         if (wave == 8)
         {
             for (int i = 0; i < 7; i++)
             {
-                StartCoroutine(Spawn(speeder, 0.2f, 7));
-                StartCoroutine(Spawn(cube, 0.5f, 10));
+                StartCoroutine(SpawnMonster(speeder, 0.2f, 7));
+                StartCoroutine(SpawnMonster(cube, 0.5f, 10));
                 yield return new WaitForSeconds(10f);
             }
         }
@@ -98,23 +116,28 @@ public class Spawner : MonoBehaviour
         //NEW ENEMY - BIG CHUNK
         if (wave == 9)
         {
-            StartCoroutine(Spawn(bigChunk, 5f, 10));
+            StartCoroutine(SpawnMonster(bigChunk, 5f, 10));
         }
 
         if (wave == 10)
         {
-            StartCoroutine(Spawn(bigChunk, 2f, 3));
+            StartCoroutine(SpawnMonster(bigChunk, 2f, 3));
             yield return new WaitForSeconds(8);
-            StartCoroutine(Spawn(cube, 0.2f, 30));
+            StartCoroutine(SpawnMonster(cube, 0.2f, 30));
 
         }
 
         if (wave == 11)
         {
-            StartCoroutine(Spawn(bigChunk, 4f, 10));
-            StartCoroutine(Spawn(cube, 3f, 10));
-            StartCoroutine(Spawn(speeder, 2f, 10));
+            StartCoroutine(SpawnMonster(bigChunk, 4f, 10));
+            StartCoroutine(SpawnMonster(cube, 3f, 10));
+            StartCoroutine(SpawnMonster(speeder, 2f, 10));
         }
-        
+
+        if (AutomaticWave)
+        {
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(WaveStart());
+        }
     }
 }

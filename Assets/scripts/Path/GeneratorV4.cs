@@ -26,6 +26,7 @@ public class GeneratorV4 : MonoBehaviour
     public Grid grid;                  //siatka gry
 
     public Button NextWave;
+    public Button AutoWave;
     public int SizeOfMap = 4;          //wielkoœæ mapy w chunkach
     public int chunkSize = 5;          //wielkoœæ chunku
 
@@ -224,7 +225,8 @@ public class GeneratorV4 : MonoBehaviour
         Connectors[0].GetComponent<Spawner>().ArmoredCone.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
 
         NextWave.onClick.AddListener(Connectors[0].GetComponent<Spawner>().Spawn);
-        
+        AutoWave.onClick.AddListener(Connectors[0].GetComponent<Spawner>().AutoWave);
+
         for (int i = 0; i < Chunk.Count; i++)
         {
             Chunk[i].GetComponent<ChunkReveal2>().Disappear();
