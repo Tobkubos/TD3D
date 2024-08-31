@@ -13,11 +13,8 @@ public class RayCastFromCamera : MonoBehaviour
 {
 	public int money;
 	public int lives;
-	[SerializeField] int Tower1Price0;
-	[SerializeField] int Tower1Price1;
-	[SerializeField] int Tower1Price2;
-	[SerializeField] int Tower1Price3;
 	private int price;
+	public int ChunkPrice;
 
 	public Camera camera;
 	public Grid grid;

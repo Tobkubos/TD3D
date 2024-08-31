@@ -228,10 +228,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 35
-  Armored: 0
+  dodge: 0
   speed: 1
   defence: 0
-  cash: 1
+  cash: 10
   hpBar: {fileID: 2904355265513327538}
   OnFire: 0
   OnStun: 0

@@ -51,11 +51,11 @@ public class EnemyInfo : MonoBehaviour
 
     IEnumerator Fire(TowerStats ts)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 20; i++)
         {
             Debug.Log("PALE SIE");
-            yield return new WaitForSeconds(1);
-            DealDamageOverTime(ts.GetDamageOverTime()/5, ts);
+            yield return new WaitForSeconds(0.25f);
+            DealDamageOverTime(ts.GetDamageOverTime()/20, ts);
         }
         yield return new WaitForSeconds(1);
 

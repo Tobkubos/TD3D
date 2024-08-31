@@ -462,6 +462,7 @@ MonoBehaviour:
   Chunk: {fileID: 1633336596311627984}
   ChunkPlane: {fileID: 6000980401305560767}
   Manager: {fileID: 0}
+  price: {fileID: 5628642009276558227}
 --- !u!1 &7354517590355220947
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,8 +12,9 @@ using static UnityEngine.ParticleSystem;
 public class GeneratorV4 : MonoBehaviour
 {
 	private List<GameObject> ChunkCheckPoints = new List<GameObject> { };    
-	private List<GameObject> Chunk = new List<GameObject> { };                   
-	private List<GameObject> Connectors = new List<GameObject> { };
+	public List<GameObject> Chunk = new List<GameObject> { };
+    public List<GameObject> EmptyChunks = new List<GameObject> { };
+    private List<GameObject> Connectors = new List<GameObject> { };
 
 
     private List<Vector3> map = new List<Vector3> { };
@@ -82,6 +83,7 @@ public class GeneratorV4 : MonoBehaviour
                     GameObject EmptyCh = Instantiate(EmptyChunk, checker, Quaternion.identity);
                     EmptyCh.GetComponentInChildren<MeshGenerator>().SetSize(chunkSize, chunkSize);
                     EmptyCh.GetComponentInChildren<MeshGenerator>().GenerateMesh();
+                    EmptyChunks.Add(EmptyCh);
                 }
             }
         }

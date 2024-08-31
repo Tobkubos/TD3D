@@ -2709,6 +2709,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8355985087851574127, guid: 5a18e077c28ce214dbeda617d3cacbf5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: 5a18e077c28ce214dbeda617d3cacbf5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: 5a18e077c28ce214dbeda617d3cacbf5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: 5a18e077c28ce214dbeda617d3cacbf5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -100
       objectReference: {fileID: 0}
@@ -2806,6 +2818,18 @@ PrefabInstance:
     - target: {fileID: 5857700132478872097, guid: 91e7255e802cad5458d6088be4d6f1c1, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: 91e7255e802cad5458d6088be4d6f1c1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: 91e7255e802cad5458d6088be4d6f1c1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: 91e7255e802cad5458d6088be4d6f1c1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8355985087851574127, guid: 91e7255e802cad5458d6088be4d6f1c1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5939,6 +5963,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8355985087851574127, guid: a5cc09ee1fcf8eb4c9547807c2706c59, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: a5cc09ee1fcf8eb4c9547807c2706c59, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: a5cc09ee1fcf8eb4c9547807c2706c59, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: a5cc09ee1fcf8eb4c9547807c2706c59, type: 3}
       propertyPath: m_LocalPosition.x
       value: -100
       objectReference: {fileID: 0}
@@ -8180,6 +8216,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8355985087851574127, guid: 102add0ccb887c740ae56944cb3fc572, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: 102add0ccb887c740ae56944cb3fc572, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: 102add0ccb887c740ae56944cb3fc572, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355985087851574127, guid: 102add0ccb887c740ae56944cb3fc572, type: 3}
       propertyPath: m_LocalPosition.x
       value: -100
       objectReference: {fileID: 0}
@@ -9485,6 +9533,7 @@ GameObject:
   - component: {fileID: 1719599394}
   - component: {fileID: 1719599396}
   - component: {fileID: 1719599397}
+  - component: {fileID: 1719599399}
   m_Layer: 0
   m_Name: manager
   m_TagString: manager
@@ -9521,10 +9570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   money: 200
   lives: 1000
-  Tower1Price0: 0
-  Tower1Price1: 0
-  Tower1Price2: 0
-  Tower1Price3: 0
+  ChunkPrice: 25
   camera: {fileID: 963194227}
   grid: {fileID: 1719599393}
   _tilePrefab: {fileID: 3998032376701469053, guid: 6508d3981e45cc940a5548310dcc1641, type: 3}
@@ -9636,6 +9682,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0feddbbe8c238ac439e2dcd3376bc327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Chunk: []
+  EmptyChunks: []
   ChunkCheckPoint: {fileID: 1633336596311627984, guid: 718dc30a70682bc4ab82176a8d25eb1e, type: 3}
   EmptyChunk: {fileID: 1633336596311627984, guid: 333580ca541f95e45a7c3eae7fb765c4, type: 3}
   Spawner: {fileID: 6519015125850184943, guid: 5df13a226be8bc341bf21c5c61a626a6, type: 3}
@@ -9686,6 +9734,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d581cb0cd61f7e41b7b4d0198421cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1719599399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719599386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16b9388aa8cc9543ac6103550cf6d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price1: {fileID: 1689787396}
+  price2: {fileID: 1750134484}
+  price3: {fileID: 10754672}
+  price4: {fileID: 880570677}
 --- !u!1 &1740053365
 GameObject:
   m_ObjectHideFlags: 0
