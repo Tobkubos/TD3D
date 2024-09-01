@@ -8,16 +8,12 @@ using UnityEngine.UI;
 
 public class EnemyInfo : MonoBehaviour
 {
+    public string name;
+    public string desc;
     [SerializeField] float hp;
     [SerializeField] bool dodge;
     [SerializeField] float speed;
     [SerializeField] int cash;
-
-
-    private float _hp;
-    private float _speed;
-    private int _cash;
-
 
     public Slider hpBar;
     public bool OnFire;
@@ -50,7 +46,6 @@ public class EnemyInfo : MonoBehaviour
 
     void Start()
     {
-
         GetComponent<NavMeshAgent>().speed = speed;
         originalColor = this.GetComponent<Renderer>().material.color;
 		hpBar.maxValue = hp;

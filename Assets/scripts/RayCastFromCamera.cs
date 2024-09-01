@@ -62,18 +62,6 @@ public class RayCastFromCamera : MonoBehaviour
     public Button TowerSell;
     //
 
-    //enemy details and modifiers
-    public GameObject NewEnemyInfo;
-    public TextMeshProUGUI Modifiers;
-    public TextMeshProUGUI EnemyName;
-    public TextMeshProUGUI EnemyDescription;
-
-
-
-
-
-
-
     public Vector3 cordinate;
 
 	public GameObject[] Towers;
@@ -109,9 +97,9 @@ public class RayCastFromCamera : MonoBehaviour
 
 		if (ts != null)
 		{
-			Debug.Log(ts.GetName());
+			//Debug.Log(ts.GetName());
 		}
-		Debug.Log(ActiveTower);
+		//Debug.Log(ActiveTower);
 		//GAME OVER
 		if (lives <= 0)
 		{

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,13 +18,36 @@ public class Spawner : MonoBehaviour
     private GameObject manager;
 
 
+    //enemy details and modifiers
+    public GameObject NewEnemyInfo;
+    public TextMeshProUGUI EnemyName;
+    public TextMeshProUGUI EnemyDescription;
+
+    public TextMeshProUGUI Modifiers;
+    //
+
     private void Start()
     {
+        NewEnemyInfo = GameObject.Find("New Enemy Info");
+        Debug.Log(NewEnemyInfo);
+        EnemyName = NewEnemyInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        EnemyDescription = NewEnemyInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        NewEnemyInfo.SetActive(false);
+        manager = GameObject.Find("manager");
+
         wave = 0;
+        Debug.Log("DUPA");
     }
+    void ShowNewEnemyInfo(string name, string desc)
+    {
+        NewEnemyInfo.SetActive(true);
+        Time.timeScale = 0.1f;
+        EnemyName.text = name;
+        EnemyDescription.text = desc;
+    }
+
     public void Spawn()
 	{
-        manager = GameObject.Find("manager");
 		StartCoroutine(WaveStart());
 	}
 
@@ -55,7 +79,6 @@ public class Spawner : MonoBehaviour
         }
     }
 
-
 	public IEnumerator WaveStart()
 	{
         GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = false;
@@ -63,6 +86,7 @@ public class Spawner : MonoBehaviour
         manager.GetComponent<RayCastFromCamera>().SetWave(wave);
         if (wave == 1)
 		{
+            ShowNewEnemyInfo(cube.GetComponent<EnemyInfo>().name, cube.GetComponent<EnemyInfo>().desc);
             yield return StartCoroutine(SpawnMonster(cube, 2f, 8));
             //cube.GetComponent<EnemyInfo>().ModifyHp(10);
         }
@@ -93,6 +117,7 @@ public class Spawner : MonoBehaviour
         // NEW ENEMY - SPEEDER
         if (wave == 5)
         {
+            ShowNewEnemyInfo(speeder.GetComponent<EnemyInfo>().name, speeder.GetComponent<EnemyInfo>().desc);
             yield return StartCoroutine(SpawnMonster(speeder, 1, 10));
         }
 
@@ -126,6 +151,7 @@ public class Spawner : MonoBehaviour
         //NEW ENEMY - BIG CHUNK
         if (wave == 9)
         {
+            ShowNewEnemyInfo(bigChunk.GetComponent<EnemyInfo>().name, bigChunk.GetComponent<EnemyInfo>().desc);
             yield return StartCoroutine(SpawnMonster(bigChunk, 5f, 10));
         }
 

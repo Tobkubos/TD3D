@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b995f83387ef59449bcdabd18a8361a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: big chunk
+  desc: this massive block of pixels has more hp than you think.
   hp: 150
   dodge: 0
   speed: 0.3

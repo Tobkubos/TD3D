@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b995f83387ef59449bcdabd18a8361a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: speeder
+  desc: faster variant of an enemy. Has slightly more hp.
   hp: 15
   dodge: 0
   speed: 2.2

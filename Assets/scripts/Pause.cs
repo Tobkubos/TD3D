@@ -6,6 +6,7 @@ public class Pause : MonoBehaviour
 {
     public GameObject PauseScreen;
     public CameraMovement cm;
+    public GameObject NewEnemyInfo;
     public void PauseON()
     {
         cm.enabled = false;
@@ -17,6 +18,13 @@ public class Pause : MonoBehaviour
     {
         cm.enabled = true;
         PauseScreen.SetActive(false);
+        Time.timeScale = 1.0f;
+    }
+
+    public void PauseOFF2()
+    {
+        Debug.Log("KLIKAM");
+        NewEnemyInfo.SetActive(false);
         Time.timeScale = 1.0f;
     }
 
