@@ -111,10 +111,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7940265135045016533}
+  - component: {fileID: 1086545103590259805}
   - component: {fileID: 4348652786632811664}
   - component: {fileID: 3710643623193057118}
   - component: {fileID: 6372930086929611740}
-  - component: {fileID: 1086545103590259805}
   - component: {fileID: 4106686069346106286}
   - component: {fileID: 5847157553214463547}
   - component: {fileID: 2628880048401677163}
@@ -144,6 +144,29 @@ Transform:
   - {fileID: 7115841543264115894}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1086545103590259805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108991152365024950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b995f83387ef59449bcdabd18a8361a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 15
+  dodge: 0
+  speed: 2.2
+  cash: 4
+  hpBar: {fileID: 2904355265513327538}
+  OnFire: 0
+  OnStun: 0
+  NaturalStun: {fileID: 6367094968335329567, guid: 645437a892269c944b3aaabf9a9e3753, type: 3}
+  StunParent: {fileID: 4460500550623271551}
+  ps: {fileID: 2036162825791507954}
+  distanceTravelled: 0
 --- !u!33 &4348652786632811664
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -215,30 +238,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1086545103590259805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108991152365024950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b995f83387ef59449bcdabd18a8361a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 20
-  dodge: 0
-  speed: 1
-  defence: 0
-  cash: 6
-  hpBar: {fileID: 2904355265513327538}
-  OnFire: 0
-  OnStun: 0
-  NaturalStun: {fileID: 6367094968335329567, guid: 645437a892269c944b3aaabf9a9e3753, type: 3}
-  StunParent: {fileID: 4460500550623271551}
-  ps: {fileID: 2036162825791507954}
-  distanceTravelled: 0
 --- !u!114 &4106686069346106286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +262,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
-  m_Speed: 2.2
+  m_Speed: 0
   m_Acceleration: 10000
   avoidancePriority: 50
   m_AngularSpeed: 1000

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] int wave;
     private GameObject manager;
+
+
     private void Start()
     {
         wave = 0;
@@ -21,7 +24,6 @@ public class Spawner : MonoBehaviour
     public void Spawn()
 	{
         manager = GameObject.Find("manager");
-        
 		StartCoroutine(WaveStart());
 	}
 
@@ -30,10 +32,15 @@ public class Spawner : MonoBehaviour
         if (AutomaticWave) {
             AutomaticWave = false;
             GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
+            GameObject.Find("NEXT WAVE").transform.Find("Auto wave info").gameObject.SetActive(false);
         }
         else if(!AutomaticWave){
             AutomaticWave=true;
-            GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = false;
+            GameObject.Find("NEXT WAVE").transform.Find("Auto wave info").gameObject.SetActive(true);
+            if (wave != 0)
+            {
+                GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = false;
+            }
         }
 
         Debug.LogWarning(AutomaticWave);
@@ -51,12 +58,15 @@ public class Spawner : MonoBehaviour
 
 	public IEnumerator WaveStart()
 	{
-		wave++;
+        GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = false;
+        wave++;
         manager.GetComponent<RayCastFromCamera>().SetWave(wave);
         if (wave == 1)
 		{
             yield return StartCoroutine(SpawnMonster(cube, 2f, 8));
+            //cube.GetComponent<EnemyInfo>().ModifyHp(10);
         }
+
 
         if (wave == 2)
         {
@@ -67,7 +77,7 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                StartCoroutine(SpawnMonster(cube, 0.2f, 2));
+                yield return StartCoroutine(SpawnMonster(cube, 0.2f, 2));
                 yield return new WaitForSeconds(2f);
             }
             yield return new WaitForSeconds(2f);
@@ -75,21 +85,21 @@ public class Spawner : MonoBehaviour
 
         if (wave == 4)
         {
-               StartCoroutine(SpawnMonster(cube, 0.5f, 5));
-            yield return new WaitForSeconds(5f);
             StartCoroutine(SpawnMonster(cube, 0.5f, 5));
+            yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(SpawnMonster(cube, 0.5f, 5));
         }
         
         // NEW ENEMY - SPEEDER
         if (wave == 5)
         {
-            StartCoroutine(SpawnMonster(speeder, 1, 10));
+            yield return StartCoroutine(SpawnMonster(speeder, 1, 10));
         }
 
         if (wave == 6)
         {
             StartCoroutine(SpawnMonster(cube, 0.8f, 20));
-            StartCoroutine(SpawnMonster(speeder, 1, 10));
+            yield return StartCoroutine(SpawnMonster(speeder, 1, 10));
 
         }
 
@@ -100,7 +110,7 @@ public class Spawner : MonoBehaviour
                 StartCoroutine(SpawnMonster(speeder, 0.2f, 5));
                 yield return new WaitForSeconds(3f);
             }
-            StartCoroutine(SpawnMonster(cube, 0.5f, 10));
+            yield return StartCoroutine(SpawnMonster(cube, 0.5f, 10));
         }
 
         if (wave == 8)
@@ -116,14 +126,14 @@ public class Spawner : MonoBehaviour
         //NEW ENEMY - BIG CHUNK
         if (wave == 9)
         {
-            StartCoroutine(SpawnMonster(bigChunk, 5f, 10));
+            yield return StartCoroutine(SpawnMonster(bigChunk, 5f, 10));
         }
 
         if (wave == 10)
         {
             StartCoroutine(SpawnMonster(bigChunk, 2f, 3));
             yield return new WaitForSeconds(8);
-            StartCoroutine(SpawnMonster(cube, 0.2f, 30));
+            yield return StartCoroutine(SpawnMonster(cube, 0.2f, 30));
 
         }
 
@@ -131,13 +141,40 @@ public class Spawner : MonoBehaviour
         {
             StartCoroutine(SpawnMonster(bigChunk, 4f, 10));
             StartCoroutine(SpawnMonster(cube, 3f, 10));
-            StartCoroutine(SpawnMonster(speeder, 2f, 10));
+            yield return StartCoroutine(SpawnMonster(speeder, 2f, 10));
+        }
+
+        if (wave == 12)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                StartCoroutine(SpawnMonster(bigChunk, 1f, 3));
+                StartCoroutine(SpawnMonster(cube, 0.1f, 13));
+                yield return StartCoroutine(SpawnMonster(speeder, 0.2f, 10));
+                yield return new WaitForSeconds(3f);
+            }
+        }
+
+        //NEW ENEMY - ARMORED CONE
+        if (wave == 13)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                StartCoroutine(SpawnMonster(bigChunk, 1f, 3));
+                StartCoroutine(SpawnMonster(cube, 0.1f, 13));
+                yield return StartCoroutine(SpawnMonster(speeder, 0.2f, 10));
+                yield return new WaitForSeconds(3f);
+            }
         }
 
         if (AutomaticWave)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(5f);
             StartCoroutine(WaveStart());
+        }
+        else
+        {
+            GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
         }
     }
 }

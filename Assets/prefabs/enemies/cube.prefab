@@ -159,8 +159,7 @@ MonoBehaviour:
   hp: 12
   dodge: 0
   speed: 1
-  defence: 0
-  cash: 4
+  cash: 3
   hpBar: {fileID: 2904355265513327538}
   OnFire: 0
   OnStun: 0
@@ -263,7 +262,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
-  m_Speed: 1
+  m_Speed: 0
   m_Acceleration: 10000
   avoidancePriority: 50
   m_AngularSpeed: 1000

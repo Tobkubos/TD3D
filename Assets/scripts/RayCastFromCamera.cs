@@ -60,9 +60,21 @@ public class RayCastFromCamera : MonoBehaviour
 
     public TextMeshProUGUI TowerSellIncome;
     public Button TowerSell;
-	//end
+    //
 
-	public Vector3 cordinate;
+    //enemy details and modifiers
+    public GameObject NewEnemyInfo;
+    public TextMeshProUGUI Modifiers;
+    public TextMeshProUGUI EnemyName;
+    public TextMeshProUGUI EnemyDescription;
+
+
+
+
+
+
+
+    public Vector3 cordinate;
 
 	public GameObject[] Towers;
     public GameObject[] TowersStartupSetup;

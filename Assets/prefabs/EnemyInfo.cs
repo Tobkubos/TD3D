@@ -8,11 +8,17 @@ using UnityEngine.UI;
 
 public class EnemyInfo : MonoBehaviour
 {
-	[SerializeField] float hp;
+    [SerializeField] float hp;
     [SerializeField] bool dodge;
-	public int speed;
-	public int defence;
-	public int cash;
+    [SerializeField] float speed;
+    [SerializeField] int cash;
+
+
+    private float _hp;
+    private float _speed;
+    private int _cash;
+
+
     public Slider hpBar;
     public bool OnFire;
     public bool OnStun;
@@ -28,8 +34,24 @@ public class EnemyInfo : MonoBehaviour
     private bool canBeHit = true;
 
     private Color originalColor;
+
+    public void ModifySpeed(float upgrade)
+    {
+        GetComponent<NavMeshAgent>().speed += upgrade;
+    }
+    public void ModifyHp(float upgrade)
+    {
+        hp += upgrade;
+    }
+    public void ModifyCash(int upgrade)
+    {
+        cash += upgrade;
+    }
+
     void Start()
     {
+
+        GetComponent<NavMeshAgent>().speed = speed;
         originalColor = this.GetComponent<Renderer>().material.color;
 		hpBar.maxValue = hp;
         lastPosition = transform.position;
