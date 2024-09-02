@@ -169,7 +169,7 @@ MonoBehaviour:
   DamageOverTime: 0
   Speed: 1
   Range: 5
-  MaxExp: 20
+  MaxExp: 10
   Price: 80
 --- !u!1 &3722103817631556547
 GameObject:
@@ -291,7 +291,7 @@ MonoBehaviour:
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0.5
   RangeUpgrade: 0.3
-  MaxExp: 45
+  MaxExp: 25
   UpgradePrice: 40
 --- !u!1 &5828424326294518877
 GameObject:
@@ -342,8 +342,8 @@ MonoBehaviour:
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0.125
   RangeUpgrade: 1
-  MaxExp: 500
-  UpgradePrice: 400
+  MaxExp: 100
+  UpgradePrice: 250
 --- !u!1 &5857700132478872097
 GameObject:
   m_ObjectHideFlags: 0
@@ -5340,8 +5340,8 @@ MonoBehaviour:
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0.25
   RangeUpgrade: 0.7
-  MaxExp: 125
-  UpgradePrice: 150
+  MaxExp: 45
+  UpgradePrice: 100
 --- !u!1 &8696547179661763478
 GameObject:
   m_ObjectHideFlags: 0

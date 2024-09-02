@@ -165,6 +165,8 @@ MonoBehaviour:
   hpBar: {fileID: 2904355265513327538}
   OnFire: 0
   OnStun: 0
+  Armored: 0
+  Stunnable: 1
   NaturalStun: {fileID: 6367094968335329567, guid: 645437a892269c944b3aaabf9a9e3753, type: 3}
   StunParent: {fileID: 4460500550623271551}
   ps: {fileID: 2036162825791507954}

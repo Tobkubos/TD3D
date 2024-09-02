@@ -11,6 +11,7 @@ public class Menu : MonoBehaviour
     public GameObject trans;
     private void Start()
     {
+        Time.timeScale = 1.0f;
         if (Controls != null)
         {
             Controls.transform.localScale = Vector3.zero;

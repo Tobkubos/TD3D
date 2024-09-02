@@ -236,12 +236,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 3
+  DamageUpgrade: 0
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 5
   SpeedUpgrade: 0.3
   RangeUpgrade: 0.7
-  MaxExp: 125
+  MaxExp: 45
   UpgradePrice: 140
 --- !u!1 &5857700132478872097
 GameObject:
@@ -5239,7 +5239,7 @@ MonoBehaviour:
   DamageOverTime: 7
   Speed: 2.2
   Range: 5.5
-  MaxExp: 20
+  MaxExp: 10
   Price: 50
 --- !u!1 &7102970721971841125
 GameObject:
@@ -5285,13 +5285,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 3
+  DamageUpgrade: 0
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 6
   SpeedUpgrade: 0.3
   RangeUpgrade: 1
-  MaxExp: 500
-  UpgradePrice: 450
+  MaxExp: 100
+  UpgradePrice: 265
 --- !u!1 &8354781255813031897
 GameObject:
   m_ObjectHideFlags: 0
@@ -5336,12 +5336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 2
+  DamageUpgrade: 0
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 4
   SpeedUpgrade: 0.2
   RangeUpgrade: 0.3
-  MaxExp: 45
+  MaxExp: 25
   UpgradePrice: 40
 --- !u!1 &8696547179661763478
 GameObject:

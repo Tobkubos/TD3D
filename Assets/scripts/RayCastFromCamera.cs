@@ -129,8 +129,25 @@ public class RayCastFromCamera : MonoBehaviour
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                TowerAreaInvisible();
+                ResetSelectedTower();
+                ts = null;
+            }
+
 			if (Physics.Raycast(ray, out hit))
 			{
+				if (!temp.active)
+				{
+					temp.SetActive(true);
+				}
+
+				if ( tower!= null && !tower.active)
+				{
+					tower.SetActive(true);
+				}
 				Vector3 hitPoint = hit.point;
 				Vector3Int gridPosition = grid.WorldToCell(hitPoint);
 				cordinate = grid.GetCellCenterWorld(gridPosition);
@@ -146,6 +163,7 @@ public class RayCastFromCamera : MonoBehaviour
 					TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
 				}
 
+
 				if (hit.collider.CompareTag("chunk"))
 				{
 					//POSTAWIENIE WIEZY PO NACISNIECIU LPM
@@ -153,12 +171,12 @@ public class RayCastFromCamera : MonoBehaviour
 					{
 						if (tower != null)
 						{
-                            money -= price;
-                            tower.transform.position = cordinate;
+							money -= price;
+							tower.transform.position = cordinate;
 							TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
-                            tower.GetComponentInChildren<TowerStats>().hologram = false;
+							tower.GetComponentInChildren<TowerStats>().hologram = false;
 							ts = tower.GetComponentInChildren<TowerStats>();
-                            tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
+							tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
 							tower.layer = LayerMask.NameToLayer("Default");
 							tower = null;
 							HologramTower = false;
@@ -166,30 +184,25 @@ public class RayCastFromCamera : MonoBehaviour
 
 						//jezeli klikasz lpm w mape a wieza jest zaznaczona wyczysc dane oraz obszar
 						TowerAreaInvisible();
-						
+
 						if (ts != null)
 						{
 							ts = null;
 						}
-						
+
 					}
 				}
 				else
 				{
 					if (tower != null)
 					{
-                        TowerArea.GetComponent<MeshRenderer>().material = RedMaterial;
-                    }
+						TowerArea.GetComponent<MeshRenderer>().material = RedMaterial;
+					}
 
-                }
-
-                //klikasz prawym = resetujesz wybor wiezy (hologramu)
-                if (Input.GetMouseButtonDown(1))
-				{
-                    TowerAreaInvisible();
-					ResetSelectedTower();
-					ts = null;
 				}
+
+				//klikasz prawym = resetujesz wybor wiezy (hologramu)
+
 
 				if (hit.collider.CompareTag("tower") && !HologramTower)
 				{
@@ -204,6 +217,14 @@ public class RayCastFromCamera : MonoBehaviour
 						TowerArea = hit.collider.gameObject.transform.Find("area");
 						TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
 					}
+				}
+			}
+			else
+			{
+				temp.SetActive(false);
+				if (tower != null)
+				{
+					tower.SetActive(false);
 				}
 			}
 		}
@@ -221,6 +242,7 @@ public class RayCastFromCamera : MonoBehaviour
     }
     public void ShowInfo()
 	{
+		int maxValue = 30; 
         TowerStatsCanva.SetActive(true);
         //name / tier
         TowerName.text = ts.GetName();
@@ -244,9 +266,9 @@ public class RayCastFromCamera : MonoBehaviour
         //damage
         TowerDamage.text = ts.GetDamage().ToString();
         DamageSlider.value = ts.GetDamage();
-        DamageSlider.maxValue = 100;
+        DamageSlider.maxValue = maxValue;
         DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = 0;
-        DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().maxValue = 100;
+        DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().maxValue =maxValue;
         if (Visualize && ts.DamageUpgrade > 0)
 		{
             TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
@@ -258,9 +280,9 @@ public class RayCastFromCamera : MonoBehaviour
         //elemental damage
         TowerElementalDamage.text = ts.GetElementalDamage().ToString();
         ElementalDamageSlider.value = ts.GetElementalDamage();
-        ElementalDamageSlider.maxValue = 100;
+        ElementalDamageSlider.maxValue = maxValue;
         ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().value = 0;
-        ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().maxValue = 100;
+        ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
         if (Visualize && ts.ElementalUpgrade > 0)
         {
 			TowerElementalDamage.text = ts.GetElementalDamage() + " + " + ts.ElementalUpgrade;
@@ -272,9 +294,9 @@ public class RayCastFromCamera : MonoBehaviour
         //damage over time
         TowerDamageOverTime.text = ts.GetDamageOverTime().ToString();
         DamageOverTimeSlider.value = ts.GetDamageOverTime();
-        DamageOverTimeSlider.maxValue = 100;
+        DamageOverTimeSlider.maxValue = maxValue;
         DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().value = 0;
-        DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().maxValue = 100;
+        DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
         if (Visualize && ts.DamageOverTimeUpgrade > 0)
         {
             TowerDamageOverTime.text = ts.GetDamageOverTime() + " + " + ts.DamageOverTimeUpgrade;
@@ -286,9 +308,9 @@ public class RayCastFromCamera : MonoBehaviour
         //attack speed
         TowerSpeed.text = ts.GetAttackSpeed().ToString();
         SpeedSlider.value = 3 - ts.GetAttackSpeed();
-        SpeedSlider.maxValue = 3;
+        SpeedSlider.maxValue = 4;
         SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 0;
-        SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().maxValue = 3;
+        SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().maxValue = 4;
         if (Visualize && ts.SpeedUpgrade > 0)
         {
             TowerSpeed.text = ts.GetAttackSpeed() + " - " + ts.SpeedUpgrade;
@@ -300,9 +322,9 @@ public class RayCastFromCamera : MonoBehaviour
         //range
         TowerRange.text = ts.GetRange().ToString();
         RangeSlider.value = ts.GetRange();
-        RangeSlider.maxValue = 15;
+        RangeSlider.maxValue = 10;
         RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = 0;
-        RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().maxValue = 15;
+        RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().maxValue = 10;
         if (Visualize && ts.RangeUpgrade > 0)
         {
             TowerRange.text = ts.GetRange() + " + " + ts.RangeUpgrade;

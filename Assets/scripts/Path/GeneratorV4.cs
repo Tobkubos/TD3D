@@ -223,6 +223,7 @@ public class GeneratorV4 : MonoBehaviour
         Connectors[0].GetComponent<Spawner>().bigChunk.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
         Connectors[0].GetComponent<Spawner>().speeder.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
         Connectors[0].GetComponent<Spawner>().ArmoredCone.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
+        Connectors[0].GetComponent<Spawner>().Tier1Boss.GetComponent<SimpleMovement>().end = Connectors[Connectors.Count - 1];
 
         NextWave.onClick.AddListener(Connectors[0].GetComponent<Spawner>().Spawn);
         AutoWave.onClick.AddListener(Connectors[0].GetComponent<Spawner>().AutoWave);

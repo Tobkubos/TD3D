@@ -16,8 +16,13 @@ public class EnemyInfo : MonoBehaviour
     [SerializeField] int cash;
 
     public Slider hpBar;
+
     public bool OnFire;
     public bool OnStun;
+
+    public bool Armored;
+    public bool Stunnable;
+
     public GameObject NaturalStun;
     public GameObject StunParent;
 
@@ -144,16 +149,23 @@ public class EnemyInfo : MonoBehaviour
                 {
                     if (!OnStun)
                     {
-                        OnStun = true;
-                        DealDamage(other.GetComponent<BulletMovement>().damage);
-                        StartCoroutine(Stun());
+                        if (Stunnable)
+                        {
+                            OnStun = true;
+                            StartCoroutine(Stun());
+                        }
+                        DealDamage(other.GetComponent<BulletMovement>().Elementaldamage);
                     }
                     if(OnStun)
                     {
                         Destroy(other.gameObject);
                     }
                 }
-                hp -= other.GetComponent<BulletMovement>().damage;
+
+                if (!Armored)
+                {
+                    hp -= other.GetComponent<BulletMovement>().damage;
+                }
                 Destroy(other.gameObject);
             }
 

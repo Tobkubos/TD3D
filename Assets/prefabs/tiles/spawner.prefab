@@ -51,7 +51,12 @@ MonoBehaviour:
   bigChunk: {fileID: 1108991152365024950, guid: 4d04d5f7f28fdd74c97021724aababda, type: 3}
   speeder: {fileID: 1108991152365024950, guid: b7493813fed906144bfd36ca5770e5c6, type: 3}
   ArmoredCone: {fileID: 1108991152365024950, guid: 11f5adc53b19a3c47960aabe569f5b66, type: 3}
+  Tier1Boss: {fileID: 1108991152365024950, guid: 7e04d5ca58c3dc541a272d534e249fb3, type: 3}
   wave: 0
+  NewEnemyInfo: {fileID: 0}
+  EnemyName: {fileID: 0}
+  EnemyDescription: {fileID: 0}
+  Modifiers: {fileID: 0}
 --- !u!23 &3334402721920709448
 MeshRenderer:
   m_ObjectHideFlags: 0

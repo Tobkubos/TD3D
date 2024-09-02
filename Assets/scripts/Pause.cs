@@ -23,7 +23,7 @@ public class Pause : MonoBehaviour
 
     public void PauseOFF2()
     {
-        Debug.Log("KLIKAM");
+        //Debug.Log("KLIKAM");
         NewEnemyInfo.SetActive(false);
         Time.timeScale = 1.0f;
     }

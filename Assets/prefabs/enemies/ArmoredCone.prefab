@@ -60,7 +60,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &1882107413430429025
 MonoBehaviour:
@@ -135,7 +135,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4274478675060290453}
@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b995f83387ef59449bcdabd18a8361a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Armored Cyllinder
+  desc: 'ignores normal damage. '
   hp: 25
   dodge: 0
   speed: 1.5
@@ -163,6 +165,8 @@ MonoBehaviour:
   hpBar: {fileID: 2904355265513327538}
   OnFire: 0
   OnStun: 0
+  Armored: 1
+  Stunnable: 1
   NaturalStun: {fileID: 6367094968335329567, guid: 645437a892269c944b3aaabf9a9e3753, type: 3}
   StunParent: {fileID: 4460500550623271551}
   ps: {fileID: 2036162825791507954}
@@ -174,7 +178,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108991152365024950}
-  m_Mesh: {fileID: 4844670603881350637, guid: c931ece530f295243bcc58ce81d3ff7f, type: 3}
+  m_Mesh: {fileID: -3362378454467820383, guid: 5aa0263570acecf4780a8772133c3195, type: 3}
 --- !u!23 &3710643623193057118
 MeshRenderer:
   m_ObjectHideFlags: 0

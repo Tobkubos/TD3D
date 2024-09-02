@@ -12,6 +12,8 @@ public class Spawner : MonoBehaviour
     public GameObject speeder;
     public GameObject ArmoredCone;
 
+    public GameObject Tier1Boss;
+
     private bool AutomaticWave = false;
 
     [SerializeField] int wave;
@@ -29,14 +31,13 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         NewEnemyInfo = GameObject.Find("New Enemy Info");
-        Debug.Log(NewEnemyInfo);
+        //Debug.Log(NewEnemyInfo);
         EnemyName = NewEnemyInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         EnemyDescription = NewEnemyInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         NewEnemyInfo.SetActive(false);
         manager = GameObject.Find("manager");
 
-        wave = 0;
-        Debug.Log("DUPA");
+        wave = 10;
     }
     void ShowNewEnemyInfo(string name, string desc)
     {
@@ -82,125 +83,178 @@ public class Spawner : MonoBehaviour
 	public IEnumerator WaveStart()
 	{
         GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = false;
-        wave++;
-        manager.GetComponent<RayCastFromCamera>().SetWave(wave);
-        if (wave == 1)
-		{
-            ShowNewEnemyInfo(cube.GetComponent<EnemyInfo>().name, cube.GetComponent<EnemyInfo>().desc);
-            yield return StartCoroutine(SpawnMonster(cube, 2f, 8));
-            //cube.GetComponent<EnemyInfo>().ModifyHp(10);
-        }
-
-
-        if (wave == 2)
+        if (wave < 20)
         {
-            yield return StartCoroutine(SpawnMonster(cube, 1.5f, 12));
-        }
-
-        if (wave == 3)
-        {
-            for (int i = 0; i < 4; i++)
+            wave++;
+            manager.GetComponent<RayCastFromCamera>().SetWave(wave);
+            if (wave == 1)
             {
-                yield return StartCoroutine(SpawnMonster(cube, 0.2f, 2));
+                ShowNewEnemyInfo(cube.GetComponent<EnemyInfo>().name, cube.GetComponent<EnemyInfo>().desc);
+                yield return StartCoroutine(SpawnMonster(cube, 2f, 8));
+                //cube.GetComponent<EnemyInfo>().ModifyHp(10);
+            }
+
+
+            if (wave == 2)
+            {
+                yield return StartCoroutine(SpawnMonster(cube, 1.5f, 12));
+            }
+
+            if (wave == 3)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    yield return StartCoroutine(SpawnMonster(cube, 0.2f, 2));
+                    yield return new WaitForSeconds(2f);
+                }
                 yield return new WaitForSeconds(2f);
             }
-            yield return new WaitForSeconds(2f);
-        }
 
-        if (wave == 4)
-        {
-            StartCoroutine(SpawnMonster(cube, 0.5f, 5));
-            yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(SpawnMonster(cube, 0.5f, 5));
-        }
-        
-        // NEW ENEMY - SPEEDER
-        if (wave == 5)
-        {
-            ShowNewEnemyInfo(speeder.GetComponent<EnemyInfo>().name, speeder.GetComponent<EnemyInfo>().desc);
-            yield return StartCoroutine(SpawnMonster(speeder, 1, 10));
-        }
-
-        if (wave == 6)
-        {
-            StartCoroutine(SpawnMonster(cube, 0.8f, 20));
-            yield return StartCoroutine(SpawnMonster(speeder, 1, 10));
-
-        }
-
-        if (wave == 7) 
-        {
-            for (int i = 0; i < 5; i++)
+            if (wave == 4)
             {
-                StartCoroutine(SpawnMonster(speeder, 0.2f, 5));
-                yield return new WaitForSeconds(3f);
+                StartCoroutine(SpawnMonster(cube, 0.5f, 5));
+                yield return new WaitForSeconds(5f);
+                yield return StartCoroutine(SpawnMonster(cube, 0.5f, 5));
             }
-            yield return StartCoroutine(SpawnMonster(cube, 0.5f, 10));
-        }
 
-        if (wave == 8)
-        {
-            for (int i = 0; i < 7; i++)
+            // NEW ENEMY - SPEEDER
+            if (wave == 5)
             {
-                StartCoroutine(SpawnMonster(speeder, 0.2f, 7));
-                StartCoroutine(SpawnMonster(cube, 0.5f, 10));
-                yield return new WaitForSeconds(10f);
+                ShowNewEnemyInfo(speeder.GetComponent<EnemyInfo>().name, speeder.GetComponent<EnemyInfo>().desc);
+                yield return StartCoroutine(SpawnMonster(speeder, 1, 10));
             }
-        }
 
-        //NEW ENEMY - BIG CHUNK
-        if (wave == 9)
-        {
-            ShowNewEnemyInfo(bigChunk.GetComponent<EnemyInfo>().name, bigChunk.GetComponent<EnemyInfo>().desc);
-            yield return StartCoroutine(SpawnMonster(bigChunk, 5f, 10));
-        }
-
-        if (wave == 10)
-        {
-            StartCoroutine(SpawnMonster(bigChunk, 2f, 3));
-            yield return new WaitForSeconds(8);
-            yield return StartCoroutine(SpawnMonster(cube, 0.2f, 30));
-
-        }
-
-        if (wave == 11)
-        {
-            StartCoroutine(SpawnMonster(bigChunk, 4f, 10));
-            StartCoroutine(SpawnMonster(cube, 3f, 10));
-            yield return StartCoroutine(SpawnMonster(speeder, 2f, 10));
-        }
-
-        if (wave == 12)
-        {
-            for (int i = 0; i < 6; i++)
+            if (wave == 6)
             {
-                StartCoroutine(SpawnMonster(bigChunk, 1f, 3));
-                StartCoroutine(SpawnMonster(cube, 0.1f, 13));
-                yield return StartCoroutine(SpawnMonster(speeder, 0.2f, 10));
-                yield return new WaitForSeconds(3f);
-            }
-        }
+                StartCoroutine(SpawnMonster(cube, 0.8f, 20));
+                yield return StartCoroutine(SpawnMonster(speeder, 1, 10));
 
-        //NEW ENEMY - ARMORED CONE
-        if (wave == 13)
-        {
-            for (int i = 0; i < 6; i++)
+            }
+
+            if (wave == 7)
             {
-                StartCoroutine(SpawnMonster(bigChunk, 1f, 3));
-                StartCoroutine(SpawnMonster(cube, 0.1f, 13));
-                yield return StartCoroutine(SpawnMonster(speeder, 0.2f, 10));
-                yield return new WaitForSeconds(3f);
+                for (int i = 0; i < 5; i++)
+                {
+                    StartCoroutine(SpawnMonster(speeder, 0.2f, 5));
+                    yield return new WaitForSeconds(3f);
+                }
+                yield return StartCoroutine(SpawnMonster(cube, 0.5f, 10));
             }
-        }
 
-        if (AutomaticWave)
-        {
-            yield return new WaitForSeconds(5f);
-            StartCoroutine(WaveStart());
-        }
-        else
-        {
-            GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
+            if (wave == 8)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    StartCoroutine(SpawnMonster(speeder, 0.2f, 7));
+                    StartCoroutine(SpawnMonster(cube, 0.5f, 10));
+                    yield return new WaitForSeconds(10f);
+                }
+            }
+
+            //NEW ENEMY - BIG CHUNK
+            if (wave == 9)
+            {
+                ShowNewEnemyInfo(bigChunk.GetComponent<EnemyInfo>().name, bigChunk.GetComponent<EnemyInfo>().desc);
+                yield return StartCoroutine(SpawnMonster(bigChunk, 5f, 10));
+            }
+
+            if (wave == 10)
+            {
+                StartCoroutine(SpawnMonster(bigChunk, 2f, 3));
+                yield return new WaitForSeconds(8);
+                yield return StartCoroutine(SpawnMonster(cube, 0.2f, 30));
+
+            }
+
+            if (wave == 11)
+            {
+                StartCoroutine(SpawnMonster(bigChunk, 4f, 10));
+                StartCoroutine(SpawnMonster(cube, 3f, 10));
+                yield return StartCoroutine(SpawnMonster(speeder, 2f, 10));
+            }
+
+            if (wave == 12)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    StartCoroutine(SpawnMonster(bigChunk, 1f, 3));
+                    StartCoroutine(SpawnMonster(cube, 0.1f, 13));
+                    yield return StartCoroutine(SpawnMonster(speeder, 0.2f, 10));
+                    yield return new WaitForSeconds(3f);
+                }
+            }
+
+            //NEW ENEMY - ARMORED CONE
+            if (wave == 13)
+            {
+                ShowNewEnemyInfo(ArmoredCone.GetComponent<EnemyInfo>().name, ArmoredCone.GetComponent<EnemyInfo>().desc);
+                for (int i = 0; i < 3; i++)
+                {
+                    StartCoroutine(SpawnMonster(cube, 0.1f, 13));
+                    StartCoroutine(SpawnMonster(ArmoredCone, 0.4f, 10));
+                    yield return new WaitForSeconds(3f);
+                }
+            }
+
+            if (wave == 14)
+            {
+                StartCoroutine(SpawnMonster(cube, 0.1f, 50));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.3f, 10));
+            }
+
+            if (wave == 15)
+            {
+                StartCoroutine(SpawnMonster(bigChunk, 0.3f, 20));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.25f, 20));
+            }
+
+            if (wave == 16)
+            {
+                StartCoroutine(SpawnMonster(bigChunk, 0.3f, 20));
+                StartCoroutine(SpawnMonster(speeder, 0.7f, 30));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.2f, 20));
+            }
+
+            if (wave == 17)
+            {
+                StartCoroutine(SpawnMonster(cube, 0.2f, 45));
+                StartCoroutine(SpawnMonster(bigChunk, 0.3f, 15));
+                StartCoroutine(SpawnMonster(speeder, 0.7f, 25));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.15f, 25));
+            }
+
+            if (wave == 18)
+            {
+                StartCoroutine(SpawnMonster(cube, 0.2f, 50));
+                StartCoroutine(SpawnMonster(bigChunk, 0.2f, 25));
+                StartCoroutine(SpawnMonster(speeder, 0.4f, 35));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.1f, 30));
+            }
+
+            if (wave == 19)
+            {
+                StartCoroutine(SpawnMonster(cube, 0.2f, 80));
+                StartCoroutine(SpawnMonster(bigChunk, 0.2f, 40));
+                StartCoroutine(SpawnMonster(speeder, 0.4f, 55));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.1f, 40));
+            }
+
+            if (wave == 20)
+            {
+                ShowNewEnemyInfo(Tier1Boss.GetComponent<EnemyInfo>().name, Tier1Boss.GetComponent<EnemyInfo>().desc);
+                StartCoroutine(SpawnMonster(Tier1Boss, 0.3f, 1));
+            }
+
+
+            if (AutomaticWave)
+            {
+                yield return new WaitForSeconds(5f);
+                StartCoroutine(WaveStart());
+            }
+            else
+            {
+                GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
+            }
         }
     }
 }

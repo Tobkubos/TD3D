@@ -244,7 +244,7 @@ public class TowerStats : MonoBehaviour
 							target = enemy;
 						}
 					}
-					target = EnemiesInRange[0];
+					//target = EnemiesInRange[0];
 				}
 			}
 
@@ -495,7 +495,8 @@ public class TowerStats : MonoBehaviour
 	{
 		GameObject bllt = Instantiate(Bullet, Turret.transform.position, Turret.transform.rotation);
 		bllt.GetComponent<BulletMovement>().damage = Damage;
-		bllt.GetComponent<BulletMovement>().enemy = target;
+        bllt.GetComponent<BulletMovement>().Elementaldamage = ElementalDamage;
+        bllt.GetComponent<BulletMovement>().enemy = target;
 		bllt.GetComponent<BulletMovement>().ts = this;
     }
 

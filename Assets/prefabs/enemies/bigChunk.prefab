@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: big chunk
-  desc: this massive block of pixels has more hp than you think.
+  desc: this massive block of pixels has more hp than you think. Cannot be stunned.
   hp: 150
   dodge: 0
   speed: 0.3
@@ -165,6 +165,8 @@ MonoBehaviour:
   hpBar: {fileID: 2904355265513327538}
   OnFire: 0
   OnStun: 0
+  Armored: 0
+  Stunnable: 0
   NaturalStun: {fileID: 6367094968335329567, guid: 645437a892269c944b3aaabf9a9e3753, type: 3}
   StunParent: {fileID: 4460500550623271551}
   ps: {fileID: 2036162825791507954}
