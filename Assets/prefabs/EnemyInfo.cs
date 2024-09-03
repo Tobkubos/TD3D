@@ -76,7 +76,7 @@ public class EnemyInfo : MonoBehaviour
         for (int i = 0; i < 20; i++)
         {
             Debug.Log("PALE SIE");
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.2f);
             DealDamageOverTime(ts.GetDamageOverTime()/20, ts);
         }
         yield return new WaitForSeconds(1);

@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 2
+  DamageUpgrade: 1
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0.5
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 3
+  DamageUpgrade: 1
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0.125
@@ -5335,7 +5335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c891a4d381f36d1419df4b8d8b14a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageUpgrade: 2
+  DamageUpgrade: 1
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 0
   SpeedUpgrade: 0.25

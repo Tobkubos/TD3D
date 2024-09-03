@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour
         NewEnemyInfo.SetActive(false);
         manager = GameObject.Find("manager");
 
-        wave = 0;
+        wave = 19;
     }
     void ShowNewEnemyInfo(string name, string desc)
     {

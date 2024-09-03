@@ -104,7 +104,7 @@ public class TowerStats : MonoBehaviour
 
 				DamageUpgrade = levels[Level].DamageUpgrade;
 				ElementalUpgrade = levels[Level].ElementalUpgrade;
-				DamageOverTime = levels[Level].DamageOverTimeUpgrade;
+				DamageOverTimeUpgrade = levels[Level].DamageOverTimeUpgrade;
 				SpeedUpgrade = levels[Level].SpeedUpgrade;
 				RangeUpgrade = levels[Level].RangeUpgrade;
 				MaxExp = levels[Level].MaxExp;
@@ -234,6 +234,7 @@ public class TowerStats : MonoBehaviour
 			#region normal
 			if (Type == "Normal")
 			{
+				//Debug.Log(EnemiesInRange.Count);
 				if (EnemiesInRange.Count > 0)
 				{
 					foreach (GameObject enemy in EnemiesInRange)
@@ -248,7 +249,11 @@ public class TowerStats : MonoBehaviour
 						if (enemyDist > dist)
 						{
 							dist = enemyDist;
-							target = enemy;
+
+							if (enemy != null)
+							{
+								target = enemy;
+							}
 						}
 					}
 					//target = EnemiesInRange[0];
@@ -291,26 +296,34 @@ public class TowerStats : MonoBehaviour
                     {
 
                         float enemyDist = 0;
-                        if (enemy != null)
+						if (enemy != null && enemy.GetComponent<EnemyInfo>().OnFire == false)
                         {
                             enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
                         }
-							if (enemyDist > dist)
+
+						if (enemyDist > dist)
+						{
+							dist = enemyDist;
+
+							if (enemy != null)
 							{
-								dist = enemyDist;
 								target = enemy;
 							}
+						}
                     }
+					/*
 					foreach (GameObject enemy in EnemiesInRange) {
 						if (enemy != null && enemy.GetComponent<EnemyInfo>().OnFire == false)
 						{
 							target = enemy;
 							break;
 						}
-						else {
+						else 
+						{
 							target = null;
                         }
 					}
+					*/
                 }
                 else
                 {
