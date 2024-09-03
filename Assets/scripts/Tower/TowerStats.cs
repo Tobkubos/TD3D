@@ -253,6 +253,10 @@ public class TowerStats : MonoBehaviour
 					}
 					//target = EnemiesInRange[0];
 				}
+				else
+				{
+					target = null;
+				}
 			}
 
             if (Type == "Nature")
@@ -271,6 +275,10 @@ public class TowerStats : MonoBehaviour
                             target = null;
                         }
                     }
+                }
+                else
+                {
+                    target = null;
                 }
             }
 
@@ -303,6 +311,10 @@ public class TowerStats : MonoBehaviour
 							target = null;
                         }
 					}
+                }
+                else
+                {
+                    target = null;
                 }
             }
 

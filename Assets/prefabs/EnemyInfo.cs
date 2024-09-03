@@ -221,7 +221,7 @@ public class EnemyInfo : MonoBehaviour
     {
         GameObject NS = Instantiate(NaturalStun, transform.position, Quaternion.Euler(transform.rotation.x, Random.Range(0,360), transform.rotation.z), StunParent.transform);
         this.gameObject.GetComponent<NavMeshAgent>().speed = 0;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         LeanTween.scale(NS, Vector3.zero, 0.3f);
         Destroy(NS, 0.3f);
         GetComponent<NavMeshAgent>().speed = speed;
