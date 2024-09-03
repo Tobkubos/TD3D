@@ -167,7 +167,7 @@ MonoBehaviour:
   DamageUpgrade: 0
   ElementalUpgrade: 2
   DamageOverTimeUpgrade: 0
-  SpeedUpgrade: 0.2
+  SpeedUpgrade: 0.15
   RangeUpgrade: 0.6
   MaxExp: 45
   UpgradePrice: 140
@@ -282,7 +282,7 @@ MonoBehaviour:
   - {fileID: 6332107788642714077}
   - {fileID: 3654306963769459417}
   - {fileID: 0}
-  hologram: 0
+  hologram: 1
   Towers:
   - {fileID: 3598384008449840971, guid: b46560cd69c2fef478dad68326404f6f, type: 3}
   - {fileID: 316672527247336888, guid: c90de91cd28c40b428fc194bfd6060c2, type: 3}

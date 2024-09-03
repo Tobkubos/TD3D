@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pause : MonoBehaviour
@@ -7,11 +8,25 @@ public class Pause : MonoBehaviour
     public GameObject PauseScreen;
     public CameraMovement cm;
     public GameObject NewEnemyInfo;
+
+    private void Start()
+    {
+        PauseScreen.SetActive(false);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseON();
+        }
+    }
     public void PauseON()
     {
+        Debug.Log("PAUZA przed :" + Time.timeScale);
+        Time.timeScale = 0.1f;
         cm.enabled = false;
         PauseScreen.SetActive(true);
-        Time.timeScale = 0.1f;
+        Debug.Log("PAUZA po :" + Time.timeScale);
     }
 
     public void PauseOFF()

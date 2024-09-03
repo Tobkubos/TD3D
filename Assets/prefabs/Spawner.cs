@@ -19,6 +19,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] int wave;
     private GameObject manager;
 
+    bool isWaveActive;
 
     //enemy details and modifiers
     public GameObject NewEnemyInfo;
@@ -37,7 +38,7 @@ public class Spawner : MonoBehaviour
         NewEnemyInfo.SetActive(false);
         manager = GameObject.Find("manager");
 
-        wave = 10;
+        wave = 0;
     }
     void ShowNewEnemyInfo(string name, string desc)
     {
@@ -54,18 +55,24 @@ public class Spawner : MonoBehaviour
 
     public void AutoWave()
     {
-        if (AutomaticWave) {
+        if (AutomaticWave)
+        {
             AutomaticWave = false;
-            GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
+
             GameObject.Find("NEXT WAVE").transform.Find("Auto wave info").gameObject.SetActive(false);
         }
-        else if(!AutomaticWave){
-            AutomaticWave=true;
+        else if (!AutomaticWave)
+        {
+            AutomaticWave = true;
             GameObject.Find("NEXT WAVE").transform.Find("Auto wave info").gameObject.SetActive(true);
-            if (wave != 0)
-            {
-                GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = false;
-            }
+        }
+
+        if (isWaveActive)
+        {
+            GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = false;
+        }
+        else {
+            GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
         }
 
         Debug.LogWarning(AutomaticWave);
@@ -82,6 +89,7 @@ public class Spawner : MonoBehaviour
 
 	public IEnumerator WaveStart()
 	{
+        isWaveActive = true;
         GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = false;
         if (wave < 20)
         {
@@ -253,6 +261,7 @@ public class Spawner : MonoBehaviour
             }
             else
             {
+                isWaveActive = false;
                 GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
             }
         }

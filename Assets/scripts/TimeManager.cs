@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public void x1()
+    public void X1()
     {
-        Time.timeScale = 1.0f;
+        Time.timeScale = 1f;
     }
-    public void x2()
+    public void X2()
     {
         Time.timeScale = 2.0f;
     }
 
-    public void x3()
+    public void X3()
     {
         Time.timeScale = 3.0f;
     }

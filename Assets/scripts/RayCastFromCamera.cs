@@ -80,7 +80,6 @@ public class RayCastFromCamera : MonoBehaviour
     public TowerStats ts = null;
 	void Start()
 	{
-		Time.timeScale = 1;
 		TowerStatsCanva.SetActive(false);
 		temp = Instantiate(_tilePrefab, new Vector3(0.5f, 0, 0.5f), Quaternion.identity);
 		if (camera == null)
@@ -307,14 +306,14 @@ public class RayCastFromCamera : MonoBehaviour
 
         //attack speed
         TowerSpeed.text = ts.GetAttackSpeed().ToString();
-        SpeedSlider.value = 3 - ts.GetAttackSpeed();
+        SpeedSlider.value = 4 - ts.GetAttackSpeed();
         SpeedSlider.maxValue = 4;
         SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 0;
         SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().maxValue = 4;
         if (Visualize && ts.SpeedUpgrade > 0)
         {
             TowerSpeed.text = ts.GetAttackSpeed() + " - " + ts.SpeedUpgrade;
-            SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 3 - ts.GetAttackSpeed() + ts.SpeedUpgrade;
+            SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 4 - ts.GetAttackSpeed() + ts.SpeedUpgrade;
         }
 
 
@@ -341,11 +340,15 @@ public class RayCastFromCamera : MonoBehaviour
 	{
         TowerUpgrade.onClick.RemoveAllListeners();
 		TowerSell.onClick.RemoveAllListeners();
-		TowerSell.onClick.AddListener(ts.Sell);
 
 			
 		ShowInfo();
 
+
+		if (!ts.hologram)
+		{
+			TowerSell.onClick.AddListener(ts.Sell);
+		}
 
         TowerSellIncome.text = "for " + ts.GetSellIncome().ToString();
 		if (ts.GetLevel() < 3)
@@ -365,6 +368,9 @@ public class RayCastFromCamera : MonoBehaviour
 			TowerUpgrade.interactable = false;
             TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "MAX";
             TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.white;
+			ExpSlider.maxValue = 1;
+            ExpSlider.value = 1;
+            TowerExperience.text = "MAX";
         }
             
     }

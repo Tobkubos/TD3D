@@ -230,7 +230,7 @@ MonoBehaviour:
   - {fileID: 218444005936471765}
   - {fileID: 2752208705960835827}
   - {fileID: 0}
-  hologram: 0
+  hologram: 1
   Towers:
   - {fileID: 4406638584226920736, guid: 45447d3550247734698be6a8cd959ecb, type: 3}
   - {fileID: 3424739842377542486, guid: c8b0203e72f10064e95675fd1ed19caa, type: 3}

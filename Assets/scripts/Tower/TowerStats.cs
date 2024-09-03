@@ -95,18 +95,25 @@ public class TowerStats : MonoBehaviour
 			DamageOverTime += DamageOverTimeUpgrade;
 			Cooldown -= SpeedUpgrade;
 			Area.transform.localScale += new Vector3(RangeUpgrade,0, RangeUpgrade);
-			MaxExp = levels[Level].MaxExp;
-			SellPrice += levels[Level].UpgradePrice / 2;
+
+			if (Level < 3)
+			{
+				MaxExp = levels[Level].MaxExp;
+				SellPrice += levels[Level].UpgradePrice / 2;
 
 
-            DamageUpgrade = levels[Level].DamageUpgrade;
-			ElementalUpgrade = levels[Level].ElementalUpgrade;
-			DamageOverTime = levels[Level].DamageOverTimeUpgrade;
-            SpeedUpgrade = levels[Level].SpeedUpgrade;
-            RangeUpgrade = levels[Level].RangeUpgrade;
-			MaxExp = levels[Level].MaxExp;
-			UpgradePrice = levels[Level].UpgradePrice;
-           
+				DamageUpgrade = levels[Level].DamageUpgrade;
+				ElementalUpgrade = levels[Level].ElementalUpgrade;
+				DamageOverTime = levels[Level].DamageOverTimeUpgrade;
+				SpeedUpgrade = levels[Level].SpeedUpgrade;
+				RangeUpgrade = levels[Level].RangeUpgrade;
+				MaxExp = levels[Level].MaxExp;
+				UpgradePrice = levels[Level].UpgradePrice;
+			}
+			else
+			{
+				MaxExp = 0;
+			}
 			
 
             rot = TWR.transform.rotation;
@@ -466,7 +473,7 @@ public class TowerStats : MonoBehaviour
             if (ExpPS != null)
 			{
 				//Debug.Log("Checking Experience: " + Experience + "/" + MaxExp);
-				if (Experience >= MaxExp)
+				if (Experience >= MaxExp && Level<3)
 				{
 					canUpgrade = true;
 					if (!ExpPS.isPlaying)

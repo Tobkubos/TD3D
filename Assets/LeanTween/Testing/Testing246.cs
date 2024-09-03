@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Testing246 : MonoBehaviour {
 
-    public float gameScale = 1f;
-
     //private float nextElapsed = 0f;
 
     public GameObject tweenAlpha;
@@ -26,7 +24,6 @@ public class Testing246 : MonoBehaviour {
  //           LeanTween.move(cube, pos, 1f).setSpeed(1f).setDestroyOnComplete(true);
  //       }
 
- //       Time.timeScale = gameScale;
 	//}
 
     void Start()

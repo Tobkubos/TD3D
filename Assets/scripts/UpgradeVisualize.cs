@@ -8,8 +8,10 @@ public class UpgradeVisualize : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public RayCastFromCamera rcfc;
     public void OnPointerEnter(PointerEventData eventData)
     {
-
-        rcfc.Visualize = true;
+        if (rcfc.ts !=null && rcfc.ts.GetLevel() < 3)
+        {
+            rcfc.Visualize = true;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
