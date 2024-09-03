@@ -12,6 +12,8 @@ public class Spawner : MonoBehaviour
     public GameObject speeder;
     public GameObject ArmoredCone;
 
+    List<GameObject> Enemies = new List<GameObject>();
+
     public GameObject Tier1Boss;
 
     private bool AutomaticWave = false;
@@ -82,7 +84,8 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < number; i++) 
         {
-            Instantiate(enemy, transform.position, Quaternion.identity);
+            GameObject monster = Instantiate(enemy, transform.position, Quaternion.identity);
+            Enemies.Add(monster);
             yield return new WaitForSeconds(interval);
         }
     }
@@ -253,17 +256,45 @@ public class Spawner : MonoBehaviour
                 StartCoroutine(SpawnMonster(Tier1Boss, 0.3f, 1));
             }
 
+            CheckAndStartNextWave();
 
-            if (AutomaticWave)
-            {
-                yield return new WaitForSeconds(5f);
-                StartCoroutine(WaveStart());
-            }
-            else
-            {
-                isWaveActive = false;
-                GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
-            }
+
+
+
+
+        }
+    }
+
+    private void CheckAndStartNextWave()
+    {
+        StartCoroutine(CheckAndStartNextWaveCoroutine());
+    }
+
+    private IEnumerator CheckAndStartNextWaveCoroutine()
+    {
+        while (Enemies.Count > 0)
+        {
+            Enemies.RemoveAll(enemy => enemy == null);  // Remove destroyed enemies
+            yield return new WaitForSeconds(1f);
+        }
+        if (AutomaticWave)
+        {
+            //yield return new WaitForSeconds(2f);
+            //StartCoroutine(WaveStart());
+        StartCoroutine(WaveStart());
+        }
+        else
+        {
+            isWaveActive = false;
+            GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
+        }
+    }
+
+    public void RemoveEnemy(GameObject enemy)
+    {
+        if (Enemies.Contains(enemy))
+        {
+            Enemies.Remove(enemy);
         }
     }
 }
