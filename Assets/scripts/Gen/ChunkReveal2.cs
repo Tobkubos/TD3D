@@ -28,7 +28,7 @@ public class ChunkReveal2 : MonoBehaviour
 	private int SortBy = 1;
 
 	private int chunkSize = 11;
-	private int numOfCheckPoints = 1;
+	[SerializeField] int numOfCheckPoints;
 
     bool isStart = false;
     bool isEnd = false;
@@ -43,6 +43,7 @@ public class ChunkReveal2 : MonoBehaviour
 	{
 		if (chunkSize != 0 && StartEnd[0] != null && StartEnd[1] != null)
 		{
+			//numOfCheckPoints = Random.Range(0, 3);
 			while (CheckPoints.Count < numOfCheckPoints)
 			{
 
@@ -304,7 +305,7 @@ public class ChunkReveal2 : MonoBehaviour
 
             foreach (GameObject Path in AllPathTiles)
             {
-                if (Path.transform.localPosition == new Vector3(x, elevation, z))
+                if (Path.transform.localPosition == new Vector3(x, elevation, z) || Path.transform.localPosition == new Vector3(x, -0.1f, z))
                 {
                     isPositionOccupied = true;
                     break;
