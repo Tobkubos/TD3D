@@ -87,6 +87,7 @@ MonoBehaviour:
   Path: {fileID: 3998032376701469053, guid: 7e4d79b68034c8847bb90def72a30167, type: 3}
   BuyButton: {fileID: 3455765194087417933}
   ChunkPlane: {fileID: 6602961183700981522}
+  Obstacle: {fileID: 3998032376701469053, guid: 0a25a1255498b3b44a7d1d92c6bdf763, type: 3}
 --- !u!114 &4664001270073835659
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ public class GeneratorV4 : MonoBehaviour
     {
         for(int i = 0; i < Chunk.Count-1; i++)
         {
-            if (Chunk[i].GetComponent<ChunkReveal2>().ChunkPlane.CompareTag("chunk") && Chunk[i+1].GetComponent<ChunkReveal2>().ChunkPlane.CompareTag("chunk"))
+            if (Chunk[i].GetComponent<ChunkReveal2>().Bought == true && Chunk[i+1].GetComponent<ChunkReveal2>().Bought == true)
             {
                 if (Chunk[i].GetComponent<ChunkReveal2>().StartEnd[1].activeSelf)
                 {

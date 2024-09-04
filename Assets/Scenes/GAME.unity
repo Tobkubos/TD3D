@@ -10749,7 +10749,7 @@ MonoBehaviour:
   NextWave: {fileID: 1845913758}
   AutoWave: {fileID: 836974280}
   SizeOfMap: 4
-  chunkSize: 11
+  chunkSize: 10
   Camera: {fileID: 963194227}
 --- !u!114 &1719599396
 MonoBehaviour:

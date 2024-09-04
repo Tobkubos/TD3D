@@ -14,10 +14,14 @@ public class ChunkReveal2 : MonoBehaviour
 
 	List<GameObject> MonsterPathCheckPoints = new List<GameObject> { };
 	List<GameObject> AllPathTiles = new List<GameObject> { };
-	public GameObject CheckPoint;
+    List<GameObject> Obstacles = new List<GameObject> { };
+    public GameObject CheckPoint;
 	public GameObject Path;
 	public GameObject BuyButton;
 	public GameObject ChunkPlane;
+	public GameObject Obstacle;
+
+
 	private float elevation = 0f;
 	private int PD = 2;
 	private int count = 1;
@@ -29,6 +33,7 @@ public class ChunkReveal2 : MonoBehaviour
     bool isStart = false;
     bool isEnd = false;
 
+	public bool Bought = false; //do usuwania koñca
     public void SetChunkSize(int size)
 	{
 		chunkSize = size;
@@ -285,9 +290,36 @@ public class ChunkReveal2 : MonoBehaviour
                 StartEnd[1].transform.localPosition += new Vector3(0, 0, 1);
             }
             #endregion
-
-
         }
+
+		//wygeneruj przszkody
+
+		int NumOfObstacles = Random.Range(5, 20);
+		Vector3 chunkCord = this.gameObject.transform.position;
+
+		while(Obstacles.Count < NumOfObstacles){
+			float x = Random.Range(0, chunkSize) + 0.5f;
+			float z = Random.Range(0, chunkSize) + 0.5f;
+            bool isPositionOccupied = false;
+
+            foreach (GameObject Path in AllPathTiles)
+            {
+                if (Path.transform.localPosition == new Vector3(x, elevation, z))
+                {
+                    isPositionOccupied = true;
+                    break;
+                }
+            }
+
+            if (!isPositionOccupied)
+            {
+                GameObject obst = Instantiate(Obstacle, new Vector3(chunkCord.x + x, -0.1f, chunkCord.z + z), Quaternion.identity, this.gameObject.transform);
+				obst.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, Random.Range(0,360), 0);
+                Obstacles.Add(obst);
+                AllPathTiles.Add(obst);
+            }
+        }
+		
     }
 
 	public void Disappear()
@@ -311,11 +343,17 @@ public class ChunkReveal2 : MonoBehaviour
     }
 	public IEnumerator BuyChunk()
 	{
+		Bought = true;
 		Destroy(BuyButton);
 		if (index == 0) 
 		{ 
 			StartEnd[0].SetActive(true); 
 		}
+        StartEnd[1].SetActive(true);
+		StartEnd[1].transform.localScale = Vector3.zero;
+        LeanTween.scale(StartEnd[1], Vector3.one, 0.3f);
+        GameObject manager = GameObject.Find("manager");
+		StartCoroutine(manager.GetComponent<GeneratorV4>().DeleteUnnecessaryEnds());
         foreach (GameObject temp in AllPathTiles)
         {
 			yield return new WaitForSeconds(0.1f);
@@ -323,11 +361,6 @@ public class ChunkReveal2 : MonoBehaviour
             temp.gameObject.SetActive(true);
 			temp.gameObject.GetComponent<SpawnAnim>().SpawnAnimation();
         }
-        StartEnd[1].SetActive(true);
-		StartEnd[1].transform.localScale = Vector3.zero;
-        LeanTween.scale(StartEnd[1], Vector3.one, 0.3f);
-        GameObject manager = GameObject.Find("manager");
 		ChunkPlane.tag = "chunk";
-		StartCoroutine(manager.GetComponent<GeneratorV4>().DeleteUnnecessaryEnds());
     }
 }
