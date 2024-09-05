@@ -48,7 +48,10 @@ public class EnemyInfo : MonoBehaviour
     {
         cash += upgrade;
     }
-
+    public float GetHp()
+    {
+        return hp;
+    }
     void Start()
     {
         GetComponent<NavMeshAgent>().speed = speed;
@@ -75,7 +78,7 @@ public class EnemyInfo : MonoBehaviour
     {
         for (int i = 0; i < 20; i++)
         {
-            Debug.Log("PALE SIE");
+            //Debug.Log("PALE SIE");
             yield return new WaitForSeconds(0.2f);
             DealDamageOverTime(ts.GetDamageOverTime()/20, ts);
         }

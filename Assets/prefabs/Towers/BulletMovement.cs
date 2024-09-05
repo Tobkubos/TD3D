@@ -14,7 +14,7 @@ public class BulletMovement : MonoBehaviour
 	private Vector3 LastDir;
     void Start()
     {
-        Destroy(gameObject,2);
+        Destroy(gameObject,1);
     }
 
     void FixedUpdate()

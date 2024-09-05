@@ -38,7 +38,7 @@ public class TowerStats : MonoBehaviour
 
 	[SerializeField] GameObject[] Towers;
 
-	private List<GameObject> EnemiesInRange = new List<GameObject>();
+	public List<GameObject> EnemiesInRange = new List<GameObject>();
     private List<GameObject> TopEnemies = new List<GameObject>();
 
     public GameObject Bullet;
@@ -89,6 +89,7 @@ public class TowerStats : MonoBehaviour
 			Experience -= MaxExp;
 
 
+			MaxExp = levels[Level].MaxExp;
             Level += 1;
 			Damage += DamageUpgrade;
 			ElementalDamage += ElementalUpgrade;
@@ -98,7 +99,6 @@ public class TowerStats : MonoBehaviour
 
 			if (Level < 3)
 			{
-				MaxExp = levels[Level].MaxExp;
 				SellPrice += levels[Level].UpgradePrice / 2;
 
 
@@ -107,7 +107,6 @@ public class TowerStats : MonoBehaviour
 				DamageOverTimeUpgrade = levels[Level].DamageOverTimeUpgrade;
 				SpeedUpgrade = levels[Level].SpeedUpgrade;
 				RangeUpgrade = levels[Level].RangeUpgrade;
-				MaxExp = levels[Level].MaxExp;
 				UpgradePrice = levels[Level].UpgradePrice;
 			}
 			else
@@ -227,11 +226,11 @@ public class TowerStats : MonoBehaviour
 
 			float dist = 0;
 
-			//WYBIERANIE CELU
+			//WYBIERANIE CELU i STRZELANIE
 			#region normal
 			if (Type == "Normal")
 			{
-				//Debug.Log(EnemiesInRange.Count);
+				
 				if (EnemiesInRange.Count > 0)
 				{
 					foreach (GameObject enemy in EnemiesInRange)
@@ -250,7 +249,33 @@ public class TowerStats : MonoBehaviour
 							if (enemy != null)
 							{
 								target = enemy;
-							}
+
+                                if (target != null)
+                                {
+                                    Vector3 direction = target.transform.position - Turret.transform.position;
+                                    direction.y = 0;
+
+                                    if (direction != Vector3.zero)
+                                    {
+                                        Quaternion targetRotation = Quaternion.LookRotation(direction);
+                                        transform.rotation = targetRotation;
+                                        Debug.DrawRay(transform.position, direction, Color.red);
+
+                                        if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+                                        {
+                                            nextShoot = Time.time + Cooldown;
+                                            //
+                                            Shoot(target.transform);
+                                            if (ShootAnim != null)
+                                            {
+                                                ShootAnim.Rewind();
+                                                ShootAnim.Play("shooting");
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
 						}
 					}
 					//target = EnemiesInRange[0];
@@ -267,15 +292,32 @@ public class TowerStats : MonoBehaviour
                 {
                     foreach (GameObject enemy in EnemiesInRange)
                     {
+
+                        float enemyDist = 0;
+                        float maxHp = 0;
                         if (enemy != null && enemy.GetComponent<EnemyInfo>().OnStun == false)
                         {
-                            target = enemy;
-                            break;
+                            enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
                         }
-                        else
+                        if (enemyDist > dist)
                         {
-                            target = null;
+                            dist = enemyDist;
+
+                            if (enemy != null)
+                            {
+                                target = enemy;
+
+                                if (target != null)
+                                {
+                                    if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+                                    {
+                                        nextShoot = Time.time + Cooldown;
+                                        Shoot(target.transform);
+                                    }
+                                }
+                            }
                         }
+						
                     }
                 }
                 else
@@ -291,7 +333,7 @@ public class TowerStats : MonoBehaviour
                 {
                     foreach (GameObject enemy in EnemiesInRange)
                     {
-
+						//Debug.Log(enemy);
                         float enemyDist = 0;
 						if (enemy != null && enemy.GetComponent<EnemyInfo>().OnFire == false)
                         {
@@ -305,22 +347,27 @@ public class TowerStats : MonoBehaviour
 							if (enemy != null)
 							{
 								target = enemy;
-							}
-						}
-                    }
-					/*
-					foreach (GameObject enemy in EnemiesInRange) {
-						if (enemy != null && enemy.GetComponent<EnemyInfo>().OnFire == false)
-						{
-							target = enemy;
-							break;
-						}
-						else 
-						{
-							target = null;
+
+                                if (target != null)
+                                {
+                                    Vector3 direction = target.transform.position - Turret.transform.position;
+                                    direction.y = 0;
+
+                                    if (direction != Vector3.zero)
+                                    {
+                                        Quaternion targetRotation = Quaternion.LookRotation(direction);
+                                        transform.rotation = targetRotation;
+                                        Debug.DrawRay(transform.position, direction, Color.red);
+                                    }
+                                    if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+                                    {
+                                        nextShoot = Time.time + Cooldown;
+                                        Shoot(target.transform);
+                                    }
+                                }
+                            }
                         }
-					}
-					*/
+                    }
                 }
                 else
                 {
@@ -348,6 +395,7 @@ public class TowerStats : MonoBehaviour
 
             //STRZELANIE
             #region rifle
+			/*
             if (Type == "Normal")
 			{
 				if (target != null)
@@ -361,7 +409,7 @@ public class TowerStats : MonoBehaviour
 						transform.rotation = targetRotation;
 						Debug.DrawRay(transform.position, direction, Color.red);
 
-						if (Time.time > nextShoot)
+						if (Time.time > nextShoot && EnemiesInRange.Count != 0)
 						{
 							nextShoot = Time.time + Cooldown;
 							//
@@ -374,21 +422,24 @@ public class TowerStats : MonoBehaviour
 								
 						}
 					}
-				}			
+				}	
 			}
+		    */
             #endregion
 
+			/*
             if (Type == "Nature")
             {
                 if (target != null)
                 {
-					if (Time.time > nextShoot)
+					if (Time.time > nextShoot && EnemiesInRange.Count != 0)
 					{
 						nextShoot = Time.time + Cooldown;
                         Shoot(target.transform);
                     }            
                 }
             }
+			*/
 
             if (Type == "Electric")
             {
@@ -453,6 +504,7 @@ public class TowerStats : MonoBehaviour
                 TopEnemies.Clear();
             }
 
+			/*
 			if (Type == "Fire")
 			{
 				if (target != null)
@@ -465,15 +517,15 @@ public class TowerStats : MonoBehaviour
 						Quaternion targetRotation = Quaternion.LookRotation(direction);
 						transform.rotation = targetRotation;
 						Debug.DrawRay(transform.position, direction, Color.red);
-
-						if (Time.time > nextShoot)
-						{
-							nextShoot = Time.time + Cooldown;
-							Shoot(target.transform);						
-						}
 					}
-				}			
+                    if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+                    {
+                        nextShoot = Time.time + Cooldown;
+                        Shoot(target.transform);
+                    }
+                }			
 			}
+			*/
 
 
 

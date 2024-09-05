@@ -10,7 +10,6 @@ public class AreaTrigger : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("enemy"))
 		{
-			//Debug.Log("DUPA");
 			towerStats.OnEnemyEnterRange(collision.gameObject);
 		}
 	}
