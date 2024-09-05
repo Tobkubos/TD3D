@@ -147,6 +147,16 @@ public class EnemyInfo : MonoBehaviour
                 //
                 if (other.GetComponent<BulletMovement>().Type == "Nature")
                 {
+
+                    if (Armored)
+                    {
+                        DealDamage(other.GetComponent<BulletMovement>().Elementaldamage, other.GetComponent<BulletMovement>().ts);
+                    }
+                    else
+                    {
+                        DealDamage(other.GetComponent<BulletMovement>().Elementaldamage + other.GetComponent<BulletMovement>().damage, other.GetComponent<BulletMovement>().ts);
+                    }
+
                     if (!OnStun)
                     {
                         if (Stunnable)
@@ -154,7 +164,6 @@ public class EnemyInfo : MonoBehaviour
                             OnStun = true;
                             StartCoroutine(Stun());
                         }
-                        DealDamage(other.GetComponent<BulletMovement>().Elementaldamage);
                     }
                     if(OnStun)
                     {
@@ -162,10 +171,14 @@ public class EnemyInfo : MonoBehaviour
                     }
                 }
 
-                if (!Armored)
+                if (other.GetComponent<BulletMovement>().Type == "Normal")
                 {
-                    hp -= other.GetComponent<BulletMovement>().damage;
+                    if (!Armored)
+                    {
+                        DealDamage(other.GetComponent<BulletMovement>().damage, other.GetComponent<BulletMovement>().ts);
+                    }
                 }
+
                 Destroy(other.gameObject);
             }
 
@@ -176,7 +189,7 @@ public class EnemyInfo : MonoBehaviour
 				ps.Play();
 				Destroy(ps.gameObject, 2);
 
-                other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().SetExperience();
+                //other.GetComponent<BulletMovement>().ts.GetComponent<TowerStats>().SetExperience(1);
 
                 GameObject.Find("manager").GetComponent<RayCastFromCamera>().money += cash;
 
@@ -186,7 +199,17 @@ public class EnemyInfo : MonoBehaviour
 		}
 	}
 
-	public bool DealDamage(float damage) {
+	public void DealDamage(float damage, TowerStats ts) {
+        if (hp-damage > 0)
+        {
+            ts.SetExperience(damage);
+        }
+        else
+        {
+            ts.SetExperience(hp);
+        }
+
+
         hp -= damage;
         if (hp <= 0)
         {
@@ -196,18 +219,23 @@ public class EnemyInfo : MonoBehaviour
             Destroy(ps.gameObject, 2);
             GameObject.Find("manager").GetComponent<RayCastFromCamera>().money += cash;
             Destroy(gameObject);
-            return true;
         }
-        return false;
     }
 
     public void DealDamageOverTime(float damage, TowerStats ts)
     {
+        if (hp - damage > 0)
+        {
+            ts.SetExperience(damage);
+        }
+        else
+        {
+            ts.SetExperience(hp);
+        }
+
         hp -= damage;
         if (hp <= 0)
         {
-            ts.SetExperience();
-
             ps.transform.parent = null;
             ps.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
             ps.Play();

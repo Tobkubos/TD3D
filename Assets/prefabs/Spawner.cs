@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour
         NewEnemyInfo.SetActive(false);
         manager = GameObject.Find("manager");
 
-        wave = 19;
+        wave = 0;
     }
     void ShowNewEnemyInfo(string name, string desc)
     {
@@ -189,7 +189,7 @@ public class Spawner : MonoBehaviour
                 for (int i = 0; i < 6; i++)
                 {
                     StartCoroutine(SpawnMonster(bigChunk, 1f, 3));
-                    StartCoroutine(SpawnMonster(cube, 0.1f, 13));
+                    StartCoroutine(SpawnMonster(cube, 0.3f, 13));
                     yield return StartCoroutine(SpawnMonster(speeder, 0.2f, 10));
                     yield return new WaitForSeconds(3f);
                 }
@@ -201,53 +201,53 @@ public class Spawner : MonoBehaviour
                 ShowNewEnemyInfo(ArmoredCone.GetComponent<EnemyInfo>().name, ArmoredCone.GetComponent<EnemyInfo>().desc);
                 for (int i = 0; i < 3; i++)
                 {
-                    StartCoroutine(SpawnMonster(cube, 0.1f, 13));
-                    StartCoroutine(SpawnMonster(ArmoredCone, 0.4f, 10));
+                    StartCoroutine(SpawnMonster(cube, 0.3f, 13));
+                    StartCoroutine(SpawnMonster(ArmoredCone, 0.4f, 8));
                     yield return new WaitForSeconds(3f);
                 }
             }
 
             if (wave == 14)
             {
-                StartCoroutine(SpawnMonster(cube, 0.1f, 50));
-                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.3f, 10));
+                StartCoroutine(SpawnMonster(cube, 0.5f, 50));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.4f, 10));
             }
 
             if (wave == 15)
             {
-                StartCoroutine(SpawnMonster(bigChunk, 0.3f, 20));
-                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.25f, 20));
+                StartCoroutine(SpawnMonster(bigChunk, 1f, 10));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.4f, 20));
             }
 
             if (wave == 16)
             {
-                StartCoroutine(SpawnMonster(bigChunk, 0.3f, 20));
+                StartCoroutine(SpawnMonster(bigChunk, 1, 20));
                 StartCoroutine(SpawnMonster(speeder, 0.7f, 30));
                 yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.2f, 20));
             }
 
             if (wave == 17)
             {
-                StartCoroutine(SpawnMonster(cube, 0.2f, 45));
-                StartCoroutine(SpawnMonster(bigChunk, 0.3f, 15));
+                StartCoroutine(SpawnMonster(cube, 0.4f, 45));
+                StartCoroutine(SpawnMonster(bigChunk, 1f, 15));
                 StartCoroutine(SpawnMonster(speeder, 0.7f, 25));
-                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.15f, 25));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.25f, 25));
             }
 
             if (wave == 18)
             {
-                StartCoroutine(SpawnMonster(cube, 0.2f, 50));
-                StartCoroutine(SpawnMonster(bigChunk, 0.2f, 25));
+                StartCoroutine(SpawnMonster(cube, 0.4f, 50));
+                StartCoroutine(SpawnMonster(bigChunk, 1f, 20));
                 StartCoroutine(SpawnMonster(speeder, 0.4f, 35));
-                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.1f, 30));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.3f, 30));
             }
 
             if (wave == 19)
             {
-                StartCoroutine(SpawnMonster(cube, 0.2f, 80));
-                StartCoroutine(SpawnMonster(bigChunk, 0.2f, 40));
+                StartCoroutine(SpawnMonster(cube, 0.4f, 80));
+                StartCoroutine(SpawnMonster(bigChunk, 0.8f, 40));
                 StartCoroutine(SpawnMonster(speeder, 0.4f, 55));
-                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.1f, 40));
+                yield return StartCoroutine(SpawnMonster(ArmoredCone, 0.2f, 40));
             }
 
             if (wave == 20)

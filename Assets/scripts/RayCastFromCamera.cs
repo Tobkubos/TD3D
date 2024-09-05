@@ -38,18 +38,23 @@ public class RayCastFromCamera : MonoBehaviour
 	public Slider ExpSlider;
 	public TextMeshProUGUI TowerExperience;
 
+	public GameObject DamageInfo;
     public Slider DamageSlider;
     public TextMeshProUGUI TowerDamage;
 
+	public GameObject ElementalDamageInfo;
     public Slider ElementalDamageSlider;
     public TextMeshProUGUI TowerElementalDamage;
 
+	public GameObject DamageOverTimeInfo;
     public Slider DamageOverTimeSlider;
     public TextMeshProUGUI TowerDamageOverTime;
 
+	public GameObject SpeedInfo;
     public Slider SpeedSlider;
     public TextMeshProUGUI TowerSpeed;
 
+	public GameObject RangeInfo;
     public Slider RangeSlider;
     public TextMeshProUGUI TowerRange;
 
@@ -228,8 +233,18 @@ public class RayCastFromCamera : MonoBehaviour
 			}
 		}
 	}
-
-	public void SetWave(int wave)
+    string FormatExperience(float value)
+    {
+        if (Mathf.Abs(value - Mathf.Floor(value)) < Mathf.Epsilon)
+        {
+            return value.ToString("F0");
+        }
+        else
+        {
+            return value.ToString("F1");
+        }
+    }
+    public void SetWave(int wave)
 	{
 		CurrentWave.text = wave.ToString();
 		LeanTween.cancel(CurrentWave.gameObject);
@@ -253,7 +268,8 @@ public class RayCastFromCamera : MonoBehaviour
         ExpSlider.minValue = 0;
         ExpSlider.maxValue = ts.GetMaxExp();
         ExpSlider.value = ts.GetExperience();
-        TowerExperience.text = ts.GetExperience() + " / " + ts.GetMaxExp();
+
+        TowerExperience.text = FormatExperience(ts.GetExperience()) + " / " + ts.GetMaxExp();
 
 
 
@@ -262,73 +278,107 @@ public class RayCastFromCamera : MonoBehaviour
 
 
 
-        //damage
-        TowerDamage.text = ts.GetDamage().ToString();
-        DamageSlider.value = ts.GetDamage();
-        DamageSlider.maxValue = maxValue;
-        DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = 0;
-        DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().maxValue =maxValue;
-        if (Visualize && ts.DamageUpgrade > 0)
+		//damage
+		if (ts.GetDamage() != 0)
 		{
-            TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
-			DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = ts.GetDamage() + ts.DamageUpgrade;
-        }
+            DamageInfo.SetActive(true);
+            TowerDamage.text = ts.GetDamage().ToString();
+			DamageSlider.value = ts.GetDamage();
+			DamageSlider.maxValue = maxValue;
+			DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = 0;
+			DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
+			if (Visualize && ts.DamageUpgrade > 0)
+			{
+				TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
+				DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = ts.GetDamage() + ts.DamageUpgrade;
+			}
+		}
+		else{
+			DamageInfo.SetActive(false);
+		}
+
+		//elemental damage
+		if (ts.GetElementalDamage() != 0)
+		{
+			ElementalDamageInfo.SetActive(true);
+			TowerElementalDamage.text = ts.GetElementalDamage().ToString();
+			ElementalDamageSlider.value = ts.GetElementalDamage();
+			ElementalDamageSlider.maxValue = maxValue;
+			ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().value = 0;
+			ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
+			if (Visualize && ts.ElementalUpgrade > 0)
+			{
+				TowerElementalDamage.text = ts.GetElementalDamage() + " + " + ts.ElementalUpgrade;
+				ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().value = ts.GetElementalDamage() + ts.ElementalUpgrade;
+			}
+		}
+		else
+		{
+			ElementalDamageInfo.SetActive(false);
+		}
 
 
-
-        //elemental damage
-        TowerElementalDamage.text = ts.GetElementalDamage().ToString();
-        ElementalDamageSlider.value = ts.GetElementalDamage();
-        ElementalDamageSlider.maxValue = maxValue;
-        ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().value = 0;
-        ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
-        if (Visualize && ts.ElementalUpgrade > 0)
-        {
-			TowerElementalDamage.text = ts.GetElementalDamage() + " + " + ts.ElementalUpgrade;
-            ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().value = ts.GetElementalDamage() + ts.ElementalUpgrade;
-        }
-
-
-
-        //damage over time
-        TowerDamageOverTime.text = ts.GetDamageOverTime().ToString();
-        DamageOverTimeSlider.value = ts.GetDamageOverTime();
-        DamageOverTimeSlider.maxValue = maxValue;
-        DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().value = 0;
-        DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
-        if (Visualize && ts.DamageOverTimeUpgrade > 0)
-        {
-            TowerDamageOverTime.text = ts.GetDamageOverTime() + " + " + ts.DamageOverTimeUpgrade;
-            DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().value = ts.GetDamageOverTime() + ts.DamageOverTimeUpgrade;
-        }
+		//damage over time
+		if (ts.GetDamageOverTime() != 0)
+		{
+			DamageOverTimeInfo.SetActive(true);
+			TowerDamageOverTime.text = ts.GetDamageOverTime().ToString();
+			DamageOverTimeSlider.value = ts.GetDamageOverTime();
+			DamageOverTimeSlider.maxValue = maxValue;
+			DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().value = 0;
+			DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
+			if (Visualize && ts.DamageOverTimeUpgrade > 0)
+			{
+				TowerDamageOverTime.text = ts.GetDamageOverTime() + " + " + ts.DamageOverTimeUpgrade;
+				DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().value = ts.GetDamageOverTime() + ts.DamageOverTimeUpgrade;
+			}
+		}
+		else
+		{
+			DamageOverTimeInfo.SetActive(false);
+		}
 
 
+		//attack speed
+		if (ts.GetAttackSpeed() != 0)
+		{
+			SpeedInfo.SetActive(true);
+			TowerSpeed.text = ts.GetAttackSpeed().ToString();
+			SpeedSlider.value = 4 - ts.GetAttackSpeed();
+			SpeedSlider.maxValue = 4;
+			SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 0;
+			SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().maxValue = 4;
+			if (Visualize && ts.SpeedUpgrade > 0)
+			{
+				TowerSpeed.text = ts.GetAttackSpeed() + " - " + ts.SpeedUpgrade;
+				SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 4 - ts.GetAttackSpeed() + ts.SpeedUpgrade;
+			}
+		}
+		else
+		{
+			SpeedInfo.SetActive(false);
+		}
 
-        //attack speed
-        TowerSpeed.text = ts.GetAttackSpeed().ToString();
-        SpeedSlider.value = 4 - ts.GetAttackSpeed();
-        SpeedSlider.maxValue = 4;
-        SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 0;
-        SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().maxValue = 4;
-        if (Visualize && ts.SpeedUpgrade > 0)
-        {
-            TowerSpeed.text = ts.GetAttackSpeed() + " - " + ts.SpeedUpgrade;
-            SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 4 - ts.GetAttackSpeed() + ts.SpeedUpgrade;
-        }
 
-
-
-        //range
-        TowerRange.text = ts.GetRange().ToString();
-        RangeSlider.value = ts.GetRange();
-        RangeSlider.maxValue = 10;
-        RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = 0;
-        RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().maxValue = 10;
-        if (Visualize && ts.RangeUpgrade > 0)
-        {
-            TowerRange.text = ts.GetRange() + " + " + ts.RangeUpgrade;
-            RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = ts.GetRange() + ts.RangeUpgrade;
-        }
+		//range
+		if (ts.GetRange() != 0)
+		{
+			RangeInfo.SetActive(true);
+			TowerRange.text = ts.GetRange().ToString();
+			RangeSlider.value = ts.GetRange();
+			RangeSlider.maxValue = 10;
+			RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = 0;
+			RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().maxValue = 10;
+			if (Visualize && ts.RangeUpgrade > 0)
+			{
+				TowerRange.text = ts.GetRange() + " + " + ts.RangeUpgrade;
+				RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = ts.GetRange() + ts.RangeUpgrade;
+			}
+		}
+		else
+		{
+			RangeInfo.SetActive(false);
+		}
 
 		TowerDescription.text = ts.Description;
 

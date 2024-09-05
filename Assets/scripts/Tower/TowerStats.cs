@@ -14,7 +14,7 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] string Name;
 	public string Description;
 	int Level;
-	int Experience;
+	float Experience;
 	int UpgradePrice;
     private int SellPrice;
 	int MaxExp;
@@ -86,7 +86,7 @@ public class TowerStats : MonoBehaviour
 		if (manager.GetComponent<RayCastFromCamera>().money >= UpgradePrice && canUpgrade)
 		{
 			manager.GetComponent<RayCastFromCamera>().money -= UpgradePrice;
-			Experience = 0;
+			Experience -= MaxExp;
 
 
             Level += 1;
@@ -154,16 +154,13 @@ public class TowerStats : MonoBehaviour
 	{
 		return Level;
 	}
-	public int GetExperience()
+	public float GetExperience()
 	{
 		return Experience;
 	}
-	public void SetExperience()
+	public void SetExperience(float exp)
 	{
-		if (Experience < MaxExp)
-		{
-			Experience++;
-		};
+		Experience+= exp;
 	}
 	public int GetMaxExp()
 	{
@@ -442,17 +439,12 @@ public class TowerStats : MonoBehaviour
 							{
 								if (ElementalDamage - (i) > 0)
 								{
-									isDead = enemy.GetComponent<EnemyInfo>().DealDamage(Damage + ElementalDamage - i);
-								}
+									enemy.GetComponent<EnemyInfo>().DealDamage(Damage + ElementalDamage - i, this);
+                                }
 								else
 								{
-                                    isDead = enemy.GetComponent<EnemyInfo>().DealDamage(Damage);
-
+                                    enemy.GetComponent<EnemyInfo>().DealDamage(Damage, this);
                                 }
-							}
-							if (isDead) 
-							{
-								SetExperience();
 							}
                         }
                         StartCoroutine(ClearElectricityAfterDuration(0.1f));
