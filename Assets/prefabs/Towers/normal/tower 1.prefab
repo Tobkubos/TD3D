@@ -171,6 +171,11 @@ MonoBehaviour:
   Range: 5
   MaxExp: 250
   Price: 80
+  DamageSupport: 0
+  ElementalDamageSupport: 0
+  DamageOverTimeSupport: 0
+  SpeedSupport: 0
+  RangeSupport: 0
 --- !u!1 &3722103817631556547
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e93ae0019b9faf84aa537dcb2895f115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Support: 0
   Name: Rifle
   Description: Simple tower that deals low damage but attacks very fast.
   Type: Normal
@@ -236,6 +242,8 @@ MonoBehaviour:
   - {fileID: 3424739842377542486, guid: c8b0203e72f10064e95675fd1ed19caa, type: 3}
   - {fileID: 5082081505740051339, guid: 581950cea561e6d47b3f9a41c86be55c, type: 3}
   - {fileID: 6402654085842225473, guid: 9abb811f7a80a0b44a21c3a28fba20b0, type: 3}
+  EnemiesInRange: []
+  TowersInRange: []
   Bullet: {fileID: 7019720170624027536, guid: 171a1f28c0365f34e8b665b8599f6451, type: 3}
   Area: {fileID: 84812341082029954}
   TowerObject: {fileID: 5857700132478872097}
@@ -354,6 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8355985087851574127}
   - component: {fileID: 5023755228375063173}
+  - component: {fileID: 1551130245145072921}
   m_Layer: 0
   m_Name: tower 1
   m_TagString: tower
@@ -399,12 +408,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1551130245145072921
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5857700132478872097}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6229863860612743695
 GameObject:
   m_ObjectHideFlags: 0

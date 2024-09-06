@@ -11,6 +11,7 @@ using UnityEngine.UIElements;
 
 public class TowerStats : MonoBehaviour
 {
+	public bool Support;
 	[SerializeField] string Name;
 	public string Description;
 	int Level;
@@ -24,7 +25,15 @@ public class TowerStats : MonoBehaviour
 	float DamageOverTime;
 	float Range;
 
-	public int DamageUpgrade;
+
+    int DamageSupport;
+    int ElementalDamageSupport;
+    float DamageOverTimeSupport;
+    float RangeSupport;
+    float CooldownSupport;
+
+
+    public int DamageUpgrade;
     public int ElementalUpgrade;
     public int DamageOverTimeUpgrade;
     public float SpeedUpgrade;
@@ -37,8 +46,9 @@ public class TowerStats : MonoBehaviour
     public bool hologram;
 
 	[SerializeField] GameObject[] Towers;
-
-	public List<GameObject> EnemiesInRange = new List<GameObject>();
+    public List<GameObject> SupportingTowers = new List<GameObject>();
+    public List<GameObject> EnemiesInRange = new List<GameObject>();
+    public List<GameObject> TowersInRange = new List<GameObject>();
     private List<GameObject> TopEnemies = new List<GameObject>();
 
     public GameObject Bullet;
@@ -52,7 +62,7 @@ public class TowerStats : MonoBehaviour
 	public GameObject TowerObject;
 	[SerializeField] ParticleSystem ExpPS;
 	public LineRenderer lineRenderer;
-	float Cooldown = 1f;
+	float Cooldown = 0f;
 	float nextShoot = 0f;
 
 	private int counter = 0;
@@ -124,23 +134,36 @@ public class TowerStats : MonoBehaviour
 	}
 	private void Start()
 	{
-		Damage = towerSetupParams.Damage;
-		ElementalDamage = towerSetupParams.ElementalDamage;
-		DamageOverTime = towerSetupParams.DamageOverTime;
-		Cooldown = towerSetupParams.Speed;
+		if (Support) 
+		{ 
+			DamageSupport = towerSetupParams.DamageSupport;
+			ElementalDamageSupport = towerSetupParams.ElementalDamageSupport;
+			DamageOverTimeSupport = towerSetupParams.DamageOverTimeSupport;
+			CooldownSupport = towerSetupParams.SpeedSupport;
+			RangeSupport = towerSetupParams.RangeSupport;
+		}
+		else
+		{
+			Damage = towerSetupParams.Damage;
+			ElementalDamage = towerSetupParams.ElementalDamage;
+			DamageOverTime = towerSetupParams.DamageOverTime;
+			Cooldown = towerSetupParams.Speed;
+			MaxExp = towerSetupParams.MaxExp;
+		}
+
 		Range = towerSetupParams.Range;
-		MaxExp = towerSetupParams.MaxExp;
-		Area.transform.localScale =  new Vector3(towerSetupParams.Range, 0.1f, towerSetupParams.Range);
+		Area.transform.localScale = new Vector3(towerSetupParams.Range, 0.1f, towerSetupParams.Range);
+		SellPrice = towerSetupParams.Price / 2;
 
-        SellPrice = towerSetupParams.Price / 2;
 
-		UpgradePrice = levels[Level].UpgradePrice;
-		DamageUpgrade = levels[Level].DamageUpgrade;
-		ElementalUpgrade = levels[Level].ElementalUpgrade;
-		DamageOverTimeUpgrade = levels[Level].DamageOverTimeUpgrade;
-		SpeedUpgrade = levels[Level].SpeedUpgrade;
-		RangeUpgrade = levels[Level].RangeUpgrade;
-
+		if (!Support) { 
+			UpgradePrice = levels[Level].UpgradePrice;
+			DamageUpgrade = levels[Level].DamageUpgrade;
+			ElementalUpgrade = levels[Level].ElementalUpgrade;
+			DamageOverTimeUpgrade = levels[Level].DamageOverTimeUpgrade;
+			SpeedUpgrade = levels[Level].SpeedUpgrade;
+			RangeUpgrade = levels[Level].RangeUpgrade;
+        }
         Setup(Level, Quaternion.identity);
     }
 
@@ -195,10 +218,16 @@ public class TowerStats : MonoBehaviour
 	}
 	public void Sell()
 	{
+		if (Support)
+		{
+			foreach(GameObject tower in TowersInRange)
+			{
+				tower.GetComponentInChildren<TowerStats>().SupportingTowers.Remove(this.gameObject);
+			}
+		}
 		manager.GetComponent<RayCastFromCamera>().money += SellPrice;
         manager.GetComponent<RayCastFromCamera>().ts = null;
         manager.GetComponent<RayCastFromCamera>().ActiveTower = -1;
-        //manager.GetComponent<RayCastFromCamera>().TowerStatsCanva.SetActive(false);
         Destroy(TowerObject);
 	}
     public int GetSellIncome()
@@ -392,55 +421,6 @@ public class TowerStats : MonoBehaviour
                 TopEnemies = EnemiesInRange.Take(3).ToList();
             }
             #endregion
-
-            //STRZELANIE
-            #region rifle
-			/*
-            if (Type == "Normal")
-			{
-				if (target != null)
-				{
-					Vector3 direction = target.transform.position - Turret.transform.position;
-					direction.y = 0;
-
-					if (direction != Vector3.zero)
-					{
-						Quaternion targetRotation = Quaternion.LookRotation(direction);
-						transform.rotation = targetRotation;
-						Debug.DrawRay(transform.position, direction, Color.red);
-
-						if (Time.time > nextShoot && EnemiesInRange.Count != 0)
-						{
-							nextShoot = Time.time + Cooldown;
-							//
-							Shoot(target.transform);
-							if (ShootAnim != null)
-							{
-								ShootAnim.Rewind();
-								ShootAnim.Play("shooting");
-							}
-								
-						}
-					}
-				}	
-			}
-		    */
-            #endregion
-
-			/*
-            if (Type == "Nature")
-            {
-                if (target != null)
-                {
-					if (Time.time > nextShoot && EnemiesInRange.Count != 0)
-					{
-						nextShoot = Time.time + Cooldown;
-                        Shoot(target.transform);
-                    }            
-                }
-            }
-			*/
-
             if (Type == "Electric")
             {
                 if (TopEnemies.Count > 0 && Time.time > nextShoot)
@@ -504,6 +484,52 @@ public class TowerStats : MonoBehaviour
                 TopEnemies.Clear();
             }
 
+			//STRZELANIE
+			#region rifle
+			/*
+            if (Type == "Normal")
+			{
+				if (target != null)
+				{
+					Vector3 direction = target.transform.position - Turret.transform.position;
+					direction.y = 0;
+
+					if (direction != Vector3.zero)
+					{
+						Quaternion targetRotation = Quaternion.LookRotation(direction);
+						transform.rotation = targetRotation;
+						Debug.DrawRay(transform.position, direction, Color.red);
+
+						if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+						{
+							nextShoot = Time.time + Cooldown;
+							//
+							Shoot(target.transform);
+							if (ShootAnim != null)
+							{
+								ShootAnim.Rewind();
+								ShootAnim.Play("shooting");
+							}
+								
+						}
+					}
+				}	
+			}
+		    */
+			#endregion
+			/*
+            if (Type == "Nature")
+            {
+                if (target != null)
+                {
+					if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+					{
+						nextShoot = Time.time + Cooldown;
+                        Shoot(target.transform);
+                    }            
+                }
+            }
+			*/
 			/*
 			if (Type == "Fire")
 			{
@@ -526,8 +552,6 @@ public class TowerStats : MonoBehaviour
                 }			
 			}
 			*/
-
-
 
 
 

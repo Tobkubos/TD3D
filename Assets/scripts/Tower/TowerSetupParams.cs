@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TowerSetupParams: MonoBehaviour
 {
+    [Header("Tower")]
     public int Damage;
     public int ElementalDamage;
     public float DamageOverTime;
@@ -11,4 +12,12 @@ public class TowerSetupParams: MonoBehaviour
     public float Range;
     public int MaxExp;
     public int Price;
+
+    [Header("Support")]
+    public int DamageSupport;
+    public int ElementalDamageSupport;
+    public float DamageOverTimeSupport;
+    public float SpeedSupport;
+    public float RangeSupport;
+
 }

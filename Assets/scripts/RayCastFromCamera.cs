@@ -37,6 +37,7 @@ public class RayCastFromCamera : MonoBehaviour
 
 	public Slider ExpSlider;
 	public TextMeshProUGUI TowerExperience;
+	public TextMeshProUGUI TowerExperienceGainInfo;
 
 	public GameObject DamageInfo;
     public Slider DamageSlider;
@@ -58,7 +59,11 @@ public class RayCastFromCamera : MonoBehaviour
     public Slider RangeSlider;
     public TextMeshProUGUI TowerRange;
 
-	public TextMeshProUGUI TowerDescription;
+    public GameObject RangeSupportInfo;
+    public Slider RangeSupportSlider;
+    public TextMeshProUGUI TowerRangeSupport;
+
+    public TextMeshProUGUI TowerDescription;
 
     public TextMeshProUGUI TowerUpgradePrice;
 	public Button TowerUpgrade;
@@ -71,8 +76,6 @@ public class RayCastFromCamera : MonoBehaviour
 
 	public GameObject[] Towers;
     public GameObject[] TowersStartupSetup;
-    public GameObject[] HoloTowers;
-	public GameObject[] SelectedTowerImage;
 	Transform TowerArea;
 	public int ActiveTower = -1;
 	public bool HologramTower = false;
@@ -260,17 +263,31 @@ public class RayCastFromCamera : MonoBehaviour
         TowerStatsCanva.SetActive(true);
         //name / tier
         TowerName.text = ts.GetName();
-        TowerLevel.text = "TIER " + (ts.GetLevel() + 1).ToString();
+
+		if (!ts.Support)
+		{
+			TowerLevel.text = "TIER " + (ts.GetLevel() + 1).ToString();
+		}
 
 
+		//exp
+		if (ts.Support) 
+		{
+            ExpSlider.gameObject.SetActive(false);
+			TowerExperience.gameObject.SetActive(false);
+			TowerExperienceGainInfo.gameObject.SetActive(false);
+        }
+		else
+		{
+            ExpSlider.gameObject.SetActive(true);
+            TowerExperience.gameObject.SetActive(true);
+			TowerExperienceGainInfo.gameObject.SetActive(true);
+            ExpSlider.minValue = 0;
+			ExpSlider.maxValue = ts.GetMaxExp();
+			ExpSlider.value = ts.GetExperience();
 
-        //exp
-        ExpSlider.minValue = 0;
-        ExpSlider.maxValue = ts.GetMaxExp();
-        ExpSlider.value = ts.GetExperience();
-
-        TowerExperience.text = FormatExperience(ts.GetExperience()) + " / " + ts.GetMaxExp();
-
+			TowerExperience.text = FormatExperience(ts.GetExperience()) + " / " + ts.GetMaxExp();
+		}
 
 
 		//type
@@ -391,6 +408,7 @@ public class RayCastFromCamera : MonoBehaviour
         TowerUpgrade.onClick.RemoveAllListeners();
 		TowerSell.onClick.RemoveAllListeners();
 
+		
 			
 		ShowInfo();
 
@@ -401,7 +419,7 @@ public class RayCastFromCamera : MonoBehaviour
 		}
 
         TowerSellIncome.text = "for " + ts.GetSellIncome().ToString();
-		if (ts.GetLevel() < 3)
+		if (!ts.Support && ts.GetLevel() < 3)
 		{
 			TowerUpgrade.onClick.AddListener(ts.Upgrade);
 			TowerUpgradePrice.text = ts.GetUpgradePrice().ToString();
@@ -409,7 +427,7 @@ public class RayCastFromCamera : MonoBehaviour
             TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.black;
             TowerUpgrade.interactable = true;
         }
-		else
+		if(ts.GetLevel() >= 3)
 		{
             ColorBlock cb = TowerUpgrade.colors;
             cb.disabledColor = Color.yellow;
@@ -422,6 +440,11 @@ public class RayCastFromCamera : MonoBehaviour
             ExpSlider.value = 1;
             TowerExperience.text = "MAX";
         }
+
+		if (ts.Support)
+		{
+
+		}
             
     }
 
