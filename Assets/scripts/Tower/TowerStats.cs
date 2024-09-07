@@ -46,7 +46,7 @@ public class TowerStats : MonoBehaviour
     public bool hologram;
 
 	[SerializeField] GameObject[] Towers;
-    public List<GameObject> SupportingTowers = new List<GameObject>();
+    [SerializeField] List<GameObject> SupportingTowers = new List<GameObject>();
     public List<GameObject> EnemiesInRange = new List<GameObject>();
     public List<GameObject> TowersInRange = new List<GameObject>();
     private List<GameObject> TopEnemies = new List<GameObject>();
@@ -234,6 +234,14 @@ public class TowerStats : MonoBehaviour
     {
 		return SellPrice;
     }
+    public void OnSupportEnterRange(GameObject support)
+    {
+        SupportingTowers.Add(support);
+    }
+    public void OnSupportExitRange(GameObject support)
+    {
+        SupportingTowers.Remove(support);
+    }
     public void OnEnemyEnterRange(GameObject enemy)
 	{
 		EnemiesInRange.Add(enemy);
@@ -257,64 +265,68 @@ public class TowerStats : MonoBehaviour
 
 			//WYBIERANIE CELU i STRZELANIE
 			#region normal
-			if (Type == "Normal")
+			if (Type == "Normal" || Type == "Nature" || Type == "Fire")
 			{
-				
 				if (EnemiesInRange.Count > 0)
 				{
-					foreach (GameObject enemy in EnemiesInRange)
+					for (int i = 0; i < EnemiesInRange.Count; i++)
 					{
+						if (EnemiesInRange[i] == null)
+						{
+							EnemiesInRange.RemoveAt(i);
+							continue;
+						}
 
 						float enemyDist = 0;
-						if (enemy != null)
+						if (EnemiesInRange[i] != null)
 						{
-							enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
+							enemyDist = EnemiesInRange[i].GetComponent<EnemyInfo>().distanceTravelled;
 						}
 
 						if (enemyDist > dist)
 						{
 							dist = enemyDist;
 
-							if (enemy != null)
+							if (EnemiesInRange[i] != null)
 							{
-								target = enemy;
-
-                                if (target != null)
-                                {
-                                    Vector3 direction = target.transform.position - Turret.transform.position;
-                                    direction.y = 0;
-
-                                    if (direction != Vector3.zero)
-                                    {
-                                        Quaternion targetRotation = Quaternion.LookRotation(direction);
-                                        transform.rotation = targetRotation;
-                                        Debug.DrawRay(transform.position, direction, Color.red);
-
-                                        if (Time.time > nextShoot && EnemiesInRange.Count != 0)
-                                        {
-                                            nextShoot = Time.time + Cooldown;
-                                            //
-                                            Shoot(target.transform);
-                                            if (ShootAnim != null)
-                                            {
-                                                ShootAnim.Rewind();
-                                                ShootAnim.Play("shooting");
-                                            }
-
-                                        }
-                                    }
-                                }
-                            }
+								target = EnemiesInRange[i];
+							}
 						}
 					}
-					//target = EnemiesInRange[0];
 				}
 				else
 				{
 					target = null;
 				}
+
+				if (target != null)
+				{
+					Vector3 direction = target.transform.position - Turret.transform.position;
+					direction.y = 0;
+
+					if (direction != Vector3.zero)
+					{
+						Quaternion targetRotation = Quaternion.LookRotation(direction);
+						transform.rotation = targetRotation;
+						Debug.DrawRay(transform.position, direction, Color.red);
+
+						if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+						{
+							nextShoot = Time.time + Cooldown;
+							//
+							Shoot(target.transform);
+							if (Type == "Normal" && ShootAnim != null)
+							{
+								ShootAnim.Rewind();
+								ShootAnim.Play("shooting");
+							}
+
+						}
+					}
+				}
 			}
 
+			/*
             if (Type == "Nature")
             {
                 if (EnemiesInRange.Count > 0)
@@ -354,8 +366,10 @@ public class TowerStats : MonoBehaviour
                     target = null;
                 }
             }
+			*/
 
             #endregion
+			/*
             if (Type == "Fire")
             {
                 if (EnemiesInRange.Count > 0)
@@ -403,6 +417,7 @@ public class TowerStats : MonoBehaviour
                     target = null;
                 }
             }
+			*/
 
             #region tesla
             if (Type == "Electric")
