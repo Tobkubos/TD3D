@@ -37,9 +37,9 @@ public class AreaTrigger : MonoBehaviour
             // Sprawdzenie, czy wie¿a nie jest w tablicy aby nie dodawaæ jej wielokrotnie
             if (!towerStats.TowersInRange.Contains(collision.gameObject))
             {
-                collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportEnterRange(towerStats.gameObject);
-                towerStats.TowersInRange.Add(collision.gameObject);
-                Debug.Log("WIE¯A!!!");
+				collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportEnterRange(towerStats.gameObject);
+				towerStats.TowersInRange.Add(collision.gameObject);
+				Debug.Log("WIE¯A!!!");
             }
         }
     }

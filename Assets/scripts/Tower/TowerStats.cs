@@ -25,14 +25,21 @@ public class TowerStats : MonoBehaviour
 	float DamageOverTime;
 	float Range;
 
+    [Header("SUPPORT STATS")]
+    public int DamageSupport;
+    public int ElementalDamageSupport;
+    public float DamageOverTimeSupport;
+    public float RangeSupport;
+    public float CooldownSupport;
 
-    int DamageSupport;
-    int ElementalDamageSupport;
-    float DamageOverTimeSupport;
-    float RangeSupport;
-    float CooldownSupport;
+    [Header("STATS FROM SUPPORTS")]
+    public int DamageFromSupports;
+    public int ElementalDamageFromSupports;
+    public float DamageOverTimeFromSupports;
+    public float RangeSupportFromSupports;
+    public float CooldownFromSupports;
 
-
+	[Header("TOWER STATS")]
     public int DamageUpgrade;
     public int ElementalUpgrade;
     public int DamageOverTimeUpgrade;
@@ -223,7 +230,9 @@ public class TowerStats : MonoBehaviour
 			foreach(GameObject tower in TowersInRange)
 			{
 				tower.GetComponentInChildren<TowerStats>().SupportingTowers.Remove(this.gameObject);
-			}
+				tower.GetComponentInChildren<TowerStats>().DamageFromSupports -= DamageSupport;
+
+            }
 		}
 		manager.GetComponent<RayCastFromCamera>().money += SellPrice;
         manager.GetComponent<RayCastFromCamera>().ts = null;
@@ -604,6 +613,15 @@ public class TowerStats : MonoBehaviour
 			{
 				//Debug.LogWarning("ExpPS is not assigned in the Inspector");
 			}
+		}
+	}
+
+	public void CheckSupports()
+	{
+		DamageFromSupports = 0;
+		foreach(GameObject support in SupportingTowers)
+		{
+			DamageFromSupports += support.GetComponentInChildren<TowerStats>().DamageSupport;
 		}
 	}
 	private void Shoot(Transform target)

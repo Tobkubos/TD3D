@@ -171,6 +171,11 @@ MonoBehaviour:
   Range: 7
   MaxExp: 260
   Price: 120
+  DamageSupport: 0
+  ElementalDamageSupport: 0
+  DamageOverTimeSupport: 0
+  SpeedSupport: 0
+  RangeSupport: 0
 --- !u!1 &3722103817631556547
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,10 +220,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e93ae0019b9faf84aa537dcb2895f115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Support: 0
   Name: Pylon
   Description: Strikes with a bunch of spikes from the ground stunning the enemy
     for a short amount of time
   Type: Nature
+  DamageSupport: 0
+  ElementalDamageSupport: 0
+  DamageOverTimeSupport: 0
+  RangeSupport: 0
+  CooldownSupport: 0
+  DamageFromSupports: 0
+  ElementalDamageFromSupports: 0
+  DamageOverTimeFromSupports: 0
+  RangeSupportFromSupports: 0
+  CooldownFromSupports: 0
   DamageUpgrade: 0
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 0
@@ -236,6 +252,9 @@ MonoBehaviour:
   - {fileID: 2532920694878021981, guid: 2794b9a90194e1d40985e8c7883756ea, type: 3}
   - {fileID: 6630697287735867956, guid: 6f610c28740cb7048a6e08e36ea470e3, type: 3}
   - {fileID: 4360502527632709670, guid: 70718bef0d77e0e4db8ce660ff4d3042, type: 3}
+  SupportingTowers: []
+  EnemiesInRange: []
+  TowersInRange: []
   Bullet: {fileID: 7019720170624027536, guid: 865a8a4d4e4a23d4ebb7949cd8945a3e, type: 3}
   Area: {fileID: 84812341082029954}
   TowerObject: {fileID: 5857700132478872097}
@@ -303,6 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8355985087851574127}
   - component: {fileID: 5023755228375063173}
+  - component: {fileID: 999140901059895822}
   m_Layer: 0
   m_Name: tower 4
   m_TagString: tower
@@ -348,12 +368,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &999140901059895822
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5857700132478872097}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5885105206812594145
 GameObject:
   m_ObjectHideFlags: 0

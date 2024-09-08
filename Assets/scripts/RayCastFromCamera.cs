@@ -59,6 +59,14 @@ public class RayCastFromCamera : MonoBehaviour
     public Slider RangeSlider;
     public TextMeshProUGUI TowerRange;
 
+    public GameObject DamageSupportInfo;
+    public Slider DamageSupportSlider;
+    public TextMeshProUGUI TowerDamageSupport;
+
+    public GameObject SpeedSupportInfo;
+    public Slider SpeedSupportSlider;
+    public TextMeshProUGUI TowerSpeedSupport;
+
     public GameObject RangeSupportInfo;
     public Slider RangeSupportSlider;
     public TextMeshProUGUI TowerRangeSupport;
@@ -187,6 +195,17 @@ public class RayCastFromCamera : MonoBehaviour
 							tower.layer = LayerMask.NameToLayer("Default");
 							tower = null;
 							HologramTower = false;
+							if (!ts.Support)
+							{
+								ts.CheckSupports();
+							}
+							if (ts.Support) 
+							{
+								foreach (GameObject tower in ts.TowersInRange) 
+								{
+									tower.GetComponentInChildren<TowerStats>().CheckSupports();
+								}
+							}
 						}
 
 						//jezeli klikasz lpm w mape a wieza jest zaznaczona wyczysc dane oraz obszar
@@ -397,7 +416,43 @@ public class RayCastFromCamera : MonoBehaviour
 			RangeInfo.SetActive(false);
 		}
 
-		TowerDescription.text = ts.Description;
+		//SUPPORT DAMAGE
+		if(ts.DamageSupport != 0)
+		{
+			DamageSupportInfo.SetActive(true);
+			DamageSupportSlider.value = ts.DamageSupport;
+			TowerDamageSupport.text = ts.DamageSupport.ToString();
+		}
+		else
+		{
+			DamageSupportInfo.SetActive(false);
+		}
+
+        //RANGE DAMAGE
+        if (ts.RangeSupport != 0)
+        {
+            RangeSupportInfo.SetActive(true);
+            RangeSupportSlider.value = ts.RangeSupport;
+            TowerRangeSupport.text = ts.RangeSupport.ToString();
+        }
+        else
+        {
+            RangeSupportInfo.SetActive(false);
+        }
+
+        //SPEED DAMAGE
+        if (ts.CooldownSupport != 0)
+        {
+            SpeedSupportInfo.SetActive(true);
+            SpeedSupportSlider.value = ts.CooldownSupport;
+            TowerSpeedSupport.text = ts.CooldownSupport.ToString();
+        }
+        else
+        {
+            SpeedSupportInfo.SetActive(false);
+        }
+
+        TowerDescription.text = ts.Description;
 
 
     }

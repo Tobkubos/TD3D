@@ -5056,7 +5056,7 @@ MonoBehaviour:
   Range: 2.9
   MaxExp: 0
   Price: 300
-  DamageSupport: 0
+  DamageSupport: 1
   ElementalDamageSupport: 0
   DamageOverTimeSupport: 0
   SpeedSupport: 0
@@ -5109,6 +5109,16 @@ MonoBehaviour:
   Name: Purified Glass
   Description: Increases range of Towers
   Type: Support
+  DamageSupport: 0
+  ElementalDamageSupport: 0
+  DamageOverTimeSupport: 0
+  RangeSupport: 0
+  CooldownSupport: 0
+  DamageFromSupports: 0
+  ElementalDamageFromSupports: 0
+  DamageOverTimeFromSupports: 0
+  RangeSupportFromSupports: 0
+  CooldownFromSupports: 0
   DamageUpgrade: 0
   ElementalUpgrade: 0
   DamageOverTimeUpgrade: 0
@@ -5116,13 +5126,11 @@ MonoBehaviour:
   RangeUpgrade: 0
   canUpgrade: 0
   towerSetupParams: {fileID: 3584756589244454579}
-  levels:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  levels: []
   hologram: 1
   Towers:
-  - {fileID: 6802240448009213758, guid: 6190247ddc158be4087d8930686ff2f4, type: 3}
+  - {fileID: 1159974920463219839, guid: b376a3056ba739a4f9165b3268bd2524, type: 3}
+  SupportingTowers: []
   EnemiesInRange: []
   TowersInRange: []
   Bullet: {fileID: 0}
