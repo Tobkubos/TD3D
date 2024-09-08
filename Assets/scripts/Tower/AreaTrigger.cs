@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AreaTrigger : MonoBehaviour
@@ -25,6 +26,10 @@ public class AreaTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
+		if (towerStats.hologram)
+		{
+			return;
+		}
         if (!towerStats.Support && collision.gameObject.CompareTag("enemy"))
         {
 			if (!towerStats.EnemiesInRange.Contains(collision.gameObject))
