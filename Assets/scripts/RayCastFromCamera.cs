@@ -318,10 +318,17 @@ public class RayCastFromCamera : MonoBehaviour
 		if (ts.GetDamage() != 0)
 		{
             DamageInfo.SetActive(true);
-			if (ts.DamageFromSupports == 0)
+			Slider AllDamageSlider = DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>();
+			Slider DamageUpgradeSlider = DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>();
+
+            DamageSlider.maxValue = maxValue;
+            DamageUpgradeSlider.value = 0;
+            DamageUpgradeSlider.maxValue = maxValue;
+
+            if (ts.DamageFromSupports == 0)
 			{
 				TowerDamage.text = ts.GetDamage().ToString();
-                DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>().value = 0;
+                AllDamageSlider.value = 0;
             }
             if (ts.DamageFromSupports != 0)
             {
@@ -329,21 +336,17 @@ public class RayCastFromCamera : MonoBehaviour
             }
 			DamageSlider.value = ts.GetDamage();
 
-            DamageSlider.maxValue = maxValue;
-			DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = 0;
-			DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
-
 			if (ts.DamageFromSupports != 0)
 			{
-				DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>().value = ts.FinalDamage;
-				DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>().maxValue = maxValue;
+                AllDamageSlider.value = ts.FinalDamage;
+				AllDamageSlider.maxValue = maxValue;
 			}
 
             if (Visualize && ts.DamageUpgrade > 0)
 			{
 				TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
-				DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = ts.GetDamage() + ts.DamageUpgrade;
-                DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>().value = ts.FinalDamage + ts.DamageUpgrade;
+                DamageUpgradeSlider.value = ts.GetDamage() + ts.DamageUpgrade;
+                AllDamageSlider.value = ts.FinalDamage + ts.DamageUpgrade;
             }
 		}
 		else{
