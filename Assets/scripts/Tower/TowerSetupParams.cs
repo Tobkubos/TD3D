@@ -7,7 +7,7 @@ public class TowerSetupParams: MonoBehaviour
     [Header("Tower")]
     public int Damage;
     public int ElementalDamage;
-    public float DamageOverTime;
+    public int DamageOverTime;
     public float Speed;
     public float Range;
     public int MaxExp;
@@ -16,7 +16,7 @@ public class TowerSetupParams: MonoBehaviour
     [Header("Support")]
     public int DamageSupport;
     public int ElementalDamageSupport;
-    public float DamageOverTimeSupport;
+    public int DamageOverTimeSupport;
     public float SpeedSupport;
     public float RangeSupport;
 

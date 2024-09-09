@@ -22,20 +22,20 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] string Type;
 	int Damage;
 	int ElementalDamage;
-	float DamageOverTime;
+    int DamageOverTime;
 	float Range;
 
     [Header("SUPPORT STATS")]
     public int DamageSupport;
     public int ElementalDamageSupport;
-    public float DamageOverTimeSupport;
+    public int DamageOverTimeSupport;
     public float RangeSupport;
     public float CooldownSupport;
 
     [Header("STATS FROM SUPPORTS")]
     public int DamageFromSupports;
     public int ElementalDamageFromSupports;
-    public float DamageOverTimeFromSupports;
+    public int DamageOverTimeFromSupports;
     public float RangeSupportFromSupports;
     public float CooldownFromSupports;
 
@@ -47,7 +47,12 @@ public class TowerStats : MonoBehaviour
     public float RangeUpgrade;
 	public bool canUpgrade = false;
 
-	public TowerSetupParams towerSetupParams;
+	[Header("FINAL STATS")]
+	public int FinalDamage;
+	public int FinalElementalDamage;
+    public int FinalCooldown;
+
+    public TowerSetupParams towerSetupParams;
 	public TowerUpgradeParams[] levels;
 
     public bool hologram;
@@ -114,6 +119,9 @@ public class TowerStats : MonoBehaviour
 			Cooldown -= SpeedUpgrade;
 			Area.transform.localScale += new Vector3(RangeUpgrade,0, RangeUpgrade);
 
+
+			FinalDamage = Damage + DamageFromSupports;
+
 			if (Level < 3)
 			{
 				SellPrice += levels[Level].UpgradePrice / 2;
@@ -161,7 +169,7 @@ public class TowerStats : MonoBehaviour
 		Range = towerSetupParams.Range;
 		Area.transform.localScale = new Vector3(towerSetupParams.Range, 0.1f, towerSetupParams.Range);
 		SellPrice = towerSetupParams.Price / 2;
-
+		FinalDamage = Damage + DamageFromSupports;
 
 		if (!Support) { 
 			UpgradePrice = levels[Level].UpgradePrice;
@@ -229,11 +237,20 @@ public class TowerStats : MonoBehaviour
 		{
 			foreach(GameObject tower in TowersInRange)
 			{
-				tower.GetComponentInChildren<TowerStats>().SupportingTowers.Remove(this.gameObject);
-				tower.GetComponentInChildren<TowerStats>().DamageFromSupports -= DamageSupport;
-
+				tower.GetComponentInChildren<TowerStats>().SupportingTowers.Remove(TowerObject);
+				tower.GetComponentInChildren<TowerStats>().CheckSupports();
             }
 		}
+
+		if (!Support) 
+		{
+			foreach(GameObject support in SupportingTowers)
+			{
+                support.GetComponentInChildren<TowerStats>().TowersInRange.Remove(TowerObject);
+
+            }		
+		}
+
 		manager.GetComponent<RayCastFromCamera>().money += SellPrice;
         manager.GetComponent<RayCastFromCamera>().ts = null;
         manager.GetComponent<RayCastFromCamera>().ActiveTower = -1;
@@ -623,11 +640,12 @@ public class TowerStats : MonoBehaviour
 		{
 			DamageFromSupports += support.GetComponentInChildren<TowerStats>().DamageSupport;
 		}
+		FinalDamage = Damage + DamageFromSupports;
 	}
 	private void Shoot(Transform target)
 	{
 		GameObject bllt = Instantiate(Bullet, Turret.transform.position, Turret.transform.rotation);
-		bllt.GetComponent<BulletMovement>().damage = Damage;
+		bllt.GetComponent<BulletMovement>().damage = FinalDamage;
         bllt.GetComponent<BulletMovement>().Elementaldamage = ElementalDamage;
         bllt.GetComponent<BulletMovement>().enemy = target;
 		bllt.GetComponent<BulletMovement>().ts = this;

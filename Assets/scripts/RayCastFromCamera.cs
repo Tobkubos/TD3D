@@ -318,16 +318,33 @@ public class RayCastFromCamera : MonoBehaviour
 		if (ts.GetDamage() != 0)
 		{
             DamageInfo.SetActive(true);
-            TowerDamage.text = ts.GetDamage().ToString();
+			if (ts.DamageFromSupports == 0)
+			{
+				TowerDamage.text = ts.GetDamage().ToString();
+                DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>().value = 0;
+            }
+            if (ts.DamageFromSupports != 0)
+            {
+                TowerDamage.text = ts.GetDamage().ToString() + " + " + ts.DamageFromSupports.ToString();
+            }
 			DamageSlider.value = ts.GetDamage();
-			DamageSlider.maxValue = maxValue;
+
+            DamageSlider.maxValue = maxValue;
 			DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = 0;
 			DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
-			if (Visualize && ts.DamageUpgrade > 0)
+
+			if (ts.DamageFromSupports != 0)
+			{
+				DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>().value = ts.FinalDamage;
+				DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>().maxValue = maxValue;
+			}
+
+            if (Visualize && ts.DamageUpgrade > 0)
 			{
 				TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
 				DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>().value = ts.GetDamage() + ts.DamageUpgrade;
-			}
+                DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>().value = ts.FinalDamage + ts.DamageUpgrade;
+            }
 		}
 		else{
 			DamageInfo.SetActive(false);

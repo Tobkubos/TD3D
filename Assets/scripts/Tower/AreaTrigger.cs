@@ -26,10 +26,12 @@ public class AreaTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
+		
 		if (towerStats.hologram)
 		{
 			return;
 		}
+		
         if (!towerStats.Support && collision.gameObject.CompareTag("enemy"))
         {
 			if (!towerStats.EnemiesInRange.Contains(collision.gameObject))
@@ -37,13 +39,14 @@ public class AreaTrigger : MonoBehaviour
                 towerStats.OnEnemyEnterRange(collision.gameObject);
 			}
         }
-        if (towerStats.Support && collision.gameObject.CompareTag("tower"))
+        if (towerStats.Support && collision.gameObject.CompareTag("tower") && !collision.gameObject.GetComponentInChildren<TowerStats>().hologram)
         {
             // Sprawdzenie, czy wie¿a nie jest w tablicy aby nie dodawaæ jej wielokrotnie
             if (!towerStats.TowersInRange.Contains(collision.gameObject))
             {
-				collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportEnterRange(towerStats.gameObject);
-				towerStats.TowersInRange.Add(collision.gameObject);
+				collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportEnterRange(towerStats.TowerObject);
+				collision.gameObject.GetComponentInChildren<TowerStats>().CheckSupports();
+                towerStats.TowersInRange.Add(collision.gameObject);
 				Debug.Log("WIE¯A!!!");
             }
         }
@@ -58,7 +61,7 @@ public class AreaTrigger : MonoBehaviour
 
 		if (towerStats.Support && collision.gameObject.CompareTag("tower"))
 		{
-			collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportExitRange(towerStats.gameObject);
+			collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportExitRange(towerStats.TowerObject);
 			towerStats.TowersInRange.Remove(collision.gameObject);
 			Debug.Log("NI MA!!!");
 		}
