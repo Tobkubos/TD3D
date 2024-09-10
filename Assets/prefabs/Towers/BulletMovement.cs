@@ -6,7 +6,7 @@ using UnityEngine;
 public class BulletMovement : MonoBehaviour
 { 
     [SerializeField] float BulletSpeed;
-    public int damage;
+    public float damage;
     public int Elementaldamage;
     public string Type;
 	public Transform enemy;

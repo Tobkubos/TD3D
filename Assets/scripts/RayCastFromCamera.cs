@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq.Expressions;
 using TMPro;
 using Unity.VisualScripting;
@@ -78,6 +79,13 @@ public class RayCastFromCamera : MonoBehaviour
 
     public TextMeshProUGUI TowerSellIncome;
     public Button TowerSell;
+
+	public GameObject supportsBonus;
+	public TextMeshProUGUI damageFromSupports;
+    public TextMeshProUGUI elementalDamageFromSupports;
+    public TextMeshProUGUI damageOverTimeFromSupports;
+    public TextMeshProUGUI speedFromSupports;
+	public TextMeshProUGUI rangeFromSupports;
     //
 
     public Vector3 cordinate;
@@ -91,8 +99,8 @@ public class RayCastFromCamera : MonoBehaviour
 	public bool Visualize = false;
 	GameObject tower;
 
-    Color col = new Color(1, 0.9565783f, 0.3632075f);
-    Color upgradecol = new Color(1, 0.4903689f, 0.2216981f);
+    UnityEngine.Color col = new UnityEngine.Color(1, 0.9565783f, 0.3632075f);
+    UnityEngine.Color upgradecol = new UnityEngine.Color(1, 0.4903689f, 0.2216981f);
     public TowerStats ts = null;
 	void Start()
 	{
@@ -276,6 +284,124 @@ public class RayCastFromCamera : MonoBehaviour
 		LeanTween.scale(CurrentWave.gameObject, new Vector3(s, s, s), t).setEase(LeanTweenType.easeInOutSine);
         LeanTween.scale(CurrentWave.gameObject, new Vector3(1, 1, 1), t).setEase(LeanTweenType.easeInOutSine).setDelay(t);
     }
+
+
+	public void ShowSlider(Slider ParameterSlider, Slider UpgradeSlider, Slider AllSlider, TextMeshProUGUI ParameterTextValue, TextMeshProUGUI ParameterTextValueFromSupports,int maxValue, int Parameter, int FinalParameter, int UpgradeParameter, int ParameterFromSupports)
+	{
+        ParameterSlider.maxValue = maxValue;
+        UpgradeSlider.value = 0;
+        UpgradeSlider.maxValue = maxValue;
+
+        if (ParameterFromSupports == 0)
+        {
+            ParameterTextValue.text = Parameter.ToString();
+            ParameterTextValueFromSupports.gameObject.SetActive(false);
+            AllSlider.value = 0;
+        }
+        if (ParameterFromSupports != 0)
+        {
+            supportsBonus.SetActive(true);
+            ParameterTextValue.text = FinalParameter.ToString();
+            ParameterTextValueFromSupports.gameObject.SetActive(true);
+            ParameterTextValueFromSupports.text = ParameterFromSupports.ToString();
+            AllSlider.value = FinalParameter;
+            AllSlider.maxValue = maxValue;
+        }
+
+        ParameterSlider.value = Parameter;
+
+        if (Visualize && UpgradeParameter > 0)
+        {
+            if (ParameterFromSupports == 0)
+            {
+                ParameterTextValue.text = Parameter + " + " + UpgradeParameter;
+            }
+            else
+            {
+                ParameterTextValue.text = FinalParameter.ToString() + " + " + UpgradeParameter;
+            }
+            UpgradeSlider.value = Parameter + UpgradeParameter;
+            AllSlider.value = FinalParameter + UpgradeParameter;
+        }
+    }
+    public void ShowSlider(Slider ParameterSlider, Slider UpgradeSlider, Slider AllSlider, TextMeshProUGUI ParameterTextValue, TextMeshProUGUI ParameterTextValueFromSupports, int maxValue, float Parameter, float FinalParameter, float UpgradeParameter, float ParameterFromSupports)
+    {
+        ParameterSlider.maxValue = maxValue;
+        UpgradeSlider.value = 0;
+        UpgradeSlider.maxValue = maxValue;
+
+        if (ParameterFromSupports == 0)
+        {
+            ParameterTextValue.text = Parameter.ToString();
+            ParameterTextValueFromSupports.gameObject.SetActive(false);
+            AllSlider.value = 0;
+        }
+        if (ParameterFromSupports != 0)
+        {
+            supportsBonus.SetActive(true);
+            ParameterTextValue.text = FinalParameter.ToString();
+            ParameterTextValueFromSupports.gameObject.SetActive(true);
+            ParameterTextValueFromSupports.text = ParameterFromSupports.ToString();
+            AllSlider.value = FinalParameter;
+            AllSlider.maxValue = maxValue;
+        }
+
+        ParameterSlider.value = Parameter;
+
+        if (Visualize && UpgradeParameter > 0)
+        {
+            if (ParameterFromSupports == 0)
+            {
+                ParameterTextValue.text = Parameter + " + " + UpgradeParameter;
+            }
+            else
+            {
+                ParameterTextValue.text = FinalParameter.ToString() + " + " + UpgradeParameter;
+            }
+            UpgradeSlider.value = Parameter + UpgradeParameter;
+            AllSlider.value = FinalParameter + UpgradeParameter;
+        }
+    }
+    public void ShowSpeed(Slider ParameterSlider, Slider UpgradeSlider, Slider AllSlider, TextMeshProUGUI ParameterTextValue, TextMeshProUGUI ParameterTextValueFromSupports, int maxValue, float Parameter, float FinalParameter, float UpgradeParameter, float ParameterFromSupports)
+    {
+        ParameterSlider.maxValue = maxValue;
+        UpgradeSlider.value = 0;
+        UpgradeSlider.maxValue = maxValue;
+
+        if (ParameterFromSupports == 0)
+        {
+            ParameterTextValue.text = Parameter.ToString();
+            ParameterTextValueFromSupports.gameObject.SetActive(false);
+            AllSlider.value = 0;
+        }
+        if (ParameterFromSupports != 0)
+        {
+            supportsBonus.SetActive(true);
+            ParameterTextValue.text = FinalParameter.ToString();
+            ParameterTextValueFromSupports.gameObject.SetActive(true);
+            ParameterTextValueFromSupports.text = ParameterFromSupports.ToString();
+            AllSlider.value = maxValue - FinalParameter;
+            AllSlider.maxValue = maxValue;
+        }
+
+        ParameterSlider.value = maxValue - Parameter;
+
+        if (Visualize && UpgradeParameter > 0)
+        {
+            if (ParameterFromSupports == 0)
+            {
+                ParameterTextValue.text = Parameter + " + " + UpgradeParameter;
+            }
+            else
+            {
+                ParameterTextValue.text = FinalParameter.ToString() + " + " + UpgradeParameter;
+            }
+            UpgradeSlider.value = maxValue - Parameter + UpgradeParameter;
+            AllSlider.value = maxValue - FinalParameter + UpgradeParameter;
+        }
+    }
+
+
     public void ShowInfo()
 	{
 		int maxValue = 30; 
@@ -312,49 +438,131 @@ public class RayCastFromCamera : MonoBehaviour
 		//type
         TowerType.text = "type: " + ts.GetType();
 
-
+		if(ts.DamageFromSupports == 0)
+		{
+			damageFromSupports.gameObject.SetActive(false);
+		}
+		else
+		{
+			damageFromSupports.gameObject.SetActive(true);
+		}
 
 		//damage
-		if (ts.GetDamage() != 0)
+
+		damageFromSupports.gameObject.SetActive(false);
+        elementalDamageFromSupports.gameObject.SetActive(false);
+        damageOverTimeFromSupports.gameObject.SetActive(false);
+        speedFromSupports.gameObject.SetActive(false);
+        rangeFromSupports.gameObject.SetActive(false);
+		supportsBonus.SetActive(false);
+
+        if (ts.GetDamage() != 0)
 		{
-            DamageInfo.SetActive(true);
-			Slider AllDamageSlider = DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>();
-			Slider DamageUpgradeSlider = DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>();
+			DamageInfo.SetActive(true);
+			Slider AllSlider = DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>();
+			Slider UpgradeSlider = DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>();
 
+			ShowSlider(DamageSlider, UpgradeSlider, AllSlider, TowerDamage, damageFromSupports, 30, ts.GetDamage(), ts.FinalDamage, ts.DamageUpgrade, ts.DamageFromSupports);
+		}
+		else 
+		{
+			DamageInfo.SetActive(false);
+		}
+
+        if (ts.GetElementalDamage() != 0)
+        {
+            ElementalDamageInfo.SetActive(true);
+            Slider AllSlider = ElementalDamageSlider.transform.Find("All ElementalDamage Slider").GetComponent<Slider>();
+            Slider UpgradeSlider = ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>();
+
+            ShowSlider(ElementalDamageSlider, UpgradeSlider, AllSlider, TowerElementalDamage, elementalDamageFromSupports, 30, ts.GetElementalDamage(), ts.FinalElementalDamage, ts.ElementalUpgrade, ts.ElementalDamageFromSupports);
+        }
+        else
+        {
+            ElementalDamageInfo.SetActive(false);
+        }
+
+        if (ts.GetDamageOverTime() != 0)
+        {
+            DamageOverTimeInfo.SetActive(true);
+            Slider AllSlider = DamageOverTimeSlider.transform.Find("All DamageOverTime Slider").GetComponent<Slider>();
+            Slider UpgradeSlider = DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>();
+
+            ShowSlider(DamageOverTimeSlider, UpgradeSlider, AllSlider, TowerDamageOverTime, damageOverTimeFromSupports, 30, ts.GetDamageOverTime(), ts.FinalDamageOverTime, ts.DamageOverTimeUpgrade, ts.DamageOverTimeFromSupports);
+        }
+        else
+        {
+            DamageOverTimeInfo.SetActive(false);
+        }
+
+        if (ts.GetAttackSpeed() != 0)
+        {
+            SpeedInfo.SetActive(true);
+            Slider AllSlider = SpeedSlider.transform.Find("All Speed Slider").GetComponent<Slider>();
+            Slider UpgradeSlider = SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>();
+
+            ShowSpeed(SpeedSlider, UpgradeSlider, AllSlider, TowerSpeed, speedFromSupports, 4, ts.GetAttackSpeed(), ts.FinalCooldown, ts.SpeedUpgrade, ts.CooldownFromSupports);
+        }
+        else
+        {
+            SpeedInfo.SetActive(false);
+        }
+
+        if (ts.GetRange() != 0)
+        {
+            RangeInfo.SetActive(true);
+            Slider AllSlider = RangeSlider.transform.Find("All Range Slider").GetComponent<Slider>();
+            Slider UpgradeSlider = RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>();
+
+            ShowSlider(RangeSlider, UpgradeSlider, AllSlider, TowerRange, rangeFromSupports, 15, ts.GetRange(), ts.FinalRange, ts.RangeUpgrade, ts.RangeFromSupports);
+        }
+        else
+        {
+            RangeInfo.SetActive(false);
+        }
+        /*
             DamageSlider.maxValue = maxValue;
-            DamageUpgradeSlider.value = 0;
-            DamageUpgradeSlider.maxValue = maxValue;
+            UpgradeSlider.value = 0;
+            UpgradeSlider.maxValue = maxValue;
 
-            if (ts.DamageFromSupports == 0)
+			if (ts.DamageFromSupports == 0)
 			{
 				TowerDamage.text = ts.GetDamage().ToString();
-                AllDamageSlider.value = 0;
-            }
-            if (ts.DamageFromSupports != 0)
-            {
-                TowerDamage.text = ts.GetDamage().ToString() + " + " + ts.DamageFromSupports.ToString();
-            }
-			DamageSlider.value = ts.GetDamage();
-
+				AllSlider.value = 0;
+			}
 			if (ts.DamageFromSupports != 0)
 			{
-                AllDamageSlider.value = ts.FinalDamage;
-				AllDamageSlider.maxValue = maxValue;
+				TowerDamage.text = ts.FinalDamage.ToString();
+				damageFromSupports.text = ts.DamageFromSupports.ToString();
+				AllSlider.value = ts.FinalDamage;
+				AllSlider.maxValue = maxValue;
 			}
+
+			DamageSlider.value = ts.GetDamage();
 
             if (Visualize && ts.DamageUpgrade > 0)
 			{
-				TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
-                DamageUpgradeSlider.value = ts.GetDamage() + ts.DamageUpgrade;
-                AllDamageSlider.value = ts.FinalDamage + ts.DamageUpgrade;
+				if (ts.DamageFromSupports == 0)
+				{
+					TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
+				}
+				else
+				{
+                    TowerDamage.text = ts.FinalDamage.ToString() + " + " + ts.DamageUpgrade;
+                }
+				UpgradeSlider.value = ts.GetDamage() + ts.DamageUpgrade;
+				AllSlider.value = ts.FinalDamage + ts.DamageUpgrade;
             }
 		}
 		else{
 			DamageInfo.SetActive(false);
 		}
+		*/
 
-		//elemental damage
-		if (ts.GetElementalDamage() != 0)
+
+        //elemental damage
+        /*
+        if (ts.GetElementalDamage() != 0)
 		{
 			ElementalDamageInfo.SetActive(true);
 			TowerElementalDamage.text = ts.GetElementalDamage().ToString();
@@ -373,9 +581,8 @@ public class RayCastFromCamera : MonoBehaviour
 			ElementalDamageInfo.SetActive(false);
 		}
 
-
-		//damage over time
-		if (ts.GetDamageOverTime() != 0)
+        //damage over time
+        if (ts.GetDamageOverTime() != 0)
 		{
 			DamageOverTimeInfo.SetActive(true);
 			TowerDamageOverTime.text = ts.GetDamageOverTime().ToString();
@@ -435,9 +642,13 @@ public class RayCastFromCamera : MonoBehaviour
 		{
 			RangeInfo.SetActive(false);
 		}
+		*/
+		
 
-		//SUPPORT DAMAGE
-		if(ts.DamageSupport != 0)
+
+
+        //SUPPORT DAMAGE
+        if (ts.DamageSupport != 0)
 		{
 			DamageSupportInfo.SetActive(true);
 			DamageSupportSlider.value = ts.DamageSupport;
@@ -483,7 +694,6 @@ public class RayCastFromCamera : MonoBehaviour
         TowerUpgrade.onClick.RemoveAllListeners();
 		TowerSell.onClick.RemoveAllListeners();
 
-		
 			
 		ShowInfo();
 
@@ -499,18 +709,18 @@ public class RayCastFromCamera : MonoBehaviour
 			TowerUpgrade.onClick.AddListener(ts.Upgrade);
 			TowerUpgradePrice.text = ts.GetUpgradePrice().ToString();
             TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "UPGRADE";
-            TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.black;
+            TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = UnityEngine.Color.black;
             TowerUpgrade.interactable = true;
         }
 		if(ts.GetLevel() >= 3)
 		{
             ColorBlock cb = TowerUpgrade.colors;
-            cb.disabledColor = Color.yellow;
+            cb.disabledColor = UnityEngine.Color.yellow;
             TowerUpgrade.colors = cb;
 
 			TowerUpgrade.interactable = false;
             TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "MAX";
-            TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.white;
+            TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = UnityEngine.Color.white;
 			ExpSlider.maxValue = 1;
             ExpSlider.value = 1;
             TowerExperience.text = "MAX";

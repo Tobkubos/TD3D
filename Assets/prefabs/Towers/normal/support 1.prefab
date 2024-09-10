@@ -5117,7 +5117,7 @@ MonoBehaviour:
   DamageFromSupports: 0
   ElementalDamageFromSupports: 0
   DamageOverTimeFromSupports: 0
-  RangeSupportFromSupports: 0
+  RangeFromSupports: 0
   CooldownFromSupports: 0
   DamageUpgrade: 0
   ElementalUpgrade: 0
@@ -5125,6 +5125,11 @@ MonoBehaviour:
   SpeedUpgrade: 0
   RangeUpgrade: 0
   canUpgrade: 0
+  FinalDamage: 0
+  FinalElementalDamage: 0
+  FinalDamageOverTime: 0
+  FinalCooldown: 0
+  FinalRange: 0
   towerSetupParams: {fileID: 3584756589244454579}
   levels: []
   hologram: 1

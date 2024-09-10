@@ -36,7 +36,7 @@ public class TowerStats : MonoBehaviour
     public int DamageFromSupports;
     public int ElementalDamageFromSupports;
     public int DamageOverTimeFromSupports;
-    public float RangeSupportFromSupports;
+    public float RangeFromSupports;
     public float CooldownFromSupports;
 
 	[Header("TOWER STATS")]
@@ -50,7 +50,9 @@ public class TowerStats : MonoBehaviour
 	[Header("FINAL STATS")]
 	public int FinalDamage;
 	public int FinalElementalDamage;
+    public int FinalDamageOverTime;
     public int FinalCooldown;
+    public int FinalRange;
 
     public TowerSetupParams towerSetupParams;
 	public TowerUpgradeParams[] levels;
@@ -291,7 +293,7 @@ public class TowerStats : MonoBehaviour
 
 			//WYBIERANIE CELU i STRZELANIE
 			#region normal
-			if (Type == "Normal" || Type == "Nature" || Type == "Fire")
+			if (Type == "Normal" || Type == "Fire" || Type == "Nature")
 			{
 				if (EnemiesInRange.Count > 0)
 				{
@@ -304,7 +306,7 @@ public class TowerStats : MonoBehaviour
 						}
 
 						float enemyDist = 0;
-						if (EnemiesInRange[i] != null)
+						if ((EnemiesInRange[i] != null && Type == "Normal") || (Type == "Fire" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnFire == false) || (Type == "Nature" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnStun == false))
 						{
 							enemyDist = EnemiesInRange[i].GetComponent<EnemyInfo>().distanceTravelled;
 						}
@@ -351,8 +353,8 @@ public class TowerStats : MonoBehaviour
 					}
 				}
 			}
-
-			/*
+            
+            /*
             if (Type == "Nature")
             {
                 if (EnemiesInRange.Count > 0)
@@ -395,7 +397,7 @@ public class TowerStats : MonoBehaviour
 			*/
 
             #endregion
-			/*
+            /*
             if (Type == "Fire")
             {
                 if (EnemiesInRange.Count > 0)
@@ -636,11 +638,13 @@ public class TowerStats : MonoBehaviour
 	public void CheckSupports()
 	{
 		DamageFromSupports = 0;
+		if(Damage !=0) {
 		foreach(GameObject support in SupportingTowers)
 		{
 			DamageFromSupports += support.GetComponentInChildren<TowerStats>().DamageSupport;
 		}
 		FinalDamage = Damage + DamageFromSupports;
+			}
 	}
 	private void Shoot(Transform target)
 	{
