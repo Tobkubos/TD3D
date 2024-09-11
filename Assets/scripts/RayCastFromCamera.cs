@@ -286,7 +286,7 @@ public class RayCastFromCamera : MonoBehaviour
     }
 
 
-	public void ShowSlider(Slider ParameterSlider, Slider UpgradeSlider, Slider AllSlider, TextMeshProUGUI ParameterTextValue, TextMeshProUGUI ParameterTextValueFromSupports,int maxValue, int Parameter, int FinalParameter, int UpgradeParameter, int ParameterFromSupports)
+	public void ShowSlider(String ParameterName, Slider ParameterSlider, Slider UpgradeSlider, Slider AllSlider, TextMeshProUGUI ParameterTextValue, TextMeshProUGUI ParameterTextValueFromSupports,int maxValue, int Parameter, int FinalParameter, int UpgradeParameter, int ParameterFromSupports)
 	{
         ParameterSlider.maxValue = maxValue;
         UpgradeSlider.value = 0;
@@ -303,7 +303,7 @@ public class RayCastFromCamera : MonoBehaviour
             supportsBonus.SetActive(true);
             ParameterTextValue.text = FinalParameter.ToString();
             ParameterTextValueFromSupports.gameObject.SetActive(true);
-            ParameterTextValueFromSupports.text = ParameterFromSupports.ToString();
+            ParameterTextValueFromSupports.text = ParameterName + "+" + ParameterFromSupports.ToString();
             AllSlider.value = FinalParameter;
             AllSlider.maxValue = maxValue;
         }
@@ -324,7 +324,7 @@ public class RayCastFromCamera : MonoBehaviour
             AllSlider.value = FinalParameter + UpgradeParameter;
         }
     }
-    public void ShowSlider(Slider ParameterSlider, Slider UpgradeSlider, Slider AllSlider, TextMeshProUGUI ParameterTextValue, TextMeshProUGUI ParameterTextValueFromSupports, int maxValue, float Parameter, float FinalParameter, float UpgradeParameter, float ParameterFromSupports)
+    public void ShowSlider(String ParameterName, Slider ParameterSlider, Slider UpgradeSlider, Slider AllSlider, TextMeshProUGUI ParameterTextValue, TextMeshProUGUI ParameterTextValueFromSupports, int maxValue, float Parameter, float FinalParameter, float UpgradeParameter, float ParameterFromSupports)
     {
         ParameterSlider.maxValue = maxValue;
         UpgradeSlider.value = 0;
@@ -341,7 +341,7 @@ public class RayCastFromCamera : MonoBehaviour
             supportsBonus.SetActive(true);
             ParameterTextValue.text = FinalParameter.ToString();
             ParameterTextValueFromSupports.gameObject.SetActive(true);
-            ParameterTextValueFromSupports.text = ParameterFromSupports.ToString();
+            ParameterTextValueFromSupports.text = ParameterName + "+" + ParameterFromSupports.ToString();
             AllSlider.value = FinalParameter;
             AllSlider.maxValue = maxValue;
         }
@@ -362,7 +362,7 @@ public class RayCastFromCamera : MonoBehaviour
             AllSlider.value = FinalParameter + UpgradeParameter;
         }
     }
-    public void ShowSpeed(Slider ParameterSlider, Slider UpgradeSlider, Slider AllSlider, TextMeshProUGUI ParameterTextValue, TextMeshProUGUI ParameterTextValueFromSupports, int maxValue, float Parameter, float FinalParameter, float UpgradeParameter, float ParameterFromSupports)
+    public void ShowSpeed(String ParameterName, Slider ParameterSlider, Slider UpgradeSlider, Slider AllSlider, TextMeshProUGUI ParameterTextValue, TextMeshProUGUI ParameterTextValueFromSupports, int maxValue, float Parameter, float FinalParameter, float UpgradeParameter, float ParameterFromSupports)
     {
         ParameterSlider.maxValue = maxValue;
         UpgradeSlider.value = 0;
@@ -379,7 +379,7 @@ public class RayCastFromCamera : MonoBehaviour
             supportsBonus.SetActive(true);
             ParameterTextValue.text = FinalParameter.ToString();
             ParameterTextValueFromSupports.gameObject.SetActive(true);
-            ParameterTextValueFromSupports.text = ParameterFromSupports.ToString();
+            ParameterTextValueFromSupports.text = ParameterName + "-" + ParameterFromSupports.ToString();
             AllSlider.value = maxValue - FinalParameter;
             AllSlider.maxValue = maxValue;
         }
@@ -390,11 +390,11 @@ public class RayCastFromCamera : MonoBehaviour
         {
             if (ParameterFromSupports == 0)
             {
-                ParameterTextValue.text = Parameter + " + " + UpgradeParameter;
+                ParameterTextValue.text = Parameter + " - " + UpgradeParameter;
             }
             else
             {
-                ParameterTextValue.text = FinalParameter.ToString() + " + " + UpgradeParameter;
+                ParameterTextValue.text = FinalParameter.ToString() + " - " + UpgradeParameter;
             }
             UpgradeSlider.value = maxValue - Parameter + UpgradeParameter;
             AllSlider.value = maxValue - FinalParameter + UpgradeParameter;
@@ -462,7 +462,7 @@ public class RayCastFromCamera : MonoBehaviour
 			Slider AllSlider = DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>();
 			Slider UpgradeSlider = DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>();
 
-			ShowSlider(DamageSlider, UpgradeSlider, AllSlider, TowerDamage, damageFromSupports, 30, ts.GetDamage(), ts.FinalDamage, ts.DamageUpgrade, ts.DamageFromSupports);
+			ShowSlider("Damage: ", DamageSlider, UpgradeSlider, AllSlider, TowerDamage, damageFromSupports, 30, ts.GetDamage(), ts.FinalDamage, ts.DamageUpgrade, ts.DamageFromSupports);
 		}
 		else 
 		{
@@ -475,7 +475,7 @@ public class RayCastFromCamera : MonoBehaviour
             Slider AllSlider = ElementalDamageSlider.transform.Find("All ElementalDamage Slider").GetComponent<Slider>();
             Slider UpgradeSlider = ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>();
 
-            ShowSlider(ElementalDamageSlider, UpgradeSlider, AllSlider, TowerElementalDamage, elementalDamageFromSupports, 30, ts.GetElementalDamage(), ts.FinalElementalDamage, ts.ElementalUpgrade, ts.ElementalDamageFromSupports);
+            ShowSlider("Elemental Damage: ", ElementalDamageSlider, UpgradeSlider, AllSlider, TowerElementalDamage, elementalDamageFromSupports, 30, ts.GetElementalDamage(), ts.FinalElementalDamage, ts.ElementalUpgrade, ts.ElementalDamageFromSupports);
         }
         else
         {
@@ -488,7 +488,7 @@ public class RayCastFromCamera : MonoBehaviour
             Slider AllSlider = DamageOverTimeSlider.transform.Find("All DamageOverTime Slider").GetComponent<Slider>();
             Slider UpgradeSlider = DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>();
 
-            ShowSlider(DamageOverTimeSlider, UpgradeSlider, AllSlider, TowerDamageOverTime, damageOverTimeFromSupports, 30, ts.GetDamageOverTime(), ts.FinalDamageOverTime, ts.DamageOverTimeUpgrade, ts.DamageOverTimeFromSupports);
+            ShowSlider("Damage Over Time: ", DamageOverTimeSlider, UpgradeSlider, AllSlider, TowerDamageOverTime, damageOverTimeFromSupports, 30, ts.GetDamageOverTime(), ts.FinalDamageOverTime, ts.DamageOverTimeUpgrade, ts.DamageOverTimeFromSupports);
         }
         else
         {
@@ -501,7 +501,7 @@ public class RayCastFromCamera : MonoBehaviour
             Slider AllSlider = SpeedSlider.transform.Find("All Speed Slider").GetComponent<Slider>();
             Slider UpgradeSlider = SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>();
 
-            ShowSpeed(SpeedSlider, UpgradeSlider, AllSlider, TowerSpeed, speedFromSupports, 4, ts.GetAttackSpeed(), ts.FinalCooldown, ts.SpeedUpgrade, ts.CooldownFromSupports);
+            ShowSpeed("Cooldown: ", SpeedSlider, UpgradeSlider, AllSlider, TowerSpeed, speedFromSupports, 4, ts.GetAttackSpeed(), ts.FinalCooldown, ts.SpeedUpgrade, ts.CooldownFromSupports);
         }
         else
         {
@@ -514,7 +514,7 @@ public class RayCastFromCamera : MonoBehaviour
             Slider AllSlider = RangeSlider.transform.Find("All Range Slider").GetComponent<Slider>();
             Slider UpgradeSlider = RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>();
 
-            ShowSlider(RangeSlider, UpgradeSlider, AllSlider, TowerRange, rangeFromSupports, 15, ts.GetRange(), ts.FinalRange, ts.RangeUpgrade, ts.RangeFromSupports);
+            ShowSlider("Range: ", RangeSlider, UpgradeSlider, AllSlider, TowerRange, rangeFromSupports, 15, ts.GetRange(), ts.FinalRange, ts.RangeUpgrade, ts.RangeFromSupports);
         }
         else
         {

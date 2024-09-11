@@ -74,13 +74,13 @@ public class EnemyInfo : MonoBehaviour
         }
     }
 
-    IEnumerator Fire(TowerStats ts)
+    IEnumerator Fire(BulletMovement bullet, TowerStats ts)
     {
         for (int i = 0; i < 20; i++)
         {
             //Debug.Log("PALE SIE");
             yield return new WaitForSeconds(0.2f);
-            DealDamageOverTime(ts.GetDamageOverTime()/20, ts);
+            DealDamageOverTime(bullet.DamageOverTime/20, ts);
         }
         yield return new WaitForSeconds(1);
 
@@ -122,7 +122,7 @@ public class EnemyInfo : MonoBehaviour
                             gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
                             gameObject.GetComponent<Renderer>().material.color = Color.red;
                             OnFire = true;
-                            StartCoroutine(Fire(other.GetComponent<BulletMovement>().ts));
+                            StartCoroutine(Fire(other.GetComponent<BulletMovement>(), other.GetComponent<BulletMovement>().ts));
                         }
                     }
 

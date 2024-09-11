@@ -8,6 +8,7 @@ public class BulletMovement : MonoBehaviour
     [SerializeField] float BulletSpeed;
     public float damage;
     public int Elementaldamage;
+    public float DamageOverTime;
     public string Type;
 	public Transform enemy;
 	public TowerStats ts;

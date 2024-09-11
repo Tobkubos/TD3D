@@ -51,8 +51,8 @@ public class TowerStats : MonoBehaviour
 	public int FinalDamage;
 	public int FinalElementalDamage;
     public int FinalDamageOverTime;
-    public int FinalCooldown;
-    public int FinalRange;
+    public float FinalCooldown;
+    public float FinalRange;
 
     public TowerSetupParams towerSetupParams;
 	public TowerUpgradeParams[] levels;
@@ -227,7 +227,7 @@ public class TowerStats : MonoBehaviour
     }
     public float GetRange()
     {
-        return Area.transform.localScale.x;
+        return Range;
     }
     public int GetUpgradePrice()
 	{
@@ -638,19 +638,56 @@ public class TowerStats : MonoBehaviour
 	public void CheckSupports()
 	{
 		DamageFromSupports = 0;
+		ElementalDamageFromSupports = 0;
+		DamageOverTimeFromSupports = 0;
+		RangeFromSupports = 0;
+		CooldownFromSupports = 0;
+
 		if(Damage !=0) {
-		foreach(GameObject support in SupportingTowers)
-		{
-			DamageFromSupports += support.GetComponentInChildren<TowerStats>().DamageSupport;
-		}
-		FinalDamage = Damage + DamageFromSupports;
+			foreach(GameObject support in SupportingTowers)
+			{
+				DamageFromSupports += support.GetComponentInChildren<TowerStats>().DamageSupport;
 			}
-	}
+		FinalDamage = Damage + DamageFromSupports;
+		}
+
+        if (ElementalDamage != 0)
+        {
+            foreach (GameObject support in SupportingTowers)
+            {
+				ElementalDamageFromSupports += support.GetComponentInChildren<TowerStats>().ElementalDamageSupport;
+            }
+            FinalElementalDamage = ElementalDamage + ElementalDamageFromSupports;
+        }
+
+        if (DamageOverTime != 0)
+        {
+            foreach (GameObject support in SupportingTowers)
+            {
+                DamageOverTimeFromSupports += support.GetComponentInChildren<TowerStats>().DamageOverTimeSupport;
+            }
+            FinalDamageOverTime = DamageOverTime + DamageOverTimeFromSupports;
+        }
+
+        foreach (GameObject support in SupportingTowers)
+        {
+            RangeFromSupports += support.GetComponentInChildren<TowerStats>().RangeSupport;
+        }
+        FinalRange = Range + RangeFromSupports;
+		Area.transform.localScale = new Vector3(FinalRange, Area.transform.localScale.y, FinalRange);
+
+        foreach (GameObject support in SupportingTowers)
+        {
+            CooldownFromSupports += support.GetComponentInChildren<TowerStats>().CooldownSupport;
+        }
+        FinalCooldown = Cooldown - CooldownFromSupports;
+    }
 	private void Shoot(Transform target)
 	{
 		GameObject bllt = Instantiate(Bullet, Turret.transform.position, Turret.transform.rotation);
 		bllt.GetComponent<BulletMovement>().damage = FinalDamage;
-        bllt.GetComponent<BulletMovement>().Elementaldamage = ElementalDamage;
+        bllt.GetComponent<BulletMovement>().Elementaldamage = FinalElementalDamage;
+        bllt.GetComponent<BulletMovement>().DamageOverTime = FinalDamageOverTime;
         bllt.GetComponent<BulletMovement>().enemy = target;
 		bllt.GetComponent<BulletMovement>().ts = this;
     }

@@ -5057,10 +5057,10 @@ MonoBehaviour:
   MaxExp: 0
   Price: 300
   DamageSupport: 1
-  ElementalDamageSupport: 0
-  DamageOverTimeSupport: 0
-  SpeedSupport: 0
-  RangeSupport: 0
+  ElementalDamageSupport: 1
+  DamageOverTimeSupport: 1
+  SpeedSupport: 0.05
+  RangeSupport: 1
 --- !u!1 &3722103817631556547
 GameObject:
   m_ObjectHideFlags: 0
