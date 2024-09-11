@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ChunkReveal2 : MonoBehaviour
 {
@@ -15,14 +16,16 @@ public class ChunkReveal2 : MonoBehaviour
 	List<GameObject> MonsterPathCheckPoints = new List<GameObject> { };
 	List<GameObject> AllPathTiles = new List<GameObject> { };
     List<GameObject> Obstacles = new List<GameObject> { };
+    List<GameObject> BonusTiles = new List<GameObject> { };
     public GameObject CheckPoint;
 	public GameObject Path;
 	public GameObject BuyButton;
 	public GameObject ChunkPlane;
 	public GameObject Obstacle;
+    public GameObject BonusTile;
 
 
-	private float elevation = 0f;
+    private float elevation = 0f;
 	private int PD = 2;
 	private int count = 1;
 	private int SortBy = 1;
@@ -66,7 +69,6 @@ public class ChunkReveal2 : MonoBehaviour
 					temp.name = "CheckPoint" + count;
 					count++;
 					CheckPoints.Add(temp);
-					//AllPathTiles.Add(temp);
 				}
 			}
 
@@ -293,34 +295,42 @@ public class ChunkReveal2 : MonoBehaviour
             #endregion
         }
 
-		//wygeneruj przszkody
+		//wygeneruj przszkody i klocki bonusowe
 
 		int NumOfObstacles = Random.Range(5, 20);
 		Vector3 chunkCord = this.gameObject.transform.position;
-
-		while(Obstacles.Count < NumOfObstacles){
+        while (Obstacles.Count < NumOfObstacles){
 			float x = Random.Range(0, chunkSize) + 0.5f;
 			float z = Random.Range(0, chunkSize) + 0.5f;
             bool isPositionOccupied = false;
 
             foreach (GameObject Path in AllPathTiles)
             {
-                if (Path.transform.localPosition == new Vector3(x, elevation, z) || Path.transform.localPosition == new Vector3(x, -0.1f, z))
+                if (Path.transform.localPosition == new Vector3(x, elevation, z) || Path.transform.localPosition == new Vector3(x, -0.1f, z) || Path.transform.localPosition == new Vector3(x, 0, z))
                 {
                     isPositionOccupied = true;
                     break;
                 }
             }
 
-            if (!isPositionOccupied)
-            {
-                GameObject obst = Instantiate(Obstacle, new Vector3(chunkCord.x + x, -0.1f, chunkCord.z + z), Quaternion.identity, this.gameObject.transform);
-				obst.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, Random.Range(0,360), 0);
-                Obstacles.Add(obst);
-                AllPathTiles.Add(obst);
-            }
+			if (!isPositionOccupied)
+			{
+				int bonusTileChance = Random.Range(0, 100);
+				if (bonusTileChance > 50)
+				{
+                    GameObject bonusTile = Instantiate(BonusTile, new Vector3(chunkCord.x + x, 0, chunkCord.z + z), Quaternion.identity, this.gameObject.transform);
+                    BonusTiles.Add(bonusTile);
+                    AllPathTiles.Add(bonusTile);
+                }
+				else
+				{
+					GameObject obst = Instantiate(Obstacle, new Vector3(chunkCord.x + x, -0.1f, chunkCord.z + z), Quaternion.identity, this.gameObject.transform);
+					obst.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+					Obstacles.Add(obst);
+					AllPathTiles.Add(obst);
+				}
+			}
         }
-		
     }
 
 	public void Disappear()

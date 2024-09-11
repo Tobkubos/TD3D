@@ -294,7 +294,7 @@ public class RayCastFromCamera : MonoBehaviour
 
         if (ParameterFromSupports == 0)
         {
-            ParameterTextValue.text = Parameter.ToString();
+            ParameterTextValue.text = FinalParameter.ToString();
             ParameterTextValueFromSupports.gameObject.SetActive(false);
             AllSlider.value = 0;
         }
@@ -309,12 +309,18 @@ public class RayCastFromCamera : MonoBehaviour
         }
 
         ParameterSlider.value = Parameter;
+		if(FinalParameter > 0)
+		{
+			AllSlider.value = FinalParameter;
+            AllSlider.maxValue = maxValue;
+            ParameterTextValue.text = FinalParameter.ToString();
+        }
 
         if (Visualize && UpgradeParameter > 0)
         {
             if (ParameterFromSupports == 0)
             {
-                ParameterTextValue.text = Parameter + " + " + UpgradeParameter;
+                ParameterTextValue.text = FinalParameter.ToString() + " + " + UpgradeParameter;
             }
             else
             {
@@ -347,12 +353,17 @@ public class RayCastFromCamera : MonoBehaviour
         }
 
         ParameterSlider.value = Parameter;
-
+        if (FinalParameter > 0)
+        {
+            AllSlider.value = FinalParameter;
+            AllSlider.maxValue = maxValue;
+            ParameterTextValue.text = FinalParameter.ToString();
+        }
         if (Visualize && UpgradeParameter > 0)
         {
             if (ParameterFromSupports == 0)
             {
-                ParameterTextValue.text = Parameter + " + " + UpgradeParameter;
+                ParameterTextValue.text = FinalParameter.ToString() + " + " + UpgradeParameter;
             }
             else
             {
@@ -385,12 +396,17 @@ public class RayCastFromCamera : MonoBehaviour
         }
 
         ParameterSlider.value = maxValue - Parameter;
-
+        if (FinalParameter > 0)
+        {
+            AllSlider.value = maxValue - FinalParameter;
+            AllSlider.maxValue = maxValue;
+            ParameterTextValue.text = FinalParameter.ToString();
+        }
         if (Visualize && UpgradeParameter > 0)
         {
             if (ParameterFromSupports == 0)
             {
-                ParameterTextValue.text = Parameter + " - " + UpgradeParameter;
+                ParameterTextValue.text = FinalParameter.ToString() + " - " + UpgradeParameter;
             }
             else
             {

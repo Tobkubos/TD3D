@@ -61,6 +61,7 @@ public class TowerStats : MonoBehaviour
 
 	[SerializeField] GameObject[] Towers;
     [SerializeField] List<GameObject> SupportingTowers = new List<GameObject>();
+	public GameObject BonusTile;
     public List<GameObject> EnemiesInRange = new List<GameObject>();
     public List<GameObject> TowersInRange = new List<GameObject>();
     private List<GameObject> TopEnemies = new List<GameObject>();
@@ -140,8 +141,8 @@ public class TowerStats : MonoBehaviour
 			{
 				MaxExp = 0;
 			}
-			
 
+			CheckSupports();
             rot = TWR.transform.rotation;
 			Destroy(TWR);
 			StopAllCoroutines();
@@ -340,7 +341,7 @@ public class TowerStats : MonoBehaviour
 
 						if (Time.time > nextShoot && EnemiesInRange.Count != 0)
 						{
-							nextShoot = Time.time + Cooldown;
+							nextShoot = Time.time + FinalCooldown;
 							//
 							Shoot(target.transform);
 							if (Type == "Normal" && ShootAnim != null)
@@ -468,7 +469,7 @@ public class TowerStats : MonoBehaviour
             {
                 if (TopEnemies.Count > 0 && Time.time > nextShoot)
                 {
-                    nextShoot = Time.time + Cooldown;
+                    nextShoot = Time.time + FinalCooldown;
 
                     // Zmienna pomocnicza
                     List<Vector3> positions = new List<Vector3> { tower != null ? tower.transform.position : Vector3.zero };
@@ -681,6 +682,20 @@ public class TowerStats : MonoBehaviour
             CooldownFromSupports += support.GetComponentInChildren<TowerStats>().CooldownSupport;
         }
         FinalCooldown = Cooldown - CooldownFromSupports;
+
+
+		if(BonusTile != null)
+		{
+			Debug.Log("BONUS");
+			FinalDamage += BonusTile.GetComponent<BonusTile>().Damage;
+			FinalElementalDamage += BonusTile.GetComponent<BonusTile>().ElementalDamage;
+			FinalDamageOverTime += BonusTile.GetComponent<BonusTile>().DamageOverTime;
+			FinalRange += BonusTile.GetComponent<BonusTile>().Range;
+            Area.transform.localScale = new Vector3(FinalRange, Area.transform.localScale.y, FinalRange);
+            FinalCooldown -= BonusTile.GetComponent<BonusTile>().Cooldown;
+        }
+
+		if (FinalCooldown < 0.1f) FinalCooldown = 0.1f;
     }
 	private void Shoot(Transform target)
 	{

@@ -39,6 +39,7 @@ public class AreaTrigger : MonoBehaviour
                 towerStats.OnEnemyEnterRange(collision.gameObject);
 			}
         }
+
         if (towerStats.Support && collision.gameObject.CompareTag("tower") && !collision.gameObject.GetComponentInChildren<TowerStats>().hologram)
         {
             // Sprawdzenie, czy wie¿a nie jest w tablicy aby nie dodawaæ jej wielokrotnie
