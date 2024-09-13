@@ -60,7 +60,7 @@ public class TowerStats : MonoBehaviour
     public bool hologram;
 
 	[SerializeField] GameObject[] Towers;
-    [SerializeField] List<GameObject> SupportingTowers = new List<GameObject>();
+    public List<GameObject> SupportingTowers = new List<GameObject>();
 	public GameObject BonusTile;
     public List<GameObject> EnemiesInRange = new List<GameObject>();
     public List<GameObject> TowersInRange = new List<GameObject>();

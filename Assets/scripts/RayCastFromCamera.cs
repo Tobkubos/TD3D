@@ -86,6 +86,12 @@ public class RayCastFromCamera : MonoBehaviour
     public TextMeshProUGUI damageOverTimeFromSupports;
     public TextMeshProUGUI speedFromSupports;
 	public TextMeshProUGUI rangeFromSupports;
+
+
+    //
+    public TextMeshProUGUI CursorInfotext;
+    public GameObject CursorInfo;
+    private BonusTile BonusTile;
     //
 
     public Vector3 cordinate;
@@ -104,7 +110,8 @@ public class RayCastFromCamera : MonoBehaviour
     public TowerStats ts = null;
 	void Start()
 	{
-		TowerStatsCanva.SetActive(false);
+        CursorInfo.SetActive(false);
+        TowerStatsCanva.SetActive(false);
 		temp = Instantiate(_tilePrefab, new Vector3(0.5f, 0, 0.5f), Quaternion.identity);
 		if (camera == null)
 		{
@@ -112,18 +119,40 @@ public class RayCastFromCamera : MonoBehaviour
 		}
 	}
 
+	void ShowBonusTileInfo(BonusTile BonusTile)
+	{
+        CursorInfotext.text = "";
+        CursorInfo.SetActive(true);
+        if (BonusTile.Damage != 0)
+        {
+            CursorInfotext.text += "Physical Damage +" + BonusTile.Damage.ToString() + "\n";
+        }
+        if (BonusTile.ElementalDamage != 0)
+        {
+            CursorInfotext.text += "Elemental Damage +" + BonusTile.ElementalDamage.ToString() + "\n";
+        }
+
+        if (BonusTile.DamageOverTime != 0)
+        {
+            CursorInfotext.text += "Damage Over Time +" + BonusTile.DamageOverTime.ToString() + "\n";
+        }
+
+        if (BonusTile.Range != 0)
+        {
+            CursorInfotext.text += "Range +" + BonusTile.Range.ToString() + "\n";
+        }
+
+        if (BonusTile.Cooldown != 0)
+        {
+            CursorInfotext.text += "Cooldown +" + BonusTile.Cooldown.ToString() + "\n";
+        }
+    }
 
 	void Update()
 	{
 		TotalCash.text = "CASH:   " + money.ToString();
 		TotalLives.text = lives.ToString();
 
-		if (ts != null)
-		{
-			//Debug.Log(ts.GetName());
-		}
-		//Debug.Log(ActiveTower);
-		//GAME OVER
 		if (lives <= 0)
 		{
 			SceneManager.LoadScene(0);
@@ -139,12 +168,25 @@ public class RayCastFromCamera : MonoBehaviour
         if (ts != null)
         {
             ShowTowerInfo();
+            if(ts.BonusTile != null)
+            {
+                BonusTile = ts.BonusTile.GetComponent<BonusTile>();
+            }
         }
 		else
 		{
 			TowerStatsCanva.SetActive(false);
 		}
-		
+
+
+        if (BonusTile != null)
+        {
+            ShowBonusTileInfo(BonusTile);
+        }
+        else
+        {
+            CursorInfo.SetActive(false);
+        }
 
 
         if (!EventSystem.current.IsPointerOverGameObject())
@@ -162,11 +204,13 @@ public class RayCastFromCamera : MonoBehaviour
 
 			if (Physics.Raycast(ray, out hit))
 			{
+                //klocek poza plansza --> klocek na plansze --> aktywacja
 				if (!temp.active)
 				{
 					temp.SetActive(true);
 				}
 
+                //wieza poza plansza --> wieza na plansze --> aktywacja
 				if ( tower!= null && !tower.active)
 				{
 					tower.SetActive(true);
@@ -186,8 +230,17 @@ public class RayCastFromCamera : MonoBehaviour
 					TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
 				}
 
+				if (hit.collider.CompareTag("bonusTile"))
+				{
+                    BonusTile = hit.collider.GetComponent<BonusTile>();
+                }
+                else
+                {
+                    BonusTile = null;
+                }
 
-				if (hit.collider.CompareTag("chunk"))
+
+				if (hit.collider.CompareTag("chunk") || hit.collider.CompareTag("bonusTile"))
 				{
 					//POSTAWIENIE WIEZY PO NACISNIECIU LPM
 					if (Input.GetMouseButtonDown(0))
@@ -536,132 +589,6 @@ public class RayCastFromCamera : MonoBehaviour
         {
             RangeInfo.SetActive(false);
         }
-        /*
-            DamageSlider.maxValue = maxValue;
-            UpgradeSlider.value = 0;
-            UpgradeSlider.maxValue = maxValue;
-
-			if (ts.DamageFromSupports == 0)
-			{
-				TowerDamage.text = ts.GetDamage().ToString();
-				AllSlider.value = 0;
-			}
-			if (ts.DamageFromSupports != 0)
-			{
-				TowerDamage.text = ts.FinalDamage.ToString();
-				damageFromSupports.text = ts.DamageFromSupports.ToString();
-				AllSlider.value = ts.FinalDamage;
-				AllSlider.maxValue = maxValue;
-			}
-
-			DamageSlider.value = ts.GetDamage();
-
-            if (Visualize && ts.DamageUpgrade > 0)
-			{
-				if (ts.DamageFromSupports == 0)
-				{
-					TowerDamage.text = ts.GetDamage() + " + " + ts.DamageUpgrade;
-				}
-				else
-				{
-                    TowerDamage.text = ts.FinalDamage.ToString() + " + " + ts.DamageUpgrade;
-                }
-				UpgradeSlider.value = ts.GetDamage() + ts.DamageUpgrade;
-				AllSlider.value = ts.FinalDamage + ts.DamageUpgrade;
-            }
-		}
-		else{
-			DamageInfo.SetActive(false);
-		}
-		*/
-
-
-        //elemental damage
-        /*
-        if (ts.GetElementalDamage() != 0)
-		{
-			ElementalDamageInfo.SetActive(true);
-			TowerElementalDamage.text = ts.GetElementalDamage().ToString();
-			ElementalDamageSlider.value = ts.GetElementalDamage();
-			ElementalDamageSlider.maxValue = maxValue;
-			ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().value = 0;
-			ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
-			if (Visualize && ts.ElementalUpgrade > 0)
-			{
-				TowerElementalDamage.text = ts.GetElementalDamage() + " + " + ts.ElementalUpgrade;
-				ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>().value = ts.GetElementalDamage() + ts.ElementalUpgrade;
-			}
-		}
-		else
-		{
-			ElementalDamageInfo.SetActive(false);
-		}
-
-        //damage over time
-        if (ts.GetDamageOverTime() != 0)
-		{
-			DamageOverTimeInfo.SetActive(true);
-			TowerDamageOverTime.text = ts.GetDamageOverTime().ToString();
-			DamageOverTimeSlider.value = ts.GetDamageOverTime();
-			DamageOverTimeSlider.maxValue = maxValue;
-			DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().value = 0;
-			DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().maxValue = maxValue;
-			if (Visualize && ts.DamageOverTimeUpgrade > 0)
-			{
-				TowerDamageOverTime.text = ts.GetDamageOverTime() + " + " + ts.DamageOverTimeUpgrade;
-				DamageOverTimeSlider.transform.Find("damage over time upgrade Slider").GetComponent<Slider>().value = ts.GetDamageOverTime() + ts.DamageOverTimeUpgrade;
-			}
-		}
-		else
-		{
-			DamageOverTimeInfo.SetActive(false);
-		}
-
-
-		//attack speed
-		if (ts.GetAttackSpeed() != 0)
-		{
-			SpeedInfo.SetActive(true);
-			TowerSpeed.text = ts.GetAttackSpeed().ToString();
-			SpeedSlider.value = 4 - ts.GetAttackSpeed();
-			SpeedSlider.maxValue = 4;
-			SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 0;
-			SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().maxValue = 4;
-			if (Visualize && ts.SpeedUpgrade > 0)
-			{
-				TowerSpeed.text = ts.GetAttackSpeed() + " - " + ts.SpeedUpgrade;
-				SpeedSlider.transform.Find("attack speed upgrade Slider").GetComponent<Slider>().value = 4 - ts.GetAttackSpeed() + ts.SpeedUpgrade;
-			}
-		}
-		else
-		{
-			SpeedInfo.SetActive(false);
-		}
-
-
-		//range
-		if (ts.GetRange() != 0)
-		{
-			RangeInfo.SetActive(true);
-			TowerRange.text = ts.GetRange().ToString();
-			RangeSlider.value = ts.GetRange();
-			RangeSlider.maxValue = 10;
-			RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = 0;
-			RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().maxValue = 10;
-			if (Visualize && ts.RangeUpgrade > 0)
-			{
-				TowerRange.text = ts.GetRange() + " + " + ts.RangeUpgrade;
-				RangeSlider.transform.Find("range upgrade Slider").GetComponent<Slider>().value = ts.GetRange() + ts.RangeUpgrade;
-			}
-		}
-		else
-		{
-			RangeInfo.SetActive(false);
-		}
-		*/
-		
-
-
 
         //SUPPORT DAMAGE
         if (ts.DamageSupport != 0)

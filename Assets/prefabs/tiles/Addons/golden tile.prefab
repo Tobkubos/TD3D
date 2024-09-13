@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5183281614400719605}
   - component: {fileID: 6502800531967112468}
   - component: {fileID: 6627971515291438546}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4896090203661976725}
   - component: {fileID: 6931467027228387419}
   - component: {fileID: 2031216981170771521}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: golden tile
   m_TagString: bonusTile
   m_Icon: {fileID: 0}
@@ -203,11 +203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4583f31660d5fa947b3aee2712b45340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 2
-  ElementalDamage: 3
-  DamageOverTime: 1
-  Range: 2.2
-  Cooldown: 0.4
+  Damage: 0
+  ElementalDamage: 0
+  DamageOverTime: 0
+  Range: 0
+  Cooldown: 0
 --- !u!114 &2031216981170771521
 MonoBehaviour:
   m_ObjectHideFlags: 0

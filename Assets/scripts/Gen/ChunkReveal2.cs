@@ -316,7 +316,7 @@ public class ChunkReveal2 : MonoBehaviour
 			if (!isPositionOccupied)
 			{
 				int bonusTileChance = Random.Range(0, 100);
-				if (bonusTileChance > 50)
+				if (bonusTileChance > 80)
 				{
                     GameObject bonusTile = Instantiate(BonusTile, new Vector3(chunkCord.x + x, 0, chunkCord.z + z), Quaternion.identity, this.gameObject.transform);
                     BonusTiles.Add(bonusTile);
