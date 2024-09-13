@@ -60,7 +60,7 @@ public class TowerStats : MonoBehaviour
     public bool hologram;
 
 	[SerializeField] GameObject[] Towers;
-    public List<GameObject> SupportingTowers = new List<GameObject>();
+    [SerializeField] List<GameObject> SupportingTowers = new List<GameObject>();
 	public GameObject BonusTile;
     public List<GameObject> EnemiesInRange = new List<GameObject>();
     public List<GameObject> TowersInRange = new List<GameObject>();
@@ -307,7 +307,7 @@ public class TowerStats : MonoBehaviour
 						}
 
 						float enemyDist = 0;
-						if ((EnemiesInRange[i] != null && Type == "Normal") || (Type == "Fire" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnFire == false) || (Type == "Nature" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnStun == false))
+						if (EnemiesInRange[i] != null && ((Type == "Normal") || (Type == "Fire" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnFire == false) || (Type == "Nature" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnStun == false)))
 						{
 							enemyDist = EnemiesInRange[i].GetComponent<EnemyInfo>().distanceTravelled;
 						}
@@ -328,7 +328,7 @@ public class TowerStats : MonoBehaviour
 					target = null;
 				}
 
-				if (target != null)
+				if (target != null && ((Type == "Normal") || (Type == "Fire" && target.GetComponent<EnemyInfo>().OnFire == false) || (Type == "Nature" && target.GetComponent<EnemyInfo>().OnStun == false)))
 				{
 					Vector3 direction = target.transform.position - Turret.transform.position;
 					direction.y = 0;
