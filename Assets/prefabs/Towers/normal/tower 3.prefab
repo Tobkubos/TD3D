@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Support: 0
   Name: Flamethrower
-  Description: Fires a bullet that ignites enemy for 5 seconds dealing Damage Over
+  Description: Fires a bullet that ignites enemy for 4 seconds dealing Damage Over
     time.
   Type: Fire
   DamageSupport: 0

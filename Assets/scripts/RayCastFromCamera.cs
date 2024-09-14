@@ -64,6 +64,14 @@ public class RayCastFromCamera : MonoBehaviour
     public Slider DamageSupportSlider;
     public TextMeshProUGUI TowerDamageSupport;
 
+    public GameObject ElementalDamageSupportInfo;
+    public Slider ElementalDamageSupportSlider;
+    public TextMeshProUGUI TowerElementalDamageSupport;
+
+    public GameObject DamageOverTimeSupportInfo;
+    public Slider DamageOverTimeSupportSlider;
+    public TextMeshProUGUI TowerDamageOverTimeSupport;
+
     public GameObject SpeedSupportInfo;
     public Slider SpeedSupportSlider;
     public TextMeshProUGUI TowerSpeedSupport;
@@ -601,6 +609,30 @@ public class RayCastFromCamera : MonoBehaviour
 		{
 			DamageSupportInfo.SetActive(false);
 		}
+
+        //SUPPORT ELEMENTAL DAMAGE
+        if (ts.ElementalDamageSupport != 0)
+        {
+            ElementalDamageSupportInfo.SetActive(true);
+            ElementalDamageSupportSlider.value = ts.ElementalDamageSupport;
+            TowerElementalDamageSupport.text = ts.ElementalDamageSupport.ToString();
+        }
+        else
+        {
+            ElementalDamageSupportInfo.SetActive(false);
+        }
+
+        //SUPPORT DAMAGE OVER TIME
+        if (ts.DamageOverTimeSupport != 0)
+        {
+            DamageOverTimeSupportInfo.SetActive(true);
+            DamageOverTimeSupportSlider.value = ts.DamageOverTimeSupport;
+            TowerDamageOverTimeSupport.text = ts.DamageOverTimeSupport.ToString();
+        }
+        else
+        {
+            DamageOverTimeSupportInfo.SetActive(false);
+        }
 
         //RANGE DAMAGE
         if (ts.RangeSupport != 0)

@@ -5056,9 +5056,9 @@ MonoBehaviour:
   Range: 2.9
   MaxExp: 0
   Price: 300
-  DamageSupport: 1
+  DamageSupport: 0
   ElementalDamageSupport: 0
-  DamageOverTimeSupport: 0
+  DamageOverTimeSupport: 1
   SpeedSupport: 0
   RangeSupport: 0
 --- !u!1 &3722103817631556547
@@ -5156,7 +5156,7 @@ GameObject:
   - component: {fileID: 8355985087851574127}
   - component: {fileID: 5023755228375063173}
   m_Layer: 0
-  m_Name: support 1
+  m_Name: support 3
   m_TagString: tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
