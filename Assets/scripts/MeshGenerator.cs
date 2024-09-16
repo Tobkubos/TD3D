@@ -69,5 +69,6 @@ public class MeshGenerator : MonoBehaviour
 		meshCollider.sharedMesh = mesh; // Ustawienie nowej siatki w colliderze
 
 		meshCollider.transform.localScale = new Vector3(1,0.05f,1);
+		meshCollider.layerOverridePriority = -2;
 	}
 }

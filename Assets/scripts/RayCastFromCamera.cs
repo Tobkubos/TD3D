@@ -84,6 +84,7 @@ public class RayCastFromCamera : MonoBehaviour
 
     public TextMeshProUGUI TowerUpgradePrice;
 	public Button TowerUpgrade;
+    public TextMeshProUGUI TowerUpgradeText;
 
     public TextMeshProUGUI TowerSellIncome;
     public Button TowerSell;
@@ -355,7 +356,7 @@ public class RayCastFromCamera : MonoBehaviour
 
         if (ParameterFromSupports == 0)
         {
-            ParameterTextValue.text = FinalParameter.ToString();
+            ParameterTextValue.text = Parameter.ToString();
             ParameterTextValueFromSupports.gameObject.SetActive(false);
             AllSlider.value = 0;
         }
@@ -490,7 +491,10 @@ public class RayCastFromCamera : MonoBehaviour
 		{
 			TowerLevel.text = "TIER " + (ts.GetLevel() + 1).ToString();
 		}
-
+        else
+        {
+            TowerLevel.text = "";
+        }
 
 		//exp
 		if (ts.Support) 
@@ -515,6 +519,7 @@ public class RayCastFromCamera : MonoBehaviour
 		//type
         TowerType.text = "type: " + ts.GetType();
 
+        /*
 		if(ts.DamageFromSupports == 0)
 		{
 			damageFromSupports.gameObject.SetActive(false);
@@ -523,6 +528,7 @@ public class RayCastFromCamera : MonoBehaviour
 		{
 			damageFromSupports.gameObject.SetActive(true);
 		}
+        */
 
 		//damage
 
@@ -538,8 +544,8 @@ public class RayCastFromCamera : MonoBehaviour
 			DamageInfo.SetActive(true);
 			Slider AllSlider = DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>();
 			Slider UpgradeSlider = DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>();
-
-			ShowSlider("Damage: ", DamageSlider, UpgradeSlider, AllSlider, TowerDamage, damageFromSupports, 30, ts.GetDamage(), ts.FinalDamage, ts.DamageUpgrade, ts.DamageFromSupports);
+            Debug.Log(ts.FinalDamage + " " + ts.GetDamage());
+            ShowSlider("Damage: ", DamageSlider, UpgradeSlider, AllSlider, TowerDamage, damageFromSupports, 30, ts.GetDamage(), ts.FinalDamage, ts.DamageUpgrade, ts.DamageFromSupports);
 		}
 		else 
 		{
@@ -551,7 +557,7 @@ public class RayCastFromCamera : MonoBehaviour
             ElementalDamageInfo.SetActive(true);
             Slider AllSlider = ElementalDamageSlider.transform.Find("All ElementalDamage Slider").GetComponent<Slider>();
             Slider UpgradeSlider = ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>();
-
+            Debug.Log(ts.FinalElementalDamage + " " + ts.GetElementalDamage());
             ShowSlider("Elemental Damage: ", ElementalDamageSlider, UpgradeSlider, AllSlider, TowerElementalDamage, elementalDamageFromSupports, 30, ts.GetElementalDamage(), ts.FinalElementalDamage, ts.ElementalUpgrade, ts.ElementalDamageFromSupports);
         }
         else
@@ -585,7 +591,7 @@ public class RayCastFromCamera : MonoBehaviour
             SpeedInfo.SetActive(false);
         }
 
-        if (ts.GetRange() != 0)
+        if (ts.GetRange() != 0 && ts.Support == false)
         {
             RangeInfo.SetActive(true);
             Slider AllSlider = RangeSlider.transform.Find("All Range Slider").GetComponent<Slider>();
@@ -681,7 +687,8 @@ public class RayCastFromCamera : MonoBehaviour
         TowerSellIncome.text = "for " + ts.GetSellIncome().ToString();
 		if (!ts.Support && ts.GetLevel() < 3)
 		{
-			TowerUpgrade.onClick.AddListener(ts.Upgrade);
+            TowerUpgrade.gameObject.SetActive(true);
+            TowerUpgrade.onClick.AddListener(ts.Upgrade);
 			TowerUpgradePrice.text = ts.GetUpgradePrice().ToString();
             TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "UPGRADE";
             TowerUpgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = UnityEngine.Color.black;
@@ -699,12 +706,14 @@ public class RayCastFromCamera : MonoBehaviour
 			ExpSlider.maxValue = 1;
             ExpSlider.value = 1;
             TowerExperience.text = "MAX";
+
+            TowerUpgrade.gameObject.SetActive(false);
         }
 
 		if (ts.Support)
 		{
-
-		}
+            TowerUpgrade.gameObject.SetActive(false);
+        }
             
     }
 

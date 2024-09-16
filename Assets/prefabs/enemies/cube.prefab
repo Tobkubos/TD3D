@@ -162,6 +162,7 @@ MonoBehaviour:
   dodge: 0
   speed: 1
   cash: 3
+  Boss: 0
   hpBar: {fileID: 2904355265513327538}
   OnFire: 0
   OnStun: 0
@@ -171,6 +172,7 @@ MonoBehaviour:
   StunParent: {fileID: 4460500550623271551}
   ps: {fileID: 2036162825791507954}
   distanceTravelled: 0
+  TowersToAttack: []
 --- !u!33 &4348652786632811664
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -256,6 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 5847157553214463547}
   end: {fileID: 0}
+  GroundJump: 0
 --- !u!195 &5847157553214463547
 NavMeshAgent:
   m_ObjectHideFlags: 0

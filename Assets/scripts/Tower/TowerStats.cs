@@ -172,7 +172,7 @@ public class TowerStats : MonoBehaviour
 		Range = towerSetupParams.Range;
 		Area.transform.localScale = new Vector3(towerSetupParams.Range, 0.1f, towerSetupParams.Range);
 		SellPrice = towerSetupParams.Price / 2;
-		FinalDamage = Damage + DamageFromSupports;
+		//FinalDamage = Damage + DamageFromSupports;
 
 		if (!Support) { 
 			UpgradePrice = levels[Level].UpgradePrice;
