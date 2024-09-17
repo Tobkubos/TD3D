@@ -544,7 +544,6 @@ public class RayCastFromCamera : MonoBehaviour
 			DamageInfo.SetActive(true);
 			Slider AllSlider = DamageSlider.transform.Find("All Damage Slider").GetComponent<Slider>();
 			Slider UpgradeSlider = DamageSlider.transform.Find("damage upgrade Slider").GetComponent<Slider>();
-            Debug.Log(ts.FinalDamage + " " + ts.GetDamage());
             ShowSlider("Damage: ", DamageSlider, UpgradeSlider, AllSlider, TowerDamage, damageFromSupports, 30, ts.GetDamage(), ts.FinalDamage, ts.DamageUpgrade, ts.DamageFromSupports);
 		}
 		else 
@@ -557,7 +556,6 @@ public class RayCastFromCamera : MonoBehaviour
             ElementalDamageInfo.SetActive(true);
             Slider AllSlider = ElementalDamageSlider.transform.Find("All ElementalDamage Slider").GetComponent<Slider>();
             Slider UpgradeSlider = ElementalDamageSlider.transform.Find("elemental damage upgrade Slider").GetComponent<Slider>();
-            Debug.Log(ts.FinalElementalDamage + " " + ts.GetElementalDamage());
             ShowSlider("Elemental Damage: ", ElementalDamageSlider, UpgradeSlider, AllSlider, TowerElementalDamage, elementalDamageFromSupports, 30, ts.GetElementalDamage(), ts.FinalElementalDamage, ts.ElementalUpgrade, ts.ElementalDamageFromSupports);
         }
         else

@@ -7,8 +7,6 @@ public class SimpleMovement : MonoBehaviour
 {
     public NavMeshAgent agent;
 	public GameObject end;
-	
-
 	private void Start()
 	{
 		if (end == null)

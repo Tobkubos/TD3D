@@ -80,6 +80,7 @@ public class TowerStats : MonoBehaviour
 	float Cooldown = 0f;
 	float nextShoot = 0f;
 
+	public bool CanShoot = true;
 	private int counter = 0;
 	GameObject manager;
 
@@ -294,67 +295,67 @@ public class TowerStats : MonoBehaviour
 
 			//WYBIERANIE CELU i STRZELANIE
 			#region normal
-			if (Type == "Normal" || Type == "Fire" || Type == "Nature")
-			{
-				if (EnemiesInRange.Count > 0)
+
+				if (Type == "Normal" || Type == "Fire" || Type == "Nature")
 				{
-					for (int i = 0; i < EnemiesInRange.Count; i++)
+					if (EnemiesInRange.Count > 0)
 					{
-						if (EnemiesInRange[i] == null)
+						for (int i = 0; i < EnemiesInRange.Count; i++)
 						{
-							EnemiesInRange.RemoveAt(i);
-							continue;
-						}
-
-						float enemyDist = 0;
-						if (EnemiesInRange[i] != null && ((Type == "Normal") || (Type == "Fire" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnFire == false) || (Type == "Nature" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnStun == false)))
-						{
-							enemyDist = EnemiesInRange[i].GetComponent<EnemyInfo>().distanceTravelled;
-						}
-
-						if (enemyDist > dist)
-						{
-							dist = enemyDist;
-
-							if (EnemiesInRange[i] != null)
+							if (EnemiesInRange[i] == null)
 							{
-								target = EnemiesInRange[i];
+								EnemiesInRange.RemoveAt(i);
+								continue;
+							}
+
+							float enemyDist = 0;
+							if (EnemiesInRange[i] != null && ((Type == "Normal") || (Type == "Fire" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnFire == false) || (Type == "Nature" && EnemiesInRange[i].GetComponent<EnemyInfo>().OnStun == false)))
+							{
+								enemyDist = EnemiesInRange[i].GetComponent<EnemyInfo>().distanceTravelled;
+							}
+
+							if (enemyDist > dist)
+							{
+								dist = enemyDist;
+
+								if (EnemiesInRange[i] != null)
+								{
+									target = EnemiesInRange[i];
+								}
+							}
+						}
+					}
+					else
+					{
+						target = null;
+					}
+
+					if (target != null && ((Type == "Normal") || (Type == "Fire" && target.GetComponent<EnemyInfo>().OnFire == false) || (Type == "Nature" && target.GetComponent<EnemyInfo>().OnStun == false)))
+					{
+						Vector3 direction = target.transform.position - Turret.transform.position;
+						direction.y = 0;
+
+						if (direction != Vector3.zero)
+						{
+							Quaternion targetRotation = Quaternion.LookRotation(direction);
+							transform.rotation = targetRotation;
+							Debug.DrawRay(transform.position, direction, Color.red);
+
+							if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+							{
+								nextShoot = Time.time + FinalCooldown;
+								//
+								Shoot(target.transform);
+								if (Type == "Normal" && ShootAnim != null)
+								{
+									ShootAnim.Rewind();
+									ShootAnim.Play("shooting");
+								}
+
 							}
 						}
 					}
 				}
-				else
-				{
-					target = null;
-				}
-
-				if (target != null && ((Type == "Normal") || (Type == "Fire" && target.GetComponent<EnemyInfo>().OnFire == false) || (Type == "Nature" && target.GetComponent<EnemyInfo>().OnStun == false)))
-				{
-					Vector3 direction = target.transform.position - Turret.transform.position;
-					direction.y = 0;
-
-					if (direction != Vector3.zero)
-					{
-						Quaternion targetRotation = Quaternion.LookRotation(direction);
-						transform.rotation = targetRotation;
-						Debug.DrawRay(transform.position, direction, Color.red);
-
-						if (Time.time > nextShoot && EnemiesInRange.Count != 0)
-						{
-							nextShoot = Time.time + FinalCooldown;
-							//
-							Shoot(target.transform);
-							if (Type == "Normal" && ShootAnim != null)
-							{
-								ShootAnim.Rewind();
-								ShootAnim.Play("shooting");
-							}
-
-						}
-					}
-				}
-			}
-            
             /*
             if (Type == "Nature")
             {
@@ -465,7 +466,7 @@ public class TowerStats : MonoBehaviour
                 TopEnemies = EnemiesInRange.Take(3).ToList();
             }
             #endregion
-            if (Type == "Electric")
+				if (Type == "Electric")
             {
                 if (TopEnemies.Count > 0 && Time.time > nextShoot)
                 {
@@ -527,7 +528,6 @@ public class TowerStats : MonoBehaviour
                 }
                 TopEnemies.Clear();
             }
-
 			//STRZELANIE
 			#region rifle
 			/*

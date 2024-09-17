@@ -14,7 +14,8 @@ public class EnemyInfo : MonoBehaviour
     [SerializeField] bool dodge;
     [SerializeField] float speed;
     [SerializeField] int cash;
-
+    [SerializeField] bool Boss;
+    private float maxhp;
     public Slider hpBar;
 
     public bool OnFire;
@@ -23,6 +24,8 @@ public class EnemyInfo : MonoBehaviour
     public bool Armored;
     public bool Stunnable;
 
+    public bool BossAttack;
+    public List<GameObject> BossTowersToAttack = new List<GameObject>();
     public GameObject NaturalStun;
     public GameObject StunParent;
 
@@ -35,6 +38,9 @@ public class EnemyInfo : MonoBehaviour
     private bool canBeHit = true;
 
     private Color originalColor;
+    
+    public List<GameObject> TowersToAttack = new List<GameObject>();
+
 
     public void ModifySpeed(float upgrade)
     {
@@ -54,6 +60,7 @@ public class EnemyInfo : MonoBehaviour
     }
     void Start()
     {
+        maxhp = hp;
         GetComponent<NavMeshAgent>().speed = speed;
         originalColor = this.GetComponent<Renderer>().material.color;
 		hpBar.maxValue = hp;
@@ -65,15 +72,50 @@ public class EnemyInfo : MonoBehaviour
         // distance till start
         distanceTravelled += Vector3.Distance(lastPosition, transform.position);
         lastPosition = transform.position;
-
+        Debug.Log(hp);
 
         if (hpBar != null)
         {
             hpBar.transform.rotation = Quaternion.Euler(55f, 45f, 0f);
 			hpBar.value = hp;
         }
-    }
 
+        
+        if(Boss == true && hp < maxhp)
+        {
+            BossTowersToAttack.Clear();
+            BossAttack = true;
+            GetComponent<NavMeshAgent>().speed = 0;
+            StartCoroutine(BossAttack1());
+            maxhp -= 100;
+            BossAttack = false;
+        }
+        
+    }
+    IEnumerator BossAttack1()
+    {
+        
+        GetComponent<SimpleMovement>().enabled = false;
+        GetComponent<NavMeshAgent>().enabled = false;
+        LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y + 5, 1f);
+        yield return new WaitForSeconds(2f);
+        LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y - 5, 1f);
+        foreach (GameObject tower in BossTowersToAttack) 
+        {
+            tower.GetComponentInChildren<TowerStats>().CanShoot = false;
+        }
+        yield return new WaitForSeconds(10f);
+
+        foreach (GameObject tower in BossTowersToAttack)
+        {
+            tower.GetComponentInChildren<TowerStats>().CanShoot = true;
+        }
+        GetComponent<SimpleMovement>().enabled = true;
+        GetComponent<NavMeshAgent>().enabled = true;
+        
+        yield return new WaitForSeconds(3);
+        GetComponent<NavMeshAgent>().speed = speed;
+    }
     IEnumerator Fire(BulletMovement bullet, TowerStats ts)
     {
         for (int i = 0; i < 20; i++)
@@ -91,12 +133,6 @@ public class EnemyInfo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("end"))
-		{
-            GameObject.Find("manager").GetComponent<RayCastFromCamera>().lives--;
-            Destroy(this.gameObject);
-		}
-
         if (dodge)
         {
             ChanceOfHit = Random.Range(0, 100);
@@ -216,6 +252,7 @@ public class EnemyInfo : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
+            Debug.LogWarning("UMAR£");
             ps.transform.parent = null;
             ps.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
             ps.Play();
@@ -239,6 +276,7 @@ public class EnemyInfo : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
+            Debug.LogWarning("UMAR£");
             ps.transform.parent = null;
             ps.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
             ps.Play();
