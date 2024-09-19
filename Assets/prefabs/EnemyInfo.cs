@@ -38,8 +38,6 @@ public class EnemyInfo : MonoBehaviour
     private bool canBeHit = true;
 
     private Color originalColor;
-    
-    public List<GameObject> TowersToAttack = new List<GameObject>();
 
 
     public void ModifySpeed(float upgrade)
@@ -60,7 +58,7 @@ public class EnemyInfo : MonoBehaviour
     }
     void Start()
     {
-        maxhp = hp;
+        maxhp = hp - 1000;
         GetComponent<NavMeshAgent>().speed = speed;
         originalColor = this.GetComponent<Renderer>().material.color;
 		hpBar.maxValue = hp;
@@ -87,34 +85,43 @@ public class EnemyInfo : MonoBehaviour
             BossAttack = true;
             GetComponent<NavMeshAgent>().speed = 0;
             StartCoroutine(BossAttack1());
-            maxhp -= 100;
+            maxhp -= 1000;
             BossAttack = false;
         }
         
     }
     IEnumerator BossAttack1()
     {
-        
+        float time = 20f;
         GetComponent<SimpleMovement>().enabled = false;
         GetComponent<NavMeshAgent>().enabled = false;
-        LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y + 5, 1f);
-        yield return new WaitForSeconds(2f);
-        LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y - 5, 1f);
+        LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y + 5, 1f).setEase(LeanTweenType.easeInOutSine);
+        yield return new WaitForSeconds(1.1f);
+        LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y - 5, 1f).setEase(LeanTweenType.easeInOutSine);
+        //1.1f
+        yield return new WaitForSeconds(0.9f);
         foreach (GameObject tower in BossTowersToAttack) 
         {
-            tower.GetComponentInChildren<TowerStats>().CanShoot = false;
+            if(tower.GetComponentInChildren<TowerStats>().CanShoot != false)
+            {
+                StartCoroutine(tower.GetComponentInChildren<TowerStats>().BlockVisualizer(time));
+                tower.GetComponentInChildren<TowerStats>().CanShoot = false;
+            }
         }
-        yield return new WaitForSeconds(10f);
+        //2f
+
+        GameObject.Find("GroundAttack").GetComponent<ParticleSystem>().Play();
+        GetComponent<NavMeshAgent>().speed = speed;
+        GetComponent<SimpleMovement>().enabled = true;
+        GetComponent<NavMeshAgent>().enabled = true;
+
+
+        yield return new WaitForSeconds(time);
 
         foreach (GameObject tower in BossTowersToAttack)
         {
             tower.GetComponentInChildren<TowerStats>().CanShoot = true;
         }
-        GetComponent<SimpleMovement>().enabled = true;
-        GetComponent<NavMeshAgent>().enabled = true;
-        
-        yield return new WaitForSeconds(3);
-        GetComponent<NavMeshAgent>().speed = speed;
     }
     IEnumerator Fire(BulletMovement bullet, TowerStats ts)
     {

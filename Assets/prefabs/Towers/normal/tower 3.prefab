@@ -210,6 +210,8 @@ MonoBehaviour:
   TowerObject: {fileID: 5857700132478872097}
   ExpPS: {fileID: 8585175799612243974}
   lineRenderer: {fileID: 0}
+  CanShoot: 1
+  Block: {fileID: 2398240775290971999}
   TestProj: {fileID: 0}
 --- !u!1 &5353803225203030524
 GameObject:
@@ -293,8 +295,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8598491238887034452}
   - {fileID: 5131063460288452886}
+  - {fileID: 8598491238887034452}
   - {fileID: 8441019668045635889}
   - {fileID: 4337838476517067063}
   - {fileID: 8122434928403959191}
@@ -302,6 +304,7 @@ Transform:
   - {fileID: 2291005697101822788}
   - {fileID: 9077626575872965168}
   - {fileID: 3580211283461303457}
+  - {fileID: 2582176494673124032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5023755228375063173
@@ -5187,7 +5190,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 918db54a145ea074bbbc8eec6e48ba25, type: 2}
+  - {fileID: 2100000, guid: 93506a381d733604c9f619bd81b79724, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10353,3 +10356,70 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1001 &899184961470538588
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8355985087851574127}
+    m_Modifications:
+    - target: {fileID: 3256886147619505155, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_Name
+      value: Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+--- !u!1 &2398240775290971999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3256886147619505155, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+  m_PrefabInstance: {fileID: 899184961470538588}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2582176494673124032 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3436017963823135132, guid: c0c3e1c6e483a9d4693370dfd696ddcd, type: 3}
+  m_PrefabInstance: {fileID: 899184961470538588}
+  m_PrefabAsset: {fileID: 0}

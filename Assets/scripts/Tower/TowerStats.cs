@@ -84,6 +84,8 @@ public class TowerStats : MonoBehaviour
 	private int counter = 0;
 	GameObject manager;
 
+	public GameObject Block;
+
 	public GameObject TestProj;
 	Vector3[] positions = null;
 
@@ -107,6 +109,15 @@ public class TowerStats : MonoBehaviour
 			}
 		}
 	}
+	public IEnumerator BlockVisualizer(float time)
+	{
+		float t = UnityEngine.Random.Range(0.1f, 0.2f);
+		yield return new WaitForSeconds(t);
+		LeanTween.scale(Block, new Vector3(1.1f,2f,1.1f), 0.3f).setEase(LeanTweenType.easeInOutSine);
+		yield return new WaitForSeconds(time-0.6f-t);
+        LeanTween.scale(Block, Vector3.zero, 0.3f).setEase(LeanTweenType.easeInOutSine);
+    }
+		
 	public void Upgrade()
 	{
 		if (manager.GetComponent<RayCastFromCamera>().money >= UpgradePrice && canUpgrade)
@@ -295,7 +306,8 @@ public class TowerStats : MonoBehaviour
 
 			//WYBIERANIE CELU i STRZELANIE
 			#region normal
-
+			if (CanShoot)
+			{
 				if (Type == "Normal" || Type == "Fire" || Type == "Nature")
 				{
 					if (EnemiesInRange.Count > 0)
@@ -356,178 +368,179 @@ public class TowerStats : MonoBehaviour
 						}
 					}
 				}
-            /*
-            if (Type == "Nature")
-            {
-                if (EnemiesInRange.Count > 0)
-                {
-                    foreach (GameObject enemy in EnemiesInRange)
-                    {
-
-                        float enemyDist = 0;
-                        float maxHp = 0;
-                        if (enemy != null && enemy.GetComponent<EnemyInfo>().OnStun == false)
-                        {
-                            enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
-                        }
-                        if (enemyDist > dist)
-                        {
-                            dist = enemyDist;
-
-                            if (enemy != null)
-                            {
-                                target = enemy;
-
-                                if (target != null)
-                                {
-                                    if (Time.time > nextShoot && EnemiesInRange.Count != 0)
-                                    {
-                                        nextShoot = Time.time + Cooldown;
-                                        Shoot(target.transform);
-                                    }
-                                }
-                            }
-                        }
-						
-                    }
-                }
-                else
-                {
-                    target = null;
-                }
-            }
-			*/
-
-            #endregion
-            /*
-            if (Type == "Fire")
-            {
-                if (EnemiesInRange.Count > 0)
-                {
-                    foreach (GameObject enemy in EnemiesInRange)
-                    {
-						//Debug.Log(enemy);
-                        float enemyDist = 0;
-						if (enemy != null && enemy.GetComponent<EnemyInfo>().OnFire == false)
-                        {
-                            enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
-                        }
-
-						if (enemyDist > dist)
-						{
-							dist = enemyDist;
-
-							if (enemy != null)
-							{
-								target = enemy;
-
-                                if (target != null)
-                                {
-                                    Vector3 direction = target.transform.position - Turret.transform.position;
-                                    direction.y = 0;
-
-                                    if (direction != Vector3.zero)
-                                    {
-                                        Quaternion targetRotation = Quaternion.LookRotation(direction);
-                                        transform.rotation = targetRotation;
-                                        Debug.DrawRay(transform.position, direction, Color.red);
-                                    }
-                                    if (Time.time > nextShoot && EnemiesInRange.Count != 0)
-                                    {
-                                        nextShoot = Time.time + Cooldown;
-                                        Shoot(target.transform);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    target = null;
-                }
-            }
-			*/
-
-            #region tesla
-            if (Type == "Electric")
-			{
-				if (EnemiesInRange.Count > 1)
+				/*
+				if (Type == "Nature")
 				{
-					EnemiesInRange.Sort((enemy1, enemy2) =>
+					if (EnemiesInRange.Count > 0)
 					{
-						if (enemy1 == null && enemy2 == null) return 0;
-						if (enemy1 == null) return 1;
-						if (enemy2 == null) return -1;
+						foreach (GameObject enemy in EnemiesInRange)
+						{
 
-						return enemy2.GetComponent<EnemyInfo>().distanceTravelled.CompareTo(enemy1.GetComponent<EnemyInfo>().distanceTravelled);
-					});
-					}
-                TopEnemies = EnemiesInRange.Take(3).ToList();
-            }
-            #endregion
-				if (Type == "Electric")
-            {
-                if (TopEnemies.Count > 0 && Time.time > nextShoot)
-                {
-                    nextShoot = Time.time + FinalCooldown;
-
-                    // Zmienna pomocnicza
-                    List<Vector3> positions = new List<Vector3> { tower != null ? tower.transform.position : Vector3.zero };
-
-                    // Zbieranie pozycji przeciwników
-                    foreach (var enemy in TopEnemies)
-                    {
-                        if (enemy != null && enemy.activeInHierarchy)
-                        {
-                            positions.Add(enemy.transform.position);
-                        }
-                    }
-
-                    for (int i = 0; i < positions.Count; i++)
-                    {
-                        Vector3 position = positions[i];
-                        position.y = 0.3f;
-                        positions[i] = position;
-                    }
-
-
-                    if (positions.Count > 1)
-                    {
-                        lineRenderer.positionCount = positions.Count;
-                        lineRenderer.startWidth = 0.1f;
-                        lineRenderer.endWidth = 0.1f;
-                        lineRenderer.SetPositions(positions.ToArray());
-                        lineRenderer.widthMultiplier = 1.0f;
-
-                        // Zadawanie obra¿eñ
-                        if (ShootAnim != null)
-                        {
-                            ShootAnim.Rewind();
-                            ShootAnim.Play("shooting");
-                        }
-                        for (int i = 0; i<TopEnemies.Count; i++)
-                        {
-							GameObject enemy = TopEnemies[i];
-							bool isDead = false;
-
-                            if (enemy != null)
+							float enemyDist = 0;
+							float maxHp = 0;
+							if (enemy != null && enemy.GetComponent<EnemyInfo>().OnStun == false)
 							{
-								if (ElementalDamage - (i) > 0)
-								{
-									enemy.GetComponent<EnemyInfo>().DealDamage(Damage + ElementalDamage - i, this);
-                                }
-								else
-								{
-                                    enemy.GetComponent<EnemyInfo>().DealDamage(Damage, this);
-                                }
+								enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
 							}
-                        }
-                        StartCoroutine(ClearElectricityAfterDuration(0.1f));
-                    }
-                }
-                TopEnemies.Clear();
-            }
+							if (enemyDist > dist)
+							{
+								dist = enemyDist;
+
+								if (enemy != null)
+								{
+									target = enemy;
+
+									if (target != null)
+									{
+										if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+										{
+											nextShoot = Time.time + Cooldown;
+											Shoot(target.transform);
+										}
+									}
+								}
+							}
+
+						}
+					}
+					else
+					{
+						target = null;
+					}
+				}
+				*/
+
+				#endregion
+				/*
+				if (Type == "Fire")
+				{
+					if (EnemiesInRange.Count > 0)
+					{
+						foreach (GameObject enemy in EnemiesInRange)
+						{
+							//Debug.Log(enemy);
+							float enemyDist = 0;
+							if (enemy != null && enemy.GetComponent<EnemyInfo>().OnFire == false)
+							{
+								enemyDist = enemy.GetComponent<EnemyInfo>().distanceTravelled;
+							}
+
+							if (enemyDist > dist)
+							{
+								dist = enemyDist;
+
+								if (enemy != null)
+								{
+									target = enemy;
+
+									if (target != null)
+									{
+										Vector3 direction = target.transform.position - Turret.transform.position;
+										direction.y = 0;
+
+										if (direction != Vector3.zero)
+										{
+											Quaternion targetRotation = Quaternion.LookRotation(direction);
+											transform.rotation = targetRotation;
+											Debug.DrawRay(transform.position, direction, Color.red);
+										}
+										if (Time.time > nextShoot && EnemiesInRange.Count != 0)
+										{
+											nextShoot = Time.time + Cooldown;
+											Shoot(target.transform);
+										}
+									}
+								}
+							}
+						}
+					}
+					else
+					{
+						target = null;
+					}
+				}
+				*/
+
+				#region tesla
+				if (Type == "Electric")
+				{
+					if (EnemiesInRange.Count > 1)
+					{
+						EnemiesInRange.Sort((enemy1, enemy2) =>
+						{
+							if (enemy1 == null && enemy2 == null) return 0;
+							if (enemy1 == null) return 1;
+							if (enemy2 == null) return -1;
+
+							return enemy2.GetComponent<EnemyInfo>().distanceTravelled.CompareTo(enemy1.GetComponent<EnemyInfo>().distanceTravelled);
+						});
+					}
+					TopEnemies = EnemiesInRange.Take(3).ToList();
+				}
+				#endregion
+				if (Type == "Electric")
+				{
+					if (TopEnemies.Count > 0 && Time.time > nextShoot)
+					{
+						nextShoot = Time.time + FinalCooldown;
+
+						// Zmienna pomocnicza
+						List<Vector3> positions = new List<Vector3> { tower != null ? tower.transform.position : Vector3.zero };
+
+						// Zbieranie pozycji przeciwników
+						foreach (var enemy in TopEnemies)
+						{
+							if (enemy != null && enemy.activeInHierarchy)
+							{
+								positions.Add(enemy.transform.position);
+							}
+						}
+
+						for (int i = 0; i < positions.Count; i++)
+						{
+							Vector3 position = positions[i];
+							position.y = 0.3f;
+							positions[i] = position;
+						}
+
+
+						if (positions.Count > 1)
+						{
+							lineRenderer.positionCount = positions.Count;
+							lineRenderer.startWidth = 0.1f;
+							lineRenderer.endWidth = 0.1f;
+							lineRenderer.SetPositions(positions.ToArray());
+							lineRenderer.widthMultiplier = 1.0f;
+
+							// Zadawanie obra¿eñ
+							if (ShootAnim != null)
+							{
+								ShootAnim.Rewind();
+								ShootAnim.Play("shooting");
+							}
+							for (int i = 0; i < TopEnemies.Count; i++)
+							{
+								GameObject enemy = TopEnemies[i];
+								bool isDead = false;
+
+								if (enemy != null)
+								{
+									if (ElementalDamage - (i) > 0)
+									{
+										enemy.GetComponent<EnemyInfo>().DealDamage(Damage + ElementalDamage - i, this);
+									}
+									else
+									{
+										enemy.GetComponent<EnemyInfo>().DealDamage(Damage, this);
+									}
+								}
+							}
+							StartCoroutine(ClearElectricityAfterDuration(0.1f));
+						}
+					}
+					TopEnemies.Clear();
+				}
+			}
 			//STRZELANIE
 			#region rifle
 			/*

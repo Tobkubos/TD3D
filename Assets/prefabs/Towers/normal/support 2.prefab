@@ -5106,8 +5106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Support: 1
-  Name: Purified Glass
-  Description: Increases range of Towers
+  Name: Elemental Battery
+  Description: Increases elemental damage of Towers
   Type: Support
   DamageSupport: 0
   ElementalDamageSupport: 0
@@ -5144,6 +5144,8 @@ MonoBehaviour:
   TowerObject: {fileID: 5857700132478872097}
   ExpPS: {fileID: 0}
   lineRenderer: {fileID: 0}
+  CanShoot: 1
+  Block: {fileID: 0}
   TestProj: {fileID: 0}
 --- !u!1 &5857700132478872097
 GameObject:
