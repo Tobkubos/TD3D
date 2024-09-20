@@ -18,7 +18,7 @@ public class BossAreaTrigger : MonoBehaviour
             && collision.gameObject.GetComponentInChildren<TowerStats>().hologram == false && collision.gameObject.GetComponentInChildren<TowerStats>().Support == false
             )
         {
-            Debug.Log("DUPA DUPA DUPA DUPA");
+            //Debug.Log("DUPA DUPA DUPA DUPA");
             if (!ei.BossTowersToAttack.Contains(collision.gameObject))
             {
                 ei.BossTowersToAttack.Add(collision.gameObject);

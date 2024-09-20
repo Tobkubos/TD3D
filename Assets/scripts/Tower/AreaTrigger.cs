@@ -48,7 +48,7 @@ public class AreaTrigger : MonoBehaviour
 				collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportEnterRange(towerStats.TowerObject);
 				collision.gameObject.GetComponentInChildren<TowerStats>().CheckSupports();
 				towerStats.TowersInRange.Add(collision.gameObject);
-				Debug.Log("WIE¯A!!!");
+				//Debug.Log("WIE¯A!!!");
 			}
 		}
 	}
@@ -64,7 +64,7 @@ public class AreaTrigger : MonoBehaviour
 		{
 			collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportExitRange(towerStats.TowerObject);
 			towerStats.TowersInRange.Remove(collision.gameObject);
-			Debug.Log("NI MA!!!");
+			//Debug.Log("NI MA!!!");
 		}
     }
 }

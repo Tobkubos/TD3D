@@ -161,9 +161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Big Boss
   desc: test boss
-  hp: 40000
+  hp: 20000
   dodge: 0
-  speed: 0.1
+  speed: 0.15
   cash: 500
   Boss: 1
   hpBar: {fileID: 2904355265513327538}
@@ -543,7 +543,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7940265135045016533}
@@ -567,7 +567,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 0.07
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3595604668246276165
 MonoBehaviour:

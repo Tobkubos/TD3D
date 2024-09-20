@@ -70,7 +70,7 @@ public class EnemyInfo : MonoBehaviour
         // distance till start
         distanceTravelled += Vector3.Distance(lastPosition, transform.position);
         lastPosition = transform.position;
-        Debug.Log(hp);
+        //Debug.Log(hp);
 
         if (hpBar != null)
         {
@@ -163,7 +163,10 @@ public class EnemyInfo : MonoBehaviour
                         if (this.gameObject != null)
                         {
                             gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
-                            gameObject.GetComponent<Renderer>().material.color = Color.red;
+                            if (Boss == false)
+                            {
+                                gameObject.GetComponent<Renderer>().material.color = Color.red;
+                            }
                             OnFire = true;
                             StartCoroutine(Fire(other.GetComponent<BulletMovement>(), other.GetComponent<BulletMovement>().ts));
                         }
@@ -243,6 +246,15 @@ public class EnemyInfo : MonoBehaviour
                 Destroy(gameObject);
 			}
 		}
+
+        if (Boss == false)
+        {
+            if (other.CompareTag("end"))
+            {
+                GameObject.Find("manager").GetComponent<RayCastFromCamera>().lives--;
+                Destroy(this.gameObject);
+            }
+        }
 	}
 
 	public void DealDamage(float damage, TowerStats ts) {
@@ -259,7 +271,7 @@ public class EnemyInfo : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
-            Debug.LogWarning("UMAR£");
+            //Debug.LogWarning("UMAR£");
             ps.transform.parent = null;
             ps.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
             ps.Play();

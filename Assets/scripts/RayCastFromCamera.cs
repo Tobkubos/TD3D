@@ -607,7 +607,8 @@ public class RayCastFromCamera : MonoBehaviour
 		{
 			DamageSupportInfo.SetActive(true);
 			DamageSupportSlider.value = ts.DamageSupport;
-			TowerDamageSupport.text = ts.DamageSupport.ToString();
+            DamageSupportSlider.maxValue = 3;
+            TowerDamageSupport.text = ts.DamageSupport.ToString();
 		}
 		else
 		{
@@ -619,6 +620,7 @@ public class RayCastFromCamera : MonoBehaviour
         {
             ElementalDamageSupportInfo.SetActive(true);
             ElementalDamageSupportSlider.value = ts.ElementalDamageSupport;
+            ElementalDamageSupportSlider.maxValue = 3;
             TowerElementalDamageSupport.text = ts.ElementalDamageSupport.ToString();
         }
         else
@@ -631,6 +633,7 @@ public class RayCastFromCamera : MonoBehaviour
         {
             DamageOverTimeSupportInfo.SetActive(true);
             DamageOverTimeSupportSlider.value = ts.DamageOverTimeSupport;
+            DamageOverTimeSupportSlider.maxValue = 3;
             TowerDamageOverTimeSupport.text = ts.DamageOverTimeSupport.ToString();
         }
         else
@@ -643,6 +646,7 @@ public class RayCastFromCamera : MonoBehaviour
         {
             RangeSupportInfo.SetActive(true);
             RangeSupportSlider.value = ts.RangeSupport;
+            RangeSupportSlider.maxValue = 1;
             TowerRangeSupport.text = ts.RangeSupport.ToString();
         }
         else
@@ -655,6 +659,7 @@ public class RayCastFromCamera : MonoBehaviour
         {
             SpeedSupportInfo.SetActive(true);
             SpeedSupportSlider.value = ts.CooldownSupport;
+            SpeedSupportSlider.maxValue = 0.2f;
             TowerSpeedSupport.text = ts.CooldownSupport.ToString();
         }
         else

@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour
         NewEnemyInfo.SetActive(false);
         manager = GameObject.Find("manager");
 
-        wave = 19;
+        wave = 0;
     }
     void ShowNewEnemyInfo(string name, string desc)
     {
@@ -77,7 +77,7 @@ public class Spawner : MonoBehaviour
             GameObject.Find("NEXT WAVE").GetComponent<Button>().interactable = true;
         }
 
-        Debug.LogWarning(AutomaticWave);
+        //Debug.LogWarning(AutomaticWave);
     }
 
     public IEnumerator SpawnMonster(GameObject enemy, float interval, int number)
@@ -166,7 +166,7 @@ public class Spawner : MonoBehaviour
             if (wave == 9)
             {
                 ShowNewEnemyInfo(bigChunk.GetComponent<EnemyInfo>().name, bigChunk.GetComponent<EnemyInfo>().desc);
-                yield return StartCoroutine(SpawnMonster(bigChunk, 5f, 10));
+                yield return StartCoroutine(SpawnMonster(bigChunk, 5f, 6));
             }
 
             if (wave == 10)

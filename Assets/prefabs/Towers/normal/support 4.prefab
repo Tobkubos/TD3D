@@ -4954,7 +4954,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 918db54a145ea074bbbc8eec6e48ba25, type: 2}
+  - {fileID: 2100000, guid: aea9ed1a7e09bc94fb43034df5a393e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5106,7 +5106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Support: 1
-  Name: Industrial Windmill
+  Name: li-lon mk4
   Description: Increases speed of Towers
   Type: Support
   DamageSupport: 0

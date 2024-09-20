@@ -699,7 +699,7 @@ public class TowerStats : MonoBehaviour
 
 		if(BonusTile != null)
 		{
-			Debug.Log("BONUS");
+			//Debug.Log("BONUS");
 			FinalDamage += BonusTile.GetComponent<BonusTile>().Damage;
 			FinalElementalDamage += BonusTile.GetComponent<BonusTile>().ElementalDamage;
 			FinalDamageOverTime += BonusTile.GetComponent<BonusTile>().DamageOverTime;
