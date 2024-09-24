@@ -5,7 +5,6 @@ using UnityEngine;
 public class BonusTileTrigger : MonoBehaviour
 {
     public TowerStats towerStats;
-    public bool holo;
     public LayerMask mask;
     [SerializeField] Collider[] Objects;
     /*
@@ -29,7 +28,7 @@ public class BonusTileTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (!holo)
+        if (towerStats.hologram)
         {
             Objects = null;
             Objects = Physics.OverlapBox(this.transform.position, new Vector3(0.2f, 1, 0.2f), Quaternion.identity, mask);

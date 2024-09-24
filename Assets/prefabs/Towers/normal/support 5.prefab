@@ -5060,7 +5060,7 @@ MonoBehaviour:
   ElementalDamageSupport: 0
   DamageOverTimeSupport: 0
   SpeedSupport: 0
-  RangeSupport: 0.4
+  RangeSupport: 1
 --- !u!1 &3722103817631556547
 GameObject:
   m_ObjectHideFlags: 0
@@ -5157,7 +5157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8355985087851574127}
   - component: {fileID: 5023755228375063173}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: support 5
   m_TagString: tower
   m_Icon: {fileID: 0}

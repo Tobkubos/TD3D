@@ -21,7 +21,7 @@ public class AreaTrigger : MonoBehaviour
 				towerStats.OnEnemyEnterRange(collision.gameObject);
 			}
 		}
-
+		
 		if (towerStats.Support && collision.gameObject.CompareTag("tower") && !collision.gameObject.GetComponentInChildren<TowerStats>().hologram)
 		{
 			// Sprawdzenie, czy wie¿a nie jest w tablicy aby nie dodawaæ jej wielokrotnie
@@ -33,6 +33,7 @@ public class AreaTrigger : MonoBehaviour
 				//Debug.Log("WIE¯A!!!");
 			}
 		}
+		
 	}
 
     private void OnTriggerExit(Collider collision)
@@ -42,16 +43,13 @@ public class AreaTrigger : MonoBehaviour
 			towerStats.OnEnemyExitRange(collision.gameObject);
 		}
 
+		
 		if (towerStats.Support && collision.gameObject.CompareTag("tower"))
 		{
 			collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportExitRange(towerStats.TowerObject);
 			towerStats.TowersInRange.Remove(collision.gameObject);
 			//Debug.Log("NI MA!!!");
 		}
-    }
-
-    private void Update()
-    {
-        
+		
     }
 }

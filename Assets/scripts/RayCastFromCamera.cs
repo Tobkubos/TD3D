@@ -262,8 +262,16 @@ public class RayCastFromCamera : MonoBehaviour
 							tower.GetComponentInChildren<TowerStats>().hologram = false;
 							ts = tower.GetComponentInChildren<TowerStats>();
 							tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
-							tower.layer = LayerMask.NameToLayer("Default");
-							tower = null;
+
+                            if (ts.Support)
+                            {
+							    tower.layer = LayerMask.NameToLayer("support");
+                            }
+                            else
+                            {
+                                tower.layer = LayerMask.NameToLayer("tower");
+                            }
+                            tower = null;
 							HologramTower = false;
 							if (!ts.Support)
 							{
