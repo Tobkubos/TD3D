@@ -662,7 +662,7 @@ public class TowerStats : MonoBehaviour
 			{
 				DamageFromSupports += support.GetComponentInChildren<TowerStats>().DamageSupport;
 			}
-		FinalDamage = Damage + DamageFromSupports;
+			FinalDamage = Damage + DamageFromSupports;
 		}
 
         if (ElementalDamage != 0)

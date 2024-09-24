@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 8355985087851574127}
   - component: {fileID: 5023755228375063173}
   - component: {fileID: 1551130245145072921}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tower 1
   m_TagString: tower
   m_Icon: {fileID: 0}
@@ -5468,6 +5468,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerStats: {fileID: 7079715696744473194}
+  holo: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 512
+  Objects: []
 --- !u!1 &6689407502008395043
 GameObject:
   m_ObjectHideFlags: 0

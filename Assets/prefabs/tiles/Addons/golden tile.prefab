@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4896090203661976725}
   - component: {fileID: 6931467027228387419}
   - component: {fileID: 2031216981170771521}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: golden tile
   m_TagString: bonusTile
   m_Icon: {fileID: 0}
