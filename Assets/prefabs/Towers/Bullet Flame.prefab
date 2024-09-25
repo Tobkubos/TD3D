@@ -4959,6 +4959,8 @@ MonoBehaviour:
   BulletSpeed: 8
   damage: 0
   Elementaldamage: 0
+  DamageOverTime: 0
   Type: Fire
   enemy: {fileID: 0}
   ts: {fileID: 0}
+  isFollowing: 1

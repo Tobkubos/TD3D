@@ -139,7 +139,7 @@ public class EnemyInfo : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-	{
+    {
         if (dodge)
         {
             ChanceOfHit = Random.Range(0, 100);
@@ -147,17 +147,19 @@ public class EnemyInfo : MonoBehaviour
             {
                 canBeHit = false;
             }
-            else 
+            else
             {
                 canBeHit = true;
             }
         }
 
-		if (other.CompareTag("bullet") && canBeHit)
-		{
-			if (other.GetComponent<BulletMovement>().enemy == this.transform)
-			{
-                if (other.GetComponent<BulletMovement>().Type == "Fire") {
+        if (other.CompareTag("bullet") && canBeHit)
+        {
+            BulletMovement BulletObject = other.GetComponent<BulletMovement>();
+
+            if (BulletObject.enemy == this.transform)
+            {
+                if (BulletObject.Type == "Fire") {
                     if (!OnFire)
                     {
                         if (this.gameObject != null)
@@ -168,7 +170,7 @@ public class EnemyInfo : MonoBehaviour
                                 gameObject.GetComponent<Renderer>().material.color = Color.red;
                             }
                             OnFire = true;
-                            StartCoroutine(Fire(other.GetComponent<BulletMovement>(), other.GetComponent<BulletMovement>().ts));
+                            StartCoroutine(Fire(BulletObject, BulletObject.ts));
                         }
                     }
 
@@ -194,16 +196,16 @@ public class EnemyInfo : MonoBehaviour
                     }
                 }
                 //
-                if (other.GetComponent<BulletMovement>().Type == "Nature")
+                if (BulletObject.Type == "Nature")
                 {
 
                     if (Armored)
                     {
-                        DealDamage(other.GetComponent<BulletMovement>().Elementaldamage, other.GetComponent<BulletMovement>().ts);
+                        DealDamage(BulletObject.Elementaldamage, BulletObject.ts);
                     }
                     else
                     {
-                        DealDamage(other.GetComponent<BulletMovement>().Elementaldamage + other.GetComponent<BulletMovement>().damage, other.GetComponent<BulletMovement>().ts);
+                        DealDamage(BulletObject.Elementaldamage + BulletObject.damage, BulletObject.ts);
                     }
 
                     if (!OnStun)
@@ -214,22 +216,22 @@ public class EnemyInfo : MonoBehaviour
                             StartCoroutine(Stun());
                         }
                     }
-                    if(OnStun)
+                    if (OnStun)
                     {
                         Destroy(other.gameObject);
                     }
                 }
 
-                if (other.GetComponent<BulletMovement>().Type == "Normal")
+                if (BulletObject.Type == "Normal")
                 {
                     if (!Armored)
                     {
-                        DealDamage(other.GetComponent<BulletMovement>().damage, other.GetComponent<BulletMovement>().ts);
+                        DealDamage(BulletObject.damage, BulletObject.ts);
                     }
                 }
-
                 Destroy(other.gameObject);
             }
+ 
 
 			if (hp <= 0)
 			{

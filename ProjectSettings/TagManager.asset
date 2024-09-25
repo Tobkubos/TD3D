@@ -18,6 +18,7 @@ TagManager:
   - manager
   - fireBullet
   - bonusTile
+  - bubble
   layers:
   - Default
   - TransparentFX
