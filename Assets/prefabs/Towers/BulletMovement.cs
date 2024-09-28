@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BulletMovement : MonoBehaviour
 { 
@@ -18,13 +19,15 @@ public class BulletMovement : MonoBehaviour
     public bool isFollowing;
     public bool Cannon;
 
+    private Collider[] enemies;
+
     private Transform target;
     void Start()
     {
         if (Cannon)
         {
             target = enemy.transform;
-            CannonShot();
+            StartCoroutine(CannonShot());
         }
         else
         {
@@ -39,18 +42,36 @@ public class BulletMovement : MonoBehaviour
      }
     public IEnumerator CannonDamage()
     {
-        LeanTween.scale(gameObject, new Vector3(2,2,2), 0.6f).setEase(LeanTweenType.easeInOutSine);
-        LeanTween.scale(gameObject, new Vector3(0,0,0), 0.1f).setEase(LeanTweenType.easeInOutSine).setDelay(0.61f);
-        yield return new WaitForSeconds(1.3f);
+        LeanTween.scale(gameObject, new Vector3(2,2,2), 0.3f).setEase(LeanTweenType.easeOutSine);
+        LeanTween.scale(gameObject, new Vector3(0,0,0), 0.1f).setEase(LeanTweenType.easeInOutSine).setDelay(0.31f);
+
+        enemies = null;
+        enemies = Physics.OverlapBox(this.transform.position, new Vector3(1f, 1, 1f), Quaternion.identity);
+
+        foreach (Collider c in enemies)
+        {
+            if (c.CompareTag("enemy"))
+            {
+                float offset = Random.Range(damage * 0.5f, damage * 1.5f) - damage;
+                c.GetComponent<EnemyInfo>().DealDamage(damage + offset,ts);
+            }
+            
+        }
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 
-    void CannonShot()
+    private IEnumerator CannonShot()
     {
-        LeanTween.moveX(gameObject, target.position.x, 0.5f).setEase(LeanTweenType.easeInOutSine);
-        LeanTween.moveZ(gameObject, target.position.z, 0.5f).setEase(LeanTweenType.easeInOutSine);
-        LeanTween.moveY(gameObject, target.position.y+3, 0.25f).setEase(LeanTweenType.easeInOutSine);
-        LeanTween.moveY(gameObject, target.position.y, 0.25f).setDelay(0.25f).setEase(LeanTweenType.easeInOutSine);
+        float time = Vector3.Distance(transform.position, target.position);
+        float t1 = time / 4;
+        float t2 = time / 8;
+        LeanTween.moveX(gameObject, target.position.x, t1).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.moveZ(gameObject, target.position.z, t1).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.moveY(gameObject, target.position.y + time/2, t2).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.moveY(gameObject, target.position.y, t2).setDelay(t2).setEase(LeanTweenType.easeInOutSine);
+        yield return new WaitForSeconds(t1);
+        StartCoroutine(CannonDamage());
     }
 
 

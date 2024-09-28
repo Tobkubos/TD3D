@@ -22,18 +22,24 @@ public class AreaTrigger : MonoBehaviour
 			}
 		}
 		
+	
 		if (towerStats.Support && collision.gameObject.CompareTag("tower") && !collision.gameObject.GetComponentInChildren<TowerStats>().hologram)
 		{
 			// Sprawdzenie, czy wie¿a nie jest w tablicy aby nie dodawaæ jej wielokrotnie
 			if (!towerStats.TowersInRange.Contains(collision.gameObject))
 			{
-				collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportEnterRange(towerStats.TowerObject);
-				collision.gameObject.GetComponentInChildren<TowerStats>().CheckSupports();
-				towerStats.TowersInRange.Add(collision.gameObject);
+				if (!collision.gameObject.GetComponentInChildren<TowerStats>().SupportingTowers.Contains(towerStats.TowerObject))
+				{
+					collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportEnterRange(towerStats.TowerObject);
+					collision.gameObject.GetComponentInChildren<TowerStats>().CheckSupports();
+					towerStats.TowersInRange.Add(collision.gameObject);
+					Debug.Log("support sprawdza");
+				}
 				//Debug.Log("WIE¯A!!!");
 			}
 		}
 		
+
 	}
 
     private void OnTriggerExit(Collider collision)

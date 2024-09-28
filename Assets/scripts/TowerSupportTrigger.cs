@@ -25,11 +25,15 @@ public class TowerSupportTrigger : MonoBehaviour
             {
                 towerstats.SupportingTowers.Clear();
 
+
                 foreach (Collider support in Objects)
                 {
-                    towerstats.SupportingTowers.Add(support.gameObject);
-                    support.GetComponentInChildren<TowerStats>().TowersInRange.Clear();
-                    support.GetComponentInChildren<TowerStats>().TowersInRange.Add(towerstats.TowerObject);
+                    if (!towerstats.SupportingTowers.Contains(support.gameObject))
+                    {
+                        towerstats.SupportingTowers.Add(support.gameObject);
+                        support.GetComponentInChildren<TowerStats>().TowersInRange.Clear();
+                        support.GetComponentInChildren<TowerStats>().TowersInRange.Add(towerstats.TowerObject);
+                    }
                 }
 
                 if (towerstats.SupportingTowers.Count > 0)

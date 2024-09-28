@@ -153,7 +153,7 @@ public class EnemyInfo : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("bullet") && canBeHit)
+        if (other.CompareTag("bullet") && canBeHit && other.GetComponent<BulletMovement>().Cannon == false)
         {
             BulletMovement BulletObject = other.GetComponent<BulletMovement>();
 

@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: big chunk
   desc: this massive block of pixels has more hp than you think. Cannot be stunned.
-  hp: 400
+  hp: 250
   dodge: 0
   speed: 0.6
   cash: 7
