@@ -371,6 +371,12 @@ public class ChunkReveal2 : MonoBehaviour
 			temp.gameObject.transform.localScale = Vector3.zero;
             temp.gameObject.SetActive(true);
 			temp.gameObject.GetComponent<SpawnAnim>().SpawnAnimation();
+
+			//
+			AudioManager.instance.Play("place");
+			//FindObjectOfType<AudioManager>().Play("place");
+			//
+
         }
 		ChunkPlane.tag = "chunk";
     }
