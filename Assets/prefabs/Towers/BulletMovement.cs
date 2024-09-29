@@ -22,6 +22,9 @@ public class BulletMovement : MonoBehaviour
     private Collider[] enemies;
 
     private Transform target;
+    public Material invisibleMat;
+
+    public ParticleSystem boom;
     void Start()
     {
         if (Cannon)
@@ -58,6 +61,7 @@ public class BulletMovement : MonoBehaviour
             
         }
         yield return new WaitForSeconds(0.5f);
+        Destroy(boom.gameObject, 2);
         Destroy(gameObject);
     }
 
@@ -71,6 +75,10 @@ public class BulletMovement : MonoBehaviour
         LeanTween.moveY(gameObject, target.position.y + time/2, t2).setEase(LeanTweenType.easeInOutSine);
         LeanTween.moveY(gameObject, target.position.y, t2).setDelay(t2).setEase(LeanTweenType.easeInOutSine);
         yield return new WaitForSeconds(t1);
+        gameObject.transform.rotation = Quaternion.identity;
+        GetComponent<MeshRenderer>().material = invisibleMat;
+        boom.Play();
+        boom.transform.parent = null;
         StartCoroutine(CannonDamage());
     }
 

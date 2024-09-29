@@ -60,7 +60,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &1882107413430429025
 MonoBehaviour:
@@ -175,7 +175,6 @@ MonoBehaviour:
   StunParent: {fileID: 4460500550623271551}
   ps: {fileID: 2036162825791507954}
   distanceTravelled: 0
-  TowersToAttack: []
 --- !u!33 &4348652786632811664
 MeshFilter:
   m_ObjectHideFlags: 0
