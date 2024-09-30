@@ -30,6 +30,7 @@ public class BulletMovement : MonoBehaviour
         if (Cannon)
         {
             target = enemy.transform;
+            GetComponent<AudioSource>().Play();
             StartCoroutine(CannonShot());
         }
         else

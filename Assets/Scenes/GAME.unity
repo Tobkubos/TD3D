@@ -9439,7 +9439,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -9460,7 +9460,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -76.9
+  near clip plane: -60.01
   far clip plane: 1080.1
   field of view: 60
   orthographic: 1
@@ -9489,7 +9489,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42660013, y: 0.33944437, z: -0.17670354, w: 0.8194912}
-  m_LocalPosition: {x: 26.87, y: 50, z: 18.7}
+  m_LocalPosition: {x: 38.8, y: 50, z: 30.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12408,7 +12408,7 @@ MonoBehaviour:
   sounds:
   - name: place
     clip: {fileID: 8300000, guid: c2331c0a5e30cda43bcf7c8b8601c0ac, type: 3}
-    playonawake: 1
+    playonawake: 0
     volume: 1
     source: {fileID: 0}
 --- !u!4 &1292716320

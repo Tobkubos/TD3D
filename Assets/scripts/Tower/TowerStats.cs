@@ -517,6 +517,10 @@ public class TowerStats : MonoBehaviour
 							{
 								ShootAnim.Rewind();
 								ShootAnim.Play("shooting");
+								float PitchOffset = UnityEngine.Random.Range(-0.3f,0.1f);
+                                GetComponent<AudioSource>().pitch = 1 + PitchOffset;
+                                GetComponent<AudioSource>().Play();
+
 							}
 							for (int i = 0; i < TopEnemies.Count; i++)
 							{
@@ -541,83 +545,6 @@ public class TowerStats : MonoBehaviour
 					TopEnemies.Clear();
 				}
 			}
-			//STRZELANIE
-			#region rifle
-			/*
-            if (Type == "Normal")
-			{
-				if (target != null)
-				{
-					Vector3 direction = target.transform.position - Turret.transform.position;
-					direction.y = 0;
-
-					if (direction != Vector3.zero)
-					{
-						Quaternion targetRotation = Quaternion.LookRotation(direction);
-						transform.rotation = targetRotation;
-						Debug.DrawRay(transform.position, direction, Color.red);
-
-						if (Time.time > nextShoot && EnemiesInRange.Count != 0)
-						{
-							nextShoot = Time.time + Cooldown;
-							//
-							Shoot(target.transform);
-							if (ShootAnim != null)
-							{
-								ShootAnim.Rewind();
-								ShootAnim.Play("shooting");
-							}
-								
-						}
-					}
-				}	
-			}
-		    */
-			#endregion
-			/*
-            if (Type == "Nature")
-            {
-                if (target != null)
-                {
-					if (Time.time > nextShoot && EnemiesInRange.Count != 0)
-					{
-						nextShoot = Time.time + Cooldown;
-                        Shoot(target.transform);
-                    }            
-                }
-            }
-			*/
-			/*
-			if (Type == "Fire")
-			{
-				if (target != null)
-				{
-					Vector3 direction = target.transform.position - Turret.transform.position;
-					direction.y = 0;
-
-					if (direction != Vector3.zero)
-					{
-						Quaternion targetRotation = Quaternion.LookRotation(direction);
-						transform.rotation = targetRotation;
-						Debug.DrawRay(transform.position, direction, Color.red);
-					}
-                    if (Time.time > nextShoot && EnemiesInRange.Count != 0)
-                    {
-                        nextShoot = Time.time + Cooldown;
-                        Shoot(target.transform);
-                    }
-                }			
-			}
-			*/
-
-
-
-
-
-
-
-
-
 
 
             if (ExpPS != null)

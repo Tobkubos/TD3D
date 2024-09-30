@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ColorChanger : MonoBehaviour
 {
-    private Color startColor = new Color(1,1,1,50/255);
-    private Color endColor = Color.white;
+    private Color startColor = new Color(1,1,1,50f/255f);
+    private Color endColor = new Color(0.9f, 0.9f, 0.9f, 1f);
     private float duration = 0.5f;
     public GameObject obj;
 
@@ -12,31 +12,28 @@ public class ColorChanger : MonoBehaviour
 
     public void ChangeCol()
     {
+        // Pobranie materia³u
         material = obj.GetComponent<Renderer>().material;
+
+        // Ustawienie pocz¹tkowego koloru
         material.color = startColor;
 
-        StartColorTransition(0,1,duration);
+        // Zainicjowanie interpolacji kolorów za pomoc¹ LeanTween
+        StartColorTransition(startColor, endColor, duration);
     }
 
-    void StartColorTransition(float fromValue, float toValue, float duration)
+    // Funkcja przejœcia kolorów
+    void StartColorTransition(Color fromColor, Color toColor, float duration)
     {
-        // U¿yj LeanTween do p³ynnej animacji wartoœci
-        LeanTween.value(gameObject, UpdateValue, fromValue, toValue, duration);
+        LeanTween.value(gameObject, UpdateColor, fromColor, toColor, duration);
     }
 
-    void UpdateValue(float value)
+    // Funkcja aktualizacji koloru w czasie animacji
+    void UpdateColor(Color color)
     {
-        // Aktualizuj wartoœæ w dowolny sposób
-        currentValue = value;
-
-        // Przyk³adowe u¿ycie: zmieñ przezroczystoœæ materia³u na podstawie wartoœci
-        // Wymaga komponentu Renderer i materia³u z ustawionym przezroczystoœci¹
-        MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
-        if (renderer != null)
+        if (material != null)
         {
-            Color color = renderer.material.color;
-            color.a = currentValue; // Ustaw kana³ alfa na aktualn¹ wartoœæ
-            renderer.material.color = color;
+            material.color = color;
         }
     }
 }

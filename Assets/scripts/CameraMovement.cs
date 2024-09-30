@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public GameObject MainCamera;
+    public GameObject AudioListenerObject;
     private Camera cam;
     [SerializeField] float sens = 0.1f;
     [SerializeField] float zoom = 1;
@@ -13,59 +14,72 @@ public class CameraMovement : MonoBehaviour
         Application.targetFrameRate = 60;
         cam = MainCamera.GetComponent<Camera>();
     }
-    void Update()
+
+    private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-           MainCamera.transform.position += new Vector3(sens, 0, sens);
-        }
+        RaycastHit hit;
 
-        if (Input.GetKey(KeyCode.S))
+        if (Physics.Raycast(MainCamera.transform.position, MainCamera.transform.forward, out hit))
         {
-            MainCamera.transform.position += new Vector3(-sens, 0, -sens);
+            Debug.Log("Trafiono w: " + hit.collider.name);
+            Debug.DrawRay(MainCamera.transform.position, MainCamera.transform.forward * 1000, Color.green);
+            AudioListenerObject.transform.position = hit.transform.position;
         }
+    }
 
-        if (Input.GetKey(KeyCode.A))
+        void Update()
         {
-            MainCamera.transform.position += new Vector3(-sens, 0, sens);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            MainCamera.transform.position += new Vector3(sens, 0, -sens);
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            sens = 0.3f;
-            zoom = 2f;
-        }
-        else
-        {
-            sens = 0.1f;
-            zoom = 1;
-        }
-
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-
-        if (cam != null)
-        {
-            if (scrollInput > 0 && cam.orthographicSize < 100)
+            if (Input.GetKey(KeyCode.W))
             {
-                cam.orthographicSize -= 1f * zoom;
-                if(cam.orthographicSize < 2)
-                {
-                    cam.orthographicSize = 2;
-                }
+                MainCamera.transform.position += new Vector3(sens, 0, sens);
             }
-            else if (scrollInput < 0 && cam.orthographicSize > 1)
+
+            if (Input.GetKey(KeyCode.S))
             {
-                cam.orthographicSize += 1f * zoom;
-                if (cam.orthographicSize > 99)
+                MainCamera.transform.position += new Vector3(-sens, 0, -sens);
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                MainCamera.transform.position += new Vector3(-sens, 0, sens);
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                MainCamera.transform.position += new Vector3(sens, 0, -sens);
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                sens = 0.3f;
+                zoom = 2f;
+            }
+            else
+            {
+                sens = 0.1f;
+                zoom = 1;
+            }
+
+            float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+
+            if (cam != null)
+            {
+                if (scrollInput > 0 && cam.orthographicSize < 20)
                 {
-                    cam.orthographicSize = 99;
+                    cam.orthographicSize -= 1f * zoom;
+                    if (cam.orthographicSize < 2)
+                    {
+                        cam.orthographicSize = 2;
+                    }
+                }
+                else if (scrollInput < 0 && cam.orthographicSize > 1)
+                {
+                    cam.orthographicSize += 1f * zoom;
+                    if (cam.orthographicSize > 19)
+                    {
+                        cam.orthographicSize = 19;
+                    }
                 }
             }
         }
     }
-}
