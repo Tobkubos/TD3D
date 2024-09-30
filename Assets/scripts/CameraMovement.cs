@@ -23,7 +23,7 @@ public class CameraMovement : MonoBehaviour
         {
             Debug.Log("Trafiono w: " + hit.collider.name);
             Debug.DrawRay(MainCamera.transform.position, MainCamera.transform.forward * 1000, Color.green);
-            AudioListenerObject.transform.position = hit.transform.position;
+            AudioListenerObject.transform.position = hit.point;
         }
     }
 

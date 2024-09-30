@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -9,6 +11,10 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
+    private void Start()
+    {
+        Play("Theme");
+    }
     private void Awake()
     {
         if (instance == null)
@@ -19,7 +25,6 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-
         DontDestroyOnLoad(gameObject);
 
         foreach (sounds s in sounds)
@@ -29,8 +34,10 @@ public class AudioManager : MonoBehaviour
             s.source.clip = s.clip;
             s.source.volume = s.volume;
             s.source.playOnAwake = s.playonawake;
+            s.source.loop = s.loop;
         }
     }
+
 
     public void ChangeVolume(float change)
     {
@@ -40,7 +47,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string name)
+    public void Play(string name, float PitchOffset = 0)
     {
         sounds s = Array.Find(sounds, sound => sound.name == name);
 
@@ -49,10 +56,11 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound " + name + " wasn't found!");
             return;
         }
-
+        s.source.pitch = 1 + PitchOffset;
         s.source.Play();
     }
 }
+
 
 [System.Serializable]
 public class sounds
@@ -66,6 +74,8 @@ public class sounds
     [Range(0f, 1f)]
     //[HideInInspector]
     public float volume;
+    public float pitch;
+    public bool loop;
 
     [HideInInspector]
     public AudioSource source;

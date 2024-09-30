@@ -19,6 +19,7 @@ TagManager:
   - fireBullet
   - bonusTile
   - bubble
+  - background
   layers:
   - Default
   - TransparentFX

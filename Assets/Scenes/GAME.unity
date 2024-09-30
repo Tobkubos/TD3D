@@ -4969,6 +4969,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 544398763}
   m_CullTransparentMesh: 1
+--- !u!1 &550453245
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 550453247}
+  - component: {fileID: 550453246}
+  m_Layer: 0
+  m_Name: AudioListenerObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &550453246
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550453245}
+  m_Enabled: 1
+--- !u!4 &550453247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550453245}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.42660013, y: 0.33944437, z: -0.17670354, w: 0.8194912}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &555264329
 GameObject:
   m_ObjectHideFlags: 0
@@ -9428,7 +9468,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -10270,9 +10310,9 @@ GameObject:
   - component: {fileID: 1092384287}
   - component: {fileID: 1092384286}
   - component: {fileID: 1092384285}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12409,7 +12449,30 @@ MonoBehaviour:
   - name: place
     clip: {fileID: 8300000, guid: c2331c0a5e30cda43bcf7c8b8601c0ac, type: 3}
     playonawake: 0
+    volume: 0.464
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: buy_1
+    clip: {fileID: 8300000, guid: 1c25c68bc42de4042918c3b97cf5bfe5, type: 3}
+    playonawake: 0
     volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: buy_2
+    clip: {fileID: 8300000, guid: 36be468872a27ee43a8b481ad4b9ef52, type: 3}
+    playonawake: 0
+    volume: 0.328
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Theme
+    clip: {fileID: 8300000, guid: d6c74d161bfd9ec40ab68d40cecf5c53, type: 3}
+    playonawake: 0
+    volume: 0.092
+    pitch: 0
+    loop: 1
     source: {fileID: 0}
 --- !u!4 &1292716320
 Transform:
@@ -17808,6 +17871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 963194225}
+  AudioListenerObject: {fileID: 550453245}
   sens: 0.1
   zoom: 1
 --- !u!114 &1719599397
@@ -63492,6 +63556,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
+  - {fileID: 550453247}
   - {fileID: 1292716320}
   - {fileID: 1719599388}
   - {fileID: 743215971}

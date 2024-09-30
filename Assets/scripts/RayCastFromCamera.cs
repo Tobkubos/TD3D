@@ -15,6 +15,7 @@ public class RayCastFromCamera : MonoBehaviour
 	public int money;
 	public int lives;
 	private int price;
+    private int id;
 	public int ChunkPrice;
 
 	public Camera camera;
@@ -161,7 +162,6 @@ public class RayCastFromCamera : MonoBehaviour
 	{
 		TotalCash.text = "CASH:   " + money.ToString();
 		TotalLives.text = lives.ToString();
-
 		if (lives <= 0)
 		{
 			SceneManager.LoadScene(0);
@@ -203,7 +203,7 @@ public class RayCastFromCamera : MonoBehaviour
 			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 
-
+            //klikasz prawym = resetujesz wybor wiezy (hologramu)
             if (Input.GetMouseButtonDown(1))
             {
                 TowerAreaInvisible();
@@ -214,10 +214,12 @@ public class RayCastFromCamera : MonoBehaviour
 			if (Physics.Raycast(ray, out hit))
 			{
                 //klocek poza plansza --> klocek na plansze --> aktywacja
+                
 				if (!temp.active)
 				{
 					temp.SetActive(true);
 				}
+                
 
                 //wieza poza plansza --> wieza na plansze --> aktywacja
 				if ( tower!= null && !tower.active)
@@ -252,7 +254,7 @@ public class RayCastFromCamera : MonoBehaviour
 				if (hit.collider.CompareTag("chunk") || hit.collider.CompareTag("bonusTile"))
 				{
 					//POSTAWIENIE WIEZY PO NACISNIECIU LPM
-					if (Input.GetMouseButtonDown(0))
+					if (Input.GetMouseButtonDown(0) && money >= price)
 					{
 						if (tower != null)
 						{
@@ -262,6 +264,20 @@ public class RayCastFromCamera : MonoBehaviour
 							tower.GetComponentInChildren<TowerStats>().hologram = false;
 							ts = tower.GetComponentInChildren<TowerStats>();
 							tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
+
+                            int buySound = UnityEngine.Random.Range(0, 2);
+                            float offset = UnityEngine.Random.Range(-0.1f, 0.2f);
+                            switch (buySound)
+                            {
+                                case 0:
+                                    AudioManager.instance.Play("buy_1");
+                                    break;
+                                case 1:
+                                    AudioManager.instance.Play("buy_2");
+                                    break;
+                            }
+                            
+
 
                             if (ts.Support)
                             {
@@ -286,6 +302,7 @@ public class RayCastFromCamera : MonoBehaviour
 							}
 						}
 
+
 						//jezeli klikasz lpm w mape a wieza jest zaznaczona wyczysc dane oraz obszar
 						TowerAreaInvisible();
 
@@ -302,10 +319,25 @@ public class RayCastFromCamera : MonoBehaviour
 					{
 						TowerArea.GetComponent<MeshRenderer>().material = RedMaterial;
 					}
-
+                    
 				}
 
-				//klikasz prawym = resetujesz wybor wiezy (hologramu)
+                if (hit.collider.CompareTag("background"))
+                {
+                    temp.SetActive(false);
+                    
+                    if (ts != null && tower != null)
+                    {
+                        ts.TowerObject.transform.localScale = Vector3.zero;
+                    }   
+                }
+                else
+                {
+                    if (ts != null && tower != null)
+                    {
+                        ts.TowerObject.transform.localScale = Vector3.one;
+                    }
+                }
 
 
 				if (hit.collider.CompareTag("tower") && !HologramTower)
@@ -321,14 +353,6 @@ public class RayCastFromCamera : MonoBehaviour
 						TowerArea = hit.collider.gameObject.transform.Find("area");
 						TowerArea.GetComponent<MeshRenderer>().material = HoloMaterial;
 					}
-				}
-			}
-			else
-			{
-				temp.SetActive(false);
-				if (tower != null)
-				{
-					tower.SetActive(false);
 				}
 			}
 		}
@@ -744,7 +768,7 @@ public class RayCastFromCamera : MonoBehaviour
 	}
 	public void PlaceTower(Vector3 cordinate, int towerindex)
 	{
-		if (ActiveTower!=-1 && money >= Towers[towerindex].GetComponentInChildren<TowerSetupParams>().Price)
+		if (ActiveTower!=-1)
 		{
             price = Towers[towerindex].GetComponentInChildren<TowerSetupParams>().Price;
             ResetSelectedTower();
