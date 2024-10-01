@@ -173,10 +173,22 @@ public class RayCastFromCamera : MonoBehaviour
 			ts = TowersStartupSetup[ActiveTower].GetComponentInChildren<TowerStats>();
 		}
 
-
-        if (Input.GetKey(KeyCode.Alpha1))
+        for (int i = 0; i < 10; i++)
         {
-            ActiveTower = 1;
+            KeyCode key = (KeyCode)(i + (int)KeyCode.Alpha0);
+
+            // Sprawdzamy, czy dany klawisz jest naciœniêty
+            if (Input.GetKey(key))
+            {
+                if (i - 1 == -1)
+                {
+                    ActiveTower = 9;
+                }
+                else
+                {
+                    ActiveTower = i - 1;
+                }
+            }
         }
 
 
