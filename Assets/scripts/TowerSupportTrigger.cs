@@ -10,6 +10,22 @@ public class TowerSupportTrigger : MonoBehaviour
     public LayerMask mask;
     void Update()
     {
+
+        //sprawdz czy jest null, jak support jest null to wyrzuc z listy i oblicz bonus ponownie, PRZERZUÆ TO DO SPRZEDANIA SUPPORTA!!!!!
+        if (towerstats.Support == false && towerstats.SupportingTowers.Count > 0)
+        {
+            for (int i = towerstats.SupportingTowers.Count - 1; i >= 0; i--)
+            {
+                if (towerstats.SupportingTowers[i] == null)
+                {
+                    towerstats.SupportingTowers.RemoveAt(i);
+                    towerstats.CheckSupports();
+                }
+            }
+        }
+
+
+
         if (towerstats.hologram)
         {
             Objects = null;
