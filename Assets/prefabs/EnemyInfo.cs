@@ -164,7 +164,10 @@ public class EnemyInfo : MonoBehaviour
                     {
                         if (this.gameObject != null)
                         {
-                            gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+                            if (gameObject.transform.GetChild(1).GetComponent<ParticleSystem>() != null)
+                            {
+                                gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+                            }
                             if (Boss == false)
                             {
                                 gameObject.GetComponent<Renderer>().material.color = Color.red;
@@ -310,6 +313,7 @@ public class EnemyInfo : MonoBehaviour
     public IEnumerator Stun()
     {
         GameObject NS = Instantiate(NaturalStun, transform.position, Quaternion.Euler(transform.rotation.x, Random.Range(0,360), transform.rotation.z), StunParent.transform);
+        NS.GetComponent<AudioSource>().Play();
         this.gameObject.GetComponent<NavMeshAgent>().speed = 0;
         yield return new WaitForSeconds(2);
         LeanTween.scale(NS, Vector3.zero, 0.3f);

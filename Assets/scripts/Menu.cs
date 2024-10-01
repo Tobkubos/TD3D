@@ -38,7 +38,7 @@ public class Menu : MonoBehaviour
             RectTransform transRect = trans.GetComponent<RectTransform>();
             transRect.sizeDelta = new Vector2(value, transRect.sizeDelta.y);
         });
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(1);
     }
 

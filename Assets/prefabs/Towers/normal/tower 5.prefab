@@ -50,7 +50,7 @@ MonoBehaviour:
   Speed: 5
   Range: 10
   MaxExp: 250
-  Price: 80
+  Price: 130
   DamageSupport: 0
   ElementalDamageSupport: 0
   DamageOverTimeSupport: 0
@@ -5302,7 +5302,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 918db54a145ea074bbbc8eec6e48ba25, type: 2}
+  - {fileID: 2100000, guid: 938ec245cb63e304dbdf71c75a848cb8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

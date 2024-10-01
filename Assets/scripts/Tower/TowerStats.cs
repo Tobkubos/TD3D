@@ -152,7 +152,8 @@ public class TowerStats : MonoBehaviour
 			else
 			{
 				MaxExp = 0;
-			}
+                manager.GetComponent<RayCastFromCamera>().Visualize = false;
+            }
 
 			CheckSupports();
             rot = TWR.transform.rotation;
@@ -360,9 +361,21 @@ public class TowerStats : MonoBehaviour
 								Shoot(target.transform);
 								if (Type == "Normal" && ShootAnim != null)
 								{
+									if (GetComponent<AudioSource>() != null)
+									{
+										GetComponent<AudioSource>().Play();
+									}
 									ShootAnim.Rewind();
 									ShootAnim.Play("shooting");
 								}
+
+								if(Type == "Fire")
+								{
+                                    if (GetComponent<AudioSource>() != null)
+                                    {
+                                        GetComponent<AudioSource>().Play();
+                                    }
+                                }
 
 							}
 						}

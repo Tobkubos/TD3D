@@ -127,6 +127,9 @@ MonoBehaviour:
   enemy: {fileID: 0}
   ts: {fileID: 0}
   isFollowing: 1
+  Cannon: 0
+  invisibleMat: {fileID: 0}
+  boom: {fileID: 0}
 --- !u!96 &-8966618006841814887
 TrailRenderer:
   serializedVersion: 3

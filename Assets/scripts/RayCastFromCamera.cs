@@ -174,6 +174,12 @@ public class RayCastFromCamera : MonoBehaviour
 		}
 
 
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            ActiveTower = 1;
+        }
+
+
         if (ts != null)
         {
             ShowTowerInfo();

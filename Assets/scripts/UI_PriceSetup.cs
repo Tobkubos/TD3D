@@ -18,6 +18,7 @@ public class UI_PriceSetup : MonoBehaviour
     public TextMeshProUGUI price7;
     public TextMeshProUGUI price8;
     public TextMeshProUGUI price9;
+    public TextMeshProUGUI price10;
 
     void Start()
     {
@@ -32,5 +33,6 @@ public class UI_PriceSetup : MonoBehaviour
         price7.text = rcfc.TowersStartupSetup[6].GetComponentInChildren<TowerSetupParams>().Price.ToString();
         price8.text = rcfc.TowersStartupSetup[7].GetComponentInChildren<TowerSetupParams>().Price.ToString();
         price9.text = rcfc.TowersStartupSetup[8].GetComponentInChildren<TowerSetupParams>().Price.ToString();
+        price10.text = rcfc.TowersStartupSetup[9].GetComponentInChildren<TowerSetupParams>().Price.ToString();
     }
 }
