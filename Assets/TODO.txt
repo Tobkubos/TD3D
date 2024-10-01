@@ -1,0 +1,9 @@
+TODO
+
+- dodac dzwieki
+- dodac modyfikatory
+- dodac score
+- boss przegrywa gre jezeli dojdzie do konca
+- dodac koparke surowcow
+- drzewko rozwoju za surowce
+- end screen jak przegrasz jaki wynik ile czasu gra³eœ i jakie surowce zdobyte

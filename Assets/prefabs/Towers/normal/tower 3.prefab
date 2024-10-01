@@ -5594,7 +5594,7 @@ MonoBehaviour:
   towerStats: {fileID: 7079715696744473194}
   mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   Objects: []
 --- !u!1 &8354781255813031897
 GameObject:
