@@ -37,6 +37,7 @@ public class AreaTrigger : MonoBehaviour
                 towerStats.TowersInRange.Add(collision.gameObject);
                 //Debug.Log("WIE¯A!!!");
             }
+			Debug.Log("aaaa");
 		}
 		
 
