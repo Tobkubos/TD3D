@@ -179,7 +179,8 @@ public class TowerStats : MonoBehaviour
 			ElementalDamage = towerSetupParams.ElementalDamage;
 			DamageOverTime = towerSetupParams.DamageOverTime;
 			Cooldown = towerSetupParams.Speed;
-			MaxExp = towerSetupParams.MaxExp;
+			FinalCooldown = towerSetupParams.Speed;
+            MaxExp = towerSetupParams.MaxExp;
 		}
 
 		Range = towerSetupParams.Range;
