@@ -54,7 +54,7 @@ public class BulletMovement : MonoBehaviour
 
         foreach (Collider c in enemies)
         {
-            if (c.CompareTag("enemy"))
+            if (c.CompareTag("enemy") && c.GetComponent<EnemyInfo>().Armored == false)
             {
                 float offset = Random.Range(damage * 0.5f, damage * 1.5f) - damage;
                 c.GetComponent<EnemyInfo>().DealDamage(damage + offset,ts);

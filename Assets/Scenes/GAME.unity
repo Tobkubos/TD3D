@@ -18075,7 +18075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43195172fa2f8aa4f953c2c9ec134ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 3772
+  money: 200
   lives: 1000
   ChunkPrice: 25
   camera: {fileID: 963194227}
@@ -18141,7 +18141,7 @@ MonoBehaviour:
   CursorInfo: {fileID: 2048475244}
   cordinate: {x: 0, y: 0, z: 0}
   Towers:
-  - {fileID: 5857700132478872097, guid: 34e92586eccc1484690ac15937345904, type: 3}
+  - {fileID: 5857700132478872097, guid: 5a18e077c28ce214dbeda617d3cacbf5, type: 3}
   - {fileID: 5857700132478872097, guid: a5cc09ee1fcf8eb4c9547807c2706c59, type: 3}
   - {fileID: 5857700132478872097, guid: 91e7255e802cad5458d6088be4d6f1c1, type: 3}
   - {fileID: 5857700132478872097, guid: 102add0ccb887c740ae56944cb3fc572, type: 3}
