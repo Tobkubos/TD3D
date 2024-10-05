@@ -271,55 +271,58 @@ public class RayCastFromCamera : MonoBehaviour
 
 				if (hit.collider.CompareTag("chunk") || hit.collider.CompareTag("bonusTile"))
 				{
-					//POSTAWIENIE WIEZY PO NACISNIECIU LPM
-					if (Input.GetMouseButtonDown(0) && money >= price)
-					{
-						if (tower != null)
-						{
-							money -= price;
-							tower.transform.position = cordinate;
-							TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
-							tower.GetComponentInChildren<TowerStats>().hologram = false;
-							ts = tower.GetComponentInChildren<TowerStats>();
-							tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
+                    //POSTAWIENIE WIEZY PO NACISNIECIU LPM
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        if (money >= price) 
+                        {
 
-                            int buySound = UnityEngine.Random.Range(0, 2);
-                            float offset = UnityEngine.Random.Range(-0.1f, 0.2f);
-                            switch (buySound)
-                            {
-                                case 0:
-                                    AudioManager.instance.Play("buy_1");
-                                    break;
-                                case 1:
-                                    AudioManager.instance.Play("buy_2");
-                                    break;
-                            }
+						    if (tower != null)
+						    {
+							    money -= price;
+							    tower.transform.position = cordinate;
+							    TowerArea.GetComponent<MeshRenderer>().material = InvisibleMaterial;
+							    tower.GetComponentInChildren<TowerStats>().hologram = false;
+							    ts = tower.GetComponentInChildren<TowerStats>();
+							    tower.transform.Find("Particle Build").GetComponent<ParticleSystem>().Play();
+
+                                int buySound = UnityEngine.Random.Range(0, 2);
+                                float offset = UnityEngine.Random.Range(-0.1f, 0.2f);
+                                switch (buySound)
+                                {
+                                    case 0:
+                                        AudioManager.instance.Play("buy_1");
+                                        break;
+                                    case 1:
+                                        AudioManager.instance.Play("buy_2");
+                                        break;
+                                }
                             
 
 
-                            if (ts.Support)
-                            {
-							    tower.layer = LayerMask.NameToLayer("support");
-                            }
-                            else
-                            {
-                                tower.layer = LayerMask.NameToLayer("tower");
-                            }
-                            tower = null;
-							HologramTower = false;
-							if (!ts.Support)
-							{
-								ts.CheckSupports();
-							}
-							if (ts.Support) 
-							{
-								foreach (GameObject tower in ts.TowersInRange) 
-								{
-									tower.GetComponentInChildren<TowerStats>().CheckSupports();
-								}
-							}
-						}
-
+                                if (ts.Support)
+                                {
+							        tower.layer = LayerMask.NameToLayer("support");
+                                }
+                                else
+                                {
+                                    tower.layer = LayerMask.NameToLayer("tower");
+                                }
+                                tower = null;
+							    HologramTower = false;
+							    if (!ts.Support)
+							    {
+								    ts.CheckSupports();
+							    }
+							    if (ts.Support) 
+							    {
+								    foreach (GameObject tower in ts.TowersInRange) 
+								    {
+									    tower.GetComponentInChildren<TowerStats>().CheckSupports();
+								    }
+							    }
+						    }
+                        }
 
 						//jezeli klikasz lpm w mape a wieza jest zaznaczona wyczysc dane oraz obszar
 						TowerAreaInvisible();

@@ -39,29 +39,27 @@ public class EnemyInfo : MonoBehaviour
 
     private Color originalColor;
 
+    public EnemySetupParameters setupParameters;
+    private int level = 0;
 
-    public void ModifySpeed(float upgrade)
+    public void Init(int lv)
     {
-        GetComponent<NavMeshAgent>().speed += upgrade;
+        level = lv;
+        hp = setupParameters.param[lv].hp;
+        hpBar.maxValue = hp;
+        speed = setupParameters.param[lv].speed;
+        GetComponent<NavMeshAgent>().speed = speed;
+        cash = setupParameters.param[lv].cash;
+
+        if (Boss)
+        {
+            maxhp = hp - 1000;
+        }
     }
-    public void ModifyHp(float upgrade)
-    {
-        hp += upgrade;
-    }
-    public void ModifyCash(int upgrade)
-    {
-        cash += upgrade;
-    }
-    public float GetHp()
-    {
-        return hp;
-    }
+
     void Start()
     {
-        maxhp = hp - 1000;
-        GetComponent<NavMeshAgent>().speed = speed;
         originalColor = this.GetComponent<Renderer>().material.color;
-		hpBar.maxValue = hp;
         lastPosition = transform.position;
     }
 
