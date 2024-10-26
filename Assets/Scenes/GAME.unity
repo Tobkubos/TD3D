@@ -12010,8 +12010,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -34}
-  m_SizeDelta: {x: 72.4593, y: 88.9167}
+  m_AnchoredPosition: {x: -0.000023365, y: -31.3}
+  m_SizeDelta: {x: 197.927, y: 88.9167}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1251019215
 MonoBehaviour:
@@ -18075,7 +18075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43195172fa2f8aa4f953c2c9ec134ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 200
+  money: 2450
   lives: 20
   ChunkPrice: 25
   camera: {fileID: 963194227}

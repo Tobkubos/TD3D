@@ -32,12 +32,12 @@ public class AreaTrigger : MonoBehaviour
 				{
 					collision.gameObject.GetComponentInChildren<TowerStats>().OnSupportEnterRange(towerStats.TowerObject);
 					collision.gameObject.GetComponentInChildren<TowerStats>().CheckSupports();
-					Debug.Log("support sprawdza");
+					//Debug.Log("support sprawdza");
 				}
                 towerStats.TowersInRange.Add(collision.gameObject);
                 //Debug.Log("WIE¯A!!!");
             }
-			Debug.Log("aaaa");
+			//Debug.Log("aaaa");
 		}
 		
 
