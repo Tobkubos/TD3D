@@ -111,11 +111,11 @@ public class Spawner : MonoBehaviour
             
             if (wave == 2)
             {
-                Modifiers.modsInfo.SetModifier(cubeInfo.setupParameters.param[1].hp - cubeInfo.setupParameters.param[0].hp, "cube HP");
-                Modifiers.modsInfo.SetModifier(cubeInfo.setupParameters.param[1].speed - cubeInfo.setupParameters.param[0].speed, "cube SPEED");
-                Modifiers.modsInfo.SetModifier(cubeInfo.setupParameters.param[1].cash - cubeInfo.setupParameters.param[0].cash, "cube CASH");
-                Modifiers.ShowMods();
-                yield return StartCoroutine(SpawnMonster(cube, 1.5f, 12, 1));
+                //Modifiers.modsInfo.SetModifier(cubeInfo.setupParameters.param[1].hp - cubeInfo.setupParameters.param[0].hp, "cube HP");
+                //Modifiers.modsInfo.SetModifier(cubeInfo.setupParameters.param[1].speed - cubeInfo.setupParameters.param[0].speed, "cube SPEED");
+                //Modifiers.modsInfo.SetModifier(cubeInfo.setupParameters.param[1].cash - cubeInfo.setupParameters.param[0].cash, "cube CASH");
+                //Modifiers.ShowMods();
+                yield return StartCoroutine(SpawnMonster(cube, 1.5f, 12, 0));
             }
 
             

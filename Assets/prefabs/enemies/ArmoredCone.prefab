@@ -175,6 +175,7 @@ MonoBehaviour:
   StunParent: {fileID: 4460500550623271551}
   ps: {fileID: 2036162825791507954}
   distanceTravelled: 0
+  setupParameters: {fileID: 11400000, guid: 443e596888032c14e9ade8ee0d2df2ea, type: 2}
 --- !u!33 &4348652786632811664
 MeshFilter:
   m_ObjectHideFlags: 0

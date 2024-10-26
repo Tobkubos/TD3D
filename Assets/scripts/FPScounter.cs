@@ -12,6 +12,14 @@ public class FPScounter : MonoBehaviour
         StartCoroutine(FPSUpdate());
     }
 
+    private void Update()
+    {
+        if (fps<60)
+        {
+            Time.timeScale = 1.0f;
+        }
+    }
+
     IEnumerator FPSUpdate()
     {
         while (true)

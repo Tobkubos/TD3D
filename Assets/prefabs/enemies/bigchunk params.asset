@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9479d904c9d8544eb420d9c6dede2e6, type: 3}
-  m_Name: EnemySetupParameters
+  m_Name: bigchunk params
   m_EditorClassIdentifier: 
   param:
-  - hp: 12
-    speed: 1
-    cash: 3
-  - hp: 25
-    speed: 3
-    cash: 6
-  - hp: 0
-    speed: 0
-    cash: 0
+  - hp: 250
+    speed: 0.6
+    cash: 7
+  - hp: 380
+    speed: 0.9
+    cash: 8
+  - hp: 600
+    speed: 1.4
+    cash: 9
